@@ -1,0 +1,582 @@
+/* Global Styles - Jaco Street Style */
+
+/* Color Palette */
+:root {
+  --primary-color: #00ADB5;        /* Bright Teal */
+  --secondary-color: #FFD32D;      /* Electric Yellow */
+  --accent-color: #FF4081;         /* Hot Pink */
+  --neutral-color: #F8F8FF;        /* Off-White */
+  --text-color: #333;             /* Charcoal Gray */
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif; /* Body Font */
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--neutral-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0L6 6M6 0L0 6' stroke='%23e0e0e0' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E"); /* Subtle grainy background */
+}
+
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative; /* For absolute positioning of pseudo-elements for shapes */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bebas Neue', sans-serif; /* Heading Font */
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: normal; /* Bebas Neue is already bold */
+  letter-spacing: 0.05em; /* Slight letter spacing for headings */
+  color: var(--primary-color); /* Teal Headings */
+}
+
+h1 { font-size: 3.5rem; line-height: 1.1; }
+h2 { font-size: 2.8rem; }
+h3 { font-size: 2.2rem; }
+h4 { font-size: 1.8rem; }
+
+p {
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color); /* Hot Pink on hover */
+  text-decoration: underline;
+}
+
+/* Button Styles */
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  background-color: var(--secondary-color); /* Yellow Buttons */
+  color: var(--text-color);
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+}
+
+.button:hover {
+  background-color: var(--primary-color); /* Teal on hover */
+  color: var(--neutral-color);
+  transform: scale(1.05); /* Slight scale up on hover */
+  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Styles */
+nav {
+  background-color: var(--neutral-color); /* Navbar background */
+  padding: 15px 0;
+  border-bottom: 2px solid var(--secondary-color); /* Yellow Navbar border */
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color); /* Teal on Navbar link hover */
+  text-decoration: none; /* Remove underline on Navbar link hover */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 30px;
+}
+
+nav li a {
+  font-size: 1.2rem;
+}
+
+/* Footer Styles */
+footer {
+  background-color: var(--neutral-color);
+  padding: 30px 0;
+  text-align: center;
+  margin-top: 60px;
+  border-top: 2px solid var(--secondary-color); /* Yellow Footer border */
+}
+
+footer p {
+  font-size: 0.9rem;
+  color: #777; /* Lighter footer text */
+}
+
+/* Hero Section (Homepage) */
+.hero-section {
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden; /* Clip angled background */
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--secondary-color); /* Yellow Hero background */
+  opacity: 0.15; /* Subtle yellow background */
+  transform: skewY(-3deg); /* Angled background */
+  transform-origin: top left;
+  z-index: -1; /* Behind content */
+}
+
+.hero-section h1 {
+  color: var(--text-color); /* Charcoal Hero Headline */
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 1.3rem;
+  color: var(--text-color);
+  margin-bottom: 30px;
+}
+
+
+/* Services Section (Homepage) */
+.services-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 60px 0;
+}
+
+.service-card {
+  flex: 1 1 300px;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: var(--neutral-color);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); /* Stronger card shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+.service-card p {
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+
+/* About Preview Section (Homepage) */
+.about-preview {
+  padding: 80px 0;
+  text-align: center;
+  background-color: var(--primary-color); /* Teal About Preview background */
+  color: var(--neutral-color); /* Light text on teal */
+  position: relative;
+  overflow: hidden;
+}
+
+.about-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--accent-color); /* Hot Pink overlay */
+  opacity: 0.08; /* Very subtle pink overlay */
+  z-index: -1;
+}
+
+
+.about-preview h2, .about-preview p, .about-preview a.button {
+  color: var(--neutral-color); /* Light text and button on teal */
+}
+
+.about-preview h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.about-preview p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.about-preview a.button {
+  background-color: var(--secondary-color); /* Yellow button on teal */
+  color: var(--text-color); /* Dark text on yellow button */
+}
+
+.about-preview a.button:hover {
+  background-color: var(--neutral-color); /* Off-white button on hover */
+  color: var(--primary-color); /* Teal text on hover */
+}
+
+
+/* Page Hero Sections (Pickleball, Chef, Marketing, About, Contact) */
+.page-hero {
+  padding: 80px 0;
+  text-align: center;
+  background-color: var(--neutral-color); /* Light background for page heroes */
+  border-bottom: 2px dashed var(--secondary-color); /* Dashed yellow border */
+}
+
+.page-hero h1 {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.page-hero p {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+
+/* Coaching/Tours, Chef Details, Marketing Details, About Content, Contact Form Sections */
+.coaching-section,
+.tours-section,
+.chef-services-details,
+.marketing-details,
+.about-content,
+.contact-form-section,
+.contact-info {
+  padding: 60px 0;
+}
+
+
+/* Contact Form Styles */
+.contact-form-section form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form-section label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.contact-form-section input[type="text"],
+.contact-form-section input[type="email"],
+.contact-form-section textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid var(--secondary-color); /* Yellow input border */
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form-section input[type="text"]:focus,
+.contact-form-section input[type="email"]:focus,
+.contact-form-section textarea:focus {
+  outline: none;
+  border-color: var(--primary-color); /* Teal input border on focus */
+  box-shadow: 0 0 5px rgba(0, 173, 181, 0.5); /* Subtle teal shadow on focus */
+}
+
+
+/* Contact Info Section */
+.contact-info {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.contact-info h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.contact-info a {
+  color: var(--accent-color); /* Hot Pink contact links */
+}
+
+.contact-info a:hover {
+  color: var(--primary-color); /* Teal on hover for contact links */
+}
+
+
+/* Responsive Design (adjust breakpoints as needed) */
+@media (max-width: 768px) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.4rem; }
+  h3 { font-size: 1.9rem; }
+  .hero-section { padding: 60px 0; }
+  .services-section { padding: 40px 0; }
+  .service-card { flex-basis: 100%; } /* Stack service cards on smaller screens */
+  nav ul { gap: 15px; } /* Reduce navbar link gap on smaller screens */
+  nav li a { font-size: 1rem; }
+}
+
+@media (max-width: 576px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  .hero-section { padding: 40px 0; }
+  nav .container { flex-direction: column; align-items: flex-start; } /* Stack navbar items */
+  nav ul { flex-direction: column; gap: 10px; margin-top: 10px; } /* Stack navbar links vertically */
+}
+
+/* OptimizedImage Component Styles */
+.image-container {
+  overflow: hidden;
+  position: relative;
+  background-color: var(--neutral-color);
+  border-radius: 8px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    var(--neutral-color) 0%,
+    #f5f5f5 50%,
+    var(--neutral-color) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.image-error {
+  padding: 20px;
+  text-align: center;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border-radius: 8px;
+  border: 1px solid #fed7d7;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .nav-links {
+    display: none !important;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--neutral-color);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .nav-links.open {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links .contact-button {
+    width: fit-content;
+    margin: 10px auto;
+  }
+}
+
+/* Responsive Image Containers */
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.profile-image-container {
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+.natural-image {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.location-image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Bio Section Responsive */
+@media (max-width: 768px) {
+  .bio-section {
+    grid-template-columns: 1fr !important;
+  }
+
+  .natural-image {
+    order: -1;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Marketing Page Styles */
+.marketing-page .service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.marketing-page .service-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.marketing-page .story-image {
+  transition: transform 0.3s ease;
+}
+
+.marketing-page .story-image:hover {
+  transform: rotate(0deg) !important;
+}
+
+.marketing-page .story-points > div {
+  transition: transform 0.3s ease;
+}
+
+.marketing-page .story-points > div:hover {
+  transform: translateX(10px);
+}
+
+/* Add to existing responsive styles */
+@media (max-width: 768px) {
+  .marketing-page .brand-story {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .marketing-page .story-image {
+    order: -1;
+    margin-bottom: 30px;
+  }
+}
+
+/* Pickleball Page Styles */
+.pickleball-page .medal-gallery {
+  transition: transform 0.3s ease;
+}
+
+.pickleball-page .medal-gallery img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pickleball-page .medal-gallery img:hover {
+  transform: rotate(0deg) scale(1.05) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.pickleball-page .pricing-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pickleball-page .pricing-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pickleball-page .tour-image {
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.pickleball-page .tour-image img {
+  transition: transform 0.5s ease;
+}
+
+.pickleball-page .tour-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments for Pickleball page */
+@media (max-width: 768px) {
+  .pickleball-page .medal-gallery {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pickleball-page .pricing-card {
+    transform: none !important;
+  }
+
+  .pickleball-page .tour-content {
+    order: 1;
+  }
+
+  .pickleball-page .tour-image {
+    order: 0;
+    margin-bottom: 30px;
+  }
+}
