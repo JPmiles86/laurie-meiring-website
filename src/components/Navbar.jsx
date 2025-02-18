@@ -83,10 +83,7 @@ function Navbar() {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            padding: '8px',
-            '@media (max-width: 768px)': {
-              display: 'block'
-            }
+            padding: '8px'
           }}
           aria-label="Toggle menu"
         >
@@ -185,6 +182,37 @@ function Navbar() {
           </li>
         </ul>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .mobile-menu-button {
+            display: block !important;
+          }
+          .nav-links {
+            display: none !important;
+            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--neutral-color);
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+          }
+          .nav-links.open {
+            display: flex !important;
+            flex-direction: column;
+          }
+          .nav-links li {
+            width: 100%;
+            text-align: center;
+          }
+          .nav-links .contact-button {
+            width: fit-content;
+            margin: 10px auto;
+          }
+        }
+      `}</style>
     </nav>
   );
 }
