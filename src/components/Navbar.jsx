@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import OptimizedImage from './OptimizedImage';
 import { IMAGES } from '../constants/images';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      const isScrollingUp = prevScrollPos > currentScrollPos;
+
+      // Show navbar immediately when scrolling up, hide when scrolling down
+      setVisible(isScrollingUp || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
 
   return (
     <nav style={{ 
       borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
       backgroundColor: 'var(--neutral-color)',
-      position: 'sticky',
+      position: 'fixed',
       top: 0,
-      zIndex: 1000
+      left: 0,
+      right: 0,
+      zIndex: 1000,
+      transform: `translateY(${visible ? '0' : '-100%'})`,
+      transition: 'transform 0.3s ease',
+      boxShadow: visible ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none'
     }}>
       <div className="container" style={{ 
         maxWidth: '1200px', 

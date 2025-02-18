@@ -58,9 +58,9 @@ function ChefPage() {
       <div className="chef-page">
         <VideoBackground
           videoId="DQkNw1wckEk"
-          startTime={8}
+          startTime={9}
           endTime={38}
-          height="80vh"
+          height="95vh"
           overlayColor="rgba(0, 0, 0, 0.4)"
         >
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>
@@ -241,12 +241,16 @@ function ChefPage() {
         </section>
 
         <section className="booking-cta" style={{
-          padding: '80px 20px',
+          padding: '80px 0',
           backgroundColor: 'var(--primary-color)',
           color: 'var(--neutral-color)',
-          textAlign: 'center'
+          textAlign: 'center',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)',
+          marginBottom: '-80px'
         }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
             <h2 style={{ color: 'var(--neutral-color)' }}>Ready to Plan Your Culinary Experience?</h2>
             <p style={{ fontSize: '1.1rem', margin: '20px 0' }}>
               Let's create a memorable dining experience tailored to your preferences and dietary needs.

@@ -53,7 +53,7 @@ function PickleballPage() {
           videoId="S1zJYUjbXg8"
           startTime={0}
           endTime={30}
-          height="80vh"
+          height="95vh"
           overlayColor="rgba(0, 0, 0, 0.4)"
         >
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>

@@ -27,16 +27,18 @@ function HomePage() {
     <PageTransition>
       <div className="home-page">
         <VideoBackground
-          videoId="J5IRbH7ehUM"
+          videoId="CZXon6FoRY0"
           startTime={0}
           endTime={0}
-          height="90vh"
+          height="100vh"
           overlayColor="rgba(0, 0, 0, 0.5)"
+          type="hero"
         >
           <motion.div 
             initial="initial"
             animate="animate"
             variants={staggerChildren}
+            className="content-container"
             style={{ textAlign: 'center', padding: '0 20px' }}
           >
             <motion.h1 
@@ -49,7 +51,7 @@ function HomePage() {
                 color: 'var(--neutral-color)'
               }}
             >
-              Experience Paradise
+              Transform Your Experience
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
@@ -62,7 +64,7 @@ function HomePage() {
                 color: 'var(--neutral-color)'
               }}
             >
-              Elevate Your Game • Savor the Flavors • Transform Your Brand
+              Professional Pickleball Coaching • Private Chef Services • AI-Powered Marketing
             </motion.p>
             <motion.div variants={fadeInUp}>
               <Link 
@@ -82,193 +84,197 @@ function HomePage() {
                   overflow: 'hidden'
                 }}
               >
-                Begin Your Journey
+                Book Your Service
               </Link>
             </motion.div>
           </motion.div>
         </VideoBackground>
 
-        <motion.section 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="services-section" 
-          style={{ 
+        <div className="content-container">
+          <motion.section 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="services-section" 
+            style={{ 
+              padding: '100px 20px',
+              backgroundColor: 'var(--neutral-color)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            <div style={{ 
+              maxWidth: '1200px', 
+              margin: '0 auto',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                style={{ 
+                  textAlign: 'center', 
+                  marginBottom: '50px',
+                  fontSize: '3rem'
+                }}
+              >
+                Expert Services in Paradise
+              </motion.h2>
+              <div style={{ 
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '30px'
+              }}>
+                <motion.div 
+                  whileHover={{ 
+                    scale: 1.03,
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
+                  }}
+                  className="service-card" 
+                  style={{ 
+                    padding: '40px',
+                    borderRadius: '12px',
+                    backgroundColor: '#fff',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Championship Pickleball Training</h3>
+                  <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
+                    Learn from a tournament champion in Jaco Beach. Whether you're a beginner or 
+                    competitive player, elevate your game with personalized coaching and strategy development.
+                  </p>
+                  <Link to="/pickleball" className="button" style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    backgroundColor: 'var(--primary-color)',
+                    color: 'white',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontSize: '1.1rem',
+                    transition: 'all 0.3s ease'
+                  }}>View Training Programs</Link>
+                </motion.div>
+
+                <motion.div 
+                  whileHover={{ 
+                    scale: 1.03,
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
+                  }}
+                  className="service-card" 
+                  style={{ 
+                    padding: '40px',
+                    borderRadius: '12px',
+                    backgroundColor: '#fff',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Private Chef Experience</h3>
+                  <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
+                    Indulge in personalized culinary experiences crafted just for you. From intimate 
+                    dinners to special events, enjoy restaurant-quality dining in your space.
+                  </p>
+                  <Link to="/chef" className="button" style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    backgroundColor: 'var(--primary-color)',
+                    color: 'white',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontSize: '1.1rem',
+                    transition: 'all 0.3s ease'
+                  }}>Explore Culinary Services</Link>
+                </motion.div>
+
+                <motion.div 
+                  whileHover={{ 
+                    scale: 1.03,
+                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
+                  }}
+                  className="service-card" 
+                  style={{ 
+                    padding: '40px',
+                    borderRadius: '12px',
+                    backgroundColor: '#fff',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>AI Marketing Strategy</h3>
+                  <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
+                    Transform your digital presence with AI-powered solutions. Get personalized strategies 
+                    that combine creative storytelling with cutting-edge technology.
+                  </p>
+                  <Link to="/marketing" className="button" style={{
+                    display: 'inline-block',
+                    padding: '12px 24px',
+                    backgroundColor: 'var(--primary-color)',
+                    color: 'white',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontSize: '1.1rem',
+                    transition: 'all 0.3s ease'
+                  }}>Discover Marketing Solutions</Link>
+                </motion.div>
+              </div>
+            </div>
+          </motion.section>
+
+          <section className="testimonials-section" style={{
             padding: '100px 20px',
             backgroundColor: 'var(--neutral-color)',
+            borderTop: '2px dashed var(--secondary-color)',
             position: 'relative',
             overflow: 'hidden'
-          }}
-        >
-          <div style={{ 
-            maxWidth: '1200px', 
-            margin: '0 auto',
-            position: 'relative',
-            zIndex: 1
           }}>
-            <motion.h2 
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              style={{ 
-                textAlign: 'center', 
-                marginBottom: '50px',
-                fontSize: '3rem'
-              }}
+              style={{ textAlign: 'center', marginBottom: '40px' }}
             >
-              Discover Your Passion
-            </motion.h2>
-            <div style={{ 
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '30px'
-            }}>
-              <motion.div 
-                whileHover={{ 
-                  scale: 1.03,
-                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                }}
-                className="service-card" 
-                style={{ 
-                  padding: '40px',
-                  borderRadius: '12px',
-                  backgroundColor: '#fff',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Pickleball Paradise</h3>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                  Transform your game with professional coaching in the stunning setting of Jaco Beach. 
-                  From beginners to tournament players, elevate your skills to new heights.
-                </p>
-                <Link to="/pickleball" className="button" style={{
-                  display: 'inline-block',
-                  padding: '12px 24px',
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'white',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  fontSize: '1.1rem',
-                  transition: 'all 0.3s ease'
-                }}>Explore Training</Link>
-              </motion.div>
-
-              <motion.div 
-                whileHover={{ 
-                  scale: 1.03,
-                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                }}
-                className="service-card" 
-                style={{ 
-                  padding: '40px',
-                  borderRadius: '12px',
-                  backgroundColor: '#fff',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Culinary Excellence</h3>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                  Experience extraordinary dining with personalized chef services. 
-                  From intimate dinners to special events, savor the finest local and international cuisine.
-                </p>
-                <Link to="/chef" className="button" style={{
-                  display: 'inline-block',
-                  padding: '12px 24px',
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'white',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  fontSize: '1.1rem',
-                  transition: 'all 0.3s ease'
-                }}>Discover Menus</Link>
-              </motion.div>
-
-              <motion.div 
-                whileHover={{ 
-                  scale: 1.03,
-                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                }}
-                className="service-card" 
-                style={{ 
-                  padding: '40px',
-                  borderRadius: '12px',
-                  backgroundColor: '#fff',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Digital Innovation</h3>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                  Revolutionize your online presence with AI-powered strategies and creative solutions. 
-                  Stand out in the digital landscape with cutting-edge marketing approaches.
-                </p>
-                <Link to="/marketing" className="button" style={{
-                  display: 'inline-block',
-                  padding: '12px 24px',
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'white',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  fontSize: '1.1rem',
-                  transition: 'all 0.3s ease'
-                }}>Start Growing</Link>
-              </motion.div>
-            </div>
-          </div>
-        </motion.section>
-
-        <section className="testimonials-section" style={{
-          padding: '100px 0',
-          backgroundColor: 'var(--neutral-color)',
-          borderTop: '2px dashed var(--secondary-color)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            style={{ textAlign: 'center', marginBottom: '40px' }}
-          >
-            <h2 style={{
-              fontSize: '3rem',
-              color: 'var(--primary-color)',
-              marginBottom: '20px'
-            }}>
-              Client Stories
-            </h2>
-            <p style={{
-              fontSize: '1.2rem',
-              color: 'var(--text-color)',
-              maxWidth: '600px',
-              margin: '0 auto',
-              opacity: 0.8,
-              lineHeight: 1.6
-            }}>
-              Real experiences from people who've transformed their game, 
-              elevated their events, and revolutionized their digital presence
-            </p>
-          </motion.div>
-          <TestimonialsCarousel />
-        </section>
+              <h2 style={{
+                fontSize: '3rem',
+                color: 'var(--primary-color)',
+                marginBottom: '20px'
+              }}>
+                Client Stories
+              </h2>
+              <p style={{
+                fontSize: '1.2rem',
+                color: 'var(--text-color)',
+                maxWidth: '600px',
+                margin: '0 auto',
+                opacity: 0.8,
+                lineHeight: 1.6
+              }}>
+                Real experiences from people who've transformed their game, 
+                elevated their events, and revolutionized their digital presence
+              </p>
+            </motion.div>
+            <TestimonialsCarousel />
+          </section>
+        </div>
 
         <VideoBackground
           videoId="wORVp9Pg5DY"
           startTime={5}
           endTime={35}
-          height="500px"
+          height="90vh"
           overlayColor="rgba(0, 0, 0, 0.5)"
+          type="section"
         >
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="content-container"
             style={{ textAlign: 'center', padding: '0 20px' }}
           >
             <h2 style={{ 
@@ -292,79 +298,100 @@ function HomePage() {
           </motion.div>
         </VideoBackground>
 
-        <motion.section 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="about-preview" 
-          style={{ 
-            padding: '100px 20px',
-            backgroundColor: 'var(--primary-color)',
-            color: 'var(--neutral-color)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}
-        >
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              style={{ 
-                marginBottom: '30px',
-                fontSize: '3rem'
-              }}
-            >
-              Meet Laurie Meiring
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ 
-                fontSize: '1.3rem', 
-                marginBottom: '30px',
-                lineHeight: 1.6
-              }}
-            >
-              Digital innovator, culinary artist, and sports enthusiast bringing unique experiences 
-              to the vibrant shores of Jaco. Discover how passion meets expertise in paradise.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Link to="/about" className="button" style={{
-                backgroundColor: 'var(--secondary-color)',
-                color: 'var(--text-color)',
-                display: 'inline-block',
-                padding: '15px 30px',
-                fontSize: '1.2rem',
-                borderRadius: '30px',
-                textDecoration: 'none',
-                transition: 'all 0.3s ease'
-              }}>Discover More</Link>
-            </motion.div>
+        <div style={{ 
+          width: '100vw', 
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)',
+          backgroundColor: 'var(--primary-color)',
+          padding: '120px 0',
+          color: 'var(--neutral-color)',
+          marginBottom: '0'
+        }}>
+          <div className="content-container">
+            <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+              <div style={{ 
+                width: '150px', 
+                height: '150px', 
+                margin: '0 auto 30px',
+                position: 'relative'
+              }}>
+                <OptimizedImage
+                  src={IMAGES.PROFILE.AI_GENERATED}
+                  alt="Laurie Meiring"
+                  width={150}
+                  height={150}
+                  style={{
+                    borderRadius: '50%',
+                    border: '4px solid var(--secondary-color)',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+                  }}
+                />
+              </div>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                style={{ 
+                  marginBottom: '30px',
+                  fontSize: '3rem',
+                  color: 'var(--neutral-color)'
+                }}
+              >
+                Meet Your Expert
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{ 
+                  fontSize: '1.3rem', 
+                  marginBottom: '30px',
+                  lineHeight: 1.6,
+                  color: 'var(--neutral-color)'
+                }}
+              >
+                With an MBA and years of experience, Laurie combines professional expertise in pickleball coaching, 
+                culinary arts, and digital marketing. Based in Jaco, Costa Rica, offering personalized services 
+                that transform experiences and deliver results.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Link to="/about" className="button" style={{
+                  backgroundColor: 'var(--secondary-color)',
+                  color: 'var(--text-color)',
+                  display: 'inline-block',
+                  padding: '15px 30px',
+                  fontSize: '1.2rem',
+                  borderRadius: '30px',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }}>Learn More About Laurie</Link>
+              </motion.div>
+            </div>
           </div>
-        </motion.section>
+        </div>
 
         <VideoBackground
           videoId="Dx60IHP5QlE"
           startTime={0}
           endTime={30}
-          height="600px"
+          height="90vh"
           overlayColor="rgba(0, 0, 0, 0.5)"
+          type="section"
+          style={{ marginBottom: '5%' }}
         >
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="content-container"
             style={{ textAlign: 'center', padding: '0 20px' }}
           >
             <h2 style={{ 

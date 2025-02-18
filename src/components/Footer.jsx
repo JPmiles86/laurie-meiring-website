@@ -2,8 +2,13 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: '#f8f9fa', padding: '20px', textAlign: 'center', marginTop: '40px' }}>
-      <p>&copy; {new Date().getFullYear()} Laurie Meiring Ventures. All Rights Reserved. {/* Placeholder Footer Text */}</p>
+    <footer style={{ 
+      backgroundColor: 'var(--neutral-color)',
+      padding: '20px',
+      textAlign: 'center',
+      borderTop: '2px solid var(--secondary-color)'
+    }}>
+      <p style={{ margin: 0 }}>© 2025 Laurie Meiring Ventures. All Rights Reserved.</p>
     </footer>
   );
 }

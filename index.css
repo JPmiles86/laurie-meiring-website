@@ -21,10 +21,13 @@ body {
 }
 
 main {
-  padding: 20px;
+  position: relative;
+}
+
+.content-container {
   max-width: 1200px;
   margin: 0 auto;
-  position: relative; /* For absolute positioning of pseudo-elements for shapes */
+  padding: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {

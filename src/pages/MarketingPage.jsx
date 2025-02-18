@@ -10,14 +10,14 @@ function MarketingPage() {
   return (
     <PageTransition>
       <div className="marketing-page">
-        <div style={{
-          height: '80vh',
-          backgroundColor: 'var(--primary-color)',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+        <VideoBackground
+          videoId="r0xOGG2C1eI"
+          startTime={0}
+          endTime={0}
+          height="100vh"
+          overlayColor="rgba(0, 0, 0, 0.5)"
+          type="hero"
+        >
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ function MarketingPage() {
               Transform your digital presence with AI-powered strategies and creative solutions
             </p>
           </motion.div>
-        </div>
+        </VideoBackground>
 
         <motion.section 
           initial={{ opacity: 0 }}
@@ -148,9 +148,10 @@ function MarketingPage() {
               Marketing Services
             </motion.h2>
             <div style={{ 
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '30px'
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '30px',
+              justifyContent: 'center'
             }}>
               {[
                 {
@@ -186,7 +187,9 @@ function MarketingPage() {
                     borderRadius: '12px',
                     backgroundColor: '#fff',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    width: '280px',
+                    flex: '0 0 280px'
                   }}
                 >
                   <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: 'var(--primary-color)' }}>
@@ -206,10 +209,14 @@ function MarketingPage() {
           transition={{ duration: 0.8 }}
           className="cta-section" 
           style={{ 
-            padding: '80px 20px',
+            padding: '80px 0',
             textAlign: 'center',
             backgroundColor: 'var(--primary-color)',
-            color: 'var(--neutral-color)'
+            color: 'var(--neutral-color)',
+            width: '100vw',
+            marginLeft: 'calc(-50vw + 50%)',
+            marginRight: 'calc(-50vw + 50%)',
+            marginBottom: '-80px'
           }}
         >
           <motion.div 

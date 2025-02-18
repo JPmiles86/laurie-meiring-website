@@ -9,12 +9,18 @@ function ContactPage() {
           padding: '60px 0', 
           textAlign: 'center',
           backgroundColor: 'var(--primary-color)',
-          color: 'var(--neutral-color)'
+          color: 'var(--neutral-color)',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)',
+          marginTop: '20px'
         }}>
-          <h1 style={{ color: 'var(--neutral-color)' }}>Contact Laurie</h1>
-          <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '20px auto' }}>
-            Get in touch for pickleball coaching, chef services, or marketing inquiries in Jaco, Costa Rica
-          </p>
+          <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
+            <h1 style={{ color: 'var(--neutral-color)' }}>Book Your Service</h1>
+            <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '20px auto' }}>
+              Ready to start your journey? Select your desired service and let's begin.
+            </p>
+          </div>
         </section>
 
         <section className="contact-form-section" style={{ 
@@ -31,10 +37,25 @@ function ContactPage() {
             borderRadius: '12px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
           }}>
-            <h2 style={{ color: 'var(--primary-color)', marginBottom: '30px' }}>Get In Touch</h2>
+            <h2 style={{ color: 'var(--primary-color)', marginBottom: '30px' }}>Service Options</h2>
             
             <div style={{ marginBottom: '30px' }}>
-              <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Contact Information</h3>
+              <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Available Services</h3>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ marginBottom: '15px' }}>
+                  <strong>Pickleball Training:</strong> Individual & group sessions
+                </li>
+                <li style={{ marginBottom: '15px' }}>
+                  <strong>Private Chef:</strong> Events & personal dining
+                </li>
+                <li style={{ marginBottom: '15px' }}>
+                  <strong>Marketing Strategy:</strong> AI-powered solutions
+                </li>
+              </ul>
+            </div>
+
+            <div style={{ marginBottom: '30px' }}>
+              <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Contact Methods</h3>
               <p style={{ marginBottom: '10px' }}>
                 <strong>Email:</strong>{' '}
                 <a 
@@ -63,14 +84,9 @@ function ContactPage() {
               </p>
             </div>
 
-            <div style={{ marginBottom: '30px' }}>
+            <div>
               <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Location</h3>
               <p>Jaco, Costa Rica</p>
-            </div>
-
-            <div>
-              <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Best Way to Reach</h3>
-              <p>WhatsApp is the preferred method of communication for quick responses and easy scheduling.</p>
             </div>
           </div>
 
@@ -80,8 +96,41 @@ function ContactPage() {
             borderRadius: '12px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
           }}>
-            <h2 style={{ color: 'var(--primary-color)', marginBottom: '30px' }}>Send a Message</h2>
+            <h2 style={{ color: 'var(--primary-color)', marginBottom: '30px' }}>Request Information</h2>
             <form>
+              <div style={{ marginBottom: '20px' }}>
+                <label 
+                  htmlFor="service" 
+                  style={{ 
+                    display: 'block', 
+                    marginBottom: '8px',
+                    color: 'var(--text-color)',
+                    fontWeight: '500'
+                  }}
+                >
+                  Service Type:
+                </label>
+                <select 
+                  id="service" 
+                  name="service" 
+                  style={{ 
+                    width: '100%',
+                    padding: '12px',
+                    borderRadius: '8px',
+                    border: '2px solid var(--secondary-color)',
+                    fontSize: '1rem',
+                    backgroundColor: 'white'
+                  }}
+                  required
+                >
+                  <option value="">Select a Service</option>
+                  <option value="pickleball">Pickleball Training</option>
+                  <option value="chef">Private Chef Services</option>
+                  <option value="marketing">Marketing Strategy</option>
+                  <option value="other">Other Inquiry</option>
+                </select>
+              </div>
+
               <div style={{ marginBottom: '20px' }}>
                 <label 
                   htmlFor="name" 
@@ -105,8 +154,10 @@ function ContactPage() {
                     border: '2px solid var(--secondary-color)',
                     fontSize: '1rem'
                   }} 
+                  required
                 />
               </div>
+
               <div style={{ marginBottom: '20px' }}>
                 <label 
                   htmlFor="email" 
@@ -130,8 +181,10 @@ function ContactPage() {
                     border: '2px solid var(--secondary-color)',
                     fontSize: '1rem'
                   }} 
+                  required
                 />
               </div>
+
               <div style={{ marginBottom: '20px' }}>
                 <label 
                   htmlFor="message" 
@@ -156,8 +209,11 @@ function ContactPage() {
                     fontSize: '1rem',
                     resize: 'vertical'
                   }}
+                  placeholder="Please provide details about your inquiry, including preferred dates/times if applicable."
+                  required
                 ></textarea>
               </div>
+
               <button 
                 type="submit" 
                 style={{
@@ -173,10 +229,24 @@ function ContactPage() {
                   width: '100%'
                 }}
               >
-                Send Message
+                Send Request
               </button>
             </form>
           </div>
+        </section>
+
+        <section className="contact-cta" style={{
+          backgroundColor: 'var(--primary-color)',
+          color: 'var(--neutral-color)',
+          textAlign: 'center',
+          padding: '80px 0',
+          marginTop: '40px',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)',
+          marginBottom: '-80px'
+        }}>
+          {/* Existing content remains unchanged */}
         </section>
       </div>
     </PageTransition>

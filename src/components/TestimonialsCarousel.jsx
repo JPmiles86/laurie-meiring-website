@@ -6,26 +6,32 @@ const testimonials = [
   {
     id: 1,
     name: 'Pi',
-    role: 'Pickleball Student',
-    text: 'Laurie is an exceptional coach who helped me improve my game significantly. Her attention to detail and patient approach made learning enjoyable.',
+    text: 'Laurie is an exceptional coach who helped me improve my game significantly. His attention to detail and patient approach made learning enjoyable.',
+    rating: 5
   },
   {
     id: 2,
-    name: 'Yoav',
-    role: 'Marketing Client',
-    text: 'Working with Laurie on our digital strategy was transformative. Her understanding of AI and marketing helped us achieve remarkable results.',
+    name: 'Rick',
+    text: 'Working with Laurie on our digital strategy was transformative. His understanding of AI and marketing helped us achieve remarkable results.',
+    rating: 5
   },
   {
     id: 3,
-    name: 'Michael',
-    role: 'Private Dining Guest',
-    text: 'The private dining experience was incredible. Laurie created a memorable evening with exceptional food and impeccable service.',
+    name: 'Yoav',
+    text: 'The private dining experience was incredible! The flavors and presentation were outstanding.',
+    rating: 5
   },
   {
     id: 4,
     name: 'Kendal',
-    role: 'Pickleball Tournament Partner',
-    text: 'Laurie brings passion and expertise to everything she does. Her coaching style combines technical knowledge with fun and engaging sessions.',
+    text: 'Laurie brings passion and expertise to everything he does. His coaching style combines technical knowledge with fun and engaging sessions.',
+    rating: 5
+  },
+  {
+    id: 5,
+    name: 'JP',
+    text: 'Laurie is just a fucking awesome guy all around. His energy and authenticity make every interaction memorable.',
+    rating: 5
   }
 ];
 
