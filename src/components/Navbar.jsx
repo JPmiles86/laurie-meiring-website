@@ -154,6 +154,17 @@ function Navbar() {
             </Link>
           </li>
           <li>
+            <Link to="/blog" style={{
+              textDecoration: 'none',
+              color: 'var(--text-color)',
+              fontSize: '1.1rem',
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
+            }}>
+              BLOG
+            </Link>
+          </li>
+          <li>
             <Link to="/about" style={{
               textDecoration: 'none',
               color: 'var(--text-color)',

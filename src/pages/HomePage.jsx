@@ -7,6 +7,7 @@ import OptimizedImage from '../components/OptimizedImage';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import VideoBackground from '../components/VideoBackground';
 import { IMAGES } from '../constants/images';
+import { getVisiblePosts } from '../utils/blogUtils';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -23,6 +24,8 @@ const staggerChildren = {
 };
 
 function HomePage() {
+  const recentPosts = getVisiblePosts().slice(0, 3);
+
   return (
     <PageTransition>
       <div className="home-page">
@@ -298,6 +301,131 @@ function HomePage() {
           </motion.div>
         </VideoBackground>
 
+        <section style={{
+          padding: '80px 20px',
+          backgroundColor: 'var(--neutral-color)'
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{
+                textAlign: 'center',
+                marginBottom: '40px',
+                color: 'var(--primary-color)',
+                fontSize: '2.8rem'
+              }}
+            >
+              Latest from the Blog
+            </motion.h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '30px',
+              marginBottom: '40px'
+            }}>
+              {recentPosts.map((post, index) => (
+                <motion.article
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  style={{
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                  }}
+                  whileHover={{
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)'
+                  }}
+                >
+                  {post.featuredImage && (
+                    <div style={{
+                      height: '200px',
+                      overflow: 'hidden'
+                    }}>
+                      <img
+                        src={post.featuredImage}
+                        alt={post.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  )}
+                  <div style={{ padding: '20px' }}>
+                    <h3 style={{
+                      fontSize: '1.5rem',
+                      marginBottom: '10px',
+                      color: 'var(--primary-color)'
+                    }}>
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        style={{
+                          textDecoration: 'none',
+                          color: 'inherit'
+                        }}
+                      >
+                        {post.title}
+                      </Link>
+                    </h3>
+                    <div style={{
+                      fontSize: '0.9rem',
+                      color: 'var(--text-color)',
+                      opacity: 0.8,
+                      marginBottom: '15px'
+                    }}>
+                      {new Date(post.publishDate).toLocaleDateString()}
+                    </div>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="button"
+                      style={{
+                        display: 'inline-block',
+                        padding: '8px 16px',
+                        backgroundColor: 'var(--primary-color)',
+                        color: 'var(--neutral-color)',
+                        borderRadius: '20px',
+                        textDecoration: 'none',
+                        fontSize: '0.9rem',
+                        marginTop: '10px'
+                      }}
+                    >
+                      Read More
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <Link
+                to="/blog"
+                className="button"
+                style={{
+                  display: 'inline-block',
+                  padding: '12px 30px',
+                  backgroundColor: 'var(--secondary-color)',
+                  color: 'var(--text-color)',
+                  borderRadius: '25px',
+                  textDecoration: 'none',
+                  fontSize: '1.1rem',
+                  fontWeight: '500'
+                }}
+              >
+                View All Posts
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <div style={{ 
           width: '100vw', 
           marginLeft: 'calc(-50vw + 50%)',
@@ -427,6 +555,7 @@ function HomePage() {
             </Link>
           </motion.div>
         </VideoBackground>
+
       </div>
     </PageTransition>
   );
