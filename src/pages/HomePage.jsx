@@ -54,7 +54,7 @@ function HomePage() {
                 color: 'var(--neutral-color)'
               }}
             >
-              Transform Your Experience
+              Your Pickleball Guide to Costa Rica
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
@@ -67,9 +67,9 @@ function HomePage() {
                 color: 'var(--neutral-color)'
               }}
             >
-              Professional Pickleball Coaching • Private Chef Services • AI-Powered Marketing
+              Play, Train & Explore in Paradise!
             </motion.p>
-            <motion.div variants={fadeInUp}>
+            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
               <Link 
                 to="/contact" 
                 className="button"
@@ -87,7 +87,26 @@ function HomePage() {
                   overflow: 'hidden'
                 }}
               >
-                Book Your Service
+                Schedule a Lesson
+              </Link>
+              <Link 
+                to="/contact" 
+                className="button"
+                style={{
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
+                  padding: '18px 36px',
+                  borderRadius: '30px',
+                  fontSize: '1.2rem',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                Book a Tour
               </Link>
             </motion.div>
           </motion.div>
@@ -124,7 +143,7 @@ function HomePage() {
                   fontSize: '3rem'
                 }}
               >
-                Expert Services in Paradise
+                Pickleball Services in Paradise
               </motion.h2>
               <div style={{ 
                 display: 'grid',
@@ -147,8 +166,7 @@ function HomePage() {
                 >
                   <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Championship Pickleball Training</h3>
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                    Learn from a tournament champion in Jaco Beach. Whether you're a beginner or 
-                    competitive player, elevate your game with personalized coaching and strategy development.
+                    Learn from a Tournament Champion in Jaco Beach or in the Jungle of Ojochal. Whether you are a beginner or a competitive player, elevate your game with personalized coaching and strategy development. Coaching available for individuals or in teams of 2 or more.
                   </p>
                   <Link to="/pickleball" className="button" style={{
                     display: 'inline-block',
@@ -176,12 +194,11 @@ function HomePage() {
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Private Chef Experience</h3>
+                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Pickleball Tours to Costa Rica</h3>
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                    Indulge in personalized culinary experiences crafted just for you. From intimate 
-                    dinners to special events, enjoy restaurant-quality dining in your space.
+                    Enjoy a guided Pickleball Experience in Costa Rica with Coaching and Fine-tuning sessions as well as Competitive Sessions and Tournaments at Pickleball Clubs in Beach, Jungle and City Destinations.
                   </p>
-                  <Link to="/chef" className="button" style={{
+                  <Link to="/pickleball" className="button" style={{
                     display: 'inline-block',
                     padding: '12px 24px',
                     backgroundColor: 'var(--primary-color)',
@@ -190,38 +207,7 @@ function HomePage() {
                     textDecoration: 'none',
                     fontSize: '1.1rem',
                     transition: 'all 0.3s ease'
-                  }}>Explore Culinary Services</Link>
-                </motion.div>
-
-                <motion.div 
-                  whileHover={{ 
-                    scale: 1.03,
-                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                  }}
-                  className="service-card" 
-                  style={{ 
-                    padding: '40px',
-                    borderRadius: '12px',
-                    backgroundColor: '#fff',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>AI Marketing Strategy</h3>
-                  <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                    Transform your digital presence with AI-powered solutions. Get personalized strategies 
-                    that combine creative storytelling with cutting-edge technology.
-                  </p>
-                  <Link to="/marketing" className="button" style={{
-                    display: 'inline-block',
-                    padding: '12px 24px',
-                    backgroundColor: 'var(--primary-color)',
-                    color: 'white',
-                    borderRadius: '25px',
-                    textDecoration: 'none',
-                    fontSize: '1.1rem',
-                    transition: 'all 0.3s ease'
-                  }}>Discover Marketing Solutions</Link>
+                  }}>Explore Tour Options</Link>
                 </motion.div>
               </div>
             </div>
@@ -246,7 +232,7 @@ function HomePage() {
                 color: 'var(--primary-color)',
                 marginBottom: '20px'
               }}>
-                Client Stories
+                Player Testimonials
               </h2>
               <p style={{
                 fontSize: '1.2rem',
@@ -256,8 +242,7 @@ function HomePage() {
                 opacity: 0.8,
                 lineHeight: 1.6
               }}>
-                Real experiences from people who've transformed their game, 
-                elevated their events, and revolutionized their digital presence
+                Real experiences from players who've transformed their game and enjoyed the pickleball paradise of Costa Rica
               </p>
             </motion.div>
             <TestimonialsCarousel />
@@ -286,7 +271,7 @@ function HomePage() {
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
               color: 'var(--neutral-color)'
             }}>
-              Life in Paradise
+              Pickleball in Paradise
             </h2>
             <p style={{ 
               fontSize: '1.3rem', 
@@ -296,7 +281,7 @@ function HomePage() {
               lineHeight: 1.6,
               color: 'var(--neutral-color)'
             }}>
-              Where world-class experiences meet the beauty of Costa Rica's Pacific coast
+              Experience the joy of pickleball against the stunning backdrop of Costa Rica's Pacific coast
             </p>
           </motion.div>
         </VideoBackground>
@@ -466,7 +451,7 @@ function HomePage() {
                   color: 'var(--neutral-color)'
                 }}
               >
-                Meet Your Expert
+                Meet Your Coach
               </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -480,9 +465,9 @@ function HomePage() {
                   color: 'var(--neutral-color)'
                 }}
               >
-                With an MBA and years of experience, Laurie combines professional expertise in pickleball coaching, 
-                culinary arts, and digital marketing. Based in Jaco, Costa Rica, offering personalized services 
-                that transform experiences and deliver results.
+                Laurie is a tournament champion and certified pickleball coach with a passion for the game. 
+                Based in Jaco, Costa Rica, he offers personalized training and guided pickleball experiences 
+                that will transform your game and create unforgettable memories.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -528,7 +513,7 @@ function HomePage() {
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
               color: 'var(--neutral-color)'
             }}>
-              Ready to Transform?
+              Ready to Elevate Your Game?
             </h2>
             <p style={{ 
               fontSize: '1.4rem', 
@@ -538,7 +523,7 @@ function HomePage() {
               lineHeight: 1.6,
               color: 'var(--neutral-color)'
             }}>
-              Let's create extraordinary experiences together in paradise
+              Join us for world-class pickleball training and tours in the beautiful setting of Costa Rica
             </p>
             <Link to="/contact" className="button" style={{
               backgroundColor: 'var(--secondary-color)',

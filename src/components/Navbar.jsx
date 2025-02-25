@@ -128,29 +128,18 @@ function Navbar() {
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>
-              PICKLEBALL
+              TRAINING
             </Link>
           </li>
           <li>
-            <Link to="/chef" style={{
+            <Link to="/pickleball" style={{
               textDecoration: 'none',
               color: 'var(--text-color)',
               fontSize: '1.1rem',
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>
-              CHEF SERVICES
-            </Link>
-          </li>
-          <li>
-            <Link to="/marketing" style={{
-              textDecoration: 'none',
-              color: 'var(--text-color)',
-              fontSize: '1.1rem',
-              fontWeight: '500',
-              transition: 'color 0.3s ease'
-            }}>
-              MARKETING
+              TOURS
             </Link>
           </li>
           <li>

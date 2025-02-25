@@ -5,32 +5,20 @@ import PropTypes from 'prop-types';
 const testimonials = [
   {
     id: 1,
-    name: 'Pi',
-    text: 'Laurie is an exceptional coach who helped me improve my game significantly. His attention to detail and patient approach made learning enjoyable.',
+    name: 'Tara Miller',
+    text: 'If you want to level up your pickleball game quickly, Laurie is the man! He is a excellent coach who gives you diversity in training, he challenges you to go to the next level while still being very encouraging.',
     rating: 5
   },
   {
     id: 2,
-    name: 'Rick',
-    text: 'Working with Laurie on our digital strategy was transformative. His understanding of AI and marketing helped us achieve remarkable results.',
+    name: 'Liam Miller',
+    text: 'Since training with Laurie, I have gotten so much better, fast. In the Last Tournament I played I won Two Golds',
     rating: 5
   },
   {
     id: 3,
-    name: 'Yoav',
-    text: 'The private dining experience was incredible! The flavors and presentation were outstanding.',
-    rating: 5
-  },
-  {
-    id: 4,
-    name: 'Kendal',
-    text: 'Laurie brings passion and expertise to everything he does. His coaching style combines technical knowledge with fun and engaging sessions.',
-    rating: 5
-  },
-  {
-    id: 5,
-    name: 'JP',
-    text: 'Laurie is just a fucking awesome guy all around. His energy and authenticity make every interaction memorable.',
+    name: 'JP Miles',
+    text: 'Laurie is just a fucking awesome guy all round and so passionate about Pickleball, its infectious. His energy and authenticity make every interaction memorable',
     rating: 5
   }
 ];
