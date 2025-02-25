@@ -552,6 +552,146 @@ function ToursPage() {
               transition={{ duration: 0.6 }}
               style={{
                 textAlign: 'center',
+                marginBottom: '20px',
+                color: 'var(--primary-color)',
+                fontSize: '2.8rem'
+              }}
+            >
+              Accommodations
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              style={{
+                textAlign: 'center',
+                fontSize: '1.2rem',
+                maxWidth: '800px',
+                margin: '0 auto 40px',
+                lineHeight: 1.6
+              }}
+            >
+              We offer a variety of accommodation options to suit your preferences and budget. From luxury beachfront properties to cozy mountain retreats, we'll find the perfect place for your stay.
+            </motion.p>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '30px',
+              margin: '0 auto'
+            }}>
+              {[
+                {
+                  title: "Beachfront Properties",
+                  description: "Wake up to the sound of waves and enjoy stunning ocean views. Our beachfront options range from luxury condos to charming bungalows, all within walking distance to the shore.",
+                  image: "/beach surf 3x2.jpg"
+                },
+                {
+                  title: "Jungle Retreats",
+                  description: "Immerse yourself in Costa Rica's lush rainforest with accommodations surrounded by nature. Experience the unique sounds and sights of the jungle while enjoying modern comforts.",
+                  image: "/toucan 2x3.jpg"
+                },
+                {
+                  title: "City Convenience",
+                  description: "Stay in the heart of town with easy access to restaurants, shops, and nightlife. Perfect for those who want to experience both pickleball and the local culture.",
+                  image: "/jaco.jpg"
+                }
+              ].map((option, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 + (index * 0.1) }}
+                  style={{
+                    backgroundColor: '#fff',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                >
+                  <div style={{ height: '200px', overflow: 'hidden' }}>
+                    <img
+                      src={option.image}
+                      alt={option.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                  <div style={{ padding: '25px', flexGrow: 1 }}>
+                    <h3 style={{
+                      fontSize: '1.6rem',
+                      color: 'var(--primary-color)',
+                      marginBottom: '15px'
+                    }}>
+                      {option.title}
+                    </h3>
+                    <p style={{
+                      fontSize: '1.1rem',
+                      lineHeight: 1.6,
+                      color: 'var(--text-color)'
+                    }}>
+                      {option.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              style={{
+                backgroundColor: 'rgba(0, 173, 181, 0.1)',
+                borderRadius: '12px',
+                padding: '30px',
+                marginTop: '40px',
+                maxWidth: '800px',
+                margin: '40px auto 0',
+                border: '1px solid rgba(0, 173, 181, 0.3)'
+              }}
+            >
+              <h3 style={{
+                fontSize: '1.6rem',
+                color: 'var(--primary-color)',
+                marginBottom: '15px',
+                textAlign: 'center'
+              }}>
+                Customized to Your Needs
+              </h3>
+              <p style={{
+                fontSize: '1.1rem',
+                lineHeight: 1.6,
+                color: 'var(--text-color)',
+                textAlign: 'center'
+              }}>
+                We understand that every traveler has unique preferences. That's why we offer fully customizable accommodation options. Whether you prefer a luxury hotel, a private villa, or a budget-friendly apartment, we can tailor your stay to match your needs and budget. Just let us know your preferences when booking, and we'll take care of the rest.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        <section style={{ 
+          padding: '80px 20px',
+          backgroundColor: 'var(--neutral-color)'
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{
+                textAlign: 'center',
                 marginBottom: '40px',
                 color: 'var(--primary-color)',
                 fontSize: '2.8rem'
@@ -582,42 +722,106 @@ function ToursPage() {
                 {
                   question: "Are the tours suitable for solo travelers?",
                   answer: "Absolutely! Many of our participants are solo travelers. Our tours create a friendly, community atmosphere where you'll quickly connect with fellow pickleball enthusiasts."
+                },
+                {
+                  question: "What type of accommodations are provided?",
+                  answer: "We offer a range of accommodations to suit your preferences and budget - from hotels to apartments to houses, beachfront to mountain views. We can tailor the experience to your needs and budget, just let us know your preferences when booking."
+                },
+                {
+                  question: "Can I customize my tour dates?",
+                  answer: "Yes! Our tours are fully customizable. We don't have preset dates - you can schedule your tour whenever works best for you. Just let us know your preferred dates when inquiring."
+                },
+                {
+                  question: "Are meals included in the tour packages?",
+                  answer: "Most tour packages include breakfast daily and select group meals. We'll also recommend and arrange reservations at the best local restaurants for you to experience authentic Costa Rican cuisine."
+                },
+                {
+                  question: "What happens if it rains during scheduled pickleball sessions?",
+                  answer: "Costa Rica's weather can be unpredictable, but we have contingency plans. Many of our courts have covered options, or we can reschedule sessions around the weather. We'll make sure you get your full pickleball experience regardless of weather conditions."
                 }
               ].map((faq, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  style={{
-                    backgroundColor: '#fff',
-                    borderRadius: '12px',
-                    padding: '25px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-                  }}
-                >
-                  <h3 style={{ 
-                    fontSize: '1.3rem', 
-                    marginBottom: '15px',
-                    color: 'var(--primary-color)'
-                  }}>
-                    {faq.question}
-                  </h3>
-                  <p style={{ 
-                    fontSize: '1.1rem', 
-                    lineHeight: 1.6,
-                    color: 'var(--text-color)'
-                  }}>
-                    {faq.answer}
-                  </p>
-                </motion.div>
+                <FaqItem key={index} faq={faq} index={index} />
               ))}
             </div>
           </div>
         </section>
       </div>
     </PageTransition>
+  );
+}
+
+// New component for expandable FAQ items
+function FaqItem({ faq, index }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      style={{
+        backgroundColor: '#fff',
+        borderRadius: '12px',
+        padding: '25px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease'
+      }}
+      onClick={() => setIsOpen(!isOpen)}
+      whileHover={{ 
+        boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
+        backgroundColor: isOpen ? '#fff' : '#f9f9f9'
+      }}
+    >
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <h3 style={{ 
+          fontSize: '1.3rem', 
+          marginBottom: isOpen ? '15px' : '0',
+          color: 'var(--primary-color)',
+          transition: 'margin-bottom 0.3s ease'
+        }}>
+          {faq.question}
+        </h3>
+        <div style={{
+          width: '24px',
+          height: '24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'transform 0.3s ease',
+          transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)'
+        }}>
+          <span style={{
+            fontSize: '1.5rem',
+            color: 'var(--primary-color)',
+            fontWeight: 'bold'
+          }}>+</span>
+        </div>
+      </div>
+      
+      {isOpen && (
+        <motion.p 
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          style={{ 
+            fontSize: '1.1rem', 
+            lineHeight: 1.6,
+            color: 'var(--text-color)',
+            marginTop: '10px',
+            paddingTop: '10px',
+            borderTop: '1px solid #eee'
+          }}
+        >
+          {faq.answer}
+        </motion.p>
+      )}
+    </motion.div>
   );
 }
 

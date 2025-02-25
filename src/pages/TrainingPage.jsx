@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import OptimizedImage from '../components/OptimizedImage';
 import VideoBackground from '../components/VideoBackground';
 import PageTransition from '../components/PageTransition';
+import VideoPlayer from '../components/VideoPlayer';
 import { IMAGES } from '../constants/images';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -436,6 +437,48 @@ function TrainingPage() {
           </div>
         </section>
 
+        {/* New Coaching Video Section */}
+        <section style={{ 
+          padding: '80px 20px',
+          backgroundColor: 'var(--neutral-color)',
+          borderTop: '2px dashed var(--secondary-color)'
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ textAlign: 'center', marginBottom: '40px' }}
+            >
+              See My Coaching in Action
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <VideoPlayer 
+                videoId="S1zJYUjbXg8" 
+                title="Pickleball Training Session" 
+                description="Watch a sample coaching session to see my teaching style and approach"
+              />
+              <div style={{ 
+                maxWidth: '800px', 
+                margin: '30px auto 0',
+                textAlign: 'center'
+              }}>
+                <p style={{ fontSize: '1.1rem', lineHeight: 1.6 }}>
+                  This video showcases my coaching style and the personalized approach I take with each player. 
+                  Whether you're working on fundamentals or advanced strategy, I'll tailor each session to help you 
+                  achieve your pickleball goals.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         <section style={{
           padding: '80px 20px',
           backgroundColor: 'var(--secondary-color)',
@@ -443,7 +486,7 @@ function TrainingPage() {
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
-          marginBottom: '-80px'
+          marginBottom: '0'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
             <motion.div
@@ -499,8 +542,150 @@ function TrainingPage() {
             </motion.div>
           </div>
         </section>
+
+        {/* New FAQ Section */}
+        <section style={{ 
+          padding: '80px 20px',
+          backgroundColor: 'var(--neutral-color)'
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{
+                textAlign: 'center',
+                marginBottom: '40px',
+                color: 'var(--primary-color)',
+                fontSize: '2.8rem'
+              }}
+            >
+              Frequently Asked Questions
+            </motion.h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+              gap: '30px',
+              maxWidth: '1000px',
+              margin: '0 auto'
+            }}>
+              {[
+                {
+                  question: "What skill level is required for training sessions?",
+                  answer: "Training sessions are available for all skill levels, from complete beginners to advanced players. Each session is tailored to your specific skill level and goals."
+                },
+                {
+                  question: "How long are the training sessions?",
+                  answer: "Standard sessions are one hour long, but can be extended to 90 minutes or 2 hours based on your preference and stamina. We recommend starting with one-hour sessions and adjusting as needed."
+                },
+                {
+                  question: "Can I book multiple sessions in one day?",
+                  answer: "Yes, you can book morning and afternoon sessions with a break in between. However, we recommend not scheduling more than 2-3 hours of training per day to prevent fatigue and ensure quality practice."
+                },
+                {
+                  question: "Is equipment provided for training sessions?",
+                  answer: "Yes, we provide high-quality paddles and balls for all training sessions. However, if you prefer to use your own equipment, you're welcome to bring it."
+                },
+                {
+                  question: "What should I wear to training sessions?",
+                  answer: "Comfortable athletic clothing, court shoes, a hat, and sunglasses are recommended. Don't forget sunscreen and a water bottle as Costa Rica can get quite warm."
+                },
+                {
+                  question: "Can I cancel or reschedule my training session?",
+                  answer: "Yes, we understand plans can change. We request at least 24 hours notice for cancellations or rescheduling. Last-minute cancellations may be subject to a fee."
+                },
+                {
+                  question: "Do you offer group discounts?",
+                  answer: "Yes! Our group training option is already discounted at $20 per person per hour for groups of 2-4 players. For larger groups, please contact us for special rates."
+                },
+                {
+                  question: "How do I track my progress?",
+                  answer: "For clients booking multiple sessions, we provide progress tracking and personalized feedback. We can also record video analysis of your play to help identify areas for improvement."
+                }
+              ].map((faq, index) => (
+                <FaqItem key={index} faq={faq} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </PageTransition>
+  );
+}
+
+// Component for expandable FAQ items
+function FaqItem({ faq, index }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      style={{
+        backgroundColor: '#fff',
+        borderRadius: '12px',
+        padding: '25px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease'
+      }}
+      onClick={() => setIsOpen(!isOpen)}
+      whileHover={{ 
+        boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
+        backgroundColor: isOpen ? '#fff' : '#f9f9f9'
+      }}
+    >
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <h3 style={{ 
+          fontSize: '1.3rem', 
+          marginBottom: isOpen ? '15px' : '0',
+          color: 'var(--primary-color)',
+          transition: 'margin-bottom 0.3s ease'
+        }}>
+          {faq.question}
+        </h3>
+        <div style={{
+          width: '24px',
+          height: '24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'transform 0.3s ease',
+          transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)'
+        }}>
+          <span style={{
+            fontSize: '1.5rem',
+            color: 'var(--primary-color)',
+            fontWeight: 'bold'
+          }}>+</span>
+        </div>
+      </div>
+      
+      {isOpen && (
+        <motion.p 
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          style={{ 
+            fontSize: '1.1rem', 
+            lineHeight: 1.6,
+            color: 'var(--text-color)',
+            marginTop: '10px',
+            paddingTop: '10px',
+            borderTop: '1px solid #eee'
+          }}
+        >
+          {faq.answer}
+        </motion.p>
+      )}
+    </motion.div>
   );
 }
 
