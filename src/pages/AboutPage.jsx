@@ -1,6 +1,5 @@
 import React from 'react';
 import OptimizedImage from '../components/OptimizedImage';
-import VideoBackground from '../components/VideoBackground';
 import { IMAGES } from '../constants/images';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
@@ -26,75 +25,74 @@ function AboutPage() {
   return (
     <PageTransition>
       <div className="about-page">
-        <VideoBackground
-          videoId="S1zJYUjbXg8"
-          startTime={0}
-          endTime={30}
-          height="95vh"
-          overlayColor="rgba(0, 0, 0, 0.5)"
-          type="hero"
-        >
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="profile-image-container" 
-            style={{ marginBottom: '30px' }}
-          >
-            <div style={{ 
-              width: '150px', 
-              height: '150px', 
-              margin: '0 auto',
-              position: 'relative'
-            }}>
-              <OptimizedImage
-                src={IMAGES.PROFILE.AI_GENERATED}
-                alt="Laurie Meiring"
-                className="profile-image"
-                width={150}
-                height={150}
-                style={{
-                  borderRadius: '50%',
-                  border: '4px solid var(--secondary-color)',
-                  zIndex: 1000
-                }}
-              />
-            </div>
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ 
-              color: 'var(--neutral-color)',
-              fontSize: '3.5rem',
-              marginBottom: '20px',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
-            }}
-          >
-            Meet Your Pickleball Coach
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="subtitle" 
-            style={{ 
-              maxWidth: '800px', 
-              margin: '0 auto',
-              fontSize: '1.2rem',
-              color: 'var(--neutral-color)',
-              opacity: 0.9,
-              lineHeight: 1.6,
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
-            }}
-          >
-            Tournament Champion | PCI-Certified Coach | Pickleball Strategist | Costa Rica Expert
-          </motion.p>
-        </VideoBackground>
+        <section className="about-header" style={{ 
+          padding: '80px 20px 40px', 
+          backgroundColor: 'var(--primary-color)',
+          color: 'var(--neutral-color)',
+          textAlign: 'center',
+          marginBottom: '60px'
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="profile-image-container" 
+              style={{ marginBottom: '30px' }}
+            >
+              <div style={{ 
+                width: '150px', 
+                height: '150px', 
+                margin: '0 auto',
+                position: 'relative'
+              }}>
+                <OptimizedImage
+                  src={IMAGES.PROFILE.AI_GENERATED}
+                  alt="Laurie Meiring"
+                  className="profile-image"
+                  width={150}
+                  height={150}
+                  style={{
+                    borderRadius: '50%',
+                    border: '4px solid var(--secondary-color)',
+                    zIndex: 1000
+                  }}
+                />
+              </div>
+            </motion.div>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{ 
+                color: 'var(--neutral-color)',
+                fontSize: '3.5rem',
+                marginBottom: '20px'
+              }}
+            >
+              Meet Your Pickleball Coach
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="subtitle" 
+              style={{ 
+                maxWidth: '800px', 
+                margin: '0 auto',
+                fontSize: '1.2rem',
+                color: 'var(--neutral-color)',
+                opacity: 0.9,
+                lineHeight: 1.6
+              }}
+            >
+              Tournament Champion | PCI-Certified Coach | Pickleball Strategist | Costa Rica Expert
+            </motion.p>
+          </div>
+        </section>
 
         <section className="about-content" style={{ 
-          padding: '60px 20px', 
+          padding: '0 20px', 
           maxWidth: '1200px', 
           margin: '0 auto' 
         }}>
@@ -275,11 +273,7 @@ function AboutPage() {
                       gap: '15px'
                     }}
                   >
-                    <span style={{ 
-                      color: 'var(--secondary-color)',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold'
-                    }}>•</span>
+                    <span style={{ color: 'var(--secondary-color)', fontSize: '1.2rem' }}>✓</span>
                     {item}
                   </motion.li>
                 ))}
@@ -292,8 +286,7 @@ function AboutPage() {
             padding: '60px 40px',
             borderRadius: '12px',
             marginBottom: '80px',
-            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
-            border: '2px dashed var(--secondary-color)'
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)'
           }}>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -353,7 +346,7 @@ function AboutPage() {
                 }}
               >
                 <OptimizedImage
-                  src={IMAGES.LOCATIONS.TOUCAN_PORTRAIT}
+                  src={IMAGES.LOCATIONS.TOUCAN_TALL}
                   alt="Jungle Courts"
                   width={300}
                   height={200}
