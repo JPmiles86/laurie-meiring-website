@@ -132,7 +132,7 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/pickleball" style={{
+            <Link to="/tours" style={{
               textDecoration: 'none',
               color: 'var(--text-color)',
               fontSize: '1.1rem',

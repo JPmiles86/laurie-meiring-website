@@ -90,7 +90,7 @@ function HomePage() {
                 Schedule a Lesson
               </Link>
               <Link 
-                to="/contact" 
+                to="/tours" 
                 className="button"
                 style={{
                   backgroundColor: 'var(--primary-color)',
@@ -198,7 +198,7 @@ function HomePage() {
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                     Enjoy a guided Pickleball Experience in Costa Rica with Coaching and Fine-tuning sessions as well as Competitive Sessions and Tournaments at Pickleball Clubs in Beach, Jungle and City Destinations.
                   </p>
-                  <Link to="/pickleball" className="button" style={{
+                  <Link to="/tours" className="button" style={{
                     display: 'inline-block',
                     padding: '12px 24px',
                     backgroundColor: 'var(--primary-color)',

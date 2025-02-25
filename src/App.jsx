@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import HomePage from './pages/HomePage';
 import PickleballPage from './pages/PickleballPage';
-import ChefPage from './pages/ChefPage';
-import MarketingPage from './pages/MarketingPage';
+import ToursPage from './pages/ToursPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
@@ -22,8 +21,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
         <Route path="/pickleball" element={<PickleballPage />} />
-        <Route path="/chef" element={<ChefPage />} />
-        <Route path="/marketing" element={<MarketingPage />} />
+        <Route path="/tours" element={<ToursPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
