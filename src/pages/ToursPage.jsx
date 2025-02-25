@@ -4,6 +4,21 @@ import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 import OptimizedImage from '../components/OptimizedImage';
 import VideoBackground from '../components/VideoBackground';
+import { IMAGES } from '../constants/images';
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 }
+};
+
+const staggerChildren = {
+  animate: {
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 function ToursPage() {
   const tourPackages = [
@@ -65,12 +80,30 @@ function ToursPage() {
     {
       name: "Jungle Courts of Ojochal",
       description: "Play surrounded by lush rainforest with the sounds of nature as your backdrop.",
-      image: "/toucan 4x5.jpg"
+      image: "/toucan 2x3.jpg"
     },
     {
       name: "San José City Club",
       description: "Experience Costa Rica's premier indoor pickleball facility in the capital city.",
       image: "/local courts.jpg"
+    }
+  ];
+
+  const includedFeatures = [
+    {
+      title: "Professional Coaching",
+      description: "Receive personalized instruction from tournament champion Laurie Meiring. Focus on technique, strategy, and game improvement in beautiful Costa Rican settings.",
+      image: "/laurie medals 1.jpg"
+    },
+    {
+      title: "Local Tournaments",
+      description: "Test your skills in friendly competitive play with local pickleball clubs. Experience the vibrant Costa Rican pickleball community and make lasting connections.",
+      image: "/local courts.jpg"
+    },
+    {
+      title: "Paradise Experience",
+      description: "Enjoy premium accommodations, local cuisine, and guided adventures between pickleball sessions. Explore beaches, rainforests, and wildlife in this tropical paradise.",
+      image: "/beach (portrait 4x5).jpg"
     }
   ];
 
@@ -81,42 +114,55 @@ function ToursPage() {
           videoId="wORVp9Pg5DY"
           startTime={5}
           endTime={35}
-          height="95vh"
+          height="100vh"
           overlayColor="rgba(0, 0, 0, 0.5)"
           type="hero"
         >
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>
-            <h1 style={{ 
-              color: 'var(--neutral-color)',
-              fontSize: '3.5rem',
-              marginBottom: '20px',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
-            }}>
+          <motion.div 
+            initial="initial"
+            animate="animate"
+            variants={staggerChildren}
+            style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}
+          >
+            <motion.h1 
+              variants={fadeInUp}
+              style={{ 
+                color: 'var(--neutral-color)',
+                fontSize: '3.5rem',
+                marginBottom: '20px',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
+              }}
+            >
               Pickleball Tours in Paradise
-            </h1>
-            <p style={{ 
-              fontSize: '1.2rem', 
-              maxWidth: '800px', 
-              margin: '20px auto',
-              color: 'var(--neutral-color)',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
-            }}>
+            </motion.h1>
+            <motion.p 
+              variants={fadeInUp}
+              style={{ 
+                fontSize: '1.2rem', 
+                maxWidth: '800px', 
+                margin: '20px auto',
+                color: 'var(--neutral-color)',
+                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
+              }}
+            >
               Experience the ultimate pickleball adventure in Costa Rica's most beautiful locations
-            </p>
-            <Link to="/contact" className="button" style={{
-              backgroundColor: 'var(--secondary-color)',
-              color: 'var(--text-color)',
-              padding: '15px 30px',
-              borderRadius: '30px',
-              fontSize: '1.2rem',
-              textDecoration: 'none',
-              display: 'inline-block',
-              marginTop: '20px',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
-            }}>
-              Book Your Tour
-            </Link>
-          </div>
+            </motion.p>
+            <motion.div variants={fadeInUp}>
+              <Link to="/contact" className="button" style={{
+                backgroundColor: 'var(--secondary-color)',
+                color: 'var(--text-color)',
+                padding: '15px 30px',
+                borderRadius: '30px',
+                fontSize: '1.2rem',
+                textDecoration: 'none',
+                display: 'inline-block',
+                marginTop: '20px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+              }}>
+                Book Your Tour
+              </Link>
+            </motion.div>
+          </motion.div>
         </VideoBackground>
 
         <section style={{ 
@@ -138,124 +184,140 @@ function ToursPage() {
             >
               Tour Packages
             </motion.h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '30px',
+            
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
               marginBottom: '40px'
             }}>
-              {tourPackages.map((pkg, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  style={{
-                    backgroundColor: '#fff',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    border: pkg.featured ? '2px solid var(--secondary-color)' : 'none',
-                    transform: pkg.featured ? 'scale(1.05)' : 'none',
-                    zIndex: pkg.featured ? 1 : 0,
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                  }}
-                  whileHover={{
-                    transform: pkg.featured ? 'scale(1.08)' : 'scale(1.03)',
-                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
-                  }}
-                >
-                  <div style={{
-                    height: '200px',
-                    overflow: 'hidden'
+              <div style={{ 
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '30px',
+                width: '100%',
+                maxWidth: '1200px'
+              }}>
+                {tourPackages.map((pkg, index) => (
+                  <div key={index} style={{ 
+                    position: 'relative',
+                    height: '100%'
                   }}>
-                    <img
-                      src={pkg.image}
-                      alt={pkg.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      whileHover={{ 
+                        y: -10,
+                        boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)'
                       }}
-                    />
-                  </div>
-                  <div style={{ padding: '25px' }}>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '15px'
-                    }}>
-                      <h3 style={{
-                        fontSize: '1.8rem',
-                        color: 'var(--primary-color)',
-                        margin: 0
-                      }}>
-                        {pkg.title}
-                      </h3>
+                      style={{
+                        backgroundColor: '#fff',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                        border: pkg.featured ? '2px solid var(--secondary-color)' : 'none',
+                        transform: pkg.featured ? 'scale(1.05)' : 'none',
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column'
+                      }}
+                    >
                       <div style={{
-                        backgroundColor: 'var(--secondary-color)',
-                        color: 'var(--text-color)',
-                        padding: '5px 10px',
-                        borderRadius: '20px',
-                        fontSize: '0.9rem',
-                        fontWeight: 'bold'
+                        height: '200px',
+                        overflow: 'hidden'
                       }}>
-                        {pkg.duration}
+                        <img
+                          src={pkg.image}
+                          alt={pkg.title}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
                       </div>
-                    </div>
-                    <div style={{
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      color: 'var(--text-color)',
-                      marginBottom: '15px'
-                    }}>
-                      {pkg.price}
-                    </div>
-                    <p style={{
-                      fontSize: '1rem',
-                      color: 'var(--text-color)',
-                      marginBottom: '20px',
-                      lineHeight: 1.6
-                    }}>
-                      {pkg.description}
-                    </p>
-                    <ul style={{
-                      listStyle: 'none',
-                      padding: 0,
-                      margin: '0 0 25px 0'
-                    }}>
-                      {pkg.features.map((feature, idx) => (
-                        <li key={idx} style={{
-                          marginBottom: '8px',
+                      <div style={{ padding: '25px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                        <div style={{
                           display: 'flex',
+                          justifyContent: 'space-between',
                           alignItems: 'center',
-                          gap: '10px',
-                          fontSize: '0.95rem'
+                          marginBottom: '15px'
                         }}>
-                          <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <Link to="/contact" className="button" style={{
-                      display: 'block',
-                      textAlign: 'center',
-                      backgroundColor: pkg.featured ? 'var(--secondary-color)' : 'var(--primary-color)',
-                      color: pkg.featured ? 'var(--text-color)' : 'var(--neutral-color)',
-                      padding: '12px',
-                      borderRadius: '25px',
-                      textDecoration: 'none',
-                      fontSize: '1.1rem',
-                      fontWeight: '500',
-                      transition: 'all 0.3s ease'
-                    }}>
-                      Book This Tour
-                    </Link>
+                          <h3 style={{
+                            fontSize: '1.8rem',
+                            color: 'var(--primary-color)',
+                            margin: 0
+                          }}>
+                            {pkg.title}
+                          </h3>
+                          <div style={{
+                            backgroundColor: 'var(--secondary-color)',
+                            color: 'var(--text-color)',
+                            padding: '5px 10px',
+                            borderRadius: '20px',
+                            fontSize: '0.9rem',
+                            fontWeight: 'bold'
+                          }}>
+                            {pkg.duration}
+                          </div>
+                        </div>
+                        <div style={{
+                          fontSize: '1.5rem',
+                          fontWeight: 'bold',
+                          color: 'var(--text-color)',
+                          marginBottom: '15px'
+                        }}>
+                          {pkg.price}
+                        </div>
+                        <p style={{
+                          fontSize: '1rem',
+                          color: 'var(--text-color)',
+                          marginBottom: '20px',
+                          lineHeight: 1.6
+                        }}>
+                          {pkg.description}
+                        </p>
+                        <ul style={{
+                          listStyle: 'none',
+                          padding: 0,
+                          margin: '0 0 25px 0'
+                        }}>
+                          {pkg.features.map((feature, idx) => (
+                            <li key={idx} style={{
+                              marginBottom: '8px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              fontSize: '0.95rem'
+                            }}>
+                              <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                        <div style={{ marginTop: 'auto' }}>
+                          <Link to="/contact" className="button" style={{
+                            display: 'block',
+                            textAlign: 'center',
+                            backgroundColor: pkg.featured ? 'var(--secondary-color)' : 'var(--primary-color)',
+                            color: pkg.featured ? 'var(--text-color)' : 'var(--neutral-color)',
+                            padding: '12px',
+                            borderRadius: '25px',
+                            textDecoration: 'none',
+                            fontSize: '1.1rem',
+                            fontWeight: '500',
+                            transition: 'all 0.3s ease'
+                          }}>
+                            Book This Tour
+                          </Link>
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -284,43 +346,54 @@ function ToursPage() {
             </motion.h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: '40px',
-              textAlign: 'left'
+              textAlign: 'center',
+              padding: '0 10px'
             }}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <h3 style={{ fontSize: '1.8rem', marginBottom: '15px' }}>Professional Coaching</h3>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6 }}>
-                  Receive personalized instruction from tournament champion Laurie Meiring. Focus on technique, strategy, and game improvement in beautiful Costa Rican settings.
-                </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <h3 style={{ fontSize: '1.8rem', marginBottom: '15px' }}>Local Tournaments</h3>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6 }}>
-                  Test your skills in friendly competitive play with local pickleball clubs. Experience the vibrant Costa Rican pickleball community and make lasting connections.
-                </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <h3 style={{ fontSize: '1.8rem', marginBottom: '15px' }}>Paradise Experience</h3>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6 }}>
-                  Enjoy premium accommodations, local cuisine, and guided adventures between pickleball sessions. Explore beaches, rainforests, and wildlife in this tropical paradise.
-                </p>
-              </motion.div>
+              {includedFeatures.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  style={{
+                    padding: '0 10px'
+                  }}
+                >
+                  <div style={{ 
+                    width: '150px', 
+                    height: '150px', 
+                    borderRadius: '50%', 
+                    overflow: 'hidden',
+                    margin: '0 auto 20px',
+                    border: '4px solid var(--secondary-color)',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
+                  }}>
+                    <img 
+                      src={feature.image} 
+                      alt={feature.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                  <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: 'var(--neutral-color)' }}>
+                    {feature.title}
+                  </h3>
+                  <p style={{ 
+                    fontSize: '1.1rem', 
+                    lineHeight: 1.6,
+                    maxWidth: '100%',
+                    wordWrap: 'break-word'
+                  }}>
+                    {feature.description}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
@@ -375,17 +448,18 @@ function ToursPage() {
                     {location.description}
                   </p>
                 </div>
-                <div style={{ 
-                  order: index % 2 === 0 ? 2 : 1,
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                }}
-                whileHover={{
-                  transform: 'scale(1.02)',
-                  boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
-                }}
+                <motion.div 
+                  style={{ 
+                    order: index % 2 === 0 ? 2 : 1,
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                  }}
+                  whileHover={{
+                    transform: 'scale(1.03)',
+                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
+                  }}
                 >
                   <img
                     src={location.image}
@@ -397,7 +471,7 @@ function ToursPage() {
                       display: 'block'
                     }}
                   />
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
