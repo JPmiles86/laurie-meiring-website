@@ -139,7 +139,7 @@ function Navbar() {
               fontWeight: '500',
               transition: 'color 0.3s ease'
             }}>
-              TRAINING
+              PICKLEBALL TRAINING
             </Link>
           </li>
           <li>

@@ -216,7 +216,7 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
               style={{ textAlign: 'center', marginBottom: '40px' }}
             >
-              Training Packages
+              Pickleball Training Packages
             </motion.h2>
             
             <div style={{ 
@@ -357,7 +357,7 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
               style={{ textAlign: 'center', marginBottom: '40px' }}
             >
-              Training Approach
+              Pickleball Training Approach
             </motion.h2>
             <div style={{
               display: 'grid',
@@ -451,7 +451,7 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
               style={{ textAlign: 'center', marginBottom: '40px' }}
             >
-              See My Coaching in Action
+              See Pickleball Training in Action
             </motion.h2>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -500,7 +500,7 @@ function TrainingPage() {
                 marginBottom: '20px',
                 color: 'var(--text-color)'
               }}>
-                Ready to Elevate Your Game?
+                Ready to Elevate Your Pickleball Game?
               </h2>
               <p style={{ 
                 fontSize: '1.2rem', 

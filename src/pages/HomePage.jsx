@@ -177,7 +177,7 @@ function HomePage() {
                     textDecoration: 'none',
                     fontSize: '1.1rem',
                     transition: 'all 0.3s ease'
-                  }}>View Training Programs</Link>
+                  }}>View Pickleball Training</Link>
                 </motion.div>
 
                 <motion.div 
