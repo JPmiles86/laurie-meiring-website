@@ -121,7 +121,18 @@ function Navbar() {
           alignItems: 'center'
         }}>
           <li>
-            <Link to="/pickleball" style={{
+            <Link to="/" style={{
+              textDecoration: 'none',
+              color: 'var(--text-color)',
+              fontSize: '1.1rem',
+              fontWeight: '500',
+              transition: 'color 0.3s ease'
+            }}>
+              HOME
+            </Link>
+          </li>
+          <li>
+            <Link to="/training" style={{
               textDecoration: 'none',
               color: 'var(--text-color)',
               fontSize: '1.1rem',

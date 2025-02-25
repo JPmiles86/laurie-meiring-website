@@ -168,7 +168,7 @@ function HomePage() {
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                     Learn from a Tournament Champion in Jaco Beach or in the Jungle of Ojochal. Whether you are a beginner or a competitive player, elevate your game with personalized coaching and strategy development. Coaching available for individuals or in teams of 2 or more.
                   </p>
-                  <Link to="/pickleball" className="button" style={{
+                  <Link to="/training" className="button" style={{
                     display: 'inline-block',
                     padding: '12px 24px',
                     backgroundColor: 'var(--primary-color)',
@@ -475,7 +475,7 @@ function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <Link to="/about" className="button" style={{
+                <Link to="/training" className="button" style={{
                   backgroundColor: 'var(--secondary-color)',
                   color: 'var(--text-color)',
                   display: 'inline-block',
@@ -484,7 +484,7 @@ function HomePage() {
                   borderRadius: '30px',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease'
-                }}>Learn More About Laurie</Link>
+                }}>Training Options</Link>
               </motion.div>
             </div>
           </div>

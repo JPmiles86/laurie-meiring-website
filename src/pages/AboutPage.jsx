@@ -7,17 +7,33 @@ import PageTransition from '../components/PageTransition';
 import { Link } from 'react-router-dom';
 
 function AboutPage() {
+  const achievements = [
+    "PCI-Certified Pickleball Coach",
+    "4.2 DUPR Rated Player",
+    "Tournament Champion",
+    "Specialized in Strategy Development",
+    "Experienced with All Skill Levels"
+  ];
+
+  const coachingPhilosophy = [
+    "Focus on fundamentals and proper technique",
+    "Personalized approach for each player's style",
+    "Emphasis on strategic gameplay and court awareness",
+    "Balance of technical drills and competitive play",
+    "Creating a fun, supportive learning environment"
+  ];
+
   return (
     <PageTransition>
       <div className="about-page">
-        <section className="page-hero" style={{ 
-          padding: '40px 0', 
-          textAlign: 'center',
-          backgroundColor: 'var(--neutral-color)',
-          position: 'relative',
-          marginTop: '-80px',
-          paddingTop: '120px'
-        }}>
+        <VideoBackground
+          videoId="S1zJYUjbXg8"
+          startTime={0}
+          endTime={30}
+          height="95vh"
+          overlayColor="rgba(0, 0, 0, 0.5)"
+          type="hero"
+        >
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -33,7 +49,7 @@ function AboutPage() {
             }}>
               <OptimizedImage
                 src={IMAGES.PROFILE.AI_GENERATED}
-                alt="Laurie Meiring AI Profile"
+                alt="Laurie Meiring"
                 className="profile-image"
                 width={150}
                 height={150}
@@ -50,12 +66,13 @@ function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ 
-              color: 'var(--primary-color)',
+              color: 'var(--neutral-color)',
               fontSize: '3.5rem',
-              marginBottom: '20px'
+              marginBottom: '20px',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
             }}
           >
-            About Laurie Meiring
+            Meet Your Pickleball Coach
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -66,14 +83,15 @@ function AboutPage() {
               maxWidth: '800px', 
               margin: '0 auto',
               fontSize: '1.2rem',
-              color: 'var(--text-color)',
+              color: 'var(--neutral-color)',
               opacity: 0.9,
-              lineHeight: 1.6
+              lineHeight: 1.6,
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
             }}
           >
-            Digital Strategist | Content Creator | Designer | Creative | Digital Nerd | Making AI Work | MBA | Former Hotel & Restaurant Lifer | AI Specialist
+            Tournament Champion | PCI-Certified Coach | Pickleball Strategist | Costa Rica Expert
           </motion.p>
-        </section>
+        </VideoBackground>
 
         <section className="about-content" style={{ 
           padding: '60px 20px', 
@@ -98,21 +116,29 @@ function AboutPage() {
                 fontSize: '2.8rem', 
                 marginBottom: '30px',
                 color: 'var(--primary-color)'
-              }}>My Journey</h2>
+              }}>Pickleball Journey</h2>
               <p style={{ 
                 fontSize: '1.2rem', 
                 marginBottom: '25px',
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
-                Based in the vibrant coastal town of Jaco, Costa Rica, I bring a unique blend of expertise in digital strategy, culinary arts, and sports coaching. My journey has taken me from the hospitality industry to becoming a multi-faceted entrepreneur.
+                Based in the vibrant coastal town of Jaco, Costa Rica, I've dedicated myself to the sport of pickleball, competing in tournaments and helping players of all levels improve their game. My passion for pickleball has taken me from recreational play to competitive tournaments and professional coaching.
+              </p>
+              <p style={{ 
+                fontSize: '1.2rem',
+                lineHeight: 1.6,
+                color: 'var(--text-color)',
+                marginBottom: '25px'
+              }}>
+                As a PCI-certified coach with a 4.2 DUPR rating, I bring technical expertise and strategic insight to every coaching session. Whether you're a beginner looking to learn the basics or an advanced player aiming to refine your strategy, my personalized approach will help you reach your goals.
               </p>
               <p style={{ 
                 fontSize: '1.2rem',
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
-                With an MBA and a deep understanding of AI technology, I help businesses navigate the digital landscape while pursuing my passions for pickleball coaching and culinary excellence.
+                My background in hospitality and business gives me a unique perspective on creating exceptional pickleball experiences, from private lessons to guided tours throughout Costa Rica's most beautiful pickleball destinations.
               </p>
             </motion.div>
             <motion.div 
@@ -128,21 +154,27 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src={IMAGES.PROFILE.NATURAL}
-                alt="Laurie Meiring"
-                className="casual-profile"
+                src={IMAGES.PICKLEBALL.MEDAL_1}
+                alt="Laurie with Pickleball Medals"
+                className="medal-image"
                 width={400}
                 height={400}
                 style={{
                   borderRadius: '12px',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
-                  transform: 'rotate(2deg)'
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
                 }}
               />
             </motion.div>
           </div>
 
-          <div className="services-overview" style={{ marginBottom: '80px' }}>
+          <div style={{ 
+            backgroundColor: 'var(--primary-color)',
+            color: 'var(--neutral-color)',
+            padding: '60px 40px',
+            borderRadius: '12px',
+            marginBottom: '80px',
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+          }}>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -150,88 +182,238 @@ function AboutPage() {
               transition={{ duration: 0.6 }}
               style={{ 
                 textAlign: 'center', 
-                marginBottom: '50px',
+                marginBottom: '40px',
                 fontSize: '2.8rem',
-                color: 'var(--primary-color)'
+                color: 'var(--neutral-color)'
               }}
             >
-              What I Do
+              Pickleball Achievements
             </motion.h2>
-            <div className="services-grid" style={{ 
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '30px',
-              justifyContent: 'center'
+            <div style={{ 
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '30px'
             }}>
-              {[
-                {
-                  title: 'Pickleball Coaching',
-                  description: 'Tournament champion offering personalized training to help players of all levels improve their game and strategy.'
-                },
-                {
-                  title: 'Private Chef',
-                  description: 'Creating exceptional dining experiences with a focus on fresh, local ingredients and global culinary techniques.'
-                },
-                {
-                  title: 'AI Marketing',
-                  description: 'Leveraging cutting-edge AI tools and creative solutions to help businesses thrive in the digital landscape.'
-                },
-                {
-                  title: 'Business Consulting',
-                  description: 'Providing strategic guidance and MBA-level expertise to help businesses optimize their operations and growth.'
-                }
-              ].map((service, index) => (
+              {achievements.map((achievement, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  whileHover={{ 
-                    scale: 1.03,
-                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                  }}
                   style={{
-                    width: '280px',
-                    padding: '30px',
-                    borderRadius: '12px',
-                    backgroundColor: '#fff',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease'
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    padding: '25px',
+                    borderRadius: '8px',
+                    textAlign: 'center'
                   }}
                 >
-                  <h3 style={{ 
-                    fontSize: '1.8rem', 
-                    marginBottom: '15px',
-                    color: 'var(--primary-color)'
+                  <div style={{ 
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    marginBottom: '5px'
                   }}>
-                    {service.title}
-                  </h3>
-                  <p style={{ 
-                    fontSize: '1.1rem',
-                    lineHeight: 1.6,
-                    color: 'var(--text-color)'
-                  }}>
-                    {service.description}
-                  </p>
+                    {achievement}
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
+
+          <div style={{ 
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '40px',
+            marginBottom: '80px',
+            alignItems: 'center'
+          }}>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <OptimizedImage
+                src={IMAGES.PICKLEBALL.COURTS}
+                alt="Pickleball Courts in Costa Rica"
+                width={500}
+                height={350}
+                style={{
+                  borderRadius: '12px',
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+                }}
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 style={{ 
+                fontSize: '2.8rem', 
+                marginBottom: '30px',
+                color: 'var(--primary-color)'
+              }}>Coaching Philosophy</h2>
+              <ul style={{ 
+                listStyle: 'none',
+                padding: 0,
+                margin: 0
+              }}>
+                {coachingPhilosophy.map((item, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    style={{
+                      fontSize: '1.2rem',
+                      marginBottom: '15px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '15px'
+                    }}
+                  >
+                    <span style={{ 
+                      color: 'var(--secondary-color)',
+                      fontSize: '1.5rem',
+                      fontWeight: 'bold'
+                    }}>•</span>
+                    {item}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          <div style={{ 
+            backgroundColor: 'var(--neutral-color)',
+            padding: '60px 40px',
+            borderRadius: '12px',
+            marginBottom: '80px',
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)',
+            border: '2px dashed var(--secondary-color)'
+          }}>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '40px',
+                fontSize: '2.8rem',
+                color: 'var(--primary-color)'
+              }}
+            >
+              Costa Rica Pickleball Experience
+            </motion.h2>
+            <div style={{ 
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '30px'
+            }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                style={{
+                  textAlign: 'center'
+                }}
+              >
+                <OptimizedImage
+                  src={IMAGES.LOCATIONS.JACO}
+                  alt="Jaco Beach"
+                  width={300}
+                  height={200}
+                  style={{
+                    borderRadius: '12px',
+                    marginBottom: '15px',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+                <h3 style={{ 
+                  fontSize: '1.8rem',
+                  color: 'var(--primary-color)',
+                  marginBottom: '10px'
+                }}>Beach Courts</h3>
+                <p style={{ fontSize: '1.1rem' }}>
+                  Play with ocean breezes and stunning views at our beachside courts.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                style={{
+                  textAlign: 'center'
+                }}
+              >
+                <OptimizedImage
+                  src={IMAGES.LOCATIONS.TOUCAN_PORTRAIT}
+                  alt="Jungle Courts"
+                  width={300}
+                  height={200}
+                  style={{
+                    borderRadius: '12px',
+                    marginBottom: '15px',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+                <h3 style={{ 
+                  fontSize: '1.8rem',
+                  color: 'var(--primary-color)',
+                  marginBottom: '10px'
+                }}>Jungle Experience</h3>
+                <p style={{ fontSize: '1.1rem' }}>
+                  Immerse yourself in nature while improving your pickleball skills.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{
+                  textAlign: 'center'
+                }}
+              >
+                <OptimizedImage
+                  src={IMAGES.LOCATIONS.WATERFALL}
+                  alt="Adventure Tours"
+                  width={300}
+                  height={200}
+                  style={{
+                    borderRadius: '12px',
+                    marginBottom: '15px',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+                <h3 style={{ 
+                  fontSize: '1.8rem',
+                  color: 'var(--primary-color)',
+                  marginBottom: '10px'
+                }}>Adventure Tours</h3>
+                <p style={{ fontSize: '1.1rem' }}>
+                  Combine pickleball training with Costa Rica's natural wonders.
+                </p>
+              </motion.div>
+            </div>
+          </div>
         </section>
 
-        <VideoBackground
-          videoId="4sRR5OmPQ-0"
-          startTime={0}
-          endTime={0}
-          height="100vh"
-          overlayColor="rgba(0, 0, 0, 0.4)"
-          type="hero"
-          style={{ 
-            marginBottom: '-80px',
-            borderBottom: 'none'
-          }}
-        >
+        <section style={{
+          padding: '80px 20px',
+          backgroundColor: 'var(--secondary-color)',
+          color: 'var(--text-color)',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)',
+          marginBottom: '-80px'
+        }}>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,34 +427,48 @@ function AboutPage() {
             }}
           >
             <h2 style={{ 
-              fontSize: '3.5rem',
+              fontSize: '3rem',
               marginBottom: '20px',
-              color: 'var(--neutral-color)',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
+              color: 'var(--text-color)'
             }}>
-              Life in Jaco
+              Ready to Elevate Your Game?
             </h2>
             <p style={{ 
               fontSize: '1.3rem',
               lineHeight: 1.6,
-              color: 'var(--neutral-color)',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)',
+              color: 'var(--text-color)',
               marginBottom: '30px'
             }}>
-              Join me in this paradise where digital innovation meets outdoor adventure and culinary excellence.
+              Whether you're looking for personalized coaching or an unforgettable pickleball tour in Costa Rica, I'm here to help you achieve your goals.
             </p>
-            <Link to="/contact" className="button" style={{
-              backgroundColor: 'var(--secondary-color)',
-              color: 'var(--text-color)',
-              display: 'inline-block',
-              padding: '12px 30px',
-              fontSize: '1.1rem',
-              textShadow: 'none'
-            }}>
-              Contact Me
-            </Link>
+            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+              <Link to="/training" className="button" style={{
+                backgroundColor: 'var(--primary-color)',
+                color: 'var(--neutral-color)',
+                display: 'inline-block',
+                padding: '15px 30px',
+                fontSize: '1.1rem',
+                borderRadius: '30px',
+                textDecoration: 'none',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+              }}>
+                Training Options
+              </Link>
+              <Link to="/tours" className="button" style={{
+                backgroundColor: 'var(--neutral-color)',
+                color: 'var(--primary-color)',
+                display: 'inline-block',
+                padding: '15px 30px',
+                fontSize: '1.1rem',
+                borderRadius: '30px',
+                textDecoration: 'none',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+              }}>
+                Explore Tours
+              </Link>
+            </div>
           </motion.div>
-        </VideoBackground>
+        </section>
       </div>
     </PageTransition>
   );
