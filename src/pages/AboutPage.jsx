@@ -169,52 +169,75 @@ function AboutPage() {
             backgroundColor: 'var(--primary-color)',
             color: 'var(--neutral-color)',
             padding: '60px 40px',
-            borderRadius: '12px',
+            borderRadius: '0',
             marginBottom: '80px',
-            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+            width: '100vw',
+            marginLeft: 'calc(-50vw + 50%)',
+            marginRight: 'calc(-50vw + 50%)'
           }}>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              style={{ 
-                textAlign: 'center', 
-                marginBottom: '40px',
-                fontSize: '2.8rem',
-                color: 'var(--neutral-color)'
-              }}
-            >
-              Pickleball Achievements
-            </motion.h2>
-            <div style={{ 
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '30px'
-            }}>
-              {achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    padding: '25px',
-                    borderRadius: '8px',
-                    textAlign: 'center'
-                  }}
-                >
-                  <div style={{ 
-                    fontSize: '1.2rem',
-                    fontWeight: 'bold',
-                    marginBottom: '5px'
-                  }}>
-                    {achievement}
-                  </div>
-                </motion.div>
-              ))}
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                style={{ 
+                  textAlign: 'center', 
+                  marginBottom: '40px',
+                  fontSize: '2.8rem',
+                  color: 'var(--neutral-color)'
+                }}
+              >
+                Pickleball Achievements
+              </motion.h2>
+              <div style={{ 
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '30px'
+              }}>
+                {achievements.map((achievement, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    style={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      padding: '25px',
+                      borderRadius: '8px',
+                      textAlign: 'center',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: '120px',
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
+                    <div style={{ 
+                      fontSize: '1.3rem',
+                      fontWeight: 'bold',
+                      marginBottom: '5px',
+                      position: 'relative',
+                      paddingBottom: '10px'
+                    }}>
+                      {achievement}
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '0',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '40px',
+                        height: '2px',
+                        backgroundColor: 'var(--secondary-color)'
+                      }}></div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -304,8 +327,9 @@ function AboutPage() {
             </motion.h2>
             <div style={{ 
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '30px'
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: '30px',
+              justifyContent: 'center'
             }}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -316,17 +340,20 @@ function AboutPage() {
                   textAlign: 'center'
                 }}
               >
-                <OptimizedImage
-                  src={IMAGES.LOCATIONS.JACO}
-                  alt="Jaco Beach"
-                  width={300}
-                  height={200}
-                  style={{
-                    borderRadius: '12px',
-                    marginBottom: '15px',
-                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
-                  }}
-                />
+                <div style={{ height: '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
+                  <OptimizedImage
+                    src={IMAGES.LOCATIONS.JACO}
+                    alt="Jaco Beach"
+                    width={300}
+                    height={200}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                    }}
+                  />
+                </div>
                 <h3 style={{ 
                   fontSize: '1.8rem',
                   color: 'var(--primary-color)',
@@ -345,17 +372,20 @@ function AboutPage() {
                   textAlign: 'center'
                 }}
               >
-                <OptimizedImage
-                  src={IMAGES.LOCATIONS.TOUCAN_TALL}
-                  alt="Jungle Courts"
-                  width={300}
-                  height={200}
-                  style={{
-                    borderRadius: '12px',
-                    marginBottom: '15px',
-                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
-                  }}
-                />
+                <div style={{ height: '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
+                  <OptimizedImage
+                    src={IMAGES.LOCATIONS.TOUCAN_TALL}
+                    alt="Jungle Courts"
+                    width={300}
+                    height={200}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                    }}
+                  />
+                </div>
                 <h3 style={{ 
                   fontSize: '1.8rem',
                   color: 'var(--primary-color)',
@@ -374,17 +404,20 @@ function AboutPage() {
                   textAlign: 'center'
                 }}
               >
-                <OptimizedImage
-                  src={IMAGES.LOCATIONS.WATERFALL}
-                  alt="Adventure Tours"
-                  width={300}
-                  height={200}
-                  style={{
-                    borderRadius: '12px',
-                    marginBottom: '15px',
-                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
-                  }}
-                />
+                <div style={{ height: '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
+                  <OptimizedImage
+                    src={IMAGES.LOCATIONS.WATERFALL}
+                    alt="Adventure Tours"
+                    width={300}
+                    height={200}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                    }}
+                  />
+                </div>
                 <h3 style={{ 
                   fontSize: '1.8rem',
                   color: 'var(--primary-color)',
