@@ -7,11 +7,30 @@ import { Link } from 'react-router-dom';
 
 function AboutPage() {
   const achievements = [
-    "PCI-Certified Pickleball Coach",
-    "4.2 DUPR Rated Player",
-    "Tournament Champion",
-    "Specialized in Strategy Development",
-    "Experienced with All Skill Levels"
+    {
+      title: "PCI-Certified Pickleball Coach",
+      icon: <i className="fas fa-certificate"></i>
+    },
+    {
+      title: "4.2 DUPR Rated Player",
+      icon: <i className="fas fa-chart-line"></i>
+    },
+    {
+      title: "Tournament Champion",
+      icon: <i className="fas fa-medal"></i>
+    },
+    {
+      title: "Strategy Development Specialist",
+      icon: <i className="fas fa-chess"></i>
+    },
+    {
+      title: "All-Level Skills Instructor",
+      icon: <i className="fas fa-users"></i>
+    },
+    {
+      title: "Certified Technique Expert",
+      icon: <i className="fas fa-table-tennis"></i>
+    }
   ];
 
   const coachingPhilosophy = [
@@ -183,63 +202,31 @@ function AboutPage() {
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <motion.h2 
+                className="section-title"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 style={{ 
-                  textAlign: 'center', 
-                  marginBottom: '40px',
-                  fontSize: '2.8rem',
-                  color: 'var(--neutral-color)'
+                  color: 'var(--neutral-color)',
+                  textAlign: 'center',
+                  marginBottom: '40px'
                 }}
               >
                 Pickleball Achievements
               </motion.h2>
-              <div style={{ 
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '30px'
-              }}>
+              <div className="achievements-grid">
                 {achievements.map((achievement, index) => (
-                  <motion.div
-                    key={index}
+                  <motion.div 
+                    key={index} 
+                    className="achievement-card"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    style={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                      padding: '25px',
-                      borderRadius: '8px',
-                      textAlign: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minHeight: '120px',
-                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-                      border: '1px solid rgba(255, 255, 255, 0.2)'
-                    }}
                   >
-                    <div style={{ 
-                      fontSize: '1.3rem',
-                      fontWeight: 'bold',
-                      marginBottom: '5px',
-                      position: 'relative',
-                      paddingBottom: '10px'
-                    }}>
-                      {achievement}
-                      <div style={{
-                        position: 'absolute',
-                        bottom: '0',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '40px',
-                        height: '2px',
-                        backgroundColor: 'var(--secondary-color)'
-                      }}></div>
-                    </div>
+                    <div className="achievement-content">{achievement.title}</div>
+                    <div className="achievement-icon">{achievement.icon}</div>
                   </motion.div>
                 ))}
               </div>
