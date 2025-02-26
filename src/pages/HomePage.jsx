@@ -30,7 +30,7 @@ function HomePage() {
     <PageTransition>
       <div className="home-page">
         <VideoBackground
-          videoId="CZXon6FoRY0"
+          videoId="wbtnFI4NLPY"
           startTime={0}
           endTime={0}
           height="100vh"
