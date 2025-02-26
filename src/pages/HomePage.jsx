@@ -145,71 +145,153 @@ function HomePage() {
               >
                 Pickleball Services in Paradise
               </motion.h2>
-              <div style={{ 
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '30px'
-              }}>
-                <motion.div 
-                  whileHover={{ 
-                    scale: 1.03,
-                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                  }}
-                  className="service-card" 
-                  style={{ 
-                    padding: '40px',
-                    borderRadius: '12px',
-                    backgroundColor: '#fff',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
+              
+              {/* Add responsive styles */}
+              <style>
+                {`
+                  @media (max-width: 768px) {
+                    .service-card {
+                      grid-template-columns: 1fr !important;
+                    }
+                    .service-card .card-content {
+                      order: 2 !important;
+                    }
+                    .service-card .card-image {
+                      order: 1 !important;
+                      height: 300px !important;
+                    }
+                  }
+                  
+                  .service-card:hover .card-image img {
+                    transform: scale(1.05);
+                  }
+                `}
+              </style>
+              
+              {/* First Service Card - Training */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                whileHover={{ 
+                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
+                }}
+                className="service-card" 
+                style={{ 
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  borderRadius: '12px',
+                  backgroundColor: '#fff',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  transition: 'all 0.3s ease',
+                  overflow: 'hidden',
+                  marginBottom: '30px'
+                }}
+              >
+                <div className="card-image" style={{ 
+                  overflow: 'hidden',
+                  height: '100%'
+                }}>
+                  <img 
+                    src="/laurie medals 1.jpg" 
+                    alt="Pickleball Training"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                      transition: 'transform 0.5s ease'
+                    }}
+                  />
+                </div>
+                <div className="card-content" style={{ 
+                  padding: '40px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center'
+                }}>
                   <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Championship Pickleball Training</h3>
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                     Learn from a Tournament Champion in Jaco Beach or in the Jungle of Ojochal. Whether you are a beginner or a competitive player, elevate your game with personalized coaching and strategy development. Coaching available for individuals or in teams of 2 or more.
                   </p>
-                  <Link to="/training" className="button" style={{
-                    display: 'inline-block',
-                    padding: '12px 24px',
-                    backgroundColor: 'var(--primary-color)',
-                    color: 'white',
-                    borderRadius: '25px',
-                    textDecoration: 'none',
-                    fontSize: '1.1rem',
-                    transition: 'all 0.3s ease'
-                  }}>View Pickleball Training</Link>
-                </motion.div>
+                  <div style={{ textAlign: 'center' }}>
+                    <Link to="/training" className="button" style={{
+                      display: 'inline-block',
+                      padding: '12px 24px',
+                      backgroundColor: 'var(--primary-color)',
+                      color: 'white',
+                      borderRadius: '25px',
+                      textDecoration: 'none',
+                      fontSize: '1.1rem',
+                      transition: 'all 0.3s ease'
+                    }}>View Pickleball Training</Link>
+                  </div>
+                </div>
+              </motion.div>
 
-                <motion.div 
-                  whileHover={{ 
-                    scale: 1.03,
-                    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
-                  }}
-                  className="service-card" 
-                  style={{ 
-                    padding: '40px',
-                    borderRadius: '12px',
-                    backgroundColor: '#fff',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
+              {/* Second Service Card - Tours */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                whileHover={{ 
+                  boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)'
+                }}
+                className="service-card" 
+                style={{ 
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  borderRadius: '12px',
+                  backgroundColor: '#fff',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  transition: 'all 0.3s ease',
+                  overflow: 'hidden'
+                }}
+              >
+                <div className="card-content" style={{ 
+                  padding: '40px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  order: 1
+                }}>
                   <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Pickleball Tours to Costa Rica</h3>
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
                     Enjoy a guided Pickleball Experience in Costa Rica with Coaching and Fine-tuning sessions as well as Competitive Sessions and Tournaments at Pickleball Clubs in Beach, Jungle and City Destinations.
                   </p>
-                  <Link to="/tours" className="button" style={{
-                    display: 'inline-block',
-                    padding: '12px 24px',
-                    backgroundColor: 'var(--primary-color)',
-                    color: 'white',
-                    borderRadius: '25px',
-                    textDecoration: 'none',
-                    fontSize: '1.1rem',
-                    transition: 'all 0.3s ease'
-                  }}>Explore Tour Options</Link>
-                </motion.div>
-              </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <Link to="/tours" className="button" style={{
+                      display: 'inline-block',
+                      padding: '12px 24px',
+                      backgroundColor: 'var(--primary-color)',
+                      color: 'white',
+                      borderRadius: '25px',
+                      textDecoration: 'none',
+                      fontSize: '1.1rem',
+                      transition: 'all 0.3s ease'
+                    }}>Explore Tour Options</Link>
+                  </div>
+                </div>
+                <div className="card-image" style={{ 
+                  overflow: 'hidden',
+                  height: '100%',
+                  order: 2
+                }}>
+                  <img 
+                    src="/beach surf 3x2.jpg" 
+                    alt="Pickleball Tours"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                      transition: 'transform 0.5s ease'
+                    }}
+                  />
+                </div>
+              </motion.div>
             </div>
           </motion.section>
 
