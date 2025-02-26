@@ -56,28 +56,41 @@ function Navbar() {
         }}>
           <div style={{ width: '75px', height: '75px', flexShrink: 0 }}>
             <OptimizedImage
-              src={IMAGES.PROFILE.AI_GENERATED}
-              alt="Laurie Meiring"
+              src={IMAGES.LOGO.ROUND}
+              alt="Your Pickleball Guide Costa Rica"
               width={75}
               height={75}
               loading="eager"
               style={{
                 borderRadius: '50%',
-                objectFit: 'cover',
+                objectFit: 'contain',
                 objectPosition: 'center',
-                border: '2px solid var(--secondary-color)'
+                border: '2px solid var(--secondary-color)',
+                backgroundColor: 'transparent'
               }}
             />
           </div>
-          <span style={{ 
-            fontFamily: 'Bebas Neue, sans-serif',
-            fontSize: '1.5rem', 
-            color: 'var(--text-color)',
-            whiteSpace: 'nowrap',
-            letterSpacing: '0.5px'
+          <div style={{ 
+            height: '50px',
+            width: '180px',
+            display: 'flex',
+            alignItems: 'center',
+            overflow: 'hidden'
           }}>
-            LAURIE MEIRING
-          </span>
+            <OptimizedImage
+              src={IMAGES.LOGO.TEXT}
+              alt="Your Pickleball Guide Costa Rica"
+              width={180}
+              height={50}
+              loading="eager"
+              style={{
+                objectFit: 'contain',
+                maxWidth: '180px',
+                maxHeight: '50px',
+                backgroundColor: 'transparent'
+              }}
+            />
+          </div>
         </Link>
 
         {/* Mobile Menu Button */}

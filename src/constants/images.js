@@ -1,4 +1,8 @@
 export const IMAGES = {
+  LOGO: {
+    ROUND: '/YPGCR-logo.png',
+    TEXT: '/YPGCR-logo-text.png'
+  },
   PROFILE: {
     AI_GENERATED: '/Laurie-Coaching-Hero-2-2.jpg',
     NATURAL: '/chef laurie 1x1.jpg'

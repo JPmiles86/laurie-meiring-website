@@ -185,7 +185,7 @@ WhatsApp: +506 6200 2747`
                     borderRadius: '50%', 
                     overflow: 'hidden',
                     margin: '0 auto 20px',
-                    border: '4px solid var(--secondary-color)',
+                    border: '4px solid var(--primary-color)',
                     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
                   }}>
                     <img 
@@ -236,7 +236,7 @@ WhatsApp: +506 6200 2747`
                 }}
               >
                 <div style={{ 
-                  backgroundColor: 'var(--primary-color)', 
+                  backgroundColor: 'var(--secondary-color)', 
                   padding: '40px', 
                   color: 'white',
                   textAlign: 'center', marginTop: '-60px'
@@ -246,9 +246,9 @@ WhatsApp: +506 6200 2747`
                 
                 <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <div style={{ marginBottom: '30px' }}>
-                    <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Direct Contact</h3>
+                    <h3 style={{ color: 'var(--secondary-color)', marginBottom: '15px' }}>Direct Contact</h3>
                     <p style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✉</span>
+                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✉</span>
                       <strong>Email:</strong>{' '}
                       <a 
                         href="mailto:Laurie.meiring@gmail.com"
@@ -261,7 +261,7 @@ WhatsApp: +506 6200 2747`
                       </a>
                     </p>
                     <p style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>📱</span>
+                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📱</span>
                       <strong>WhatsApp:</strong>{' '}
                       <a 
                         href="https://wa.me/50662002747"
@@ -278,9 +278,9 @@ WhatsApp: +506 6200 2747`
                   </div>
 
                   <div style={{ marginBottom: '30px' }}>
-                    <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Location</h3>
+                    <h3 style={{ color: 'var(--secondary-color)', marginBottom: '15px' }}>Location</h3>
                     <p style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>📍</span>
+                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📍</span>
                       <span>Jaco, Costa Rica</span>
                     </p>
                     <div style={{ marginTop: '20px', borderRadius: '12px', overflow: 'hidden', height: '200px' }}>
@@ -297,18 +297,18 @@ WhatsApp: +506 6200 2747`
                   </div>
 
                   <div>
-                    <h3 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>Available Services</h3>
+                    <h3 style={{ color: 'var(--secondary-color)', marginBottom: '15px' }}>Available Services</h3>
                     <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
                       <li style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
+                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                         <strong>Pickleball Training:</strong> Individual & group sessions
                       </li>
                       <li style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
+                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                         <strong>Pickleball Tours:</strong> Guided adventures in Costa Rica
                       </li>
                       <li style={{ marginBottom: '0', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
+                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                         <strong>Custom Experiences:</strong> Tailored to your needs
                       </li>
                     </ul>
@@ -332,7 +332,7 @@ WhatsApp: +506 6200 2747`
                 }}
               >
                 <div style={{ 
-                  backgroundColor: 'var(--primary-color)', 
+                  backgroundColor: 'var(--secondary-color)', 
                   padding: '35px', 
                   color: 'white',
                   textAlign: 'center'
@@ -394,7 +394,7 @@ WhatsApp: +506 6200 2747`
                             width: '100%',
                             padding: '12px',
                             borderRadius: '8px',
-                            border: '2px solid var(--secondary-color)',
+                            border: '2px solid var(--primary-color)',
                             fontSize: '1rem',
                             backgroundColor: 'white'
                           }}
@@ -428,7 +428,7 @@ WhatsApp: +506 6200 2747`
                             width: '100%',
                             padding: '12px',
                             borderRadius: '8px',
-                            border: '2px solid var(--secondary-color)',
+                            border: '2px solid var(--primary-color)',
                             fontSize: '1rem'
                           }} 
                           required
@@ -455,7 +455,7 @@ WhatsApp: +506 6200 2747`
                             width: '100%',
                             padding: '12px',
                             borderRadius: '8px',
-                            border: '2px solid var(--secondary-color)',
+                            border: '2px solid var(--primary-color)',
                             fontSize: '1rem'
                           }} 
                           required
@@ -482,7 +482,7 @@ WhatsApp: +506 6200 2747`
                             width: '100%',
                             padding: '12px',
                             borderRadius: '8px',
-                            border: '2px solid var(--secondary-color)',
+                            border: '2px solid var(--primary-color)',
                             fontSize: '1rem',
                             resize: 'vertical',
                             minHeight: '120px'

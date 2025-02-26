@@ -54,7 +54,7 @@ function HomePage() {
                 color: 'var(--neutral-color)'
               }}
             >
-              Your Pickleball Guide to Costa Rica
+              Your Pickleball Guide Costa Rica
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
@@ -546,7 +546,7 @@ function HomePage() {
                   color: 'var(--neutral-color)'
                 }}
               >
-                Meet Your Coach
+                Meet Your Guide
               </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}

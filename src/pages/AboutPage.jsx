@@ -46,7 +46,7 @@ function AboutPage() {
       <div className="about-page">
         <section className="about-header" style={{ 
           padding: '80px 20px 40px', 
-          backgroundColor: 'var(--primary-color)',
+          backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           textAlign: 'center',
           marginBottom: '60px',
@@ -78,7 +78,7 @@ function AboutPage() {
                     borderRadius: '50%',
                     objectFit: 'cover',
                     objectPosition: 'center',
-                    border: '4px solid var(--secondary-color)',
+                    border: '4px solid var(--primary-color)',
                     zIndex: 1000
                   }}
                 />
@@ -94,7 +94,7 @@ function AboutPage() {
                 marginBottom: '20px'
               }}
             >
-              Meet Your Pickleball Coach
+              Meet Your Pickleball Guide
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -138,7 +138,7 @@ function AboutPage() {
                 fontSize: '2.8rem', 
                 marginBottom: '30px',
                 color: 'var(--primary-color)'
-              }}>Pickleball Journey</h2>
+              }}>My Pickleball Journey</h2>
               <p style={{ 
                 fontSize: '1.2rem', 
                 marginBottom: '25px',
@@ -190,7 +190,7 @@ function AboutPage() {
           </div>
 
           <div style={{ 
-            backgroundColor: 'var(--primary-color)',
+            backgroundColor: 'var(--secondary-color)',
             color: 'var(--neutral-color)',
             padding: '60px 40px',
             borderRadius: '0',
@@ -426,7 +426,7 @@ function AboutPage() {
         <section style={{
           padding: '80px 20px',
           backgroundColor: 'var(--secondary-color)',
-          color: 'var(--text-color)',
+          color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
@@ -447,14 +447,14 @@ function AboutPage() {
             <h2 style={{ 
               fontSize: '3rem',
               marginBottom: '20px',
-              color: 'var(--text-color)'
+              color: 'var(--neutral-color)'
             }}>
               Ready to Elevate Your Game?
             </h2>
             <p style={{ 
               fontSize: '1.3rem',
               lineHeight: 1.6,
-              color: 'var(--text-color)',
+              color: 'var(--neutral-color)',
               marginBottom: '30px'
             }}>
               Whether you're looking for personalized coaching or an unforgettable pickleball tour in Costa Rica, I'm here to help you achieve your goals.
