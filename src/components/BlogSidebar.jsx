@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getVisiblePosts } from '../utils/blogUtils';
 
 function BlogSidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const location = useLocation();
   const posts = getVisiblePosts();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
@@ -16,21 +26,21 @@ function BlogSidebar() {
         className="sidebar-toggle"
         style={{
           position: 'fixed',
-          left: isOpen ? '280px' : '20px',
-          bottom: '50px',
+          left: isOpen ? (isMobile ? '250px' : '280px') : '20px',
+          bottom: isMobile ? '30px' : '50px',
           zIndex: 1000,
           backgroundColor: 'var(--primary-color)',
           color: 'var(--neutral-color)',
           border: 'none',
           borderRadius: '25px',
-          padding: '10px 20px',
+          padding: isMobile ? '8px 16px' : '10px 20px',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
           cursor: 'pointer',
           transition: 'left 0.3s ease',
           boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-          fontSize: '1rem'
+          fontSize: isMobile ? '0.9rem' : '1rem'
         }}
       >
         {isOpen ? (
@@ -59,18 +69,18 @@ function BlogSidebar() {
               left: 0,
               top: 0,
               bottom: 0,
-              width: '280px',
+              width: isMobile ? '250px' : '280px',
               backgroundColor: 'var(--neutral-color)',
               boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
-              padding: '100px 20px 20px',
+              padding: isMobile ? '80px 15px 20px' : '100px 20px 20px',
               overflowY: 'auto',
               zIndex: 999
             }}
           >
             <h2 style={{ 
-              marginBottom: '20px',
+              marginBottom: isMobile ? '15px' : '20px',
               color: 'var(--primary-color)',
-              fontSize: '1.5rem',
+              fontSize: isMobile ? '1.3rem' : '1.5rem',
               display: 'flex',
               alignItems: 'center',
               gap: '10px'
@@ -82,13 +92,13 @@ function BlogSidebar() {
               Recent Posts
             </h2>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '8px' : '10px' }}>
               {posts.map(post => (
                 <Link
                   key={post.id}
                   to={`/blog/${post.slug}`}
                   style={{
-                    padding: '15px',
+                    padding: isMobile ? '12px' : '15px',
                     borderRadius: '8px',
                     textDecoration: 'none',
                     color: 'var(--text-color)',
@@ -114,7 +124,11 @@ function BlogSidebar() {
                     }
                   }}
                 >
-                  <div style={{ fontSize: '1.1rem', marginBottom: '5px' }}>
+                  <div style={{ 
+                    fontSize: isMobile ? '1rem' : '1.1rem', 
+                    marginBottom: '5px',
+                    lineHeight: 1.3
+                  }}>
                     {post.title}
                   </div>
                   <div style={{ 

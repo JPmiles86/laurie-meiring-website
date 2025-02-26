@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import OptimizedImage from '../components/OptimizedImage';
 import { IMAGES } from '../constants/images';
 import { motion } from 'framer-motion';
@@ -6,6 +6,17 @@ import PageTransition from '../components/PageTransition';
 import { Link } from 'react-router-dom';
 
 function AboutPage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const achievements = [
     {
       title: "PCI-Certified Pickleball Coach",
@@ -45,11 +56,11 @@ function AboutPage() {
     <PageTransition>
       <div className="about-page">
         <section className="about-header" style={{ 
-          padding: '80px 20px 40px', 
+          padding: isMobile ? '60px 15px 30px' : '80px 20px 40px', 
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           textAlign: 'center',
-          marginBottom: '60px',
+          marginBottom: isMobile ? '40px' : '60px',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)'
@@ -60,11 +71,11 @@ function AboutPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="profile-image-container" 
-              style={{ marginBottom: '30px' }}
+              style={{ marginBottom: isMobile ? '20px' : '30px' }}
             >
               <div style={{ 
-                width: '150px', 
-                height: '150px', 
+                width: isMobile ? '120px' : '150px', 
+                height: isMobile ? '120px' : '150px', 
                 margin: '0 auto',
                 position: 'relative'
               }}>
@@ -72,14 +83,13 @@ function AboutPage() {
                   src={IMAGES.PROFILE.AI_GENERATED}
                   alt="Laurie Meiring"
                   className="profile-image"
-                  width={150}
-                  height={150}
+                  width={isMobile ? 120 : 150}
+                  height={isMobile ? 120 : 150}
                   style={{
                     borderRadius: '50%',
                     objectFit: 'cover',
                     objectPosition: 'center',
-                    border: '4px solid var(--primary-color)',
-                    
+                    border: `${isMobile ? '3px' : '4px'} solid var(--primary-color)`,
                   }}
                 />
               </div>
@@ -90,8 +100,9 @@ function AboutPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               style={{ 
                 color: 'var(--neutral-color)',
-                fontSize: '3.5rem',
-                marginBottom: '20px'
+                fontSize: isMobile ? '2.5rem' : '3.5rem',
+                marginBottom: isMobile ? '15px' : '20px',
+                lineHeight: 1.2
               }}
             >
               Meet Your Pickleball Guide
@@ -104,10 +115,11 @@ function AboutPage() {
               style={{ 
                 maxWidth: '800px', 
                 margin: '0 auto',
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1rem' : '1.2rem',
                 color: 'var(--neutral-color)',
                 opacity: 0.9,
-                lineHeight: 1.6
+                lineHeight: 1.6,
+                padding: isMobile ? '0 10px' : 0
               }}
             >
               Tournament Champion | PCI-Certified Coach | Pickleball Strategist | Costa Rica Expert
@@ -116,16 +128,16 @@ function AboutPage() {
         </section>
 
         <section className="about-content" style={{ 
-          padding: '0 20px', 
+          padding: isMobile ? '0 15px' : '0 20px', 
           maxWidth: '1200px', 
           margin: '0 auto' 
         }}>
           <div className="bio-section" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-            gap: '40px', 
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: isMobile ? '30px' : '40px', 
             alignItems: 'center',
-            marginBottom: '80px',
+            marginBottom: isMobile ? '50px' : '80px',
             padding: '0 15px'
           }}>
             <motion.div 
@@ -136,28 +148,29 @@ function AboutPage() {
               className="bio-text"
             >
               <h2 style={{ 
-                fontSize: '2.8rem', 
-                marginBottom: '30px',
-                color: 'var(--primary-color)'
+                fontSize: isMobile ? '2.2rem' : '2.8rem', 
+                marginBottom: isMobile ? '20px' : '30px',
+                color: 'var(--primary-color)',
+                textAlign: isMobile ? 'center' : 'left'
               }}>My Pickleball Journey</h2>
               <p style={{ 
-                fontSize: '1.2rem', 
-                marginBottom: '25px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
+                marginBottom: isMobile ? '20px' : '25px',
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
                 Based in the vibrant coastal town of Jaco, Costa Rica, I've dedicated myself to the sport of pickleball, competing in tournaments and helping players of all levels improve their game. My passion for pickleball has taken me from recreational play to competitive tournaments and professional coaching.
               </p>
               <p style={{ 
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
                 lineHeight: 1.6,
                 color: 'var(--text-color)',
-                marginBottom: '25px'
+                marginBottom: isMobile ? '20px' : '25px'
               }}>
                 As a PCI-certified coach with a 4.2 DUPR rating, I bring technical expertise and strategic insight to every coaching session. Whether you're a beginner looking to learn the basics or an advanced player aiming to refine your strategy, my personalized approach will help you reach your goals.
               </p>
               <p style={{ 
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
@@ -171,7 +184,7 @@ function AboutPage() {
               transition={{ duration: 0.6 }}
               className="natural-image" 
               style={{ 
-                maxWidth: '400px', 
+                maxWidth: isMobile ? '350px' : '400px', 
                 margin: '0 auto',
                 position: 'relative'
               }}
@@ -180,8 +193,8 @@ function AboutPage() {
                 src={IMAGES.PICKLEBALL.MEDAL_1}
                 alt="Laurie with Pickleball Medals"
                 className="medal-image"
-                width={400}
-                height={400}
+                width={isMobile ? 350 : 400}
+                height={isMobile ? 350 : 400}
                 style={{
                   borderRadius: '12px',
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
@@ -193,9 +206,9 @@ function AboutPage() {
           <div style={{ 
             backgroundColor: 'var(--secondary-color)',
             color: 'var(--neutral-color)',
-            padding: '60px 20px',
+            padding: isMobile ? '40px 15px' : '60px 20px',
             borderRadius: '0',
-            marginBottom: '80px',
+            marginBottom: isMobile ? '50px' : '80px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
             width: '100vw',
             marginLeft: 'calc(-50vw + 50%)',
@@ -212,12 +225,17 @@ function AboutPage() {
                 style={{ 
                   color: 'var(--neutral-color)',
                   textAlign: 'center',
-                  marginBottom: '40px'
+                  marginBottom: isMobile ? '30px' : '40px',
+                  fontSize: isMobile ? '2.2rem' : '2.8rem'
                 }}
               >
                 Pickleball Achievements
               </motion.h2>
-              <div className="achievements-grid">
+              <div className="achievements-grid" style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+                gap: isMobile ? '15px' : '20px'
+              }}>
                 {achievements.map((achievement, index) => (
                   <motion.div 
                     key={index} 
@@ -226,9 +244,25 @@ function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
+                    style={{
+                      padding: isMobile ? '15px 10px' : '20px 15px',
+                      borderRadius: '8px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
+                      gap: '10px'
+                    }}
                   >
-                    <div className="achievement-content">{achievement.title}</div>
-                    <div className="achievement-icon">{achievement.icon}</div>
+                    <div className="achievement-icon" style={{
+                      fontSize: isMobile ? '1.5rem' : '1.8rem',
+                      color: 'var(--primary-color)'
+                    }}>{achievement.icon}</div>
+                    <div className="achievement-content" style={{
+                      fontSize: isMobile ? '0.9rem' : '1rem'
+                    }}>{achievement.title}</div>
                   </motion.div>
                 ))}
               </div>
@@ -237,9 +271,9 @@ function AboutPage() {
 
           <div style={{ 
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '40px',
-            marginBottom: '80px',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: isMobile ? '30px' : '40px',
+            marginBottom: isMobile ? '50px' : '80px',
             alignItems: 'center',
             padding: '0 15px'
           }}>
@@ -248,6 +282,9 @@ function AboutPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              style={{
+                order: isMobile ? 2 : 1
+              }}
             >
               <OptimizedImage
                 src={IMAGES.PICKLEBALL.COURTS}
@@ -256,7 +293,11 @@ function AboutPage() {
                 height={350}
                 style={{
                   borderRadius: '12px',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                  width: '100%',
+                  maxWidth: isMobile ? '350px' : '500px',
+                  margin: '0 auto',
+                  display: 'block'
                 }}
               />
             </motion.div>
@@ -265,11 +306,15 @@ function AboutPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              style={{
+                order: isMobile ? 1 : 2
+              }}
             >
               <h2 style={{ 
-                fontSize: '2.8rem', 
-                marginBottom: '30px',
-                color: 'var(--primary-color)'
+                fontSize: isMobile ? '2.2rem' : '2.8rem', 
+                marginBottom: isMobile ? '20px' : '30px',
+                color: 'var(--primary-color)',
+                textAlign: isMobile ? 'center' : 'left'
               }}>Coaching Philosophy</h2>
               <ul style={{ 
                 listStyle: 'none',
@@ -284,14 +329,14 @@ function AboutPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     style={{
-                      fontSize: '1.2rem',
-                      marginBottom: '15px',
+                      fontSize: isMobile ? '1.1rem' : '1.2rem',
+                      marginBottom: isMobile ? '12px' : '15px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '15px'
+                      gap: isMobile ? '10px' : '15px'
                     }}
                   >
-                    <span style={{ color: 'var(--secondary-color)', fontSize: '1.2rem' }}>✓</span>
+                    <span style={{ color: 'var(--secondary-color)', fontSize: isMobile ? '1.1rem' : '1.2rem' }}>✓</span>
                     {item}
                   </motion.li>
                 ))}
@@ -301,9 +346,9 @@ function AboutPage() {
 
           <div style={{ 
             backgroundColor: 'var(--neutral-color)',
-            padding: '60px 20px',
+            padding: isMobile ? '40px 15px' : '60px 20px',
             borderRadius: '12px',
-            marginBottom: '80px',
+            marginBottom: isMobile ? '50px' : '80px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)'
           }}>
             <motion.h2 
@@ -313,8 +358,8 @@ function AboutPage() {
               transition={{ duration: 0.6 }}
               style={{ 
                 textAlign: 'center', 
-                marginBottom: '40px',
-                fontSize: '2.8rem',
+                marginBottom: isMobile ? '30px' : '40px',
+                fontSize: isMobile ? '2.2rem' : '2.8rem',
                 color: 'var(--primary-color)'
               }}
             >
@@ -322,8 +367,8 @@ function AboutPage() {
             </motion.h2>
             <div style={{ 
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: '30px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: isMobile ? '25px' : '30px',
               justifyContent: 'center'
             }}>
               <motion.div
@@ -335,12 +380,12 @@ function AboutPage() {
                   textAlign: 'center'
                 }}
               >
-                <div style={{ height: '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
+                <div style={{ height: isMobile ? '180px' : '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
                   <OptimizedImage
                     src={IMAGES.LOCATIONS.JACO}
                     alt="Jaco Beach"
                     width={300}
-                    height={200}
+                    height={isMobile ? 180 : 200}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -350,11 +395,11 @@ function AboutPage() {
                   />
                 </div>
                 <h3 style={{ 
-                  fontSize: '1.8rem',
+                  fontSize: isMobile ? '1.6rem' : '1.8rem',
                   color: 'var(--primary-color)',
-                  marginBottom: '10px'
+                  marginBottom: isMobile ? '8px' : '10px'
                 }}>Beach Courts</h3>
-                <p style={{ fontSize: '1.1rem' }}>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>
                   Play with ocean breezes and stunning views at our beachside courts.
                 </p>
               </motion.div>
@@ -367,12 +412,12 @@ function AboutPage() {
                   textAlign: 'center'
                 }}
               >
-                <div style={{ height: '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
+                <div style={{ height: isMobile ? '180px' : '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
                   <OptimizedImage
                     src={IMAGES.LOCATIONS.TOUCAN_TALL}
                     alt="Jungle Courts"
                     width={300}
-                    height={200}
+                    height={isMobile ? 180 : 200}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -382,11 +427,11 @@ function AboutPage() {
                   />
                 </div>
                 <h3 style={{ 
-                  fontSize: '1.8rem',
+                  fontSize: isMobile ? '1.6rem' : '1.8rem',
                   color: 'var(--primary-color)',
-                  marginBottom: '10px'
+                  marginBottom: isMobile ? '8px' : '10px'
                 }}>Jungle Experience</h3>
-                <p style={{ fontSize: '1.1rem' }}>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>
                   Immerse yourself in nature while improving your pickleball skills.
                 </p>
               </motion.div>
@@ -399,12 +444,12 @@ function AboutPage() {
                   textAlign: 'center'
                 }}
               >
-                <div style={{ height: '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
+                <div style={{ height: isMobile ? '180px' : '200px', overflow: 'hidden', borderRadius: '12px', marginBottom: '15px' }}>
                   <OptimizedImage
                     src={IMAGES.LOCATIONS.WATERFALL}
                     alt="Adventure Tours"
                     width={300}
-                    height={200}
+                    height={isMobile ? 180 : 200}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -414,11 +459,11 @@ function AboutPage() {
                   />
                 </div>
                 <h3 style={{ 
-                  fontSize: '1.8rem',
+                  fontSize: isMobile ? '1.6rem' : '1.8rem',
                   color: 'var(--primary-color)',
-                  marginBottom: '10px'
+                  marginBottom: isMobile ? '8px' : '10px'
                 }}>Adventure Tours</h3>
-                <p style={{ fontSize: '1.1rem' }}>
+                <p style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>
                   Combine pickleball training with Costa Rica's natural wonders.
                 </p>
               </motion.div>
@@ -426,8 +471,8 @@ function AboutPage() {
           </div>
         </section>
 
-        <section style={{
-          padding: '80px 20px',
+        <section className="ready-section" style={{
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
@@ -444,27 +489,27 @@ function AboutPage() {
               maxWidth: '800px', 
               margin: '0 auto', 
               textAlign: 'center',
-              padding: '0 20px'
+              padding: isMobile ? '0 10px' : '0 20px'
             }}
           >
             <h2 style={{ 
-              fontSize: '3rem',
-              marginBottom: '20px',
+              fontSize: isMobile ? '2.4rem' : '3rem',
+              marginBottom: isMobile ? '15px' : '20px',
               color: 'var(--neutral-color)'
             }}>
               Ready to Elevate Your Game?
             </h2>
             <p style={{ 
-              fontSize: '1.3rem',
+              fontSize: isMobile ? '1.1rem' : '1.3rem',
               lineHeight: 1.6,
               color: 'var(--neutral-color)',
-              marginBottom: '30px'
+              marginBottom: isMobile ? '25px' : '30px'
             }}>
               Whether you're looking for personalized coaching or an unforgettable pickleball tour in Costa Rica, I'm here to help you achieve your goals.
             </p>
             <div style={{ 
               display: 'flex', 
-              gap: '20px', 
+              gap: isMobile ? '15px' : '20px', 
               justifyContent: 'center',
               flexWrap: 'wrap'
             }}>
@@ -472,8 +517,8 @@ function AboutPage() {
                 backgroundColor: 'var(--primary-color)',
                 color: 'var(--neutral-color)',
                 display: 'inline-block',
-                padding: '15px 30px',
-                fontSize: '1.1rem',
+                padding: isMobile ? '12px 25px' : '15px 30px',
+                fontSize: isMobile ? '1rem' : '1.1rem',
                 borderRadius: '30px',
                 textDecoration: 'none',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
@@ -485,8 +530,8 @@ function AboutPage() {
                 backgroundColor: 'var(--neutral-color)',
                 color: 'var(--primary-color)',
                 display: 'inline-block',
-                padding: '15px 30px',
-                fontSize: '1.1rem',
+                padding: isMobile ? '12px 25px' : '15px 30px',
+                fontSize: isMobile ? '1rem' : '1.1rem',
                 borderRadius: '30px',
                 textDecoration: 'none',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',

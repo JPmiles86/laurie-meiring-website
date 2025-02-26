@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPostBySlug, getVisiblePosts } from '../utils/blogUtils';
 import ReactMarkdown from 'react-markdown';
@@ -6,12 +6,22 @@ import PageTransition from '../components/PageTransition';
 import BlogSidebar from '../components/BlogSidebar';
 
 function BlogDetail() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const { slug } = useParams();
   const post = getPostBySlug(slug);
   const allPosts = getVisiblePosts();
   const currentIndex = allPosts.findIndex(p => p.slug === slug);
   const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   if (!post) {
     return <div>Post not found</div>;
@@ -27,15 +37,16 @@ function BlogDetail() {
           to="/blog"
           style={{
             position: 'fixed',
-            bottom: '100px',
+            bottom: isMobile ? '30px' : '100px',
             left: '20px',
             backgroundColor: 'var(--primary-color)',
             color: 'var(--neutral-color)',
-            padding: '10px 20px',
+            padding: isMobile ? '8px 16px' : '10px 20px',
             borderRadius: '25px',
             textDecoration: 'none',
             zIndex: 1000,
-            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)'
+            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
+            fontSize: isMobile ? '0.9rem' : '1rem'
           }}
         >
           ← Back to Blog
@@ -45,7 +56,7 @@ function BlogDetail() {
         {post.featuredImage && (
           <div style={{
             width: '100vw',
-            height: '50vh',
+            height: isMobile ? '40vh' : '50vh',
             marginLeft: 'calc(-50vw + 50%)',
             marginRight: 'calc(-50vw + 50%)',
             position: 'relative',
@@ -66,27 +77,27 @@ function BlogDetail() {
         <div style={{
           maxWidth: '800px',
           margin: '0 auto',
-          padding: '40px 20px'
+          padding: isMobile ? '30px 15px' : '40px 20px'
         }}>
           <h1 style={{
-            fontSize: '2.5rem',
-            marginBottom: '20px',
+            fontSize: isMobile ? '2.2rem' : '2.5rem',
+            marginBottom: isMobile ? '15px' : '20px',
             color: 'var(--primary-color)'
           }}>
             {post.title}
           </h1>
           
           <div style={{
-            fontSize: '1rem',
+            fontSize: isMobile ? '0.9rem' : '1rem',
             color: 'var(--text-color)',
             opacity: 0.8,
-            marginBottom: '30px'
+            marginBottom: isMobile ? '25px' : '30px'
           }}>
             Published on {new Date(post.publishDate).toLocaleDateString()} by {post.author}
           </div>
 
           <div className="blog-content" style={{
-            fontSize: '1.1rem',
+            fontSize: isMobile ? '1rem' : '1.1rem',
             lineHeight: 1.8
           }}>
             <ReactMarkdown
@@ -108,7 +119,7 @@ function BlogDetail() {
                 ),
                 h2: ({node, ...props}) => (
                   <h2 style={{ 
-                    fontSize: '2rem',
+                    fontSize: isMobile ? '1.8rem' : '2rem',
                     marginTop: '2rem',
                     marginBottom: '1rem',
                     color: 'var(--primary-color)'
@@ -117,7 +128,7 @@ function BlogDetail() {
                 ul: ({node, ...props}) => (
                   <ul style={{ 
                     marginBottom: '1.5rem',
-                    paddingLeft: '2rem'
+                    paddingLeft: isMobile ? '1.5rem' : '2rem'
                   }} {...props} />
                 ),
                 li: ({node, ...props}) => (
@@ -134,9 +145,11 @@ function BlogDetail() {
           {/* Previous/Next Navigation */}
           <div style={{
             display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
             justifyContent: 'space-between',
-            marginTop: '40px',
-            padding: '20px 0',
+            gap: isMobile ? '20px' : '0',
+            marginTop: isMobile ? '30px' : '40px',
+            padding: isMobile ? '15px 0' : '20px 0',
             borderTop: '1px solid var(--secondary-color)'
           }}>
             {prevPost && (
@@ -146,13 +159,16 @@ function BlogDetail() {
                   textDecoration: 'none',
                   color: 'var(--text-color)',
                   flex: '1',
-                  textAlign: 'left'
+                  textAlign: isMobile ? 'center' : 'left',
+                  padding: isMobile ? '10px' : '0',
+                  backgroundColor: isMobile ? 'rgba(0,0,0,0.03)' : 'transparent',
+                  borderRadius: isMobile ? '8px' : '0'
                 }}
               >
                 <div style={{ fontSize: '0.9rem', color: 'var(--primary-color)', marginBottom: '5px' }}>
                   Previous Post
                 </div>
-                <div style={{ fontSize: '1.1rem' }}>{prevPost.title}</div>
+                <div style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>{prevPost.title}</div>
               </Link>
             )}
             
@@ -163,13 +179,16 @@ function BlogDetail() {
                   textDecoration: 'none',
                   color: 'var(--text-color)',
                   flex: '1',
-                  textAlign: 'right'
+                  textAlign: isMobile ? 'center' : 'right',
+                  padding: isMobile ? '10px' : '0',
+                  backgroundColor: isMobile ? 'rgba(0,0,0,0.03)' : 'transparent',
+                  borderRadius: isMobile ? '8px' : '0'
                 }}
               >
                 <div style={{ fontSize: '0.9rem', color: 'var(--primary-color)', marginBottom: '5px' }}>
                   Next Post
                 </div>
-                <div style={{ fontSize: '1.1rem' }}>{nextPost.title}</div>
+                <div style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>{nextPost.title}</div>
               </Link>
             )}
           </div>

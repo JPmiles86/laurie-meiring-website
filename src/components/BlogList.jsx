@@ -4,7 +4,7 @@ import { getVisiblePosts } from '../utils/blogUtils';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
-function BlogList() {
+function BlogList({ isMobile }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function BlogList() {
     <div className="blog-list" style={{
       maxWidth: '800px',
       margin: '0 auto',
-      padding: '20px'
+      padding: isMobile ? '15px' : '20px'
     }}>
       {posts.map((post, index) => (
         <motion.article
@@ -31,20 +31,20 @@ function BlogList() {
           transition={{ delay: index * 0.1 }}
           style={{
             backgroundColor: 'var(--neutral-color)',
-            borderRadius: '12px',
-            padding: '20px',
-            marginBottom: '20px',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            borderRadius: isMobile ? '16px' : '12px',
+            padding: isMobile ? '15px' : '20px',
+            marginBottom: isMobile ? '25px' : '20px',
+            boxShadow: isMobile ? '0 8px 15px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
             overflow: 'hidden'
           }}
         >
           {post.featuredImage && (
             <div style={{
               marginBottom: '20px',
-              marginLeft: '-20px',
-              marginRight: '-20px',
-              marginTop: '-20px',
-              height: '300px',
+              marginLeft: isMobile ? '-15px' : '-20px',
+              marginRight: isMobile ? '-15px' : '-20px',
+              marginTop: isMobile ? '-15px' : '-20px',
+              height: isMobile ? '250px' : '300px',
               overflow: 'hidden'
             }}>
               <img
@@ -59,7 +59,7 @@ function BlogList() {
             </div>
           )}
           <h2 style={{
-            fontSize: '1.8rem',
+            fontSize: isMobile ? '1.6rem' : '1.8rem',
             marginBottom: '10px',
             color: 'var(--primary-color)'
           }}>
@@ -82,7 +82,7 @@ function BlogList() {
             {new Date(post.publishDate).toLocaleDateString()} by {post.author}
           </div>
           <div style={{
-            fontSize: '1.1rem',
+            fontSize: isMobile ? '1rem' : '1.1rem',
             lineHeight: 1.6,
             marginBottom: '15px'
           }}>
@@ -92,13 +92,14 @@ function BlogList() {
             to={`/blog/${post.slug}`}
             style={{
               display: 'inline-block',
-              padding: '8px 16px',
+              padding: isMobile ? '10px 20px' : '8px 16px',
               backgroundColor: 'var(--primary-color)',
               color: 'var(--neutral-color)',
-              borderRadius: '20px',
+              borderRadius: '30px',
               textDecoration: 'none',
-              fontSize: '0.9rem',
-              transition: 'all 0.3s ease'
+              fontSize: isMobile ? '1rem' : '0.9rem',
+              transition: 'all 0.3s ease',
+              boxShadow: isMobile ? '0 4px 8px rgba(0, 0, 0, 0.15)' : 'none'
             }}
           >
             Read More

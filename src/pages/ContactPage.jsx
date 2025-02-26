@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
@@ -22,6 +22,16 @@ const staggerChildren = {
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const contactOptions = [
     {
@@ -101,7 +111,7 @@ WhatsApp: +506 6200 2747`
     <PageTransition>
       <div className="contact-page">
         <section className="page-hero" style={{ 
-          padding: '90px 0', 
+          padding: isMobile ? '60px 0 40px' : '90px 0', 
           textAlign: 'center',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
@@ -120,8 +130,9 @@ WhatsApp: +506 6200 2747`
               variants={fadeInUp}
               style={{ 
                 color: 'var(--neutral-color)',
-                fontSize: '3.5rem',
-                marginBottom: '20px'
+                fontSize: isMobile ? '2.5rem' : '3.5rem',
+                marginBottom: isMobile ? '15px' : '20px',
+                lineHeight: 1.2
               }}
             >
               Get in Touch
@@ -129,10 +140,11 @@ WhatsApp: +506 6200 2747`
             <motion.p 
               variants={fadeInUp}
               style={{ 
-                fontSize: '1.2rem', 
+                fontSize: isMobile ? '1rem' : '1.2rem', 
                 maxWidth: '800px', 
-                margin: '20px auto',
-                color: 'var(--neutral-color)'
+                margin: isMobile ? '15px auto' : '20px auto',
+                color: 'var(--neutral-color)',
+                padding: isMobile ? '0 15px' : 0
               }}
             >
               Ready to start your pickleball journey in Costa Rica? We're here to help!
@@ -141,7 +153,7 @@ WhatsApp: +506 6200 2747`
         </section>
 
         <section style={{ 
-          padding: '80px 20px',
+          padding: isMobile ? '50px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -152,9 +164,9 @@ WhatsApp: +506 6200 2747`
               transition={{ duration: 0.6 }}
               style={{
                 textAlign: 'center',
-                marginBottom: '60px',
+                marginBottom: isMobile ? '40px' : '60px',
                 color: 'var(--primary-color)',
-                fontSize: '2.8rem'
+                fontSize: isMobile ? '2.2rem' : '2.8rem'
               }}
             >
               How Can We Help You?
@@ -162,11 +174,11 @@ WhatsApp: +506 6200 2747`
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '40px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: isMobile ? '30px' : '40px',
               textAlign: 'center',
               padding: '0 10px',
-              marginBottom: '60px'
+              marginBottom: isMobile ? '40px' : '60px'
             }}>
               {contactOptions.map((option, index) => (
                 <motion.div
@@ -180,12 +192,12 @@ WhatsApp: +506 6200 2747`
                   }}
                 >
                   <div style={{ 
-                    width: '150px', 
-                    height: '150px', 
+                    width: isMobile ? '120px' : '150px', 
+                    height: isMobile ? '120px' : '150px', 
                     borderRadius: '50%', 
                     overflow: 'hidden',
                     margin: '0 auto 20px',
-                    border: '4px solid var(--primary-color)',
+                    border: isMobile ? '3px solid var(--primary-color)' : '4px solid var(--primary-color)',
                     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
                   }}>
                     <img 
@@ -198,11 +210,15 @@ WhatsApp: +506 6200 2747`
                       }}
                     />
                   </div>
-                  <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: 'var(--primary-color)' }}>
+                  <h3 style={{ 
+                    fontSize: isMobile ? '1.6rem' : '1.8rem', 
+                    marginBottom: isMobile ? '10px' : '15px', 
+                    color: 'var(--primary-color)' 
+                  }}>
                     {option.title}
                   </h3>
                   <p style={{ 
-                    fontSize: '1.1rem', 
+                    fontSize: isMobile ? '1rem' : '1.1rem', 
                     lineHeight: 1.6,
                     maxWidth: '100%',
                     wordWrap: 'break-word'
@@ -215,10 +231,10 @@ WhatsApp: +506 6200 2747`
 
             <div style={{ 
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '40px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '30px' : '40px',
               alignItems: 'stretch',
-              marginBottom: '60px'
+              marginBottom: isMobile ? '40px' : '60px'
             }}>
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
@@ -237,30 +253,58 @@ WhatsApp: +506 6200 2747`
               >
                 <div style={{ 
                   backgroundColor: 'var(--secondary-color)', 
-                  padding: '40px', 
+                  padding: isMobile ? '30px 20px' : '40px', 
                   color: 'white',
-                  textAlign: 'center', marginTop: '-60px'
+                  textAlign: 'center', 
+                  marginTop: isMobile ? '-40px' : '-60px'
                 }}>
-                  <h2 style={{ color: 'white', margin: 0 }}>Contact Information</h2>
+                  <h2 style={{ 
+                    color: 'white', 
+                    margin: 0,
+                    fontSize: isMobile ? '1.8rem' : '2rem'
+                  }}>Contact Information</h2>
                 </div>
                 
-                <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div style={{ marginBottom: '30px' }}>
-                    <h3 style={{ color: 'var(--secondary-color)', marginBottom: '15px' }}>Direct Contact</h3>
-                    <p style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ 
+                  padding: isMobile ? '30px 20px' : '40px', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between' 
+                }}>
+                  <div style={{ marginBottom: isMobile ? '25px' : '30px' }}>
+                    <h3 style={{ 
+                      color: 'var(--secondary-color)', 
+                      marginBottom: isMobile ? '12px' : '15px',
+                      fontSize: isMobile ? '1.4rem' : '1.5rem'
+                    }}>Direct Contact</h3>
+                    <p style={{ 
+                      marginBottom: '10px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '10px',
+                      fontSize: isMobile ? '0.95rem' : '1rem',
+                      flexWrap: isMobile ? 'wrap' : 'nowrap'
+                    }}>
                       <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✉</span>
                       <strong>Email:</strong>{' '}
                       <a 
                         href="mailto:Laurie.meiring@gmail.com"
                         style={{ 
                           color: 'var(--primary-color)',
-                          textDecoration: 'none'
+                          textDecoration: 'none',
+                          wordBreak: 'break-word'
                         }}
                       >
                         Laurie.meiring@gmail.com
                       </a>
                     </p>
-                    <p style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <p style={{ 
+                      marginBottom: '10px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '10px',
+                      fontSize: isMobile ? '0.95rem' : '1rem'
+                    }}>
                       <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📱</span>
                       <strong>WhatsApp:</strong>{' '}
                       <a 
@@ -277,13 +321,28 @@ WhatsApp: +506 6200 2747`
                     </p>
                   </div>
 
-                  <div style={{ marginBottom: '30px' }}>
-                    <h3 style={{ color: 'var(--secondary-color)', marginBottom: '15px' }}>Location</h3>
-                    <p style={{ marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ marginBottom: isMobile ? '25px' : '30px' }}>
+                    <h3 style={{ 
+                      color: 'var(--secondary-color)', 
+                      marginBottom: isMobile ? '12px' : '15px',
+                      fontSize: isMobile ? '1.4rem' : '1.5rem'
+                    }}>Location</h3>
+                    <p style={{ 
+                      marginBottom: '10px', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '10px',
+                      fontSize: isMobile ? '0.95rem' : '1rem'
+                    }}>
                       <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📍</span>
                       <span>Jaco, Costa Rica</span>
                     </p>
-                    <div style={{ marginTop: '20px', borderRadius: '12px', overflow: 'hidden', height: '200px' }}>
+                    <div style={{ 
+                      marginTop: '20px', 
+                      borderRadius: '12px', 
+                      overflow: 'hidden', 
+                      height: isMobile ? '160px' : '200px' 
+                    }}>
                       <img 
                         src="/jaco.jpg" 
                         alt="Jaco, Costa Rica"
@@ -297,17 +356,39 @@ WhatsApp: +506 6200 2747`
                   </div>
 
                   <div>
-                    <h3 style={{ color: 'var(--secondary-color)', marginBottom: '15px' }}>Available Services</h3>
+                    <h3 style={{ 
+                      color: 'var(--secondary-color)', 
+                      marginBottom: isMobile ? '12px' : '15px',
+                      fontSize: isMobile ? '1.4rem' : '1.5rem'
+                    }}>Available Services</h3>
                     <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
-                      <li style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <li style={{ 
+                        marginBottom: '15px', 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        gap: '10px',
+                        fontSize: isMobile ? '0.95rem' : '1rem'
+                      }}>
                         <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                         <strong>Pickleball Training:</strong> Individual & group sessions
                       </li>
-                      <li style={{ marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <li style={{ 
+                        marginBottom: '15px', 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        gap: '10px',
+                        fontSize: isMobile ? '0.95rem' : '1rem'
+                      }}>
                         <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                         <strong>Pickleball Tours:</strong> Guided adventures in Costa Rica
                       </li>
-                      <li style={{ marginBottom: '0', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <li style={{ 
+                        marginBottom: '0', 
+                        display: 'flex', 
+                        alignItems: 'flex-start', 
+                        gap: '10px',
+                        fontSize: isMobile ? '0.95rem' : '1rem'
+                      }}>
                         <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                         <strong>Custom Experiences:</strong> Tailored to your needs
                       </li>
@@ -328,19 +409,29 @@ WhatsApp: +506 6200 2747`
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                   overflow: 'hidden',
                   display: 'flex',
-                  flexDirection: 'column', marginTop: '40px'
+                  flexDirection: 'column', 
+                  marginTop: isMobile ? '20px' : '40px'
                 }}
               >
                 <div style={{ 
                   backgroundColor: 'var(--secondary-color)', 
-                  padding: '35px', 
+                  padding: isMobile ? '25px 20px' : '35px', 
                   color: 'white',
                   textAlign: 'center'
                 }}>
-                  <h2 style={{ color: 'white', margin: 0 }}>Send a Message</h2>
+                  <h2 style={{ 
+                    color: 'white', 
+                    margin: 0,
+                    fontSize: isMobile ? '1.8rem' : '2rem'
+                  }}>Send a Message</h2>
                 </div>
                 
-                <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div style={{ 
+                  padding: isMobile ? '30px 20px' : '40px', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between' 
+                }}>
                   {submitted ? (
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.9 }}
@@ -348,25 +439,32 @@ WhatsApp: +506 6200 2747`
                       transition={{ duration: 0.4 }}
                       style={{
                         textAlign: 'center',
-                        padding: '30px',
+                        padding: isMobile ? '25px 15px' : '30px',
                         backgroundColor: '#e6f4ea',
                         borderRadius: '12px',
                         marginBottom: '20px'
                       }}
                     >
-                      <h3 style={{ color: '#1e8e3e', marginBottom: '15px', fontSize: '1.8rem' }}>Thank You!</h3>
-                      <p style={{ fontSize: '1.1rem', marginBottom: '20px' }}>Your message has been sent successfully. We'll get back to you soon.</p>
+                      <h3 style={{ 
+                        color: '#1e8e3e', 
+                        marginBottom: isMobile ? '12px' : '15px', 
+                        fontSize: isMobile ? '1.6rem' : '1.8rem' 
+                      }}>Thank You!</h3>
+                      <p style={{ 
+                        fontSize: isMobile ? '1rem' : '1.1rem', 
+                        marginBottom: isMobile ? '15px' : '20px' 
+                      }}>Your message has been sent successfully. We'll get back to you soon.</p>
                       <button 
                         onClick={() => setSubmitted(false)}
                         style={{
                           backgroundColor: 'var(--primary-color)',
                           color: 'var(--neutral-color)',
-                          padding: '12px 25px',
+                          padding: isMobile ? '10px 20px' : '12px 25px',
                           borderRadius: '25px',
                           border: 'none',
-                          marginTop: '15px',
+                          marginTop: isMobile ? '10px' : '15px',
                           cursor: 'pointer',
-                          fontSize: '1.1rem',
+                          fontSize: isMobile ? '1rem' : '1.1rem',
                           fontWeight: '500'
                         }}
                       >
@@ -375,14 +473,15 @@ WhatsApp: +506 6200 2747`
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit}>
-                      <div style={{ marginBottom: '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
                         <label 
                           htmlFor="service" 
                           style={{ 
                             display: 'block', 
-                            marginBottom: '8px',
+                            marginBottom: isMobile ? '6px' : '8px',
                             color: 'var(--text-color)',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            fontSize: isMobile ? '0.95rem' : '1rem'
                           }}
                         >
                           Service Type:
@@ -392,10 +491,10 @@ WhatsApp: +506 6200 2747`
                           name="service" 
                           style={{ 
                             width: '100%',
-                            padding: '12px',
+                            padding: isMobile ? '10px' : '12px',
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
-                            fontSize: '1rem',
+                            fontSize: isMobile ? '0.95rem' : '1rem',
                             backgroundColor: 'white'
                           }}
                           required
@@ -408,14 +507,15 @@ WhatsApp: +506 6200 2747`
                         </select>
                       </div>
 
-                      <div style={{ marginBottom: '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
                         <label 
                           htmlFor="name" 
                           style={{ 
                             display: 'block', 
-                            marginBottom: '8px',
+                            marginBottom: isMobile ? '6px' : '8px',
                             color: 'var(--text-color)',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            fontSize: isMobile ? '0.95rem' : '1rem'
                           }}
                         >
                           Name:
@@ -426,23 +526,24 @@ WhatsApp: +506 6200 2747`
                           name="name" 
                           style={{ 
                             width: '100%',
-                            padding: '12px',
+                            padding: isMobile ? '10px' : '12px',
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
-                            fontSize: '1rem'
+                            fontSize: isMobile ? '0.95rem' : '1rem'
                           }} 
                           required
                         />
                       </div>
 
-                      <div style={{ marginBottom: '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
                         <label 
                           htmlFor="email" 
                           style={{ 
                             display: 'block', 
-                            marginBottom: '8px',
+                            marginBottom: isMobile ? '6px' : '8px',
                             color: 'var(--text-color)',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            fontSize: isMobile ? '0.95rem' : '1rem'
                           }}
                         >
                           Email:
@@ -453,23 +554,24 @@ WhatsApp: +506 6200 2747`
                           name="email" 
                           style={{ 
                             width: '100%',
-                            padding: '12px',
+                            padding: isMobile ? '10px' : '12px',
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
-                            fontSize: '1rem'
+                            fontSize: isMobile ? '0.95rem' : '1rem'
                           }} 
                           required
                         />
                       </div>
 
-                      <div style={{ marginBottom: '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
                         <label 
                           htmlFor="message" 
                           style={{ 
                             display: 'block', 
-                            marginBottom: '8px',
+                            marginBottom: isMobile ? '6px' : '8px',
                             color: 'var(--text-color)',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            fontSize: isMobile ? '0.95rem' : '1rem'
                           }}
                         >
                           Message:
@@ -480,12 +582,12 @@ WhatsApp: +506 6200 2747`
                           rows="6" 
                           style={{ 
                             width: '100%',
-                            padding: '12px',
+                            padding: isMobile ? '10px' : '12px',
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
-                            fontSize: '1rem',
+                            fontSize: isMobile ? '0.95rem' : '1rem',
                             resize: 'vertical',
-                            minHeight: '120px'
+                            minHeight: isMobile ? '100px' : '120px'
                           }}
                           placeholder="Please provide details about your inquiry, including preferred dates/times if applicable."
                           required
@@ -500,10 +602,10 @@ WhatsApp: +506 6200 2747`
                         style={{
                           backgroundColor: submitting ? '#ccc' : 'var(--primary-color)',
                           color: 'var(--neutral-color)',
-                          padding: '15px 30px',
+                          padding: isMobile ? '12px 25px' : '15px 30px',
                           borderRadius: '30px',
                           border: 'none',
-                          fontSize: '1.1rem',
+                          fontSize: isMobile ? '1rem' : '1.1rem',
                           fontWeight: '500',
                           cursor: submitting ? 'not-allowed' : 'pointer',
                           transition: 'all 0.3s ease',
@@ -522,7 +624,7 @@ WhatsApp: +506 6200 2747`
         </section>
 
         <section style={{
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
@@ -538,29 +640,35 @@ WhatsApp: +506 6200 2747`
               transition={{ duration: 0.6 }}
             >
               <h2 style={{ 
-                fontSize: '2.8rem', 
-                marginBottom: '20px',
+                fontSize: isMobile ? '2.2rem' : '2.8rem', 
+                marginBottom: isMobile ? '15px' : '20px',
                 color: 'var(--neutral-color)'
               }}>
                 Ready for Your Pickleball Adventure?
               </h2>
               <p style={{ 
-                fontSize: '1.2rem', 
+                fontSize: isMobile ? '1rem' : '1.2rem', 
                 lineHeight: 1.6,
-                marginBottom: '30px',
+                marginBottom: isMobile ? '25px' : '30px',
                 maxWidth: '600px',
-                margin: '0 auto 30px',
-                color: 'var(--neutral-color)'
+                margin: isMobile ? '0 auto 25px' : '0 auto 30px',
+                color: 'var(--neutral-color)',
+                padding: isMobile ? '0 10px' : 0
               }}>
                 Whether you're looking for training, tours, or a custom experience, we're here to make your pickleball dreams come true in Costa Rica.
               </p>
-              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div style={{ 
+                display: 'flex', 
+                gap: isMobile ? '15px' : '20px', 
+                justifyContent: 'center', 
+                flexWrap: 'wrap' 
+              }}>
                 <Link to="/tours" className="button" style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
-                  padding: '15px 30px',
+                  padding: isMobile ? '12px 25px' : '15px 30px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
@@ -571,9 +679,9 @@ WhatsApp: +506 6200 2747`
                 <Link to="/training" className="button" style={{
                   backgroundColor: 'var(--neutral-color)',
                   color: 'var(--primary-color)',
-                  padding: '15px 30px',
+                  padding: isMobile ? '12px 25px' : '15px 30px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',

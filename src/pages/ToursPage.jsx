@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
@@ -21,6 +21,17 @@ const staggerChildren = {
 };
 
 function ToursPage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const tourPackages = [
     {
       title: "Weekend Warrior",
@@ -123,14 +134,19 @@ function ToursPage() {
             animate="animate"
             variants={staggerChildren}
             className="content-container"
-            style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}
+            style={{ 
+              maxWidth: '1200px', 
+              margin: '0 auto', 
+              padding: isMobile ? '0 15px' : '0 20px', 
+              textAlign: 'center' 
+            }}
           >
             <motion.h1 
               variants={fadeInUp}
               style={{ 
                 color: 'var(--neutral-color)',
-                fontSize: '3.5rem',
-                marginBottom: '20px',
+                fontSize: isMobile ? '2.8rem' : '3.5rem',
+                marginBottom: isMobile ? '15px' : '20px',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
               }}
             >
@@ -139,9 +155,9 @@ function ToursPage() {
             <motion.p 
               variants={fadeInUp}
               style={{ 
-                fontSize: '1.2rem', 
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
                 maxWidth: '800px', 
-                margin: '20px auto',
+                margin: isMobile ? '15px auto' : '20px auto',
                 color: 'var(--neutral-color)',
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
               }}
@@ -152,13 +168,13 @@ function ToursPage() {
               <Link to="/contact" className="button" style={{
                 backgroundColor: 'var(--primary-color)',
                 color: 'var(--neutral-color)',
-                padding: '15px 30px',
+                padding: isMobile ? '12px 25px' : '15px 30px',
                 borderRadius: '30px',
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
                 textDecoration: 'none',
                 display: 'inline-block',
-                marginTop: '20px',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+                marginTop: isMobile ? '15px' : '20px',
+                boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)'
               }}>
                 Book Your Tour
               </Link>
@@ -166,7 +182,10 @@ function ToursPage() {
           </motion.div>
         </VideoBackground>
 
-        <section className="tour-packages" style={{ padding: '80px 20px', backgroundColor: 'var(--neutral-color)' }}>
+        <section className="tour-packages" style={{ 
+          padding: isMobile ? '60px 15px' : '80px 20px', 
+          backgroundColor: 'var(--neutral-color)' 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -175,9 +194,9 @@ function ToursPage() {
               transition={{ duration: 0.6 }}
               style={{
                 textAlign: 'center',
-                marginBottom: '60px',
+                marginBottom: isMobile ? '40px' : '60px',
                 color: 'var(--primary-color)',
-                fontSize: '2.8rem'
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
               }}
             >
               Tour Packages
@@ -187,12 +206,12 @@ function ToursPage() {
               display: 'flex', 
               flexDirection: 'column', 
               alignItems: 'center',
-              marginBottom: '40px'
+              marginBottom: isMobile ? '30px' : '40px'
             }}>
               <div style={{ 
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '30px',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: isMobile ? '25px' : '30px',
                 width: '100%',
                 maxWidth: '1200px'
               }}>
@@ -207,16 +226,16 @@ function ToursPage() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       whileHover={{ 
-                        y: -10,
+                        y: isMobile ? -5 : -10,
                         boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)'
                       }}
                       style={{
                         backgroundColor: '#fff',
-                        borderRadius: '12px',
+                        borderRadius: isMobile ? '16px' : '12px',
                         overflow: 'hidden',
-                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                        boxShadow: isMobile ? '0 8px 15px rgba(0, 0, 0, 0.1)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
                         border: pkg.featured ? '2px solid var(--secondary-color)' : 'none',
-                        transform: pkg.featured ? 'scale(1.05)' : 'none',
+                        transform: pkg.featured && !isMobile ? 'scale(1.05)' : 'none',
                         height: '100%',
                         display: 'flex',
                         flexDirection: 'column'
@@ -236,7 +255,7 @@ function ToursPage() {
                           }}
                         />
                       </div>
-                      <div style={{ padding: '25px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ padding: isMobile ? '20px' : '25px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                         <div style={{
                           display: 'flex',
                           justifyContent: 'space-between',
@@ -244,7 +263,7 @@ function ToursPage() {
                           marginBottom: '15px'
                         }}>
                           <h3 style={{
-                            fontSize: '1.8rem',
+                            fontSize: isMobile ? '1.6rem' : '1.8rem',
                             color: 'var(--primary-color)',
                             margin: 0
                           }}>
@@ -301,12 +320,13 @@ function ToursPage() {
                             textAlign: 'center',
                             backgroundColor: 'var(--primary-color)',
                             color: 'var(--neutral-color)',
-                            padding: '12px',
+                            padding: isMobile ? '14px' : '12px',
                             borderRadius: '25px',
                             textDecoration: 'none',
-                            fontSize: '1.1rem',
+                            fontSize: isMobile ? '1.1rem' : '1.1rem',
                             fontWeight: '500',
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
+                            boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)'
                           }}>
                             Book This Tour
                           </Link>
@@ -321,7 +341,7 @@ function ToursPage() {
         </section>
 
         <section className="locations" style={{
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--primary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
@@ -335,8 +355,8 @@ function ToursPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               style={{
-                marginBottom: '40px',
-                fontSize: '2.8rem',
+                marginBottom: isMobile ? '30px' : '40px',
+                fontSize: isMobile ? '2.4rem' : '2.8rem',
                 color: 'var(--neutral-color)'
               }}
             >
@@ -344,8 +364,8 @@ function ToursPage() {
             </motion.h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '40px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: isMobile ? '30px' : '40px',
               textAlign: 'center',
               padding: '0 10px'
             }}>
@@ -361,8 +381,8 @@ function ToursPage() {
                   }}
                 >
                   <div style={{ 
-                    width: '150px', 
-                    height: '150px', 
+                    width: isMobile ? '120px' : '150px', 
+                    height: isMobile ? '120px' : '150px', 
                     borderRadius: '50%', 
                     overflow: 'hidden',
                     margin: '0 auto 20px',
@@ -379,11 +399,15 @@ function ToursPage() {
                       }}
                     />
                   </div>
-                  <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: '#ffffff' }}>
+                  <h3 style={{ 
+                    fontSize: isMobile ? '1.6rem' : '1.8rem', 
+                    marginBottom: '15px', 
+                    color: '#ffffff' 
+                  }}>
                     {feature.title}
                   </h3>
                   <p style={{ 
-                    fontSize: '1.1rem', 
+                    fontSize: isMobile ? '1rem' : '1.1rem', 
                     lineHeight: 1.6,
                     maxWidth: '100%',
                     wordWrap: 'break-word',
@@ -398,7 +422,7 @@ function ToursPage() {
         </section>
 
         <section className="locations" style={{ 
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -409,9 +433,9 @@ function ToursPage() {
               transition={{ duration: 0.6 }}
               style={{
                 textAlign: 'center',
-                marginBottom: '60px',
+                marginBottom: isMobile ? '40px' : '60px',
                 color: 'var(--primary-color)',
-                fontSize: '2.8rem'
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
               }}
             >
               Tour Locations
@@ -420,7 +444,7 @@ function ToursPage() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '30px',
-              marginTop: '40px'
+              marginTop: isMobile ? '30px' : '40px'
             }}>
               {locations.map((location, index) => (
                 <motion.div
@@ -432,22 +456,25 @@ function ToursPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: index % 2 === 0 ? '1fr 1.5fr' : '1.5fr 1fr',
-                    gap: '40px',
-                    marginBottom: index === locations.length - 1 ? 0 : '60px',
+                    gridTemplateColumns: isMobile ? '1fr' : (index % 2 === 0 ? '1fr 1.5fr' : '1.5fr 1fr'),
+                    gap: isMobile ? '20px' : '40px',
+                    marginBottom: index === locations.length - 1 ? 0 : (isMobile ? '40px' : '60px'),
                     alignItems: 'center'
                   }}
                 >
-                  <div style={{ order: index % 2 === 0 ? 1 : 2 }}>
+                  <div style={{ 
+                    order: isMobile ? 1 : (index % 2 === 0 ? 1 : 2),
+                    textAlign: isMobile ? 'center' : 'left'
+                  }}>
                     <h3 style={{ 
-                      fontSize: '2rem', 
+                      fontSize: isMobile ? '1.8rem' : '2rem', 
                       marginBottom: '15px',
                       color: 'var(--primary-color)'
                     }}>
                       {location.name}
                     </h3>
                     <p style={{ 
-                      fontSize: '1.1rem', 
+                      fontSize: isMobile ? '1rem' : '1.1rem', 
                       lineHeight: 1.6,
                       marginBottom: '20px'
                     }}>
@@ -456,12 +483,12 @@ function ToursPage() {
                   </div>
                   <motion.div 
                     style={{ 
-                      order: index % 2 === 0 ? 2 : 1,
-                      borderRadius: '12px',
+                      order: isMobile ? 0 : (index % 2 === 0 ? 2 : 1),
+                      borderRadius: isMobile ? '16px' : '12px',
                       overflow: 'hidden',
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                      boxShadow: isMobile ? '0 8px 15px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
                       transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      height: '300px'
+                      height: isMobile ? '250px' : '300px'
                     }}
                     whileHover={{
                       scale: 1.03,
@@ -485,7 +512,10 @@ function ToursPage() {
           </div>
         </section>
 
-        <section className="features" style={{ padding: '80px 20px', backgroundColor: 'var(--neutral-color)' }}>
+        <section className="features" style={{ 
+          padding: isMobile ? '60px 15px' : '80px 20px', 
+          backgroundColor: 'var(--neutral-color)' 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -496,7 +526,7 @@ function ToursPage() {
                 textAlign: 'center',
                 marginBottom: '20px',
                 color: 'var(--primary-color)',
-                fontSize: '2.8rem'
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
               }}
             >
               Accommodations
@@ -519,9 +549,9 @@ function ToursPage() {
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '30px',
-              marginTop: '40px'
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '25px' : '30px',
+              marginTop: isMobile ? '30px' : '40px'
             }}>
               {[
                 {
@@ -624,7 +654,7 @@ function ToursPage() {
         </section>
 
         <section className="faq-section" style={{ 
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)',
           borderTop: '1px solid #eee'
         }}>
@@ -636,17 +666,17 @@ function ToursPage() {
               transition={{ duration: 0.6 }}
               style={{
                 textAlign: 'center',
-                marginBottom: '40px',
+                marginBottom: isMobile ? '30px' : '40px',
                 color: 'var(--primary-color)',
-                fontSize: '2.8rem'
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
               }}
             >
               Frequently Asked Questions
             </motion.h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-              gap: '30px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(500px, 1fr))',
+              gap: isMobile ? '20px' : '30px',
               maxWidth: '1000px',
               margin: '0 auto'
             }}>
@@ -691,7 +721,7 @@ function ToursPage() {
         </section>
 
         <section className="cta-section" style={{ 
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
@@ -702,46 +732,58 @@ function ToursPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 style={{ 
-                fontSize: '2.8rem', 
-                marginBottom: '20px',
+                fontSize: isMobile ? '2.4rem' : '2.8rem', 
+                marginBottom: isMobile ? '15px' : '20px',
                 color: 'var(--neutral-color)'
               }}>
                 Ready for Your Pickleball Adventure?
               </h2>
               <p style={{ 
-                fontSize: '1.2rem', 
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
                 lineHeight: 1.6,
-                marginBottom: '30px',
+                marginBottom: isMobile ? '25px' : '30px',
                 maxWidth: '600px',
                 margin: '0 auto 30px',
-                color: 'var(--neutral-color)'
+                color: 'var(--neutral-color)',
+                padding: isMobile ? '0 10px' : '0'
               }}>
                 Book your tour today and experience the perfect combination of pickleball improvement and Costa Rican paradise.
               </p>
-              <div className="button-container" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="button-container" style={{ 
+                display: 'flex', 
+                gap: '20px', 
+                justifyContent: 'center', 
+                flexWrap: 'wrap',
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: 'center',
+                maxWidth: isMobile ? '280px' : 'none',
+                margin: '0 auto'
+              }}>
                 <Link to="/contact" className="button" style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
-                  padding: '15px 30px',
+                  padding: isMobile ? '14px 20px' : '15px 30px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
+                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease',
+                  width: isMobile ? '100%' : 'auto'
                 }}>
                   Book Now
                 </Link>
                 <Link to="/contact" className="button" style={{
                   backgroundColor: 'var(--neutral-color)',
                   color: 'var(--primary-color)',
-                  padding: '15px 30px',
+                  padding: isMobile ? '14px 20px' : '15px 30px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
+                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease',
+                  width: isMobile ? '100%' : 'auto'
                 }}>
                   Request Info
                 </Link>
@@ -757,6 +799,16 @@ function ToursPage() {
 // New component for expandable FAQ items
 function FaqItem({ faq, index }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   return (
     <motion.div
@@ -766,9 +818,9 @@ function FaqItem({ faq, index }) {
       transition={{ duration: 0.6, delay: index * 0.1 }}
       style={{
         backgroundColor: '#fff',
-        borderRadius: '12px',
-        padding: '25px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        borderRadius: isMobile ? '16px' : '12px',
+        padding: isMobile ? '20px' : '25px',
+        boxShadow: isMobile ? '0 8px 15px rgba(0, 0, 0, 0.1)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
         cursor: 'pointer',
         transition: 'all 0.3s ease'
       }}
@@ -784,7 +836,7 @@ function FaqItem({ faq, index }) {
         alignItems: 'center'
       }}>
         <h3 style={{ 
-          fontSize: '1.3rem', 
+          fontSize: isMobile ? '1.2rem' : '1.3rem', 
           marginBottom: isOpen ? '15px' : '0',
           color: 'var(--primary-color)',
           transition: 'margin-bottom 0.3s ease'
@@ -814,7 +866,7 @@ function FaqItem({ faq, index }) {
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           style={{ 
-            fontSize: '1.1rem', 
+            fontSize: isMobile ? '1rem' : '1.1rem', 
             lineHeight: 1.6,
             color: 'var(--text-color)',
             marginTop: '10px',
