@@ -125,7 +125,8 @@ function AboutPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
             gap: '40px', 
             alignItems: 'center',
-            marginBottom: '80px'
+            marginBottom: '80px',
+            padding: '0 15px'
           }}>
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
@@ -192,13 +193,14 @@ function AboutPage() {
           <div style={{ 
             backgroundColor: 'var(--secondary-color)',
             color: 'var(--neutral-color)',
-            padding: '60px 40px',
+            padding: '60px 20px',
             borderRadius: '0',
             marginBottom: '80px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
             width: '100vw',
             marginLeft: 'calc(-50vw + 50%)',
-            marginRight: 'calc(-50vw + 50%)'
+            marginRight: 'calc(-50vw + 50%)',
+            overflow: 'hidden'
           }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <motion.h2 
@@ -238,7 +240,8 @@ function AboutPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '40px',
             marginBottom: '80px',
-            alignItems: 'center'
+            alignItems: 'center',
+            padding: '0 15px'
           }}>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -298,7 +301,7 @@ function AboutPage() {
 
           <div style={{ 
             backgroundColor: 'var(--neutral-color)',
-            padding: '60px 40px',
+            padding: '60px 20px',
             borderRadius: '12px',
             marginBottom: '80px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)'
@@ -319,7 +322,7 @@ function AboutPage() {
             </motion.h2>
             <div style={{ 
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
               gap: '30px',
               justifyContent: 'center'
             }}>
@@ -459,7 +462,12 @@ function AboutPage() {
             }}>
               Whether you're looking for personalized coaching or an unforgettable pickleball tour in Costa Rica, I'm here to help you achieve your goals.
             </p>
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+            <div style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
               <Link to="/training" className="button" style={{
                 backgroundColor: 'var(--primary-color)',
                 color: 'var(--neutral-color)',
@@ -468,7 +476,8 @@ function AboutPage() {
                 fontSize: '1.1rem',
                 borderRadius: '30px',
                 textDecoration: 'none',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                margin: '5px'
               }}>
                 Training Options
               </Link>
@@ -480,7 +489,8 @@ function AboutPage() {
                 fontSize: '1.1rem',
                 borderRadius: '30px',
                 textDecoration: 'none',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)'
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                margin: '5px'
               }}>
                 Explore Tours
               </Link>

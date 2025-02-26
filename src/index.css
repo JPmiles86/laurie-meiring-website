@@ -610,6 +610,8 @@ footer p {
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-top: 30px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .achievement-card {
@@ -627,6 +629,7 @@ footer p {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .achievement-card::before {
@@ -697,12 +700,34 @@ footer p {
 @media (max-width: 992px) {
   .achievements-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .achievement-card {
+    min-height: 160px;
   }
 }
 
 @media (max-width: 576px) {
   .achievements-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 15px;
+  }
+  
+  .achievement-card {
+    min-height: 140px;
+  }
+  
+  .achievement-content {
+    font-size: 1.2rem;
+  }
+  
+  .achievement-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -835,4 +860,52 @@ and (max-width: 428px) { /* Cover all iPhone models */
 /* Ensure hero videos take full viewport height */
 .video-background-hero {
   height: 100vh !important;
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 768px) {
+  .about-page section {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .about-header {
+    padding: 80px 15px 40px !important;
+  }
+  
+  .about-header h1 {
+    font-size: 2.8rem !important;
+  }
+  
+  .about-content {
+    padding: 0 15px !important;
+  }
+  
+  .bio-section, 
+  .about-page .coaching-philosophy {
+    gap: 30px !important;
+  }
+  
+  .bio-section h2,
+  .about-page h2 {
+    font-size: 2.4rem !important;
+    text-align: center;
+  }
+  
+  .natural-image {
+    width: 100% !important;
+    max-width: 350px !important;
+  }
+  
+  .about-page .section-title {
+    font-size: 2.4rem !important;
+  }
+  
+  .about-page .ready-section h2 {
+    font-size: 2.4rem !important;
+  }
+  
+  .about-page .ready-section p {
+    font-size: 1.1rem !important;
+  }
 }
