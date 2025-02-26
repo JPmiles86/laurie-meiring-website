@@ -206,7 +206,7 @@ function TrainingPage() {
         <section className="pricing" style={{
           padding: '80px 20px',
           backgroundColor: 'var(--neutral-color)',
-          borderTop: '2px dashed var(--secondary-color)'
+          borderTop: '2px solid var(--secondary-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2 
@@ -441,7 +441,7 @@ function TrainingPage() {
         <section style={{ 
           padding: '80px 20px',
           backgroundColor: 'var(--neutral-color)',
-          borderTop: '2px dashed var(--secondary-color)'
+          borderTop: '2px solid var(--secondary-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2 

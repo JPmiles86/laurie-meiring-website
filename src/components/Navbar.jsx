@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import OptimizedImage from './OptimizedImage';
 import { IMAGES } from '../constants/images';
+import { motion } from 'framer-motion';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,18 +24,21 @@ function Navbar() {
   }, [prevScrollPos]);
 
   return (
-    <nav style={{ 
-      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-      backgroundColor: 'var(--neutral-color)',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000,
-      transform: `translateY(${visible ? '0' : '-100%'})`,
-      transition: 'transform 0.3s ease',
-      boxShadow: visible ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none'
-    }}>
+    <motion.div 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      style={{ 
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        backgroundColor: 'var(--neutral-color)',
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+        borderBottom: '2px solid var(--secondary-color)'
+      }}
+    >
       <div className="container" style={{ 
         maxWidth: '1200px', 
         margin: '0 auto', 
@@ -59,6 +63,8 @@ function Navbar() {
               loading="eager"
               style={{
                 borderRadius: '50%',
+                objectFit: 'cover',
+                objectPosition: 'center',
                 border: '2px solid var(--secondary-color)'
               }}
             />
@@ -224,7 +230,7 @@ function Navbar() {
           }
         }
       `}</style>
-    </nav>
+    </motion.div>
   );
 }
 

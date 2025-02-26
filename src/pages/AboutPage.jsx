@@ -30,7 +30,10 @@ function AboutPage() {
           backgroundColor: 'var(--primary-color)',
           color: 'var(--neutral-color)',
           textAlign: 'center',
-          marginBottom: '60px'
+          marginBottom: '60px',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          marginRight: 'calc(-50vw + 50%)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.div 
@@ -54,6 +57,8 @@ function AboutPage() {
                   height={150}
                   style={{
                     borderRadius: '50%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
                     border: '4px solid var(--secondary-color)',
                     zIndex: 1000
                   }}

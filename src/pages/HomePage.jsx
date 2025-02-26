@@ -309,7 +309,7 @@ function HomePage() {
           <section className="testimonials-section" style={{
             padding: '100px 20px',
             backgroundColor: 'var(--neutral-color)',
-            borderTop: '2px dashed var(--secondary-color)',
+            borderTop: '2px solid var(--secondary-color)',
             position: 'relative',
             overflow: 'hidden'
           }}>
@@ -528,6 +528,8 @@ function HomePage() {
                   height={150}
                   style={{
                     borderRadius: '50%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
                     border: '4px solid var(--secondary-color)',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
                   }}

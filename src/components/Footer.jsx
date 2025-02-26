@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer style={{ 
       backgroundColor: 'var(--neutral-color)',
-      padding: '20px',
+      padding: '40px 20px',
       textAlign: 'center',
       borderTop: '2px solid var(--secondary-color)'
     }}>

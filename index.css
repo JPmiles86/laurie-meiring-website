@@ -2,9 +2,9 @@
 
 /* Color Palette */
 :root {
-  --primary-color: #00ADB5;        /* Bright Teal */
-  --secondary-color: #FFD32D;      /* Electric Yellow */
-  --accent-color: #FF4081;         /* Hot Pink */
+  --primary-color: #C72958;        /* Dark Pink/Red */
+  --secondary-color: #F1E730;      /* Yellow */
+  --accent-color: #F1753B;         /* Orange */
   --neutral-color: #F8F8FF;        /* Off-White */
   --text-color: #333;             /* Charcoal Gray */
 }
@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   font-weight: normal; /* Bebas Neue is already bold */
   letter-spacing: 0.05em; /* Slight letter spacing for headings */
-  color: var(--primary-color); /* Teal Headings */
+  color: var(--primary-color); /* Dark Pink/Red Headings */
 }
 
 h1 { font-size: 3.5rem; line-height: 1.1; }
@@ -56,7 +56,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent-color); /* Hot Pink on hover */
+  color: var(--accent-color); /* Orange on hover */
   text-decoration: underline;
 }
 
@@ -78,7 +78,7 @@ a:hover {
 }
 
 .button:hover {
-  background-color: var(--primary-color); /* Teal on hover */
+  background-color: var(--primary-color); /* Dark Pink/Red on hover */
   color: var(--neutral-color);
   transform: scale(1.05); /* Slight scale up on hover */
   box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
@@ -105,7 +105,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--primary-color); /* Teal on Navbar link hover */
+  color: var(--primary-color); /* Dark Pink/Red on Navbar link hover */
   text-decoration: none; /* Remove underline on Navbar link hover */
 }
 
@@ -209,8 +209,8 @@ footer p {
 .about-preview {
   padding: 80px 0;
   text-align: center;
-  background-color: var(--primary-color); /* Teal About Preview background */
-  color: var(--neutral-color); /* Light text on teal */
+  background-color: var(--primary-color); /* Dark Pink/Red About Preview background */
+  color: var(--neutral-color); /* Light text on dark pink/red */
   position: relative;
   overflow: hidden;
 }
@@ -222,14 +222,14 @@ footer p {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--accent-color); /* Hot Pink overlay */
-  opacity: 0.08; /* Very subtle pink overlay */
+  background-color: var(--accent-color); /* Orange overlay */
+  opacity: 0.08; /* Very subtle overlay */
   z-index: -1;
 }
 
 
 .about-preview h2, .about-preview p, .about-preview a.button {
-  color: var(--neutral-color); /* Light text and button on teal */
+  color: var(--neutral-color); /* Light text and button on dark pink/red */
 }
 
 .about-preview h2 {
@@ -243,22 +243,23 @@ footer p {
 }
 
 .about-preview a.button {
-  background-color: var(--secondary-color); /* Yellow button on teal */
+  background-color: var(--secondary-color); /* Yellow button on dark pink/red */
   color: var(--text-color); /* Dark text on yellow button */
 }
 
 .about-preview a.button:hover {
   background-color: var(--neutral-color); /* Off-white button on hover */
-  color: var(--primary-color); /* Teal text on hover */
+  color: var(--primary-color); /* Dark Pink/Red text on hover */
 }
 
 
 /* Page Hero Sections (Pickleball, Chef, Marketing, About, Contact) */
 .page-hero {
-  padding: 80px 0;
+  padding: 60px 0;
   text-align: center;
   background-color: var(--neutral-color); /* Light background for page heroes */
-  border-bottom: 2px dashed var(--secondary-color); /* Dashed yellow border */
+  border-bottom: 2px solid var(--secondary-color); /* Solid orange border */
+  margin-bottom: 40px;
 }
 
 .page-hero h1 {
@@ -315,8 +316,8 @@ footer p {
 .contact-form-section input[type="email"]:focus,
 .contact-form-section textarea:focus {
   outline: none;
-  border-color: var(--primary-color); /* Teal input border on focus */
-  box-shadow: 0 0 5px rgba(0, 173, 181, 0.5); /* Subtle teal shadow on focus */
+  border-color: var(--primary-color); /* Dark Pink/Red input border on focus */
+  box-shadow: 0 0 5px rgba(199, 41, 88, 0.5); /* Subtle dark pink/red shadow on focus */
 }
 
 
@@ -338,11 +339,11 @@ footer p {
 }
 
 .contact-info a {
-  color: var(--accent-color); /* Hot Pink contact links */
+  color: var(--accent-color); /* Orange contact links */
 }
 
 .contact-info a:hover {
-  color: var(--primary-color); /* Teal on hover for contact links */
+  color: var(--primary-color); /* Dark Pink/Red on hover for contact links */
 }
 
 

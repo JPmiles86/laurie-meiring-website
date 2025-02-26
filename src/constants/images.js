@@ -1,6 +1,6 @@
 export const IMAGES = {
   PROFILE: {
-    AI_GENERATED: '/laurie ai face 1x1.jpg',
+    AI_GENERATED: '/Laurie-Coaching-Hero-2-2.jpg',
     NATURAL: '/chef laurie 1x1.jpg'
   },
   MARKETING: {

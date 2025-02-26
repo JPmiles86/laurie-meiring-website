@@ -7,14 +7,14 @@ function BlogPage() {
     <PageTransition>
       <div className="blog-page">
         <section className="page-hero" style={{ 
-          padding: '60px 0 40px', 
+          padding: '180px 0 80px', 
           textAlign: 'center',
           backgroundColor: 'var(--primary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
-          marginTop: '40px',
+          marginTop: '-80px',
           marginBottom: '40px',
           borderBottom: '4px solid var(--secondary-color)'
         }}>
