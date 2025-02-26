@@ -158,7 +158,12 @@ function HomePage() {
                     }
                     .service-card .card-image {
                       order: 1 !important;
-                      height: 300px !important;
+                      height: 350px !important;
+                      min-height: 350px !important;
+                      max-height: 350px !important;
+                      aspect-ratio: 1/1 !important;
+                      width: 100% !important;
+                      margin: 0 auto !important;
                     }
                   }
                   
@@ -191,7 +196,10 @@ function HomePage() {
               >
                 <div className="card-image" style={{ 
                   overflow: 'hidden',
-                  height: '100%'
+                  height: '100%',
+                  aspectRatio: '1/1',
+                  minHeight: '400px',
+                  maxHeight: '500px'
                 }}>
                   <img 
                     src="/laurie medals 1.jpg" 
@@ -277,6 +285,9 @@ function HomePage() {
                 <div className="card-image" style={{ 
                   overflow: 'hidden',
                   height: '100%',
+                  aspectRatio: '1/1',
+                  minHeight: '400px',
+                  maxHeight: '500px',
                   order: 2
                 }}>
                   <img 
