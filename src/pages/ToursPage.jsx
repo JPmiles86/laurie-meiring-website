@@ -122,6 +122,7 @@ function ToursPage() {
             initial="initial"
             animate="animate"
             variants={staggerChildren}
+            className="content-container"
             style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}
           >
             <motion.h1 
@@ -165,10 +166,7 @@ function ToursPage() {
           </motion.div>
         </VideoBackground>
 
-        <section style={{ 
-          padding: '80px 20px',
-          backgroundColor: 'var(--neutral-color)'
-        }}>
+        <section className="tour-packages" style={{ padding: '80px 20px', backgroundColor: 'var(--neutral-color)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -322,9 +320,9 @@ function ToursPage() {
           </div>
         </section>
 
-        <section style={{
+        <section className="locations" style={{
           padding: '80px 20px',
-          backgroundColor: 'var(--secondary-color)',
+          backgroundColor: 'var(--primary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
@@ -399,7 +397,7 @@ function ToursPage() {
           </div>
         </section>
 
-        <section style={{ 
+        <section className="locations" style={{ 
           padding: '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
@@ -418,135 +416,76 @@ function ToursPage() {
             >
               Tour Locations
             </motion.h2>
-            {locations.map((location, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: index % 2 === 0 ? '1fr 1.5fr' : '1.5fr 1fr',
-                  gap: '40px',
-                  marginBottom: index === locations.length - 1 ? 0 : '60px',
-                  alignItems: 'center'
-                }}
-              >
-                <div style={{ order: index % 2 === 0 ? 1 : 2 }}>
-                  <h3 style={{ 
-                    fontSize: '2rem', 
-                    marginBottom: '15px',
-                    color: 'var(--primary-color)'
-                  }}>
-                    {location.name}
-                  </h3>
-                  <p style={{ 
-                    fontSize: '1.1rem', 
-                    lineHeight: 1.6,
-                    marginBottom: '20px'
-                  }}>
-                    {location.description}
-                  </p>
-                </div>
-                <motion.div 
-                  style={{ 
-                    order: index % 2 === 0 ? 2 : 1,
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                    height: '300px'
-                  }}
-                  whileHover={{
-                    scale: 1.03,
-                    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
+            <div className="location-grid" style={{ 
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '30px',
+              marginTop: '40px'
+            }}>
+              {locations.map((location, index) => (
+                <motion.div
+                  key={index}
+                  className="location-card"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: index % 2 === 0 ? '1fr 1.5fr' : '1.5fr 1fr',
+                    gap: '40px',
+                    marginBottom: index === locations.length - 1 ? 0 : '60px',
+                    alignItems: 'center'
                   }}
                 >
-                  <img
-                    src={location.image}
-                    alt={location.name}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block'
+                  <div style={{ order: index % 2 === 0 ? 1 : 2 }}>
+                    <h3 style={{ 
+                      fontSize: '2rem', 
+                      marginBottom: '15px',
+                      color: 'var(--primary-color)'
+                    }}>
+                      {location.name}
+                    </h3>
+                    <p style={{ 
+                      fontSize: '1.1rem', 
+                      lineHeight: 1.6,
+                      marginBottom: '20px'
+                    }}>
+                      {location.description}
+                    </p>
+                  </div>
+                  <motion.div 
+                    style={{ 
+                      order: index % 2 === 0 ? 2 : 1,
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                      height: '300px'
                     }}
-                  />
+                    whileHover={{
+                      scale: 1.03,
+                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
+                    }}
+                  >
+                    <img
+                      src={location.image}
+                      alt={location.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
-        <section style={{
-          padding: '80px 20px',
-          backgroundColor: 'var(--secondary-color)',
-          color: 'var(--neutral-color)',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)'
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 style={{ 
-                fontSize: '2.8rem', 
-                marginBottom: '20px',
-                color: 'var(--neutral-color)'
-              }}>
-                Ready for Your Pickleball Adventure?
-              </h2>
-              <p style={{ 
-                fontSize: '1.2rem', 
-                lineHeight: 1.6,
-                marginBottom: '30px',
-                maxWidth: '600px',
-                margin: '0 auto 30px',
-                color: 'var(--neutral-color)'
-              }}>
-                Book your tour today and experience the perfect combination of pickleball improvement and Costa Rican paradise.
-              </p>
-              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                <Link to="/contact" className="button" style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
-                  padding: '15px 30px',
-                  borderRadius: '30px',
-                  fontSize: '1.2rem',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  Book Now
-                </Link>
-                <Link to="/contact" className="button" style={{
-                  backgroundColor: 'var(--neutral-color)',
-                  color: 'var(--primary-color)',
-                  padding: '15px 30px',
-                  borderRadius: '30px',
-                  fontSize: '1.2rem',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
-                }}>
-                  Request Info
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        <section style={{ 
-          padding: '80px 20px',
-          backgroundColor: 'var(--neutral-color)'
-        }}>
+        <section className="features" style={{ padding: '80px 20px', backgroundColor: 'var(--neutral-color)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -582,7 +521,7 @@ function ToursPage() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '30px',
-              margin: '0 auto'
+              marginTop: '40px'
             }}>
               {[
                 {
@@ -603,6 +542,7 @@ function ToursPage() {
               ].map((option, index) => (
                 <motion.div
                   key={index}
+                  className="feature-card"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -683,9 +623,10 @@ function ToursPage() {
           </div>
         </section>
 
-        <section style={{ 
+        <section className="faq-section" style={{ 
           padding: '80px 20px',
-          backgroundColor: 'var(--neutral-color)'
+          backgroundColor: 'var(--neutral-color)',
+          borderTop: '1px solid #eee'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2
@@ -746,6 +687,66 @@ function ToursPage() {
                 <FaqItem key={index} faq={faq} index={index} />
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="cta-section" style={{ 
+          padding: '80px 20px',
+          backgroundColor: 'var(--neutral-color)'
+        }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 style={{ 
+                fontSize: '2.8rem', 
+                marginBottom: '20px',
+                color: 'var(--neutral-color)'
+              }}>
+                Ready for Your Pickleball Adventure?
+              </h2>
+              <p style={{ 
+                fontSize: '1.2rem', 
+                lineHeight: 1.6,
+                marginBottom: '30px',
+                maxWidth: '600px',
+                margin: '0 auto 30px',
+                color: 'var(--neutral-color)'
+              }}>
+                Book your tour today and experience the perfect combination of pickleball improvement and Costa Rican paradise.
+              </p>
+              <div className="button-container" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <Link to="/contact" className="button" style={{
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
+                  padding: '15px 30px',
+                  borderRadius: '30px',
+                  fontSize: '1.2rem',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease'
+                }}>
+                  Book Now
+                </Link>
+                <Link to="/contact" className="button" style={{
+                  backgroundColor: 'var(--neutral-color)',
+                  color: 'var(--primary-color)',
+                  padding: '15px 30px',
+                  borderRadius: '30px',
+                  fontSize: '1.2rem',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease'
+                }}>
+                  Request Info
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </section>
       </div>

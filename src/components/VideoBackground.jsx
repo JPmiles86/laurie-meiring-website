@@ -1,106 +1,119 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh', overlayColor = 'rgba(0, 0, 0, 0.5)', children, type = 'section' }) => {
-  const [error, setError] = useState(false);
+function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh', overlayColor = 'rgba(0, 0, 0, 0.4)', children, type = 'section' }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  // More comprehensive mobile detection
   useEffect(() => {
-    const checkDevice = () => {
-      // Check if mobile
-      const mobile = window.innerWidth <= 768 || 
-                    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Detect mobile devices
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+      const isDeviceMobile = mobileRegex.test(userAgent);
+      setIsMobile(isDeviceMobile);
       
-      // Check if iOS specifically
-      const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      
-      setIsMobile(mobile);
-      setIsIOS(ios);
+      // Check specifically for iOS
+      const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+      setIsIOS(isIOSDevice);
     };
-
-    checkDevice();
-    window.addEventListener('resize', checkDevice);
-    return () => window.removeEventListener('resize', checkDevice);
-  }, []);
-
-  // Fix for iOS viewport height issues
-  useEffect(() => {
-    // First we get the viewport height and we multiply it by 1% to get a value for a vh unit
-    const setVh = () => {
-      let vh = window.innerHeight * 0.01;
-      // Then we set the value in the --vh custom property to the root of the document
+    
+    // Fix for iOS 100vh issue
+    const setVhVariable = () => {
+      const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
-
-    setVh();
-    window.addEventListener('resize', setVh);
-    window.addEventListener('orientationchange', setVh);
-
+    
+    checkMobile();
+    setVhVariable();
+    
+    // Update on resize
+    window.addEventListener('resize', setVhVariable);
+    
     return () => {
-      window.removeEventListener('resize', setVh);
-      window.removeEventListener('orientationchange', setVh);
+      window.removeEventListener('resize', setVhVariable);
     };
   }, []);
 
-  // For mobile devices, we use a different approach
-  // Added additional parameters to help with flashing
-  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&start=${startTime}${endTime ? `&end=${endTime}` : ''}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1&fs=0&origin=${window.location.origin}&disablekb=1&cc_load_policy=0&annotation=0&title=0&version=3&vq=hd1080`;
-
-  // Use CSS classes for better styling control
-  const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isMobile ? 'mobile' : ''} ${isIOS ? 'ios' : ''} ${isLoaded ? 'loaded' : 'loading'}`;
+  // Construct video URL with parameters
+  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playlist=${videoId}&start=${startTime}${endTime ? `&end=${endTime}` : ''}&version=3&vq=hd1080`;
   
-  // Set inline styles for height when not a hero
-  const containerStyle = {
-    marginLeft: 'calc(-50vw + 50%)',
-    marginRight: 'calc(-50vw + 50%)',
-    height: type === 'hero' ? (isIOS ? 'calc(var(--vh, 1vh) * 100)' : '100vh') : height
-  };
-
-  // Set overlay style with the provided color
-  const overlayStyle = {
-    backgroundColor: overlayColor
-  };
-
-  // Handle iframe load event
-  const handleIframeLoad = () => {
-    setIsLoaded(true);
-  };
+  // Determine container class based on device type
+  const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isMobile ? 'mobile' : ''} ${isIOS ? 'ios' : ''} ${isLoaded ? 'loaded' : 'loading'}`;
 
   return (
-    <div className={containerClassName} style={containerStyle}>
-      {!error && (
-        <iframe
-          src={videoUrl}
-          className="video-background-iframe"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          onError={() => setError(true)}
-          onLoad={handleIframeLoad}
-          title="background-video"
-          frameBorder="0"
-          loading="eager"
-          importance="high"
-        />
-      )}
-      <div className="video-background-overlay" style={overlayStyle}>
+    <div 
+      className={containerClassName}
+      style={{ 
+        position: 'relative',
+        height: type === 'hero' ? height : height,
+        overflow: 'hidden',
+        width: '100%'
+      }}
+    >
+      <div 
+        className="video-background-overlay"
+        style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: overlayColor,
+          zIndex: 1
+        }}
+      />
+      <iframe 
+        className="video-background-iframe"
+        src={videoUrl}
+        title="Background Video"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        loading="eager"
+        importance="high"
+        onLoad={() => setIsLoaded(true)}
+        style={{ 
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '100vw',
+          height: '100vh',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+          transformStyle: 'preserve-3d'
+        }}
+      />
+      <div 
+        style={{ 
+          position: 'relative',
+          zIndex: 2,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         {children}
       </div>
     </div>
   );
-};
+}
 
 VideoBackground.propTypes = {
   videoId: PropTypes.string.isRequired,
   startTime: PropTypes.number,
   endTime: PropTypes.number,
-  overlayColor: PropTypes.string,
   height: PropTypes.string,
+  overlayColor: PropTypes.string,
   children: PropTypes.node,
-  type: PropTypes.oneOf(['hero', 'section'])
+  type: PropTypes.oneOf(['section', 'hero'])
 };
 
 export default VideoBackground; 

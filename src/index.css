@@ -909,3 +909,146 @@ and (max-width: 428px) { /* Cover all iPhone models */
     font-size: 1.1rem !important;
   }
 }
+
+/* Additional mobile responsiveness improvements */
+@media (max-width: 768px) {
+  /* General responsive adjustments */
+  .content-container {
+    padding: 0 15px;
+  }
+  
+  /* Training page specific adjustments */
+  .training-page section {
+    padding: 60px 15px !important;
+  }
+  
+  .training-page .training-intro {
+    flex-direction: column !important;
+  }
+  
+  .training-page .training-image,
+  .training-page .training-content {
+    width: 100% !important;
+    padding: 15px !important;
+  }
+  
+  .training-page .approach-content {
+    order: 2 !important;
+  }
+  
+  .training-page .approach-image {
+    order: 1 !important;
+    margin-bottom: 20px !important;
+  }
+  
+  /* FAQ section responsive fix */
+  .training-page [style*="gridTemplateColumns: repeat(auto-fit, minmax(500px, 1fr))"] {
+    display: grid;
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Tours page specific adjustments */
+  .tours-page section {
+    padding: 60px 15px !important;
+  }
+  
+  .tours-page .tour-card {
+    flex-direction: column !important;
+  }
+  
+  .tours-page .tour-image,
+  .tours-page .tour-content {
+    width: 100% !important;
+  }
+  
+  .tours-page .location-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Improve button display on mobile */
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  /* Improve headings on mobile */
+  @media (max-width: 576px) {
+    h1 { 
+      font-size: 2.2rem !important; 
+      line-height: 1.2 !important;
+    }
+    h2 { 
+      font-size: 1.8rem !important; 
+      line-height: 1.2 !important;
+    }
+    h3 { 
+      font-size: 1.5rem !important; 
+    }
+    
+    /* Adjust hero sections */
+    .video-background-hero .content-container h1 {
+      font-size: 2.5rem !important;
+    }
+    
+    .video-background-hero .content-container p {
+      font-size: 1.2rem !important;
+    }
+    
+    /* Adjust button sizes */
+    .video-background-hero .button {
+      padding: 12px 24px !important;
+      font-size: 1rem !important;
+      margin: 5px !important;
+    }
+    
+    /* Stack buttons on very small screens */
+    .video-background-hero [style*="display: flex"] {
+      flex-direction: column !important;
+      gap: 10px !important;
+    }
+    
+    /* Adjust pricing cards */
+    [style*="gridTemplateColumns: repeat(auto-fit, minmax(300px, 1fr))"] {
+      gap: 20px !important;
+    }
+    
+    /* Fix featured card scaling */
+    [style*="transform: scale(1.05)"] {
+      transform: none !important;
+    }
+  }
+}
+
+/* Fix for iOS Safari 100vh issue */
+.video-background-hero {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Improve video background on mobile */
+@media (max-width: 768px) {
+  /* Make video even larger on mobile to eliminate black bars */
+  .video-background-container.mobile .video-background-iframe {
+    height: 350vh !important; /* Increase from 300vh to 350vh */
+    min-width: 350vw !important; /* Increase from 300vw to 350vw */
+    min-height: 350vh !important;
+  }
+  
+  /* iPhone specific adjustments - even more aggressive */
+  @media only screen and (max-width: 428px) {
+    .video-background-container.mobile .video-background-iframe {
+      height: 400vh !important; /* Increase from 350vh to 400vh */
+      min-width: 400vw !important; /* Increase from 350vw to 400vw */
+      min-height: 400vh !important;
+    }
+  }
+  
+  /* iOS specific adjustments */
+  .video-background-container.ios .video-background-iframe {
+    height: 450vh !important; /* Increase from 400vh to 450vh */
+    min-width: 450vw !important; /* Increase from 400vw to 450vw */
+    min-height: 450vh !important;
+  }
+}

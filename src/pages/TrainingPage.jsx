@@ -102,107 +102,92 @@ function TrainingPage() {
           </div>
         </VideoBackground>
 
-        <section className="achievements" style={{ 
+        <section className="training-intro" style={{
           padding: '80px 20px',
-          maxWidth: '1200px',
-          margin: '0 auto'
+          backgroundColor: 'var(--neutral-color)'
         }}>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            style={{ textAlign: 'center', marginBottom: '40px' }}
-          >
-            Championship Experience
-          </motion.h2>
-          <div style={{ 
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '30px',
-            alignItems: 'center'
-          }}>
-            <div className="medal-gallery" style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '20px'
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ textAlign: 'center', marginBottom: '40px' }}
+            >
+              Professional Pickleball Training
+            </motion.h2>
+            <div className="training-intro" style={{ 
+              display: 'flex',
+              gap: '40px',
+              alignItems: 'center',
+              marginTop: '40px'
             }}>
-              <OptimizedImage
-                src={IMAGES.PICKLEBALL.MEDAL_1}
-                alt="Championship Medal"
-                width={280}
-                height={280}
-                style={{
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  transform: 'rotate(-2deg)'
-                }}
-              />
-              <OptimizedImage
-                src={IMAGES.PICKLEBALL.MEDAL_2}
-                alt="Tournament Victory"
-                width={280}
-                height={280}
-                style={{
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  transform: 'rotate(2deg)'
-                }}
-              />
-            </div>
-            <div className="training-content">
-              <motion.h3 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                style={{ color: 'var(--primary-color)', fontSize: '2rem', fontWeight: 'normal', marginBottom: '15px' }}
-              >
-                Professional Coaching
-              </motion.h3>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)', lineHeight: '1.6' }}
-              >
-                With tournament experience and a passion for teaching, I bring competitive insights 
-                and proven strategies to help players of all levels improve their game.
-              </motion.p>
-              <motion.ul 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                style={{ 
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: '20px 0'
-                }}
-              >
-                {trainingBenefits.map((item, index) => (
-                  <motion.li 
-                    key={index} 
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 + (index * 0.1) }}
-                    style={{
-                      marginBottom: '10px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      color: 'var(--text-color)',
-                      fontSize: '1.1rem',
-                      lineHeight: '1.6'
-                    }}
-                  >
-                    <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
-                    {item}
-                  </motion.li>
-                ))}
-              </motion.ul>
+              <div className="training-image" style={{ width: '50%' }}>
+                <OptimizedImage
+                  src={IMAGES.PICKLEBALL.COURTS}
+                  alt="Pickleball Courts in Costa Rica"
+                  width={600}
+                  height={400}
+                  style={{
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                  }}
+                />
+              </div>
+              <div className="training-content" style={{ width: '50%' }}>
+                <motion.h3 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  style={{ color: 'var(--primary-color)', fontSize: '2rem', fontWeight: 'normal', marginBottom: '15px' }}
+                >
+                  Professional Coaching
+                </motion.h3>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)', lineHeight: '1.6' }}
+                >
+                  With tournament experience and a passion for teaching, I bring competitive insights 
+                  and proven strategies to help players of all levels improve their game.
+                </motion.p>
+                <motion.ul 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  style={{ 
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: '20px 0'
+                  }}
+                >
+                  {trainingBenefits.map((item, index) => (
+                    <motion.li 
+                      key={index} 
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: 0.3 + (index * 0.1) }}
+                      style={{
+                        marginBottom: '10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        color: 'var(--text-color)',
+                        fontSize: '1.1rem',
+                        lineHeight: '1.6'
+                      }}
+                    >
+                      <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
+                      {item}
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </div>
             </div>
           </div>
         </section>
@@ -443,7 +428,7 @@ function TrainingPage() {
         </section>
 
         {/* New Coaching Video Section */}
-        <section style={{ 
+        <section className="coaching-video" style={{ 
           padding: '80px 20px',
           backgroundColor: 'var(--neutral-color)',
           borderTop: '2px solid var(--secondary-color)'
@@ -484,7 +469,7 @@ function TrainingPage() {
           </div>
         </section>
 
-        <section style={{
+        <section className="cta-section" style={{
           padding: '80px 20px',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
@@ -517,7 +502,7 @@ function TrainingPage() {
               }}>
                 Whether you're a beginner or an experienced player, I'm here to help you reach your pickleball goals in the beautiful setting of Costa Rica.
               </p>
-              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="button-container" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <Link to="/contact" className="button" style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
@@ -550,7 +535,7 @@ function TrainingPage() {
         </section>
 
         {/* New FAQ Section */}
-        <section style={{ 
+        <section className="faq-section" style={{ 
           padding: '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
