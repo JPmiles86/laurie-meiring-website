@@ -150,13 +150,13 @@ function TrainingPage() {
                 }}
               />
             </div>
-            <div className="achievement-content">
+            <div className="training-content">
               <motion.h3 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                style={{ color: 'var(--primary-color)' }}
+                style={{ color: 'var(--primary-color)', fontSize: '2rem', fontWeight: 'normal', marginBottom: '15px' }}
               >
                 Professional Coaching
               </motion.h3>
@@ -165,7 +165,7 @@ function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)' }}
+                style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)', lineHeight: '1.6' }}
               >
                 With tournament experience and a passion for teaching, I bring competitive insights 
                 and proven strategies to help players of all levels improve their game.
@@ -193,7 +193,9 @@ function TrainingPage() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '10px',
-                      color: 'var(--text-color)'
+                      color: 'var(--text-color)',
+                      fontSize: '1.1rem',
+                      lineHeight: '1.6'
                     }}
                   >
                     <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
@@ -374,8 +376,8 @@ function TrainingPage() {
                 transition={{ duration: 0.6 }}
                 className="approach-content"
               >
-                <h3>Personalized Coaching</h3>
-                <p style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)' }}>
+                <h3 style={{ color: 'var(--primary-color)', fontSize: '2rem', fontWeight: 'normal', marginBottom: '15px' }}>Personalized Coaching</h3>
+                <p style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)', lineHeight: '1.6' }}>
                   Every player is unique, with different strengths, weaknesses, and goals. My coaching approach 
                   is tailored to your specific needs, whether you're a beginner learning the basics or an 
                   advanced player refining your strategy.
