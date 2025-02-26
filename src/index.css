@@ -744,42 +744,56 @@ footer p {
   }
 }
 
-/* Mobile specific adjustments */
+/* Mobile specific adjustments - MUCH more aggressive approach */
 @media (max-width: 768px) {
-  .video-background-iframe {
-    width: auto !important;
+  /* Force the container to be full height */
+  .video-background-container.mobile {
     height: 100vh !important;
-    min-width: 100vw;
+    position: relative;
+    overflow: hidden;
   }
   
-  /* Special class for mobile devices */
+  /* Extremely aggressive scaling for mobile */
   .video-background-container.mobile .video-background-iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: auto !important;
-    height: 100vh !important;
-    min-width: 120vw; /* Less aggressive width for mobile */
-    min-height: 100vh;
+    height: 200vh !important; /* Double the viewport height */
+    min-width: 200vw; /* Double the viewport width */
+    min-height: 200vh;
+    object-fit: cover;
   }
 }
 
-/* iPhone specific fix */
+/* iPhone specific fix - even more aggressive */
 @media only screen 
-and (device-width: 375px) 
-and (device-height: 812px) 
-and (-webkit-device-pixel-ratio: 3),
-only screen 
-and (device-width: 414px) 
-and (device-height: 896px) 
-and (-webkit-device-pixel-ratio: 2),
-only screen 
-and (device-width: 390px) 
-and (device-height: 844px) 
-and (-webkit-device-pixel-ratio: 3) {
+and (max-width: 428px) { /* Cover all iPhone models */
   .video-background-container.mobile .video-background-iframe {
-    min-width: 140vw;
-    min-height: 110vh;
+    height: 250vh !important; /* 2.5x the viewport height */
+    min-width: 250vw; /* 2.5x the viewport width */
   }
 }
 
+/* iOS specific fixes - iOS has unique rendering issues */
+.video-background-container.ios .video-background-iframe {
+  height: 300vh !important; /* 3x the viewport height */
+  min-width: 300vw; /* 3x the viewport width */
+}
+
+/* Fix for iOS Safari viewport height issues */
+@supports (-webkit-touch-callout: none) {
+  .video-background-hero {
+    height: -webkit-fill-available !important;
+  }
+  
+  .video-background-container.ios .video-background-iframe {
+    height: calc(300 * var(--vh, 1vh)) !important;
+  }
+}
+
+/* Ensure content is properly positioned */
 .video-background-overlay {
   position: absolute;
   top: 0;
