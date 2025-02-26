@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OptimizedImage from '../components/OptimizedImage';
 import VideoBackground from '../components/VideoBackground';
 import PageTransition from '../components/PageTransition';
@@ -8,6 +8,17 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function TrainingPage() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const pricingPlans = [
     {
       title: 'Single Session',
@@ -71,14 +82,14 @@ function TrainingPage() {
           height="95vh"
           overlayColor="rgba(0, 0, 0, 0.4)"
         >
-          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', textAlign: 'center' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: isMobile ? '0 15px' : '0 20px', textAlign: 'center' }}>
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               style={{ 
                 color: 'var(--neutral-color)',
-                fontSize: '3.5rem',
+                fontSize: isMobile ? '2.8rem' : '3.5rem',
                 marginBottom: '20px',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
               }}
@@ -90,7 +101,7 @@ function TrainingPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               style={{ 
-                fontSize: '1.2rem', 
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
                 maxWidth: '800px', 
                 margin: '20px auto',
                 color: 'var(--neutral-color)',
@@ -103,7 +114,7 @@ function TrainingPage() {
         </VideoBackground>
 
         <section className="training-intro" style={{
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -112,35 +123,53 @@ function TrainingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              style={{ textAlign: 'center', marginBottom: '40px' }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '40px',
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
+              }}
             >
               Professional Pickleball Training
             </motion.h2>
             <div className="training-intro" style={{ 
               display: 'flex',
-              gap: '40px',
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '30px' : '40px',
               alignItems: 'center',
               marginTop: '40px'
             }}>
-              <div className="training-image" style={{ width: '50%' }}>
+              <div className="training-image" style={{ 
+                width: isMobile ? '100%' : '50%',
+                order: isMobile ? 1 : 0
+              }}>
                 <OptimizedImage
                   src={IMAGES.PICKLEBALL.COURTS}
                   alt="Pickleball Courts in Costa Rica"
                   width={600}
                   height={400}
                   style={{
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                    borderRadius: isMobile ? '16px' : '12px',
+                    boxShadow: isMobile ? '0 8px 20px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    width: '100%',
+                    height: 'auto'
                   }}
                 />
               </div>
-              <div className="training-content" style={{ width: '50%' }}>
+              <div className="training-content" style={{ 
+                width: isMobile ? '100%' : '50%',
+                order: isMobile ? 0 : 1
+              }}>
                 <motion.h3 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 }}
-                  style={{ color: 'var(--primary-color)', fontSize: '2rem', fontWeight: 'normal', marginBottom: '15px' }}
+                  style={{ 
+                    color: 'var(--primary-color)', 
+                    fontSize: isMobile ? '1.8rem' : '2rem', 
+                    fontWeight: 'normal', 
+                    marginBottom: '15px' 
+                  }}
                 >
                   Professional Coaching
                 </motion.h3>
@@ -193,7 +222,7 @@ function TrainingPage() {
         </section>
 
         <section className="pricing" style={{
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)',
           borderTop: '2px solid var(--secondary-color)'
         }}>
@@ -203,15 +232,19 @@ function TrainingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              style={{ textAlign: 'center', marginBottom: '40px' }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: isMobile ? '30px' : '40px',
+                fontSize: isMobile ? '2.2rem' : '2.8rem'
+              }}
             >
               Pickleball Training Packages
             </motion.h2>
             
             <div style={{ 
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '30px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '25px' : '30px',
               width: '100%',
               maxWidth: '1200px',
               margin: '0 auto'
@@ -334,7 +367,7 @@ function TrainingPage() {
         </section>
 
         <section className="training-approach" style={{
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           position: 'relative',
           overflow: 'hidden'
         }}>
@@ -344,14 +377,18 @@ function TrainingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              style={{ textAlign: 'center', marginBottom: '40px' }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '40px',
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
+              }}
             >
               Pickleball Training Approach
             </motion.h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '40px',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: isMobile ? '30px' : '40px',
               alignItems: 'center'
             }}>
               <motion.div 
@@ -429,7 +466,7 @@ function TrainingPage() {
 
         {/* New Coaching Video Section */}
         <section className="coaching-video" style={{ 
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)',
           borderTop: '2px solid var(--secondary-color)'
         }}>
@@ -470,7 +507,7 @@ function TrainingPage() {
         </section>
 
         <section className="cta-section" style={{
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
@@ -486,46 +523,60 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 style={{ 
-                fontSize: '2.8rem', 
-                marginBottom: '20px',
+                fontSize: isMobile ? '2.4rem' : '2.8rem', 
+                marginBottom: isMobile ? '15px' : '20px',
                 color: 'var(--neutral-color)'
               }}>
                 Ready to Elevate Your Pickleball Game?
               </h2>
               <p style={{ 
-                fontSize: '1.2rem', 
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
                 lineHeight: 1.6,
-                marginBottom: '30px',
+                marginBottom: isMobile ? '25px' : '30px',
                 maxWidth: '600px',
                 margin: '0 auto 30px',
-                color: 'var(--neutral-color)'
+                color: 'var(--neutral-color)',
+                padding: isMobile ? '0 10px' : '0'
               }}>
                 Whether you're a beginner or an experienced player, I'm here to help you reach your pickleball goals in the beautiful setting of Costa Rica.
               </p>
-              <div className="button-container" style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="button-container" style={{ 
+                display: 'flex', 
+                gap: '20px', 
+                justifyContent: 'center', 
+                flexWrap: 'wrap',
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: 'center',
+                maxWidth: isMobile ? '280px' : 'none',
+                margin: '0 auto'
+              }}>
                 <Link to="/contact" className="button" style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
-                  padding: '15px 30px',
+                  padding: isMobile ? '14px 20px' : '15px 30px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
+                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease',
+                  width: isMobile ? '100%' : 'auto',
+                  fontWeight: 'bold'
                 }}>
                   Book a Session
                 </Link>
                 <Link to="/tours" className="button" style={{
                   backgroundColor: 'var(--neutral-color)',
                   color: 'var(--primary-color)',
-                  padding: '15px 30px',
+                  padding: isMobile ? '14px 20px' : '15px 30px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
+                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease',
+                  width: isMobile ? '100%' : 'auto',
+                  fontWeight: 'bold'
                 }}>
                   Explore Tours
                 </Link>
@@ -536,7 +587,7 @@ function TrainingPage() {
 
         {/* New FAQ Section */}
         <section className="faq-section" style={{ 
-          padding: '80px 20px',
+          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -547,16 +598,16 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
               style={{
                 textAlign: 'center',
-                marginBottom: '40px',
+                marginBottom: isMobile ? '30px' : '40px',
                 color: 'var(--primary-color)',
-                fontSize: '2.8rem'
+                fontSize: isMobile ? '2.4rem' : '2.8rem'
               }}
             >
               Frequently Asked Questions
             </motion.h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(450px, 1fr))',
               gap: '30px',
               maxWidth: '1000px',
               margin: '0 auto'
@@ -608,6 +659,16 @@ function TrainingPage() {
 // Component for expandable FAQ items
 function FaqItem({ faq, index }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   return (
     <motion.div
@@ -618,7 +679,7 @@ function FaqItem({ faq, index }) {
       style={{
         backgroundColor: '#fff',
         borderRadius: '12px',
-        padding: '25px',
+        padding: isMobile ? '20px' : '25px',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         cursor: 'pointer',
         transition: 'all 0.3s ease'
@@ -635,7 +696,7 @@ function FaqItem({ faq, index }) {
         alignItems: 'center'
       }}>
         <h3 style={{ 
-          fontSize: '1.3rem', 
+          fontSize: isMobile ? '1.1rem' : '1.3rem', 
           marginBottom: isOpen ? '15px' : '0',
           color: 'var(--primary-color)',
           transition: 'margin-bottom 0.3s ease'
@@ -665,7 +726,7 @@ function FaqItem({ faq, index }) {
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           style={{ 
-            fontSize: '1.1rem', 
+            fontSize: isMobile ? '1rem' : '1.1rem', 
             lineHeight: 1.6,
             color: 'var(--text-color)',
             marginTop: '10px',
