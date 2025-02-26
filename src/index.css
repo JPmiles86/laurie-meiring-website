@@ -705,3 +705,58 @@ footer p {
     grid-template-columns: 1fr;
   }
 }
+
+/* Video Background Styles */
+.video-background-container {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+  background-color: black;
+}
+
+.video-background-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 200%;
+  min-height: 200%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  background-color: black;
+  border: none;
+}
+
+/* For wider screens, make the video even wider */
+@media (min-aspect-ratio: 16/9) {
+  .video-background-iframe {
+    min-width: 300%;
+    height: 200%;
+  }
+}
+
+/* For taller screens, make the video even taller */
+@media (max-aspect-ratio: 16/9) {
+  .video-background-iframe {
+    width: 200%;
+    min-height: 300%;
+  }
+}
+
+.video-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure hero videos take full viewport height */
+.video-background-hero {
+  height: 100vh !important;
+}
