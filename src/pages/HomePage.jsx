@@ -74,8 +74,8 @@ function HomePage() {
                 to="/contact" 
                 className="button"
                 style={{
-                  backgroundColor: 'var(--secondary-color)',
-                  color: 'var(--text-color)',
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
                   padding: '18px 36px',
                   borderRadius: '30px',
                   fontSize: '1.2rem',
@@ -93,8 +93,8 @@ function HomePage() {
                 to="/tours" 
                 className="button"
                 style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
+                  backgroundColor: 'var(--neutral-color)',
+                  color: 'var(--primary-color)',
                   padding: '18px 36px',
                   borderRadius: '30px',
                   fontSize: '1.2rem',
@@ -228,7 +228,7 @@ function HomePage() {
                       display: 'inline-block',
                       padding: '12px 24px',
                       backgroundColor: 'var(--primary-color)',
-                      color: 'white',
+                      color: 'var(--neutral-color)',
                       borderRadius: '25px',
                       textDecoration: 'none',
                       fontSize: '1.1rem',
@@ -274,7 +274,7 @@ function HomePage() {
                       display: 'inline-block',
                       padding: '12px 24px',
                       backgroundColor: 'var(--primary-color)',
-                      color: 'white',
+                      color: 'var(--neutral-color)',
                       borderRadius: '25px',
                       textDecoration: 'none',
                       fontSize: '1.1rem',
@@ -490,8 +490,8 @@ function HomePage() {
                 style={{
                   display: 'inline-block',
                   padding: '12px 30px',
-                  backgroundColor: 'var(--secondary-color)',
-                  color: 'var(--text-color)',
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
                   borderRadius: '25px',
                   textDecoration: 'none',
                   fontSize: '1.1rem',
@@ -508,7 +508,7 @@ function HomePage() {
           width: '100vw', 
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
-          backgroundColor: 'var(--primary-color)',
+          backgroundColor: 'var(--secondary-color)',
           padding: '120px 0',
           color: 'var(--neutral-color)',
           marginBottom: '0'
@@ -530,7 +530,7 @@ function HomePage() {
                     borderRadius: '50%',
                     objectFit: 'cover',
                     objectPosition: 'center',
-                    border: '4px solid var(--secondary-color)',
+                    border: '4px solid var(--primary-color)',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
                   }}
                 />
@@ -571,8 +571,8 @@ function HomePage() {
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <Link to="/training" className="button" style={{
-                  backgroundColor: 'var(--secondary-color)',
-                  color: 'var(--text-color)',
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
                   display: 'inline-block',
                   padding: '15px 30px',
                   fontSize: '1.2rem',
@@ -621,8 +621,8 @@ function HomePage() {
               Join us for world-class pickleball training and tours in the beautiful setting of Costa Rica
             </p>
             <Link to="/contact" className="button" style={{
-              backgroundColor: 'var(--secondary-color)',
-              color: 'var(--text-color)',
+              backgroundColor: 'var(--neutral-color)',
+              color: 'var(--primary-color)',
               padding: '18px 36px',
               borderRadius: '30px',
               fontSize: '1.3rem',

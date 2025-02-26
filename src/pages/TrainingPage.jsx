@@ -156,6 +156,7 @@ function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
+                style={{ color: 'var(--primary-color)' }}
               >
                 Professional Coaching
               </motion.h3>
@@ -164,7 +165,7 @@ function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                style={{ fontSize: '1.1rem', marginBottom: '20px' }}
+                style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)' }}
               >
                 With tournament experience and a passion for teaching, I bring competitive insights 
                 and proven strategies to help players of all levels improve their game.
@@ -191,10 +192,11 @@ function TrainingPage() {
                       marginBottom: '10px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '10px'
+                      gap: '10px',
+                      color: 'var(--text-color)'
                     }}
                   >
-                    <span style={{ color: 'var(--secondary-color)', fontSize: '1.2rem' }}>✓</span>
+                    <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
                     {item}
                   </motion.li>
                 ))}
@@ -257,7 +259,7 @@ function TrainingPage() {
                       top: '10px',
                       right: '10px',
                       backgroundColor: 'var(--secondary-color)',
-                      color: 'var(--text-color)',
+                      color: 'var(--neutral-color)',
                       padding: '5px 10px',
                       borderRadius: '20px',
                       fontSize: '0.8rem',
@@ -316,7 +318,7 @@ function TrainingPage() {
                           gap: '10px',
                           fontSize: '0.95rem'
                         }}>
-                          <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
+                          <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
                           {feature}
                         </li>
                       ))}
@@ -325,8 +327,8 @@ function TrainingPage() {
                       <Link to="/contact" className="button" style={{
                         display: 'block',
                         textAlign: 'center',
-                        backgroundColor: plan.featured ? 'var(--secondary-color)' : 'var(--primary-color)',
-                        color: plan.featured ? 'var(--text-color)' : 'var(--neutral-color)',
+                        backgroundColor: 'var(--primary-color)',
+                        color: 'var(--neutral-color)',
                         padding: '12px',
                         borderRadius: '25px',
                         textDecoration: 'none',
@@ -373,7 +375,7 @@ function TrainingPage() {
                 className="approach-content"
               >
                 <h3>Personalized Coaching</h3>
-                <p style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)' }}>
                   Every player is unique, with different strengths, weaknesses, and goals. My coaching approach 
                   is tailored to your specific needs, whether you're a beginner learning the basics or an 
                   advanced player refining your strategy.
@@ -394,9 +396,10 @@ function TrainingPage() {
                       marginBottom: '15px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '10px'
+                      gap: '10px',
+                      color: 'var(--text-color)'
                     }}>
-                      <span style={{ color: 'var(--secondary-color)', fontSize: '1.2rem' }}>✓</span>
+                      <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
                       {item}
                     </li>
                   ))}
@@ -469,7 +472,7 @@ function TrainingPage() {
                 margin: '30px auto 0',
                 textAlign: 'center'
               }}>
-                <p style={{ fontSize: '1.1rem', lineHeight: 1.6 }}>
+                <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: 'var(--text-color)' }}>
                   This video showcases my coaching style and the personalized approach I take with each player. 
                   Whether you're working on fundamentals or advanced strategy, I'll tailor each session to help you 
                   achieve your pickleball goals.
@@ -482,7 +485,7 @@ function TrainingPage() {
         <section style={{
           padding: '80px 20px',
           backgroundColor: 'var(--secondary-color)',
-          color: 'var(--text-color)',
+          color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
@@ -498,7 +501,7 @@ function TrainingPage() {
               <h2 style={{ 
                 fontSize: '2.8rem', 
                 marginBottom: '20px',
-                color: 'var(--text-color)'
+                color: 'var(--neutral-color)'
               }}>
                 Ready to Elevate Your Pickleball Game?
               </h2>
@@ -507,7 +510,8 @@ function TrainingPage() {
                 lineHeight: 1.6,
                 marginBottom: '30px',
                 maxWidth: '600px',
-                margin: '0 auto 30px'
+                margin: '0 auto 30px',
+                color: 'var(--neutral-color)'
               }}>
                 Whether you're a beginner or an experienced player, I'm here to help you reach your pickleball goals in the beautiful setting of Costa Rica.
               </p>
