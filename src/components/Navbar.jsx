@@ -70,27 +70,6 @@ function Navbar() {
               }}
             />
           </div>
-          <div style={{ 
-            height: '50px',
-            width: '180px',
-            display: 'flex',
-            alignItems: 'center',
-            overflow: 'hidden'
-          }}>
-            <OptimizedImage
-              src={IMAGES.LOGO.TEXT}
-              alt="Your Pickleball Guide Costa Rica"
-              width={180}
-              height={50}
-              loading="eager"
-              style={{
-                objectFit: 'contain',
-                maxWidth: '180px',
-                maxHeight: '50px',
-                backgroundColor: 'transparent'
-              }}
-            />
-          </div>
         </Link>
 
         {/* Mobile Menu Button */}

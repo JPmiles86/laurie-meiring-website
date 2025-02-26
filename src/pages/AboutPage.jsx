@@ -79,7 +79,7 @@ function AboutPage() {
                     objectFit: 'cover',
                     objectPosition: 'center',
                     border: '4px solid var(--primary-color)',
-                    zIndex: 1000
+                    
                   }}
                 />
               </div>

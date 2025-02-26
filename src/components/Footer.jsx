@@ -6,7 +6,7 @@ function Footer() {
   return (
     <footer style={{ 
       backgroundColor: 'var(--neutral-color)',
-      padding: '40px 20px',
+      padding: '20px 10px',
       textAlign: 'center',
       borderTop: '2px solid var(--secondary-color)'
     }}>
@@ -14,19 +14,21 @@ function Footer() {
         marginBottom: '20px',
         display: 'flex',
         justifyContent: 'center',
-        height: '75px',
+        height: '150px',
         overflow: 'hidden'
-      }}>
+      }}> 
         <OptimizedImage
-          src={IMAGES.LOGO.TEXT}
+          src={IMAGES.LOGO.ROUND}
           alt="Your Pickleball Guide Costa Rica"
-          width={180}
-          height={75}
+          width={150}
+          height={150}
           style={{
             objectFit: 'contain',
-            maxWidth: '180px',
-            maxHeight: '75px',
-            backgroundColor: 'transparent'
+            maxWidth: '150px',
+            maxHeight: '150px',
+            backgroundColor: 'transparent',
+            borderRadius: '50%',
+            border: '2px solid var(--secondary-color)'
           }}
         />
       </div>
