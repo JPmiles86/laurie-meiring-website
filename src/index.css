@@ -731,120 +731,88 @@ footer p {
   }
 }
 
-/* Video Background Styles */
+/* Video Background Implementation - Balanced No-Black-Bars Solution */
 .video-background-container {
   position: relative;
   width: 100vw;
+  height: 100vh;
   overflow: hidden;
   background-color: black;
-  will-change: transform; /* Helps prevent flashing */
-  backface-visibility: hidden; /* Helps prevent flashing */
-  transform: translateZ(0); /* Force hardware acceleration */
-  -webkit-transform-style: preserve-3d; /* Helps with iOS rendering */
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
-/* Loading state styles */
-.video-background-container.loading::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.video-background-container.mobile {
+  width: 100vw;
+  height: 100vh; 
+  height: calc(var(--vh, 1vh) * 100); /* iOS fix */
+  overflow: hidden;
   background-color: black;
-  z-index: 2; /* Above the iframe but below the content */
 }
 
+/* Base styles for the iframe - more reasonable scaling for desktop */
 .video-background-iframe {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: 0;
   background-color: black;
-  border: none;
-  will-change: transform; /* Helps prevent flashing */
-  backface-visibility: hidden; /* Helps prevent flashing */
-  -webkit-backface-visibility: hidden; /* For Safari */
-  transition: opacity 0.5s ease; /* Smooth transition when loaded */
-  opacity: 0; /* Start hidden */
+  width: 120vw !important; /* More reasonable value for desktop */
+  height: 120vh !important;
+  min-width: 120vw !important;
+  min-height: 120vh !important;
+  z-index: 0;
 }
 
-/* Show the iframe when loaded */
-.video-background-container.loaded .video-background-iframe {
-  opacity: 1;
-}
-
-/* For wider screens (landscape) */
+/* Apply specific scaling for different aspect ratios */
 @media (min-aspect-ratio: 16/9) {
+  /* Wider screens (landscape) */
   .video-background-iframe {
-    width: 100vw;
-    height: calc(100vw * 9/16 * 1.1); /* Just 10% taller than 16:9 ratio */
+    width: 130vw !important;
+    height: 130vh !important;
+    min-width: 130vw !important;
+    min-height: 130vh !important;
   }
 }
 
-/* For taller screens (portrait) */
 @media (max-aspect-ratio: 16/9) {
+  /* Taller screens (portrait) */
   .video-background-iframe {
-    width: calc(100vh * 16/9 * 1.1); /* Just 10% wider than 16:9 ratio */
-    height: 100vh;
+    width: 130vw !important;
+    height: 130vh !important;
+    min-width: 130vw !important;
+    min-height: 130vh !important;
   }
 }
 
-/* Mobile specific adjustments - MUCH more aggressive approach */
+/* Mobile specific scaling - more aggressive to eliminate black bars */
 @media (max-width: 768px) {
-  /* Force the container to be full height */
-  .video-background-container.mobile {
-    height: 100vh !important;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Extremely aggressive scaling for mobile */
-  .video-background-container.mobile .video-background-iframe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: auto !important;
-    height: 300vh !important; /* Triple the viewport height */
-    min-width: 300vw; /* Triple the viewport width */
-    min-height: 300vh;
-    object-fit: cover;
+  .video-background-iframe {
+    width: 300vw !important;
+    height: 300vh !important;
+    min-width: 300vw !important;
+    min-height: 300vh !important;
   }
 }
 
-/* iPhone specific fix - even more aggressive */
-@media only screen 
-and (max-width: 428px) { /* Cover all iPhone models */
-  .video-background-container.mobile .video-background-iframe {
-    height: 350vh !important; /* 3.5x the viewport height */
-    min-width: 350vw; /* 3.5x the viewport width */
+/* Small phone specific scaling - maximum coverage */
+@media (max-width: 480px) {
+  .video-background-iframe {
+    width: 350vw !important;
+    height: 350vh !important;
+    min-width: 350vw !important;
+    min-height: 350vh !important;
   }
 }
 
-/* iOS specific fixes - iOS has unique rendering issues */
+/* iOS specific adjustments - extra coverage */
 .video-background-container.ios .video-background-iframe {
-  height: 400vh !important; /* 4x the viewport height */
-  min-width: 400vw; /* 4x the viewport width */
+  width: 400vw !important;
+  height: 400vh !important;
+  min-width: 400vw !important;
+  min-height: 400vh !important;
 }
 
-/* Fix for iOS Safari viewport height issues */
-@supports (-webkit-touch-callout: none) {
-  .video-background-hero {
-    height: -webkit-fill-available !important;
-  }
-  
-  .video-background-container.ios .video-background-iframe {
-    height: calc(400 * var(--vh, 1vh)) !important;
-  }
-}
-
-/* Ensure content is properly positioned */
 .video-background-overlay {
   position: absolute;
   top: 0;
@@ -852,14 +820,44 @@ and (max-width: 428px) { /* Cover all iPhone models */
   width: 100%;
   height: 100%;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Ensure hero videos take full viewport height */
 .video-background-hero {
-  height: 100vh !important;
+  margin-bottom: 0;
+}
+
+.video-background-container .content-container {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Mobile responsiveness for video background content */
+@media (max-width: 576px) {
+  .video-background-hero .content-container h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  .video-background-hero .content-container p {
+    font-size: 1.1rem !important;
+  }
+  
+  .video-background-hero .button {
+    padding: 12px 24px !important;
+    font-size: 1rem !important;
+  }
+  
+  .video-background-hero [style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
 }
 
 /* Mobile Responsiveness Improvements */
@@ -1027,28 +1025,30 @@ and (max-width: 428px) { /* Cover all iPhone models */
   height: calc(var(--vh, 1vh) * 100);
 }
 
-/* Improve video background on mobile */
+/* Remove conflicting/redundant video background mobile styles */
+/* 
 @media (max-width: 768px) {
-  /* Make video even larger on mobile to eliminate black bars */
+  // Make video even larger on mobile to eliminate black bars
   .video-background-container.mobile .video-background-iframe {
-    height: 350vh !important; /* Increase from 300vh to 350vh */
-    min-width: 350vw !important; /* Increase from 300vw to 350vw */
+    height: 350vh !important; // Increase from 300vh to 350vh
+    min-width: 350vw !important; // Increase from 300vw to 350vw 
     min-height: 350vh !important;
   }
   
-  /* iPhone specific adjustments - even more aggressive */
+  // iPhone specific adjustments - even more aggressive 
   @media only screen and (max-width: 428px) {
     .video-background-container.mobile .video-background-iframe {
-      height: 400vh !important; /* Increase from 350vh to 400vh */
-      min-width: 400vw !important; /* Increase from 350vw to 400vw */
+      height: 400vh !important; // Increase from 350vh to 400vh
+      min-width: 400vw !important; // Increase from 350vw to 400vw
       min-height: 400vh !important;
     }
   }
   
-  /* iOS specific adjustments */
+  // iOS specific adjustments
   .video-background-container.ios .video-background-iframe {
-    height: 450vh !important; /* Increase from 400vh to 450vh */
-    min-width: 450vw !important; /* Increase from 400vw to 450vw */
+    height: 450vh !important; // Increase from 400vh to 450vh
+    min-width: 450vw !important; // Increase from 400vw to 450vw
     min-height: 450vh !important;
   }
 }
+*/
