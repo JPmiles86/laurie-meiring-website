@@ -44,6 +44,8 @@ function TestimonialsCarousel() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,23 +64,55 @@ function TestimonialsCarousel() {
     }
   };
 
+  // Handle touch events for swiping
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    
+    if (isLeftSwipe) {
+      paginate(1); // Next slide
+    } else if (isRightSwipe) {
+      paginate(-1); // Previous slide
+    }
+    
+    // Reset values
+    setTouchStart(null);
+    setTouchEnd(null);
+  };
+
   return (
     <div style={{
       position: 'relative',
       width: '100%',
       maxWidth: '100%',
       margin: '0 auto',
-      padding: isMobile ? '20px 0' : '40px 20px',
+      padding: isMobile ? '20px 15px' : '40px 30px',
       overflow: 'hidden'
     }}>
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        height: isMobile ? '350px' : '300px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
+      <div 
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: isMobile ? '350px' : '300px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={page}
@@ -96,7 +130,7 @@ function TestimonialsCarousel() {
             style={{
               position: 'absolute',
               width: '100%',
-              maxWidth: isMobile ? '100%' : '800px',
+              maxWidth: isMobile ? '90%' : '800px',
               textAlign: 'center',
               padding: isMobile ? '10px' : '20px'
             }}
@@ -104,9 +138,10 @@ function TestimonialsCarousel() {
             <div style={{
               backgroundColor: 'var(--neutral-color)',
               borderRadius: '15px',
-              padding: isMobile ? '20px' : '40px',
+              padding: isMobile ? '25px 20px' : '40px',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              position: 'relative'
+              position: 'relative',
+              margin: '0 15px'
             }}>
               <div style={{
                 fontSize: isMobile ? '1rem' : '1.2rem',

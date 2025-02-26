@@ -506,7 +506,8 @@ function HomePage() {
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '30px',
               marginBottom: '40px',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              padding: isMobile ? '0 10px' : '0'
             }}>
               {recentPosts.map((post, index) => (
                 <motion.article
@@ -521,7 +522,7 @@ function HomePage() {
                     overflow: 'hidden',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                    margin: isMobile ? '0 5px' : '0'
+                    margin: isMobile ? '0 10px' : '0'
                   }}
                   whileHover={{
                     transform: 'translateY(-5px)',
@@ -738,9 +739,9 @@ function HomePage() {
             <Link to="/contact" className="button" style={{
               backgroundColor: 'var(--neutral-color)',
               color: 'var(--primary-color)',
-              padding: isMobile ? '12px 24px' : '18px 36px',
+              padding: '15px 30px',
               borderRadius: '30px',
-              fontSize: isMobile ? '1.1rem' : '1.3rem',
+              fontSize: '1.2rem',
               textDecoration: 'none',
               display: 'inline-block',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',

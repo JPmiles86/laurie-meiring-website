@@ -1068,3 +1068,19 @@ body, html {
     transform: translateX(-50%) translateY(-50%) !important;
   }
 }
+
+/* Testimonials and blog card padding */
+.testimonials-section {
+  padding: 0 15px !important;
+}
+
+@media (max-width: 768px) {
+  .home-page article {
+    margin: 0 15px !important;
+    width: calc(100% - 30px) !important;
+  }
+  
+  .testimonials-section {
+    padding: 60px 15px !important;
+  }
+}
