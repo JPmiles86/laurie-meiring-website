@@ -103,7 +103,7 @@ WhatsApp: +506 6200 2747`
         <section className="page-hero" style={{ 
           padding: '90px 0', 
           textAlign: 'center',
-          backgroundColor: 'var(--primary-color)',
+          backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
@@ -253,7 +253,7 @@ WhatsApp: +506 6200 2747`
                       <a 
                         href="mailto:Laurie.meiring@gmail.com"
                         style={{ 
-                          color: 'var(--accent-color)',
+                          color: 'var(--primary-color)',
                           textDecoration: 'none'
                         }}
                       >
@@ -268,7 +268,7 @@ WhatsApp: +506 6200 2747`
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ 
-                          color: 'var(--accent-color)',
+                          color: 'var(--primary-color)',
                           textDecoration: 'none'
                         }}
                       >
@@ -524,7 +524,7 @@ WhatsApp: +506 6200 2747`
         <section style={{
           padding: '80px 20px',
           backgroundColor: 'var(--secondary-color)',
-          color: 'var(--text-color)',
+          color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
@@ -540,7 +540,7 @@ WhatsApp: +506 6200 2747`
               <h2 style={{ 
                 fontSize: '2.8rem', 
                 marginBottom: '20px',
-                color: 'var(--text-color)'
+                color: 'var(--neutral-color)'
               }}>
                 Ready for Your Pickleball Adventure?
               </h2>
@@ -549,7 +549,8 @@ WhatsApp: +506 6200 2747`
                 lineHeight: 1.6,
                 marginBottom: '30px',
                 maxWidth: '600px',
-                margin: '0 auto 30px'
+                margin: '0 auto 30px',
+                color: 'var(--neutral-color)'
               }}>
                 Whether you're looking for training, tours, or a custom experience, we're here to make your pickleball dreams come true in Costa Rica.
               </p>

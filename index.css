@@ -3,8 +3,8 @@
 /* Color Palette */
 :root {
   --primary-color: #C72958;        /* Dark Pink/Red */
-  --secondary-color: #F1E730;      /* Yellow */
-  --accent-color: #F1753B;         /* Orange */
+  --secondary-color: #2898C1;      /* Deep Blue */
+  --accent-color: #F1E730;         /* Warm Yellow */
   --neutral-color: #F8F8FF;        /* Off-White */
   --text-color: #333;             /* Charcoal Gray */
 }
@@ -56,7 +56,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent-color); /* Orange on hover */
+  color: var(--secondary-color); /* Deep Blue on hover */
   text-decoration: underline;
 }
 
@@ -67,8 +67,8 @@ a:hover {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.3rem;
   letter-spacing: 0.03em;
-  background-color: var(--secondary-color); /* Yellow Buttons */
-  color: var(--text-color);
+  background-color: var(--primary-color); /* Dark Pink/Red Buttons */
+  color: var(--neutral-color);
   text-decoration: none;
   border: none;
   border-radius: 8px;
@@ -78,7 +78,7 @@ a:hover {
 }
 
 .button:hover {
-  background-color: var(--primary-color); /* Dark Pink/Red on hover */
+  background-color: var(--secondary-color); /* Deep Blue on hover */
   color: var(--neutral-color);
   transform: scale(1.05); /* Slight scale up on hover */
   box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
@@ -88,7 +88,7 @@ a:hover {
 nav {
   background-color: var(--neutral-color); /* Navbar background */
   padding: 15px 0;
-  border-bottom: 2px solid var(--secondary-color); /* Yellow Navbar border */
+  border-bottom: 2px solid var(--secondary-color); /* Deep Blue Navbar border */
 }
 
 nav .container {
@@ -105,7 +105,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--primary-color); /* Dark Pink/Red on Navbar link hover */
+  color: var(--secondary-color); /* Deep Blue on Navbar link hover */
   text-decoration: none; /* Remove underline on Navbar link hover */
 }
 
@@ -127,7 +127,7 @@ footer {
   padding: 30px 0;
   text-align: center;
   margin-top: 60px;
-  border-top: 2px solid var(--secondary-color); /* Yellow Footer border */
+  border-top: 2px solid var(--secondary-color); /* Deep Blue Footer border */
 }
 
 footer p {
@@ -150,7 +150,7 @@ footer p {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--secondary-color); /* Yellow Hero background */
+  background-color: var(--accent-color); /* Warm Yellow Hero background */
   opacity: 0.15; /* Subtle yellow background */
   transform: skewY(-3deg); /* Angled background */
   transform-origin: top left;
@@ -209,8 +209,8 @@ footer p {
 .about-preview {
   padding: 80px 0;
   text-align: center;
-  background-color: var(--primary-color); /* Dark Pink/Red About Preview background */
-  color: var(--neutral-color); /* Light text on dark pink/red */
+  background-color: var(--secondary-color); /* Deep Blue About Preview background */
+  color: var(--neutral-color); /* Light text on deep blue */
   position: relative;
   overflow: hidden;
 }
@@ -222,14 +222,13 @@ footer p {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--accent-color); /* Orange overlay */
+  background-color: var(--primary-color); /* Dark Pink/Red overlay */
   opacity: 0.08; /* Very subtle overlay */
   z-index: -1;
 }
 
-
 .about-preview h2, .about-preview p, .about-preview a.button {
-  color: var(--neutral-color); /* Light text and button on dark pink/red */
+  color: var(--neutral-color); /* Light text and button on deep blue */
 }
 
 .about-preview h2 {
@@ -243,13 +242,14 @@ footer p {
 }
 
 .about-preview a.button {
-  background-color: var(--secondary-color); /* Yellow button on dark pink/red */
+  background-color: var(--accent-color); /* Warm Yellow button on deep blue */
   color: var(--text-color); /* Dark text on yellow button */
+  font-weight: bold; /* Make text bolder for better contrast */
 }
 
 .about-preview a.button:hover {
-  background-color: var(--neutral-color); /* Off-white button on hover */
-  color: var(--primary-color); /* Dark Pink/Red text on hover */
+  background-color: var(--primary-color); /* Dark Pink/Red button on hover */
+  color: var(--neutral-color); /* Light text on dark pink/red button */
 }
 
 
@@ -305,7 +305,7 @@ footer p {
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
-  border: 2px solid var(--secondary-color); /* Yellow input border */
+  border: 2px solid var(--secondary-color); /* Deep Blue input border */
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
@@ -339,11 +339,11 @@ footer p {
 }
 
 .contact-info a {
-  color: var(--accent-color); /* Orange contact links */
+  color: var(--primary-color); /* Primary color for contact links */
 }
 
 .contact-info a:hover {
-  color: var(--primary-color); /* Dark Pink/Red on hover for contact links */
+  color: var(--secondary-color); /* Deep Blue on hover for contact links */
 }
 
 

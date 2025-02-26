@@ -9,14 +9,14 @@ function BlogPage() {
         <section className="page-hero" style={{ 
           padding: '180px 0 80px', 
           textAlign: 'center',
-          backgroundColor: 'var(--primary-color)',
+          backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
           marginTop: '-80px',
           marginBottom: '40px',
-          borderBottom: '4px solid var(--secondary-color)'
+          borderBottom: '4px solid var(--primary-color)'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
             <h1 style={{ 
