@@ -177,7 +177,7 @@ function TestimonialsCarousel() {
         onClick={() => paginate(-1)}
         style={{
           position: 'absolute',
-          left: isMobile ? '5px' : '30px',
+          left: isMobile ? '15px' : '30px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',
@@ -204,7 +204,7 @@ function TestimonialsCarousel() {
         onClick={() => paginate(1)}
         style={{
           position: 'absolute',
-          right: isMobile ? '5px' : '30px',
+          right: isMobile ? '15px' : '30px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',

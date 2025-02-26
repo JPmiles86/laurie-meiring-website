@@ -736,7 +736,7 @@ function HomePage() {
             }}>
               Join us for world-class pickleball training and tours in the beautiful setting of Costa Rica
             </p>
-            <Link to="/contact" className="button" style={{
+            <Link to="/training" className="button" style={{
               backgroundColor: 'var(--neutral-color)',
               color: 'var(--primary-color)',
               padding: '15px 30px',
@@ -744,7 +744,8 @@ function HomePage() {
               fontSize: '1.2rem',
               textDecoration: 'none',
               display: 'inline-block',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+              fontWeight: 'bold',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
               transition: 'all 0.3s ease',
               width: 'auto'
             }}>
