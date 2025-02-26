@@ -5,6 +5,7 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
   const [error, setError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // More comprehensive mobile detection
   useEffect(() => {
@@ -46,10 +47,11 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
   }, []);
 
   // For mobile devices, we use a different approach
-  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&start=${startTime}${endTime ? `&end=${endTime}` : ''}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1&fs=0&origin=${window.location.origin}&disablekb=1&cc_load_policy=0&annotation=0&title=0`;
+  // Added additional parameters to help with flashing
+  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&start=${startTime}${endTime ? `&end=${endTime}` : ''}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1&fs=0&origin=${window.location.origin}&disablekb=1&cc_load_policy=0&annotation=0&title=0&version=3&vq=hd1080`;
 
   // Use CSS classes for better styling control
-  const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isMobile ? 'mobile' : ''} ${isIOS ? 'ios' : ''}`;
+  const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isMobile ? 'mobile' : ''} ${isIOS ? 'ios' : ''} ${isLoaded ? 'loaded' : 'loading'}`;
   
   // Set inline styles for height when not a hero
   const containerStyle = {
@@ -63,6 +65,11 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
     backgroundColor: overlayColor
   };
 
+  // Handle iframe load event
+  const handleIframeLoad = () => {
+    setIsLoaded(true);
+  };
+
   return (
     <div className={containerClassName} style={containerStyle}>
       {!error && (
@@ -72,8 +79,11 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           onError={() => setError(true)}
+          onLoad={handleIframeLoad}
           title="background-video"
           frameBorder="0"
+          loading="eager"
+          importance="high"
         />
       )}
       <div className="video-background-overlay" style={overlayStyle}>

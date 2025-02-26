@@ -712,6 +712,22 @@ footer p {
   width: 100vw;
   overflow: hidden;
   background-color: black;
+  will-change: transform; /* Helps prevent flashing */
+  backface-visibility: hidden; /* Helps prevent flashing */
+  transform: translateZ(0); /* Force hardware acceleration */
+  -webkit-transform-style: preserve-3d; /* Helps with iOS rendering */
+}
+
+/* Loading state styles */
+.video-background-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 2; /* Above the iframe but below the content */
 }
 
 .video-background-iframe {
@@ -726,6 +742,16 @@ footer p {
   z-index: 0;
   background-color: black;
   border: none;
+  will-change: transform; /* Helps prevent flashing */
+  backface-visibility: hidden; /* Helps prevent flashing */
+  -webkit-backface-visibility: hidden; /* For Safari */
+  transition: opacity 0.5s ease; /* Smooth transition when loaded */
+  opacity: 0; /* Start hidden */
+}
+
+/* Show the iframe when loaded */
+.video-background-container.loaded .video-background-iframe {
+  opacity: 1;
 }
 
 /* For wider screens (landscape) */
@@ -760,9 +786,9 @@ footer p {
     left: 50%;
     transform: translate(-50%, -50%);
     width: auto !important;
-    height: 200vh !important; /* Double the viewport height */
-    min-width: 200vw; /* Double the viewport width */
-    min-height: 200vh;
+    height: 300vh !important; /* Triple the viewport height */
+    min-width: 300vw; /* Triple the viewport width */
+    min-height: 300vh;
     object-fit: cover;
   }
 }
@@ -771,15 +797,15 @@ footer p {
 @media only screen 
 and (max-width: 428px) { /* Cover all iPhone models */
   .video-background-container.mobile .video-background-iframe {
-    height: 250vh !important; /* 2.5x the viewport height */
-    min-width: 250vw; /* 2.5x the viewport width */
+    height: 350vh !important; /* 3.5x the viewport height */
+    min-width: 350vw; /* 3.5x the viewport width */
   }
 }
 
 /* iOS specific fixes - iOS has unique rendering issues */
 .video-background-container.ios .video-background-iframe {
-  height: 300vh !important; /* 3x the viewport height */
-  min-width: 300vw; /* 3x the viewport width */
+  height: 400vh !important; /* 4x the viewport height */
+  min-width: 400vw; /* 4x the viewport width */
 }
 
 /* Fix for iOS Safari viewport height issues */
@@ -789,7 +815,7 @@ and (max-width: 428px) { /* Cover all iPhone models */
   }
   
   .video-background-container.ios .video-background-iframe {
-    height: calc(300 * var(--vh, 1vh)) !important;
+    height: calc(400 * var(--vh, 1vh)) !important;
   }
 }
 
