@@ -5,26 +5,27 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
   const [error, setError] = useState(false);
   const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&start=${startTime}${endTime ? `&end=${endTime}` : ''}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&playsinline=1&fs=0&origin=${window.location.origin}&disablekb=1&cc_load_policy=0&annotation=0&title=0`;
 
-  // Completely separate styles for hero and section videos
-  const videoStyles = type === 'hero' ? {
+  // Updated styles to ensure full coverage without white bars
+  const videoStyles = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    width: '100%',
     height: '100%',
-    width: '240vh', /* 16:9 aspect ratio */
+    objectFit: 'cover',
     minWidth: '100%',
-    objectFit: 'cover'
-  } : {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    height: '150vh',
-    width: 'auto',
-    minWidth: '150vw',
-    maxWidth: 'none'
+    minHeight: '100%'
   };
+
+  // For wider screens, ensure the video is wide enough
+  if (window.innerWidth / window.innerHeight > 16 / 9) {
+    videoStyles.width = '100%';
+    videoStyles.height = 'auto';
+  } else {
+    videoStyles.width = 'auto';
+    videoStyles.height = '100%';
+  }
 
   const containerStyles = {
     position: 'absolute',
@@ -32,7 +33,8 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
     left: 0,
     width: '100%',
     height: '100%',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: 'black' // Add black background to avoid any white showing
   };
 
   return (
@@ -42,7 +44,8 @@ const VideoBackground = ({ videoId, startTime = 0, endTime = 0, height = '100vh'
       height,
       overflow: 'hidden',
       marginLeft: 'calc(-50vw + 50%)',
-      marginRight: 'calc(-50vw + 50%)'
+      marginRight: 'calc(-50vw + 50%)',
+      backgroundColor: 'black' // Add black background to container as well
     }}>
       {!error && (
         <div style={containerStyles}>

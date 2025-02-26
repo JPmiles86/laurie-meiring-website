@@ -381,14 +381,15 @@ function ToursPage() {
                       }}
                     />
                   </div>
-                  <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: 'var(--neutral-color)' }}>
+                  <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: '#ffffff' }}>
                     {feature.title}
                   </h3>
                   <p style={{ 
                     fontSize: '1.1rem', 
                     lineHeight: 1.6,
                     maxWidth: '100%',
-                    wordWrap: 'break-word'
+                    wordWrap: 'break-word',
+                    color: '#ffffff'
                   }}>
                     {feature.description}
                   </p>
@@ -454,10 +455,11 @@ function ToursPage() {
                     borderRadius: '12px',
                     overflow: 'hidden',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    height: '300px'
                   }}
                   whileHover={{
-                    transform: 'scale(1.03)',
+                    scale: 1.03,
                     boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
                   }}
                 >
