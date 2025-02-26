@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OptimizedImage from './OptimizedImage';
 import { IMAGES } from '../constants/images';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +8,7 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,17 @@ function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [prevScrollPos]);
+
+  // Function to close the menu when a link is clicked
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Function to handle navigation and close menu
+  const handleNavigation = (path) => {
+    closeMenu();
+    navigate(path);
+  };
 
   return (
     <AnimatePresence>
@@ -55,7 +67,7 @@ function Navbar() {
           width: '100%',
           boxSizing: 'border-box'
         }}>
-          <Link to="/" style={{ 
+          <Link to="/" onClick={closeMenu} style={{ 
             display: 'flex', 
             alignItems: 'center', 
             gap: '15px', 
@@ -127,7 +139,7 @@ function Navbar() {
             alignItems: 'center'
           }}>
             <li>
-              <Link to="/" style={{
+              <Link to="/" onClick={closeMenu} style={{
                 textDecoration: 'none',
                 color: 'var(--text-color)',
                 fontSize: '1.1rem',
@@ -138,7 +150,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/training" style={{
+              <Link to="/training" onClick={closeMenu} style={{
                 textDecoration: 'none',
                 color: 'var(--text-color)',
                 fontSize: '1.1rem',
@@ -149,7 +161,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/tours" style={{
+              <Link to="/tours" onClick={closeMenu} style={{
                 textDecoration: 'none',
                 color: 'var(--text-color)',
                 fontSize: '1.1rem',
@@ -160,7 +172,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/blog" style={{
+              <Link to="/blog" onClick={closeMenu} style={{
                 textDecoration: 'none',
                 color: 'var(--text-color)',
                 fontSize: '1.1rem',
@@ -171,7 +183,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/about" style={{
+              <Link to="/about" onClick={closeMenu} style={{
                 textDecoration: 'none',
                 color: 'var(--text-color)',
                 fontSize: '1.1rem',
@@ -182,7 +194,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/contact" style={{
+              <Link to="/contact" onClick={closeMenu} style={{
                 backgroundColor: 'var(--primary-color)',
                 color: 'var(--neutral-color)',
                 padding: '10px 24px',
@@ -219,10 +231,16 @@ function Navbar() {
             .nav-links.open {
               display: flex !important;
               flex-direction: column;
+              padding: 20px 20px 30px 20px !important;
             }
             .nav-links li {
               width: 100%;
               text-align: center;
+              margin-bottom: 15px;
+            }
+            .nav-links li:last-child {
+              margin-bottom: 0;
+              padding-bottom: 10px;
             }
             .nav-links .contact-button {
               width: fit-content;
