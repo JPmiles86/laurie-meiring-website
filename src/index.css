@@ -9,8 +9,15 @@
   --text-color: #333;             /* Charcoal Gray */
 }
 
-body {
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: 'Montserrat', sans-serif; /* Body Font */
   line-height: 1.6;
   color: var(--text-color);
@@ -910,112 +917,58 @@ footer p {
 
 /* Additional mobile responsiveness improvements */
 @media (max-width: 768px) {
-  /* General responsive adjustments */
+  #root, body, html, .home-page, main, .content-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+  
   .content-container {
-    padding: 0 15px;
-  }
-  
-  /* Training page specific adjustments */
-  .training-page section {
-    padding: 60px 15px !important;
-  }
-  
-  .training-page .training-intro {
-    flex-direction: column !important;
-  }
-  
-  .training-page .training-image,
-  .training-page .training-content {
+    padding: 0 !important;
     width: 100% !important;
-    padding: 15px !important;
+    max-width: 100% !important;
   }
   
-  .training-page .approach-content {
-    order: 2 !important;
-  }
-  
-  .training-page .approach-image {
-    order: 1 !important;
-    margin-bottom: 20px !important;
-  }
-  
-  /* FAQ section responsive fix */
-  .training-page [style*="gridTemplateColumns: repeat(auto-fit, minmax(500px, 1fr))"] {
-    display: grid;
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tours page specific adjustments */
-  .tours-page section {
-    padding: 60px 15px !important;
-  }
-  
-  .tours-page .tour-card {
-    flex-direction: column !important;
-  }
-  
-  .tours-page .tour-image,
-  .tours-page .tour-content {
+  .home-page section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
   }
   
-  .tours-page .location-grid {
-    grid-template-columns: 1fr !important;
+  .service-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
   }
   
-  /* Improve button display on mobile */
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
+  /* Blog card specific styles */
+  .home-page article {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+    box-sizing: border-box !important;
   }
   
-  /* Improve headings on mobile */
-  @media (max-width: 576px) {
-    h1 { 
-      font-size: 2.2rem !important; 
-      line-height: 1.2 !important;
-    }
-    h2 { 
-      font-size: 1.8rem !important; 
-      line-height: 1.2 !important;
-    }
-    h3 { 
-      font-size: 1.5rem !important; 
-    }
-    
-    /* Adjust hero sections */
-    .video-background-hero .content-container h1 {
-      font-size: 2.5rem !important;
-    }
-    
-    .video-background-hero .content-container p {
-      font-size: 1.2rem !important;
-    }
-    
-    /* Adjust button sizes */
-    .video-background-hero .button {
-      padding: 12px 24px !important;
-      font-size: 1rem !important;
-      margin: 5px !important;
-    }
-    
-    /* Stack buttons on very small screens */
-    .video-background-hero [style*="display: flex"] {
-      flex-direction: column !important;
-      gap: 10px !important;
-    }
-    
-    /* Adjust pricing cards */
-    [style*="gridTemplateColumns: repeat(auto-fit, minmax(300px, 1fr))"] {
-      gap: 20px !important;
-    }
-    
-    /* Fix featured card scaling */
-    [style*="transform: scale(1.05)"] {
-      transform: none !important;
-    }
+  .video-background-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .video-background-iframe {
+    min-width: 300vw !important;
+    min-height: 300vh !important;
+    width: 300vw !important;
+    height: 300vh !important;
   }
 }
 
@@ -1052,3 +1005,66 @@ footer p {
   }
 }
 */
+
+/* Fix for horizontal scrolling on mobile */
+body, html {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Additional mobile responsiveness improvements */
+@media (max-width: 768px) {
+  .content-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  .home-page section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .service-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .video-background-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+  
+  .video-background-container {
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+  
+  .video-background-iframe {
+    width: 300vw !important;
+    height: 300vh !important;
+    min-width: 300vw !important;
+    min-height: 300vh !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-50%) !important;
+  }
+}

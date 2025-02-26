@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ParallaxSection from '../components/ParallaxSection';
@@ -25,10 +25,27 @@ const staggerChildren = {
 
 function HomePage() {
   const recentPosts = getVisiblePosts().slice(0, 3);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <PageTransition>
-      <div className="home-page">
+      <div className="home-page" style={{ 
+        width: '100%', 
+        maxWidth: '100%', 
+        overflow: 'hidden',
+        position: 'relative',
+        margin: 0,
+        padding: 0
+      }}>
         <VideoBackground
           videoId="wbtnFI4NLPY"
           startTime={0}
@@ -42,12 +59,17 @@ function HomePage() {
             animate="animate"
             variants={staggerChildren}
             className="content-container"
-            style={{ textAlign: 'center', padding: '0 20px' }}
+            style={{ 
+              textAlign: 'center', 
+              padding: isMobile ? '0 15px' : '0 20px',
+              width: '100%',
+              boxSizing: 'border-box'
+            }}
           >
             <motion.h1 
               variants={fadeInUp}
               style={{ 
-                fontSize: '4.5rem', 
+                fontSize: isMobile ? '3.5rem' : '4.5rem', 
                 marginBottom: '20px',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
                 letterSpacing: '1px',
@@ -59,7 +81,7 @@ function HomePage() {
             <motion.p 
               variants={fadeInUp}
               style={{ 
-                fontSize: '1.6rem', 
+                fontSize: isMobile ? '1.4rem' : '1.6rem', 
                 maxWidth: '800px', 
                 margin: '0 auto 30px',
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
@@ -69,22 +91,32 @@ function HomePage() {
             >
               Play, Train & Explore in Paradise!
             </motion.p>
-            <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+            <motion.div variants={fadeInUp} style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              justifyContent: 'center',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: 'center',
+              width: '100%',
+              maxWidth: isMobile ? '90%' : '100%',
+              margin: '0 auto'
+            }}>
               <Link 
                 to="/contact" 
                 className="button"
                 style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
-                  padding: '18px 36px',
+                  padding: isMobile ? '12px 24px' : '18px 36px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
                   transition: 'all 0.3s ease',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  maxWidth: '90%'
                 }}
               >
                 Schedule a Lesson
@@ -95,15 +127,16 @@ function HomePage() {
                 style={{
                   backgroundColor: 'var(--neutral-color)',
                   color: 'var(--primary-color)',
-                  padding: '18px 36px',
+                  padding: isMobile ? '12px 24px' : '18px 36px',
                   borderRadius: '30px',
-                  fontSize: '1.2rem',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
                   textDecoration: 'none',
                   display: 'inline-block',
                   transition: 'all 0.3s ease',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  maxWidth: '90%'
                 }}
               >
                 Book a Tour
@@ -112,7 +145,14 @@ function HomePage() {
           </motion.div>
         </VideoBackground>
 
-        <div className="content-container">
+        <div className="content-container" style={{ 
+          width: '100%', 
+          maxWidth: '100%', 
+          overflow: 'hidden',
+          position: 'relative',
+          margin: 0,
+          padding: 0
+        }}>
           <motion.section 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -120,17 +160,21 @@ function HomePage() {
             transition={{ duration: 0.8 }}
             className="services-section" 
             style={{ 
-              padding: '100px 20px',
+              padding: isMobile ? '60px 0' : '100px 20px',
               backgroundColor: 'var(--neutral-color)',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              width: '100%',
+              maxWidth: '100%',
+              boxSizing: 'border-box'
             }}
           >
             <div style={{ 
               maxWidth: '1200px', 
               margin: '0 auto',
               position: 'relative',
-              zIndex: 1
+              zIndex: 1,
+              padding: isMobile ? '0 15px' : '0'
             }}>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -140,7 +184,7 @@ function HomePage() {
                 style={{ 
                   textAlign: 'center', 
                   marginBottom: '50px',
-                  fontSize: '3rem'
+                  fontSize: isMobile ? '2.5rem' : '3rem'
                 }}
               >
                 Pickleball Services in Paradise
@@ -152,9 +196,17 @@ function HomePage() {
                   @media (max-width: 768px) {
                     .service-card {
                       grid-template-columns: 1fr !important;
+                      width: 100% !important;
+                      max-width: 100% !important;
+                      margin-left: 0 !important;
+                      margin-right: 0 !important;
+                      box-sizing: border-box !important;
                     }
                     .service-card .card-content {
                       order: 2 !important;
+                      padding: 20px !important;
+                      width: 100% !important;
+                      box-sizing: border-box !important;
                     }
                     .service-card .card-image {
                       order: 1 !important;
@@ -164,6 +216,7 @@ function HomePage() {
                       aspect-ratio: 1/1 !important;
                       width: 100% !important;
                       margin: 0 auto !important;
+                      box-sizing: border-box !important;
                     }
                   }
                   
@@ -307,28 +360,30 @@ function HomePage() {
           </motion.section>
 
           <section className="testimonials-section" style={{
-            padding: '100px 20px',
+            padding: isMobile ? '60px 0' : '100px 20px',
             backgroundColor: 'var(--neutral-color)',
             borderTop: '2px solid var(--secondary-color)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            width: '100%',
+            maxWidth: '100vw'
           }}>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              style={{ textAlign: 'center', marginBottom: '40px' }}
+              style={{ textAlign: 'center', marginBottom: '40px', padding: isMobile ? '0 15px' : '0' }}
             >
               <h2 style={{
-                fontSize: '3rem',
+                fontSize: isMobile ? '2.4rem' : '3rem',
                 color: 'var(--primary-color)',
                 marginBottom: '20px'
               }}>
                 Player Testimonials
               </h2>
               <p style={{
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
                 color: 'var(--text-color)',
                 maxWidth: '600px',
                 margin: '0 auto',
@@ -356,10 +411,15 @@ function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="content-container"
-            style={{ textAlign: 'center', padding: '0 20px' }}
+            style={{ 
+              textAlign: 'center', 
+              padding: isMobile ? '0 15px' : '0 20px',
+              width: '100%',
+              boxSizing: 'border-box'
+            }}
           >
             <h2 style={{ 
-              fontSize: '3rem', 
+              fontSize: isMobile ? '2.5rem' : '3rem', 
               marginBottom: '20px',
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
               color: 'var(--neutral-color)'
@@ -367,20 +427,63 @@ function HomePage() {
               Pickleball in Paradise
             </h2>
             <p style={{ 
-              fontSize: '1.3rem', 
+              fontSize: isMobile ? '1.1rem' : '1.3rem', 
               maxWidth: '700px', 
               margin: '0 auto 30px',
               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)',
-              lineHeight: 1.6,
-              color: 'var(--neutral-color)'
+              color: 'var(--neutral-color)',
+              lineHeight: 1.6
             }}>
-              Experience the joy of pickleball against the stunning backdrop of Costa Rica's Pacific coast
+              Experience the joy of playing pickleball in one of the most beautiful settings on earth. 
+              Costa Rica offers the perfect backdrop for improving your game while enjoying paradise.
             </p>
+            <div style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              justifyContent: 'center',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: 'center',
+              width: '100%',
+              maxWidth: isMobile ? '250px' : '100%',
+              margin: '0 auto'
+            }}>
+              <Link to="/training" className="button" style={{
+                backgroundColor: 'var(--primary-color)',
+                color: 'var(--neutral-color)',
+                display: 'inline-block',
+                padding: isMobile ? '12px 24px' : '15px 30px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                fontWeight: 'bold',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease',
+                width: 'auto'
+              }}>
+                Start Your Journey
+              </Link>
+              <Link to="/contact" className="button" style={{
+                backgroundColor: 'transparent',
+                color: 'var(--neutral-color)',
+                display: 'inline-block',
+                padding: isMobile ? '12px 24px' : '15px 30px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                textDecoration: 'none',
+                borderRadius: '4px',
+                fontWeight: 'bold',
+                border: '2px solid var(--neutral-color)',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease',
+                width: 'auto'
+              }}>
+                Contact Me
+              </Link>
+            </div>
           </motion.div>
         </VideoBackground>
 
         <section style={{
-          padding: '80px 20px',
+          padding: isMobile ? '80px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -402,7 +505,8 @@ function HomePage() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: '30px',
-              marginBottom: '40px'
+              marginBottom: '40px',
+              boxSizing: 'border-box'
             }}>
               {recentPosts.map((post, index) => (
                 <motion.article
@@ -416,7 +520,8 @@ function HomePage() {
                     borderRadius: '12px',
                     overflow: 'hidden',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    margin: isMobile ? '0 5px' : '0'
                   }}
                   whileHover={{
                     transform: 'translateY(-5px)',
@@ -505,16 +610,21 @@ function HomePage() {
         </section>
 
         <div style={{ 
-          width: '100vw', 
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)',
+          width: '100%', 
           backgroundColor: 'var(--secondary-color)',
           padding: '120px 0',
           color: 'var(--neutral-color)',
-          marginBottom: '0'
+          marginBottom: '0',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
           <div className="content-container">
-            <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <div style={{ 
+              maxWidth: '800px', 
+              margin: '0 auto', 
+              textAlign: 'center',
+              padding: isMobile ? '0 15px' : '0'
+            }}>
               <div style={{ 
                 width: '150px', 
                 height: '150px', 
@@ -542,7 +652,7 @@ function HomePage() {
                 transition={{ duration: 0.6 }}
                 style={{ 
                   marginBottom: '30px',
-                  fontSize: '3rem',
+                  fontSize: isMobile ? '2.5rem' : '3rem',
                   color: 'var(--neutral-color)'
                 }}
               >
@@ -554,7 +664,7 @@ function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 style={{ 
-                  fontSize: '1.3rem', 
+                  fontSize: isMobile ? '1.1rem' : '1.3rem', 
                   marginBottom: '30px',
                   lineHeight: 1.6,
                   color: 'var(--neutral-color)'
@@ -600,10 +710,15 @@ function HomePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="content-container"
-            style={{ textAlign: 'center', padding: '0 20px' }}
+            style={{ 
+              textAlign: 'center', 
+              padding: isMobile ? '0 10px' : '0 20px',
+              width: '100%',
+              maxWidth: '100vw'
+            }}
           >
             <h2 style={{ 
-              fontSize: '3.5rem', 
+              fontSize: isMobile ? '2.5rem' : '3.5rem', 
               marginBottom: '20px',
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
               color: 'var(--neutral-color)'
@@ -611,7 +726,7 @@ function HomePage() {
               Ready to Elevate Your Game?
             </h2>
             <p style={{ 
-              fontSize: '1.4rem', 
+              fontSize: isMobile ? '1.1rem' : '1.4rem', 
               maxWidth: '700px', 
               margin: '0 auto 30px',
               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)',
@@ -623,13 +738,14 @@ function HomePage() {
             <Link to="/contact" className="button" style={{
               backgroundColor: 'var(--neutral-color)',
               color: 'var(--primary-color)',
-              padding: '18px 36px',
+              padding: isMobile ? '12px 24px' : '18px 36px',
               borderRadius: '30px',
-              fontSize: '1.3rem',
+              fontSize: isMobile ? '1.1rem' : '1.3rem',
               textDecoration: 'none',
               display: 'inline-block',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              width: 'auto'
             }}>
               Start Your Journey
             </Link>

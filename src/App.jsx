@@ -36,7 +36,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <main style={{ paddingTop: '80px', marginBottom: 0 }}>
+      <main style={{ margin: 0, padding: 0, width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
         <AnimatedRoutes />
       </main>
       <FloatingButtons />

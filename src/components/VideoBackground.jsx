@@ -117,18 +117,18 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
       className={containerClassName}
       style={{ 
         position: 'relative',
-        height: type === 'hero' ? height : height,
-        overflow: 'hidden',
+        height: isIOS ? `calc(var(--vh, 1vh) * 100 * ${height.replace('vh', '') / 100})` : height,
         width: '100vw',
+        maxWidth: '100vw',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
         marginLeft: 'calc(-50vw + 50%)',
         marginRight: 'calc(-50vw + 50%)',
         left: 0,
-        right: 0,
-        backgroundColor: 'black' // Ensure any gaps show as black
+        right: 0
       }}
     >
       <div 
-        className="video-background-overlay"
         style={{ 
           position: 'absolute',
           top: 0,
@@ -140,18 +140,64 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
         }}
       />
       
-      {/* Add CSS fallback styles that will work even if JS fails */}
       <style>
         {`
-          .video-background-iframe {
-            min-width: 100vw !important;
-            min-height: 100vh !important;
+          .video-background-container {
+            position: relative;
+            overflow: hidden;
           }
           
+          .video-background-iframe {
+            border: 0;
+          }
+          
+          .video-background-container.loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 3;
+          }
+          
+          .video-background-hero {
+            height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
+          }
+          
+          /* Mobile optimizations */
           @media (max-width: 768px) {
-            .video-background-iframe {
-              min-width: 250vw !important;
-              min-height: 250vh !important;
+            .video-background-container {
+              height: ${type === 'hero' ? '100vh' : '70vh'} !important;
+              height: ${type === 'hero' ? 'calc(var(--vh, 1vh) * 100)' : 'calc(var(--vh, 1vh) * 70)'} !important;
+              width: 100vw !important;
+              max-width: 100vw !important;
+              margin-left: calc(-50vw + 50%) !important;
+              margin-right: calc(-50vw + 50%) !important;
+              left: 0 !important;
+              right: 0 !important;
+              padding: 0 !important;
+            }
+            
+            .video-background-container h1 {
+              font-size: 2.5rem !important;
+              padding: 0 15px !important;
+              margin-bottom: 10px !important;
+            }
+            
+            .video-background-container h2 {
+              font-size: 2rem !important;
+              padding: 0 15px !important;
+              margin-bottom: 10px !important;
+            }
+            
+            .video-background-container p {
+              font-size: 1.1rem !important;
+              padding: 0 15px !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
             }
           }
           
@@ -159,6 +205,12 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
             .video-background-iframe {
               min-width: 300vw !important;
               min-height: 300vh !important;
+            }
+            
+            /* Stack buttons on very small screens */
+            .video-background-container [style*="display: flex"] {
+              flex-direction: column !important;
+              gap: 10px !important;
             }
           }
         `}
@@ -170,46 +222,35 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
         src={videoUrl}
         title="Background Video"
         frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        loading="eager"
-        importance="high"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
         onLoad={() => {
           setIsLoaded(true);
           
-          // Force immediate recalculation after load
-          if (containerRef.current) {
+          // Recalculate dimensions after iframe is loaded
+          if (containerRef.current && iframeRef.current) {
             const containerWidth = containerRef.current.offsetWidth;
             const containerHeight = containerRef.current.offsetHeight;
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             
-            const maxWidth = Math.max(containerWidth, windowWidth);
-            const maxHeight = Math.max(containerHeight, windowHeight);
-            
-            // More aggressive scaling on load for mobile
-            const baseScale = isMobile ? 2.0 : 1.1;
-            const deviceScale = isMobile ? (isIOS ? 2.5 : 2.0) : 1.0;
-            
-            const containerAspectRatio = containerWidth / containerHeight;
-            const videoAspectRatio = 16 / 9;
+            // Calculate aspect ratio to maintain 16:9
+            const videoRatio = 16 / 9;
+            const containerRatio = containerWidth / containerHeight;
             
             let newWidth, newHeight;
             
-            if (containerAspectRatio > videoAspectRatio) {
-              newWidth = maxWidth * baseScale * deviceScale;
-              newHeight = (newWidth / videoAspectRatio);
+            if (containerRatio > videoRatio) {
+              // Container is wider than video aspect ratio
+              newWidth = containerWidth;
+              newHeight = containerWidth / videoRatio;
             } else {
-              newHeight = maxHeight * baseScale * deviceScale;
-              newWidth = (newHeight * videoAspectRatio);
+              // Container is taller than video aspect ratio
+              newHeight = containerHeight;
+              newWidth = containerHeight * videoRatio;
             }
             
-            // Set a maximum scale for desktop to prevent extreme zoom
-            if (!isMobile) {
-              newWidth = Math.min(newWidth, windowWidth * 1.3);
-              newHeight = Math.min(newHeight, windowHeight * 1.3);
-            }
-            
-            // Ensure dimensions are never smaller than the viewport
+            // Ensure the video is always large enough to cover the container
             newWidth = Math.max(newWidth, windowWidth * (isMobile ? 2.0 : 1.05));
             newHeight = Math.max(newHeight, windowHeight * (isMobile ? 2.0 : 1.05));
             
@@ -247,7 +288,8 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
           width: '100%',
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 20px'
+          padding: isMobile ? '0 15px' : '0 20px',
+          boxSizing: 'border-box'
         }}
       >
         {children}

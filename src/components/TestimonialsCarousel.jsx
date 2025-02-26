@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 
@@ -43,6 +43,16 @@ const variants = {
 function TestimonialsCarousel() {
   const [[page, direction], setPage] = useState([0, 0]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const testimonialIndex = Math.abs(page % testimonials.length);
 
@@ -56,15 +66,15 @@ function TestimonialsCarousel() {
     <div style={{
       position: 'relative',
       width: '100%',
-      maxWidth: '1200px',
+      maxWidth: '100%',
       margin: '0 auto',
-      padding: '40px 20px',
+      padding: isMobile ? '20px 0' : '40px 20px',
       overflow: 'hidden'
     }}>
       <div style={{
         position: 'relative',
         width: '100%',
-        height: '300px',
+        height: isMobile ? '350px' : '300px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -86,20 +96,20 @@ function TestimonialsCarousel() {
             style={{
               position: 'absolute',
               width: '100%',
-              maxWidth: '800px',
+              maxWidth: isMobile ? '100%' : '800px',
               textAlign: 'center',
-              padding: '20px'
+              padding: isMobile ? '10px' : '20px'
             }}
           >
             <div style={{
               backgroundColor: 'var(--neutral-color)',
               borderRadius: '15px',
-              padding: '40px',
+              padding: isMobile ? '20px' : '40px',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               position: 'relative'
             }}>
               <div style={{
-                fontSize: '1.2rem',
+                fontSize: isMobile ? '1rem' : '1.2rem',
                 lineHeight: 1.6,
                 color: 'var(--text-color)',
                 marginBottom: '20px',
@@ -109,7 +119,7 @@ function TestimonialsCarousel() {
               </div>
               <div style={{
                 fontFamily: 'Bebas Neue, sans-serif',
-                fontSize: '1.5rem',
+                fontSize: isMobile ? '1.3rem' : '1.5rem',
                 color: 'var(--primary-color)',
                 marginBottom: '5px'
               }}>
@@ -132,21 +142,22 @@ function TestimonialsCarousel() {
         onClick={() => paginate(-1)}
         style={{
           position: 'absolute',
-          left: '30px',
+          left: isMobile ? '5px' : '30px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',
           border: 'none',
           borderRadius: '50%',
-          width: '40px',
-          height: '40px',
+          width: isMobile ? '30px' : '40px',
+          height: isMobile ? '30px' : '40px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
           color: 'var(--neutral-color)',
           boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-          transition: 'transform 0.3s ease'
+          transition: 'transform 0.3s ease',
+          zIndex: 10
         }}
         onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)'}
         onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
@@ -158,21 +169,22 @@ function TestimonialsCarousel() {
         onClick={() => paginate(1)}
         style={{
           position: 'absolute',
-          right: '30px',
+          right: isMobile ? '5px' : '30px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',
           border: 'none',
           borderRadius: '50%',
-          width: '40px',
-          height: '40px',
+          width: isMobile ? '30px' : '40px',
+          height: isMobile ? '30px' : '40px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
           color: 'var(--neutral-color)',
           boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-          transition: 'transform 0.3s ease'
+          transition: 'transform 0.3s ease',
+          zIndex: 10
         }}
         onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)'}
         onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}

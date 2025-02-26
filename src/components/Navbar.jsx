@@ -46,12 +46,14 @@ function Navbar() {
         }}
       >
         <div className="container" style={{ 
-          maxWidth: '1200px', 
+          maxWidth: '100%', 
           margin: '0 auto', 
           padding: '12px 20px',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          width: '100%',
+          boxSizing: 'border-box'
         }}>
           <Link to="/" style={{ 
             display: 'flex', 
