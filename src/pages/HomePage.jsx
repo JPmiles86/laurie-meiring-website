@@ -217,11 +217,17 @@ function HomePage() {
                       width: 100% !important;
                       margin: 0 auto !important;
                       box-sizing: border-box !important;
+                      border-radius: 12px !important;
+                      overflow: hidden !important;
                     }
                   }
                   
                   .service-card:hover .card-image img {
                     transform: scale(1.05);
+                  }
+                  
+                  .service-card .card-image img {
+                    border-radius: 12px;
                   }
                 `}
               </style>
@@ -252,7 +258,8 @@ function HomePage() {
                   height: '100%',
                   aspectRatio: '1/1',
                   minHeight: '400px',
-                  maxHeight: '500px'
+                  maxHeight: '500px',
+                  borderRadius: '12px'
                 }}>
                   <img 
                     src="/IMG_home1.jpg" 
@@ -262,7 +269,8 @@ function HomePage() {
                       height: '100%',
                       objectFit: 'cover',
                       objectPosition: 'center',
-                      transition: 'transform 0.5s ease'
+                      transition: 'transform 0.5s ease',
+                      borderRadius: '12px'
                     }}
                   />
                 </div>
@@ -341,7 +349,8 @@ function HomePage() {
                   aspectRatio: '1/1',
                   minHeight: '400px',
                   maxHeight: '500px',
-                  order: 2
+                  order: 2,
+                  borderRadius: '12px'
                 }}>
                   <img 
                     src="/beach surf 3x2.jpg" 
@@ -351,7 +360,8 @@ function HomePage() {
                       height: '100%',
                       objectFit: 'cover',
                       objectPosition: 'center',
-                      transition: 'transform 0.5s ease'
+                      transition: 'transform 0.5s ease',
+                      borderRadius: '12px'
                     }}
                   />
                 </div>
@@ -454,7 +464,7 @@ function HomePage() {
                 padding: isMobile ? '12px 24px' : '15px 30px',
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
                 textDecoration: 'none',
-                borderRadius: '4px',
+                borderRadius: '30px',
                 fontWeight: 'bold',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 transition: 'all 0.3s ease',
@@ -463,13 +473,13 @@ function HomePage() {
                 Start Your Journey
               </Link>
               <Link to="/contact" className="button" style={{
-                backgroundColor: 'transparent',
-                color: 'var(--neutral-color)',
+                backgroundColor: 'var(--neutral-color)',
+                color: 'var(--primary-color)',
                 display: 'inline-block',
                 padding: isMobile ? '12px 24px' : '15px 30px',
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
                 textDecoration: 'none',
-                borderRadius: '4px',
+                borderRadius: '30px',
                 fontWeight: 'bold',
                 border: '2px solid var(--neutral-color)',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
