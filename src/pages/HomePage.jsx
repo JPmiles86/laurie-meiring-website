@@ -743,11 +743,12 @@ function HomePage() {
               borderRadius: '30px',
               fontSize: '1.2rem',
               textDecoration: 'none',
-              display: 'inline-block',
+              display: 'block',
               fontWeight: 'bold',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
               transition: 'all 0.3s ease',
-              width: 'auto'
+              width: '175px',
+              margin: '0 auto'
             }}>
               Start Your Journey
             </Link>
