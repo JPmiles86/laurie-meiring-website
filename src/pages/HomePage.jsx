@@ -371,7 +371,7 @@ function HomePage() {
 
           <section className="testimonials-section" style={{
             padding: isMobile ? '60px 0' : '100px 20px',
-            backgroundColor: 'var(--neutral-color)',
+            backgroundColor: 'var(--neutral-color)', 
             borderTop: '2px solid var(--secondary-color)',
             position: 'relative',
             overflow: 'hidden',
@@ -388,7 +388,8 @@ function HomePage() {
               <h2 style={{
                 fontSize: isMobile ? '2.4rem' : '3rem',
                 color: 'var(--primary-color)',
-                marginBottom: '20px'
+                marginBottom: '20px',
+                marginTop: '80px'
               }}>
                 Player Testimonials
               </h2>
@@ -403,7 +404,14 @@ function HomePage() {
                 Real experiences from players who've transformed their game and enjoyed the pickleball paradise of Costa Rica
               </p>
             </motion.div>
-            <TestimonialsCarousel />
+            <div style={{ 
+              marginBottom: '40px',
+              position: 'relative',
+              padding: '0 80px',
+              overflow: 'visible'
+            }}>
+              <TestimonialsCarousel />
+            </div>
           </section>
         </div>
 

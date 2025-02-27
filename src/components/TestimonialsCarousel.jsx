@@ -192,7 +192,9 @@ function TestimonialsCarousel() {
           color: 'var(--neutral-color)',
           boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
           transition: 'transform 0.3s ease',
-          zIndex: 10
+          zIndex: 20,
+          fontSize: '18px',
+          fontWeight: 'bold'
         }}
         onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)'}
         onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
@@ -204,7 +206,7 @@ function TestimonialsCarousel() {
         onClick={() => paginate(1)}
         style={{
           position: 'absolute',
-          right: isMobile ? '15px' : '30px',
+          right: isMobile ? '30px' : '60px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',
@@ -219,7 +221,9 @@ function TestimonialsCarousel() {
           color: 'var(--neutral-color)',
           boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
           transition: 'transform 0.3s ease',
-          zIndex: 10
+          zIndex: 20,
+          fontSize: '18px',
+          fontWeight: 'bold'
         }}
         onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)'}
         onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
