@@ -255,7 +255,7 @@ function HomePage() {
                   maxHeight: '500px'
                 }}>
                   <img 
-                    src="/laurie medals 1.jpg" 
+                    src="/IMG_home1.jpg" 
                     alt="Pickleball Training"
                     style={{
                       width: '100%',

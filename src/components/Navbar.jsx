@@ -60,7 +60,7 @@ function Navbar() {
         <div className="container" style={{ 
           maxWidth: '100%', 
           margin: '0 auto', 
-          padding: '12px 20px',
+          padding: '15px 15px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -74,18 +74,17 @@ function Navbar() {
             textDecoration: 'none',
             flexShrink: 0
           }}>
-            <div style={{ width: '75px', height: '75px', flexShrink: 0 }}>
+            <div style={{ width: '150px', height: '75px', flexShrink: 0 }}>
               <OptimizedImage
-                src={IMAGES.LOGO.ROUND}
+                src={IMAGES.LOGO.TEXT}
                 alt="Your Pickleball Guide Costa Rica"
-                width={75}
+                width={150}
                 height={75}
                 loading="eager"
                 style={{
-                  borderRadius: '50%',
+                  borderRadius: '0%',
                   objectFit: 'contain',
                   objectPosition: 'center',
-                  border: '2px solid var(--secondary-color)',
                   backgroundColor: 'transparent'
                 }}
               />
