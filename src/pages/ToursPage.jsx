@@ -5,6 +5,7 @@ import PageTransition from '../components/PageTransition';
 import OptimizedImage from '../components/OptimizedImage';
 import VideoBackground from '../components/VideoBackground';
 import { IMAGES } from '../constants/images';
+import GradientDivider from '../components/GradientDivider';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -51,15 +52,15 @@ function ToursPage() {
     {
       title: "Pickleball Paradise",
       duration: "6 Days",
-      price: "From $1,299",
-      description: "Our signature tour combines intensive pickleball training with the best of Costa Rican adventures.",
+      price: "$2199",
+      description: "Embark on the ultimate Pickleball getaway, where world-class play meets breathtaking destinations. Our exclusive 6-day tour takes you through Costa Rica's most stunning locations from the Jungle of Ojochal to Jaco Beach, and Tamarindo - blending expert coaching, competitive games, and unforgettable experiences.",
       features: [
-        "4 Professional coaching sessions",
-        "2 Local tournament experiences",
-        "Jungle and beach locations",
-        "Waterfall excursion",
-        "All transportation included",
-        "Premium accommodation"
+        "All local transfers within Costa Rica",
+        "Comfortable accommodation with daily breakfast",
+        "Dinner included (excluding drinks)",
+        "Expert coaching and structured play sessions",
+        "Competitive games against local players & tournaments",
+        "All Pickleball court fees"
       ],
       image: "/waterfall 2x3.jpg",
       featured: true
@@ -84,19 +85,19 @@ function ToursPage() {
 
   const locations = [
     {
+      name: "Ojochal - Jungle Retreat",
+      description: "Play surrounded by lush rainforest with the sounds of nature as your backdrop.",
+      image: "/toucan 2x3.jpg"
+    },
+    {
       name: "Jaco Beach",
       description: "Our home base with beautiful beach courts and perfect weather year-round.",
       image: "/jaco.jpg"
     },
     {
-      name: "Jungle Courts of Ojochal",
-      description: "Play surrounded by lush rainforest with the sounds of nature as your backdrop.",
-      image: "/toucan 2x3.jpg"
-    },
-    {
-      name: "San José City Club",
-      description: "Experience Costa Rica's premier indoor pickleball facility in the capital city.",
-      image: "/local courts.jpg"
+      name: "Tamarindo - Coastal Town",
+      description: "Experience pickleball in this vibrant coastal town known for its beautiful beaches.",
+      image: "/beach surf 3x2.jpg"
     }
   ];
 
@@ -109,7 +110,7 @@ function ToursPage() {
     {
       title: "Local Tournaments",
       description: "Test your skills in friendly competitive play with local pickleball clubs. Experience the vibrant Costa Rican pickleball community and make lasting connections.",
-      image: "/local courts.jpg"
+      image: "/coaching-game.png"
     },
     {
       title: "Paradise Experience",
@@ -118,51 +119,62 @@ function ToursPage() {
     }
   ];
 
+  const accommodations = [
+    {
+      title: "Beachfront Luxury",
+      description: "Wake up to the sound of waves and enjoy stunning ocean views from your comfortable beachfront accommodation in Jaco.",
+      image: "/beachfront.jpeg"
+    },
+    {
+      title: "Jungle Retreat",
+      description: "Immerse yourself in nature at our jungle accommodations in Ojochal, surrounded by lush rainforest and wildlife.",
+      image: "/mountain.jpeg"
+    },
+    {
+      title: "Coastal Town Living",
+      description: "Experience the vibrant culture and beautiful beaches of Tamarindo from our centrally located accommodations.",
+      image: "/city.jpeg"
+    }
+  ];
+
   return (
     <PageTransition>
       <div className="tours-page">
         <VideoBackground
-          videoId="wORVp9Pg5DY"
-          startTime={5}
-          endTime={35}
-          height="100vh"
-          overlayColor="rgba(0, 0, 0, 0.5)"
-          type="hero"
+          videoId="XdpFc98GcPM"
+          startTime={0}
+          endTime={30}
+          height="95vh"
+          overlayColor="rgba(0, 0, 0, 0.4)"
         >
-          <motion.div 
-            initial="initial"
-            animate="animate"
-            variants={staggerChildren}
-            className="content-container"
-            style={{ 
-              maxWidth: '1200px', 
-              margin: '0 auto', 
-              padding: isMobile ? '0 15px' : '0 20px', 
-              textAlign: 'center' 
-            }}
-          >
+          <div style={{ maxWidth: '1200px', margin: '0 auto', padding: isMobile ? '0 15px' : '0 20px', textAlign: 'center' }}>
             <motion.h1 
-              variants={fadeInUp}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
               style={{ 
                 color: 'var(--neutral-color)',
                 fontSize: isMobile ? '2.8rem' : '3.5rem',
-                marginBottom: isMobile ? '15px' : '20px',
+                marginBottom: '20px',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
               }}
             >
-              Pickleball Tours in Paradise
+              Discover Pickleball Paradise
             </motion.h1>
             <motion.p 
-              variants={fadeInUp}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               style={{ 
-                fontSize: isMobile ? '1.1rem' : '1.2rem', 
-                maxWidth: '800px', 
-                margin: isMobile ? '15px auto' : '20px auto',
                 color: 'var(--neutral-color)',
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
+                fontSize: isMobile ? '1.5rem' : '2rem',
+                marginBottom: '30px',
+                maxWidth: '800px',
+                margin: '0 auto 30px',
+                textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)'
               }}
             >
-              Experience the ultimate pickleball adventure in Costa Rica's most beautiful locations
+              6-Day Adventure $2199 p/p
             </motion.p>
             <motion.div variants={fadeInUp}>
               <Link to="/contact" className="button" style={{
@@ -179,170 +191,706 @@ function ToursPage() {
                 Book Your Tour
               </Link>
             </motion.div>
-          </motion.div>
+          </div>
         </VideoBackground>
 
-        <section className="tour-packages" style={{ 
-          padding: isMobile ? '60px 15px' : '80px 20px', 
-          backgroundColor: 'var(--neutral-color)' 
-        }}>
+        <section style={{ padding: isMobile ? '60px 15px' : '80px 20px', backgroundColor: 'var(--neutral-color)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <motion.h2
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '50px',
+                color: 'var(--primary-color)',
+                fontSize: isMobile ? '2.5rem' : '3rem'
+              }}
+            >
+              Tour Package
+            </motion.h2>
+            
+            <div style={{ 
+              width: isMobile ? '100%' : '60%',
+              margin: '0 auto 60px',
+              textAlign: 'center'
+            }}>
+              <h3 style={{ 
+                fontSize: isMobile ? '1.8rem' : '2.2rem', 
+                marginBottom: '20px',
+                color: 'var(--text-color)'
+              }}>
+                Pickleball Paradise
+              </h3>
+              
+              <div style={{
+                width: '200px',
+                height: '200px',
+                margin: '0 auto 30px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                position: 'relative',
+                border: '4px solid var(--secondary-color)',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
+              }}>
+                <OptimizedImage 
+                  src="/beach (portrait 4x5).jpg"
+                  alt="Pickleball Paradise"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              
+              <p style={{ 
+                fontSize: '1.1rem', 
+                lineHeight: 1.6, 
+                marginBottom: '40px',
+                color: 'var(--text-color)'
+              }}>
+                Embark on the ultimate Pickleball getaway, where world-class play meets breathtaking destinations. Our exclusive 6-day tour takes you through Costa Rica's most stunning locations from the Jungle of Ojochal to Jaco Beach, and Tamarindo - blending expert coaching, competitive games, and unforgettable experiences.
+              </p>
+            </div>
+            
+            <div style={{
+              marginBottom: '60px',
+              width: '100%'
+            }}>
+              <div style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                padding: '40px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                marginBottom: '40px'
+              }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '40px',
+                  alignItems: 'center'
+                }}>
+                  <div>
+                    <h3 style={{ 
+                      fontSize: '1.8rem', 
+                      marginBottom: '25px',
+                      color: 'var(--primary-color)'
+                    }}>
+                      Your Pickleball Adventure at a Glance
+                    </h3>
+                    
+                    <ul style={{ 
+                      listStyle: 'none', 
+                      padding: 0, 
+                      margin: 0
+                    }}>
+                      {[
+                        'Duration: 6 full days (excluding 2 flight days)',
+                        'Destinations: Ojochal (Jungle), Jaco (Beach), Tamarindo (Coastal Town)',
+                        'Experience Level: Tailored for competitive players with similar DUPR ratings',
+                        'Group Size: 6-8 players',
+                        'Price: $2199 per person'
+                      ].map((detail, index) => {
+                        const parts = detail.split(':');
+                        const beforeColon = parts[0];
+                        const afterColon = parts.slice(1).join(':');
+                        
+                        return (
+                          <motion.li 
+                            key={index}
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.3, delay: index * 0.1 }}
+                            style={{ 
+                              marginBottom: '15px',
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              fontSize: '1.1rem'
+                            }}
+                          >
+                            <span style={{ 
+                              color: 'var(--primary-color)', 
+                              marginRight: '10px',
+                              fontWeight: 'bold',
+                              flexShrink: 0
+                            }}>•</span>
+                            <span>
+                              <strong>{beforeColon}</strong>{afterColon}
+                            </span>
+                          </motion.li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                  
+                  <div style={{
+                    width: '100%',
+                    height: 0,
+                    paddingBottom: '75%',
+                    position: 'relative',
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                    border: '3px solid var(--secondary-color)'
+                  }}>
+                    <OptimizedImage 
+                      src="/coaching-game.png"
+                      alt="Pickleball Coaching"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                padding: '40px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)'
+              }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '40px',
+                  alignItems: 'center'
+                }}>
+                  <div style={{ order: isMobile ? 2 : 1 }}>
+                    <div style={{
+                      width: '100%',
+                      height: 0,
+                      paddingBottom: '75%',
+                      position: 'relative',
+                      borderRadius: '10px',
+                      overflow: 'hidden',
+                      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                      border: '3px solid var(--secondary-color)'
+                    }}>
+                      <OptimizedImage 
+                        src="/local courts.jpg"
+                        alt="Pickleball Courts"
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  </div>
+                  
+                  <div style={{ order: isMobile ? 1 : 2 }}>
+                    <h3 style={{ 
+                      fontSize: '1.8rem', 
+                      marginBottom: '25px',
+                      color: 'var(--primary-color)'
+                    }}>
+                      What's Included
+                    </h3>
+                    
+                    <ul style={{ 
+                      listStyle: 'none', 
+                      padding: 0, 
+                      margin: 0
+                    }}>
+                      {[
+                        'All local transfers within Costa Rica',
+                        'Comfortable accommodation with daily breakfast',
+                        'Dinner included (excluding drinks)',
+                        'Expert coaching and structured play sessions',
+                        'Competitive games against local players & tournaments',
+                        'All Pickleball court fees'
+                      ].map((feature, index) => (
+                        <motion.li 
+                          key={index}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                          style={{ 
+                            marginBottom: '15px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '1.1rem'
+                          }}
+                        >
+                          <span style={{ 
+                            color: 'var(--primary-color)', 
+                            marginRight: '10px',
+                            fontWeight: 'bold'
+                          }}>✔️</span>
+                          {feature}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <GradientDivider />
+        
+        <section style={{ padding: isMobile ? '60px 15px' : '80px 20px', backgroundColor: 'var(--light-color)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '50px',
+                color: 'var(--primary-color)',
+                fontSize: isMobile ? '2.5rem' : '3rem'
+              }}
+            >
+              Sample Itinerary
+            </motion.h2>
+            
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '40px',
+                color: 'var(--text-color)',
+                fontSize: isMobile ? '1.8rem' : '2.2rem'
+              }}
+            >
+              Your 6-Day Pickleball Journey
+            </motion.h3>
+            
+            <div style={{ marginBottom: '60px' }}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  padding: '30px',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  marginBottom: '30px',
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '30px',
+                  alignItems: 'center',
+                  border: '1px solid #eee',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '8px',
+                  height: '100%',
+                  backgroundColor: 'var(--secondary-color)'
+                }}></div>
+                
+                <div style={{ paddingLeft: '12px' }}>
+                  <h4 style={{ 
+                    fontSize: '1.5rem', 
+                    marginBottom: '20px',
+                    color: 'var(--primary-color)'
+                  }}>
+                    Day 1 & 2: Ojochal - Pickleball & Jungle Retreat
+                  </h4>
+                  
+                  <ul style={{ 
+                    listStyle: 'none', 
+                    padding: 0, 
+                    margin: '0 0 20px 0' 
+                  }}>
+                    {[
+                      'Day 1: Morning coaching session focused on skill refinement, followed by structured play.',
+                      'Day 2: Competitive games against players of similar DUPR levels or a mini-tournament.',
+                      'Evening: Enjoy a jungle dinner surrounded by Costa Rica\'s lush rainforest.',
+                      'Optional Extras at additional cost: Waterfall Walking Tour, WhaleTail Uvita Beach Visit, Interpretative Nature Reserve Visit, Wildlife Sanctuary Tour, Kayak Tour, Surfing Lesson, Scuba/Snorkel, River Tours'
+                    ].map((item, index) => (
+                      <motion.li 
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        style={{ 
+                          marginBottom: '12px',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          fontSize: '1.1rem',
+                          lineHeight: 1.6
+                        }}
+                      >
+                        <span style={{ 
+                          color: 'var(--primary-color)', 
+                          marginRight: '10px',
+                          fontWeight: 'bold',
+                          flexShrink: 0
+                        }}>•</span>
+                        <span>{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div style={{
+                  width: '100%',
+                  height: 0,
+                  paddingBottom: '75%',
+                  position: 'relative',
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  border: '3px solid var(--secondary-color)'
+                }}>
+                  <OptimizedImage 
+                    src="/toucan 2x3.jpg"
+                    alt="Ojochal - Jungle Retreat"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  padding: '30px',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  marginBottom: '30px',
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '30px',
+                  alignItems: 'center',
+                  border: '1px solid #eee',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '8px',
+                  height: '100%',
+                  backgroundColor: 'var(--primary-color)'
+                }}></div>
+                
+                <div style={{ order: isMobile ? 1 : 2, paddingLeft: '12px' }}>
+                  <h4 style={{ 
+                    fontSize: '1.5rem', 
+                    marginBottom: '20px',
+                    color: 'var(--primary-color)'
+                  }}>
+                    Day 3 & 4: Jaco Beach - Sun, Sand & Pickleball
+                  </h4>
+                  
+                  <ul style={{ 
+                    listStyle: 'none', 
+                    padding: 0, 
+                    margin: '0 0 20px 0' 
+                  }}>
+                    {[
+                      'Day 3: Beachside coaching session and match strategy tuning.',
+                      'Day 4: Competitive games or tournament with local players.',
+                      'Evening: Sunset dining at a beachfront restaurant.',
+                      'Optional Extras include: Waterfall Walking Tour, Zipline Tour, ATV Jungle Tour, National Park Tour, Paragliding, Visit Tartuga Island, Crocodile Tour, Catamaran Cruise, Private Fishing Charter, Horseback Riding, Nightlife Tour, Surfing Lesson, Yoga'
+                    ].map((item, index) => (
+                      <motion.li 
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        style={{ 
+                          marginBottom: '12px',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          fontSize: '1.1rem',
+                          lineHeight: 1.6
+                        }}
+                      >
+                        <span style={{ 
+                          color: 'var(--primary-color)', 
+                          marginRight: '10px',
+                          fontWeight: 'bold',
+                          flexShrink: 0
+                        }}>•</span>
+                        <span>{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div style={{
+                  width: '100%',
+                  height: 0,
+                  paddingBottom: '75%',
+                  position: 'relative',
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  order: isMobile ? 2 : 1,
+                  border: '3px solid var(--secondary-color)'
+                }}>
+                  <OptimizedImage 
+                    src="/jaco.jpg"
+                    alt="Jaco Beach"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  padding: '30px',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  display: 'grid',
+                  gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                  gap: '30px',
+                  alignItems: 'center',
+                  border: '1px solid #eee',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '8px',
+                  height: '100%',
+                  backgroundColor: 'var(--secondary-color)'
+                }}></div>
+                
+                <div style={{ paddingLeft: '12px' }}>
+                  <h4 style={{ 
+                    fontSize: '1.5rem', 
+                    marginBottom: '20px',
+                    color: 'var(--primary-color)'
+                  }}>
+                    Day 5 & 6: Tamarindo - Coastal Play & Farewell Matches
+                  </h4>
+                  
+                  <ul style={{ 
+                    listStyle: 'none', 
+                    padding: 0, 
+                    margin: '0 0 20px 0' 
+                  }}>
+                    {[
+                      'Day 5: Advanced coaching and gameplay fine-tuning.',
+                      'Day 6: Final day of high-level matches or a farewell tournament.',
+                      'Evening: Celebrate with a farewell dinner and reflections on an epic Pickleball journey.',
+                      'Optional Extras include: Mangrove Boat Safari, Guachipelin Adventure Tour, Sunset Catamaran Cruise, Zipline Tour, ATV Tour, White Water Rafting, Snorkeling, Sports Fishing, Nightlife Tour, Surfing Lesson, Yoga'
+                    ].map((item, index) => (
+                      <motion.li 
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        style={{ 
+                          marginBottom: '12px',
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          fontSize: '1.1rem',
+                          lineHeight: 1.6
+                        }}
+                      >
+                        <span style={{ 
+                          color: 'var(--primary-color)', 
+                          marginRight: '10px',
+                          fontWeight: 'bold',
+                          flexShrink: 0
+                        }}>•</span>
+                        <span>{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div style={{
+                  width: '100%',
+                  height: 0,
+                  paddingBottom: '75%',
+                  position: 'relative',
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+                  border: '3px solid var(--secondary-color)'
+                }}>
+                  <OptimizedImage 
+                    src="/drone beach waves.jpg"
+                    alt="Tamarindo - Coastal Town"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </div>
+            
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               style={{
-                textAlign: 'center',
-                marginBottom: isMobile ? '40px' : '60px',
-                color: 'var(--primary-color)',
-                fontSize: isMobile ? '2.4rem' : '2.8rem'
+                backgroundColor: 'var(--secondary-color)',
+                borderRadius: '12px',
+                padding: '40px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                marginBottom: '30px',
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                gap: '30px',
+                alignItems: 'center',
+                color: 'white'
               }}
             >
-              Tour Packages
-            </motion.h2>
-            
-            <div style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center',
-              marginBottom: isMobile ? '30px' : '40px'
-            }}>
-              <div style={{ 
-                display: 'grid',
-                gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: isMobile ? '25px' : '30px',
+              <div style={{
                 width: '100%',
-                maxWidth: '1200px'
+                height: 0,
+                paddingBottom: '75%',
+                position: 'relative',
+                borderRadius: '10px',
+                overflow: 'hidden',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                border: '4px solid white'
               }}>
-                {tourPackages.map((pkg, index) => (
-                  <div key={index} style={{ 
-                    position: 'relative',
-                    height: '100%'
-                  }}>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
+                <OptimizedImage 
+                  src="/blog2pic1.jpeg"
+                  alt="Group Fun"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              
+              <div>
+                <h4 style={{ 
+                  fontSize: '1.8rem', 
+                  marginBottom: '20px',
+                  color: 'white',
+                  textAlign: 'center'
+                }}>
+                  Why Choose This Tour?
+                </h4>
+                
+                <ul style={{ 
+                  listStyle: 'none', 
+                  padding: 0, 
+                  margin: '0 0 20px 0' 
+                }}>
+                  {[
+                    'Play and compete in three unique destinations',
+                    'Train with an experienced coach and improve your game',
+                    'Connect with like-minded players in a stunning tropical setting',
+                    'Enjoy a perfect balance of competition, training, and relaxation'
+                  ].map((reason, index) => (
+                    <motion.li 
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      whileHover={{ 
-                        y: isMobile ? -5 : -10,
-                        boxShadow: '0 15px 30px rgba(0, 0, 0, 0.2)'
-                      }}
-                      style={{
-                        backgroundColor: '#fff',
-                        borderRadius: isMobile ? '16px' : '12px',
-                        overflow: 'hidden',
-                        boxShadow: isMobile ? '0 8px 15px rgba(0, 0, 0, 0.1)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
-                        border: pkg.featured ? '2px solid var(--secondary-color)' : 'none',
-                        transform: pkg.featured && !isMobile ? 'scale(1.05)' : 'none',
-                        height: '100%',
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      style={{ 
+                        marginBottom: '15px',
                         display: 'flex',
-                        flexDirection: 'column'
+                        alignItems: 'center',
+                        fontSize: '1.1rem'
                       }}
                     >
-                      <div style={{
-                        height: '200px',
-                        overflow: 'hidden'
-                      }}>
-                        <img
-                          src={pkg.image}
-                          alt={pkg.title}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
-                          }}
-                        />
-                      </div>
-                      <div style={{ padding: isMobile ? '20px' : '25px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                        <div style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          marginBottom: '15px'
-                        }}>
-                          <h3 style={{
-                            fontSize: isMobile ? '1.6rem' : '1.8rem',
-                            color: 'var(--primary-color)',
-                            margin: 0
-                          }}>
-                            {pkg.title}
-                          </h3>
-                          <div style={{
-                            backgroundColor: 'var(--secondary-color)',
-                            color: 'var(--text-color)',
-                            padding: '5px 10px',
-                            borderRadius: '20px',
-                            fontSize: '0.9rem',
-                            fontWeight: 'bold'
-                          }}>
-                            {pkg.duration}
-                          </div>
-                        </div>
-                        <div style={{
-                          fontSize: '1.5rem',
-                          fontWeight: 'bold',
-                          color: 'var(--text-color)',
-                          marginBottom: '15px'
-                        }}>
-                          {pkg.price}
-                        </div>
-                        <p style={{
-                          fontSize: '1rem',
-                          color: 'var(--text-color)',
-                          marginBottom: '20px',
-                          lineHeight: 1.6
-                        }}>
-                          {pkg.description}
-                        </p>
-                        <ul style={{
-                          listStyle: 'none',
-                          padding: 0,
-                          margin: '0 0 25px 0'
-                        }}>
-                          {pkg.features.map((feature, idx) => (
-                            <li key={idx} style={{
-                              marginBottom: '8px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '10px',
-                              fontSize: '0.95rem'
-                            }}>
-                              <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>✓</span>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                        <div style={{ marginTop: 'auto' }}>
-                          <Link to="/contact" className="button" style={{
-                            display: 'block',
-                            textAlign: 'center',
-                            backgroundColor: 'var(--primary-color)',
-                            color: 'var(--neutral-color)',
-                            padding: isMobile ? '14px' : '12px',
-                            borderRadius: '25px',
-                            textDecoration: 'none',
-                            fontSize: isMobile ? '1.1rem' : '1.1rem',
-                            fontWeight: '500',
-                            transition: 'all 0.3s ease',
-                            boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)'
-                          }}>
-                            Book This Tour
-                          </Link>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
-                ))}
+                      <span style={{ 
+                        color: 'white', 
+                        marginRight: '10px',
+                        fontWeight: 'bold'
+                      }}>✔️</span>
+                      <span style={{ fontWeight: 'bold' }}>{reason}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+                
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                  <p style={{ 
+                    fontSize: '1.2rem', 
+                    marginBottom: '20px',
+                    fontStyle: 'italic'
+                  }}>
+                    Got questions? Reach out and let's make your Pickleball dream in Costa Rica a reality!
+                  </p>
+                  
+                  <Link to="/contact" className="button" style={{
+                    backgroundColor: 'white',
+                    color: 'var(--primary-color)',
+                    display: 'inline-block',
+                    padding: '15px 30px',
+                    fontSize: '1.2rem',
+                    borderRadius: '30px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease'
+                  }}>Contact Me</Link>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        <section className="locations" style={{
+        <section className="features" style={{ 
           padding: isMobile ? '60px 15px' : '80px 20px',
-          backgroundColor: 'var(--primary-color)',
+          backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
@@ -360,7 +908,7 @@ function ToursPage() {
                 color: 'var(--neutral-color)'
               }}
             >
-              What's Included
+              Accommodations
             </motion.h2>
             <div style={{
               display: 'grid',
@@ -369,7 +917,7 @@ function ToursPage() {
               textAlign: 'center',
               padding: '0 10px'
             }}>
-              {includedFeatures.map((feature, index) => (
+              {accommodations.map((accommodation, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -390,8 +938,8 @@ function ToursPage() {
                     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
                   }}>
                     <img 
-                      src={feature.image} 
-                      alt={feature.title}
+                      src={accommodation.image} 
+                      alt={accommodation.title}
                       style={{
                         width: '100%',
                         height: '100%',
@@ -404,7 +952,7 @@ function ToursPage() {
                     marginBottom: '15px', 
                     color: '#ffffff' 
                   }}>
-                    {feature.title}
+                    {accommodation.title}
                   </h3>
                   <p style={{ 
                     fontSize: isMobile ? '1rem' : '1.1rem', 
@@ -413,243 +961,11 @@ function ToursPage() {
                     wordWrap: 'break-word',
                     color: '#ffffff'
                   }}>
-                    {feature.description}
+                    {accommodation.description}
                   </p>
                 </motion.div>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section className="locations" style={{ 
-          padding: isMobile ? '60px 15px' : '80px 20px',
-          backgroundColor: 'var(--neutral-color)'
-        }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              style={{
-                textAlign: 'center',
-                marginBottom: isMobile ? '40px' : '60px',
-                color: 'var(--primary-color)',
-                fontSize: isMobile ? '2.4rem' : '2.8rem'
-              }}
-            >
-              Tour Locations
-            </motion.h2>
-            <div className="location-grid" style={{ 
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '30px',
-              marginTop: isMobile ? '30px' : '40px'
-            }}>
-              {locations.map((location, index) => (
-                <motion.div
-                  key={index}
-                  className="location-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: isMobile ? '1fr' : (index % 2 === 0 ? '1fr 1.5fr' : '1.5fr 1fr'),
-                    gap: isMobile ? '20px' : '40px',
-                    marginBottom: index === locations.length - 1 ? 0 : (isMobile ? '40px' : '60px'),
-                    alignItems: 'center'
-                  }}
-                >
-                  <div style={{ 
-                    order: isMobile ? 1 : (index % 2 === 0 ? 1 : 2),
-                    textAlign: isMobile ? 'center' : 'left'
-                  }}>
-                    <h3 style={{ 
-                      fontSize: isMobile ? '1.8rem' : '2rem', 
-                      marginBottom: '15px',
-                      color: 'var(--primary-color)'
-                    }}>
-                      {location.name}
-                    </h3>
-                    <p style={{ 
-                      fontSize: isMobile ? '1rem' : '1.1rem', 
-                      lineHeight: 1.6,
-                      marginBottom: '20px'
-                    }}>
-                      {location.description}
-                    </p>
-                  </div>
-                  <motion.div 
-                    style={{ 
-                      order: isMobile ? 0 : (index % 2 === 0 ? 2 : 1),
-                      borderRadius: isMobile ? '16px' : '12px',
-                      overflow: 'hidden',
-                      boxShadow: isMobile ? '0 8px 15px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      height: isMobile ? '250px' : '300px'
-                    }}
-                    whileHover={{
-                      scale: 1.03,
-                      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)'
-                    }}
-                  >
-                    <img
-                      src={location.image}
-                      alt={location.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        display: 'block'
-                      }}
-                    />
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="features" style={{ 
-          padding: isMobile ? '60px 15px' : '80px 20px', 
-          backgroundColor: 'var(--neutral-color)' 
-        }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              style={{
-                textAlign: 'center',
-                marginBottom: '20px',
-                color: 'var(--primary-color)',
-                fontSize: isMobile ? '2.4rem' : '2.8rem'
-              }}
-            >
-              Accommodations
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              style={{
-                textAlign: 'center',
-                fontSize: '1.2rem',
-                maxWidth: '800px',
-                margin: '0 auto 40px',
-                lineHeight: 1.6
-              }}
-            >
-              We offer a variety of accommodation options to suit your preferences and budget. From luxury beachfront properties to cozy mountain retreats, we'll find the perfect place for your stay.
-            </motion.p>
-            
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: isMobile ? '25px' : '30px',
-              marginTop: isMobile ? '30px' : '40px'
-            }}>
-              {[
-                {
-                  title: "Beachfront Properties",
-                  description: "Wake up to the sound of waves and enjoy stunning ocean views. Our beachfront options range from luxury condos to charming bungalows, all within walking distance to the shore.",
-                  image: "/beach surf 3x2.jpg"
-                },
-                {
-                  title: "Jungle Retreats",
-                  description: "Immerse yourself in Costa Rica's lush rainforest with accommodations surrounded by nature. Experience the unique sounds and sights of the jungle while enjoying modern comforts.",
-                  image: "/toucan 2x3.jpg"
-                },
-                {
-                  title: "City Convenience",
-                  description: "Stay in the heart of town with easy access to restaurants, shops, and nightlife. Perfect for those who want to experience both pickleball and the local culture.",
-                  image: "/jaco.jpg"
-                }
-              ].map((option, index) => (
-                <motion.div
-                  key={index}
-                  className="feature-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 + (index * 0.1) }}
-                  style={{
-                    backgroundColor: '#fff',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column'
-                  }}
-                >
-                  <div style={{ height: '200px', overflow: 'hidden' }}>
-                    <img
-                      src={option.image}
-                      alt={option.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  </div>
-                  <div style={{ padding: '25px', flexGrow: 1 }}>
-                    <h3 style={{
-                      fontSize: '1.6rem',
-                      color: 'var(--primary-color)',
-                      marginBottom: '15px'
-                    }}>
-                      {option.title}
-                    </h3>
-                    <p style={{
-                      fontSize: '1.1rem',
-                      lineHeight: 1.6,
-                      color: 'var(--text-color)'
-                    }}>
-                      {option.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              style={{
-                backgroundColor: 'rgba(0, 173, 181, 0.1)',
-                borderRadius: '12px',
-                padding: '30px',
-                marginTop: '40px',
-                maxWidth: '800px',
-                margin: '40px auto 0',
-                border: '1px solid rgba(0, 173, 181, 0.3)'
-              }}
-            >
-              <h3 style={{
-                fontSize: '1.6rem',
-                color: 'var(--primary-color)',
-                marginBottom: '15px',
-                textAlign: 'center'
-              }}>
-                Customized to Your Needs
-              </h3>
-              <p style={{
-                fontSize: '1.1rem',
-                lineHeight: 1.6,
-                color: 'var(--text-color)',
-                textAlign: 'center'
-              }}>
-                We understand that every traveler has unique preferences. That's why we offer fully customizable accommodation options. Whether you prefer a luxury hotel, a private villa, or a budget-friendly apartment, we can tailor your stay to match your needs and budget. Just let us know your preferences when booking, and we'll take care of the rest.
-              </p>
-            </motion.div>
           </div>
         </section>
 

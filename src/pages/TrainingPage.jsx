@@ -6,6 +6,7 @@ import VideoPlayer from '../components/VideoPlayer';
 import { IMAGES } from '../constants/images';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import GradientDivider from '../components/GradientDivider';
 
 function TrainingPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -23,60 +24,60 @@ function TrainingPage() {
     {
       title: 'Single Session',
       price: '$30',
-      duration: 'per hour',
-      description: 'One-on-one personalized coaching tailored to your skill level and goals.',
+      duration: 'per Hour',
+      description: 'Personalized one-on-one coaching designed to match your skill level and goals.',
       features: [
-        'Skill assessment',
-        'Technique refinement',
-        'Strategy development',
-        'Video analysis',
-        'Personalized feedback'
+        'Skill Assessment',
+        'Identification of Improvement Areas',
+        'Technique Refinement',
+        'Video Feedback',
+        'Tournament Preparation & Strategy'
       ],
       featured: false
     },
     {
       title: 'Bundle Package',
       price: '$250',
-      duration: '10 sessions',
-      description: 'Save $50 with our bundle package. Perfect for committed players looking to significantly improve their game.',
+      duration: 'for 10 Sessions (Save $50)',
+      description: 'Perfect for committed players looking to see real progress over time.',
       features: [
-        'All features of single sessions',
-        'Progressive skill development',
-        'Customized training plan',
-        'Performance tracking',
-        'Priority scheduling'
+        'All Single Session Features',
+        'Progressive Skill Development',
+        'Performance Tracking',
+        'Customized Training Plan',
+        'Priority Scheduling'
       ],
       featured: true
     },
     {
       title: 'Group Training',
       price: '$20',
-      duration: 'per person/hour',
-      description: 'Train with friends or family (2-4 players) and enjoy the benefits of group dynamics.',
+      duration: 'per person/hour (2-4 players)',
+      description: 'Train with friends or family and enjoy the benefits of group coaching.',
       features: [
-        'Tailored group exercises',
-        'Competitive drills',
-        'Match play scenarios',
-        'Team strategy development',
-        'Fun, social atmosphere'
+        'Tailored group drills & exercises',
+        'Competitive Play Scenarios',
+        'Match Strategy & Teamwork',
+        'Game-based Learning',
+        'Fun & social atmosphere'
       ],
       featured: false
     }
   ];
 
   const trainingBenefits = [
-    'Certified PCI Coach',
-    'Tournament Champion Experience',
-    'Customized Training Plans',
-    'All Skill Levels Welcome',
-    'Beautiful Costa Rica Locations'
+    'PCI Certified Coach',
+    'Tournament Experience & Gold Medallist',
+    'Coaching for All Skill Levels',
+    'Private & Group Lessons Available',
+    'Train in Stunning Costa Rica Locations'
   ];
 
   return (
     <PageTransition>
       <div className="training-page">
         <VideoBackground
-          videoId="S1zJYUjbXg8"
+          videoId="XdpFc98GcPM"
           startTime={0}
           endTime={30}
           height="95vh"
@@ -94,21 +95,22 @@ function TrainingPage() {
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
               }}
             >
-              Pickleball Training
+              Pickleball Coaching
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               style={{ 
-                fontSize: isMobile ? '1.1rem' : '1.2rem', 
-                maxWidth: '800px', 
-                margin: '20px auto',
                 color: 'var(--neutral-color)',
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
+                fontSize: isMobile ? '1.5rem' : '2rem',
+                marginBottom: '30px',
+                maxWidth: '800px',
+                margin: '0 auto 30px',
+                textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)'
               }}
             >
-              Elevate your game with professional coaching in the beautiful setting of Jaco, Costa Rica
+              Dream, Drill, Execute!
             </motion.p>
           </div>
         </VideoBackground>
@@ -221,10 +223,11 @@ function TrainingPage() {
           </div>
         </section>
 
+        <GradientDivider />
+
         <section className="pricing" style={{
           padding: isMobile ? '60px 15px' : '80px 20px',
-          backgroundColor: 'var(--neutral-color)',
-          borderTop: '2px solid var(--secondary-color)'
+          backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2 
@@ -366,10 +369,111 @@ function TrainingPage() {
           </div>
         </section>
 
-        <section className="training-approach" style={{
-          padding: isMobile ? '60px 15px' : '80px 20px',
-          position: 'relative',
-          overflow: 'hidden'
+        <section style={{ padding: isMobile ? '60px 15px' : '80px 20px', backgroundColor: 'var(--secondary-color)', color: 'var(--neutral-color)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ 
+                textAlign: 'center', 
+                marginBottom: '50px',
+                color: 'var(--neutral-color)',
+                fontSize: isMobile ? '2.5rem' : '3rem'
+              }}
+            >
+              Professional Pickleball Coaching
+            </motion.h2>
+            
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '40px',
+              alignItems: 'center',
+              marginBottom: '80px'
+            }}>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <OptimizedImage 
+                  src="/Laurie-Coaching-Hero-2.jpg"
+                  alt="Professional Pickleball Coaching"
+                  style={{
+                    width: '100%',
+                    height: isMobile ? '300px' : '400px',
+                    objectFit: 'cover',
+                    borderRadius: '10px',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                    aspectRatio: '1/1'
+                  }}
+                />
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h3 style={{ 
+                  fontSize: isMobile ? '1.8rem' : '2.2rem', 
+                  marginBottom: '20px',
+                  color: 'var(--neutral-color)'
+                }}>
+                  Professional Pickleball Coaching
+                </h3>
+                <p style={{ 
+                  fontSize: '1.1rem', 
+                  lineHeight: 1.6, 
+                  marginBottom: '25px',
+                  color: 'var(--neutral-color)'
+                }}>
+                  As a 4.2 DUPR player, PCI Certified Coach, and multi-time tournament winner, I bring both experience and passion to helping players elevate their game. My proven coaching approach makes learning fun and effective—whether you're a beginner or an advanced player.
+                </p>
+                
+                <ul style={{ 
+                  listStyle: 'none', 
+                  padding: 0, 
+                  margin: '0 0 30px 0' 
+                }}>
+                  {trainingBenefits.map((benefit, index) => (
+                    <motion.li 
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      style={{ 
+                        marginBottom: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        fontSize: '1.1rem',
+                        color: 'var(--neutral-color)'
+                      }}
+                    >
+                      <span style={{ 
+                        color: 'var(--neutral-color)', 
+                        marginRight: '10px',
+                        fontWeight: 'bold'
+                      }}>✅</span>
+                      {benefit}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <GradientDivider />
+
+        <section style={{ 
+          padding: isMobile ? '60px 15px' : '80px 20px', 
+          backgroundColor: 'var(--light-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2 
@@ -379,96 +483,147 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
               style={{ 
                 textAlign: 'center', 
-                marginBottom: '40px',
-                fontSize: isMobile ? '2.4rem' : '2.8rem'
+                marginBottom: '50px',
+                color: 'var(--primary-color)',
+                fontSize: isMobile ? '2.5rem' : '3rem'
               }}
             >
-              Pickleball Training Approach
+              My Pickleball Coaching Approach
             </motion.h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: isMobile ? '30px' : '40px',
-              alignItems: 'center'
+            
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+              gap: '40px',
+              alignItems: 'center',
+              marginBottom: '40px'
             }}>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="approach-content"
+                style={{ order: isMobile ? 2 : 1 }}
               >
-                <h3 style={{ color: 'var(--primary-color)', fontSize: '2rem', fontWeight: 'normal', marginBottom: '15px' }}>Personalized Coaching</h3>
-                <p style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)', lineHeight: '1.6' }}>
-                  Every player is unique, with different strengths, weaknesses, and goals. My coaching approach 
-                  is tailored to your specific needs, whether you're a beginner learning the basics or an 
-                  advanced player refining your strategy.
+                <h3 style={{ 
+                  fontSize: isMobile ? '1.8rem' : '2.2rem', 
+                  marginBottom: '20px',
+                  color: 'var(--text-color)'
+                }}>
+                  My Coaching Approach
+                </h3>
+                <p style={{ 
+                  fontSize: '1.1rem', 
+                  lineHeight: 1.6, 
+                  marginBottom: '25px',
+                  color: 'var(--text-color)'
+                }}>
+                  I believe the fastest way to improve is by mastering both the slow and fast aspects of the game. That's why every session starts at the kitchen, focusing on control, technique, and strategic shot selection. By assessing footwork, paddle mechanics, and shot consistency, I tailor each lesson to individual needs—whether it's refining the drop shot, enhancing variety, or building a more complete game.
                 </p>
+                
                 <ul style={{ 
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: '20px 0'
+                  listStyle: 'none', 
+                  padding: 0, 
+                  margin: '0 0 30px 0' 
                 }}>
                   {[
-                    'Technical fundamentals',
-                    'Strategic gameplay',
-                    'Mental approach',
-                    'Physical conditioning',
-                    'Match preparation'
-                  ].map((item, index) => (
-                    <li key={index} style={{
-                      marginBottom: '15px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '10px',
-                      color: 'var(--text-color)'
-                    }}>
-                      <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
-                      {item}
-                    </li>
+                    'Kitchen-First Approach – Master soft game fundamentals before adding speed',
+                    'Personalised Coaching – Identify key areas for improvement based on real-time play',
+                    'Drop Shot Focus – Learn the most effective way to transition to the net',
+                    'Pressure Drills – Use scoring and match scenarios to improve decision-making',
+                    'Variety & Strategy – Develop a mix of shots to keep opponents off balance',
+                    'Game-Based Learning – End each session with live play to apply new skills'
+                  ].map((approach, index) => (
+                    <motion.li 
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      style={{ 
+                        marginBottom: '12px',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        fontSize: '1.1rem'
+                      }}
+                    >
+                      <span style={{ 
+                        color: 'var(--primary-color)', 
+                        marginRight: '10px',
+                        fontWeight: 'bold',
+                        flexShrink: 0,
+                        marginTop: '3px'
+                      }}>✅</span>
+                      <span>{approach}</span>
+                    </motion.li>
                   ))}
                 </ul>
-                <Link to="/contact" className="button" style={{
-                  display: 'inline-block',
-                  marginTop: '20px',
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
-                  padding: '12px 25px',
-                  borderRadius: '25px',
-                  textDecoration: 'none',
-                  fontSize: '1.1rem',
-                  transition: 'all 0.3s ease'
-                }}>
-                  Schedule Your Session
-                </Link>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  style={{ textAlign: isMobile ? 'center' : 'left' }}
+                >
+                  <Link to="/contact" className="button" style={{
+                    backgroundColor: 'var(--primary-color)',
+                    color: 'var(--neutral-color)',
+                    display: 'inline-block',
+                    padding: '15px 30px',
+                    fontSize: '1.2rem',
+                    borderRadius: '30px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease'
+                  }}>Schedule your Session</Link>
+                </motion.div>
               </motion.div>
-              <motion.div 
+              
+              <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="approach-image"
+                transition={{ duration: 0.6 }}
+                style={{ 
+                  order: isMobile ? 1 : 2,
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
               >
-                <OptimizedImage
-                  src={IMAGES.PICKLEBALL.COURTS}
-                  alt="Pickleball Courts in Costa Rica"
-                  width={600}
-                  height={400}
-                  style={{
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-                  }}
-                />
+                <div style={{
+                  width: '100%',
+                  height: 0,
+                  paddingBottom: '133%', /* Adjust this based on the aspect ratio of your image */
+                  position: 'relative',
+                  borderRadius: '10px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                }}>
+                  <OptimizedImage 
+                    src="/winners2-2.jpg"
+                    alt="Pickleball Coaching Approach"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* New Coaching Video Section */}
+        <GradientDivider />
+
         <section className="coaching-video" style={{ 
           padding: isMobile ? '60px 15px' : '80px 20px',
-          backgroundColor: 'var(--neutral-color)',
-          borderTop: '2px solid var(--secondary-color)'
+          backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <motion.h2 
@@ -487,7 +642,7 @@ function TrainingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <VideoPlayer 
-                videoId="S1zJYUjbXg8" 
+                videoId="a-FZYnE7Ip0" 
                 title="Pickleball Training Session" 
                 description="Watch a sample coaching session to see my teaching style and approach"
               />
@@ -585,7 +740,6 @@ function TrainingPage() {
           </div>
         </section>
 
-        {/* New FAQ Section */}
         <section className="faq-section" style={{ 
           padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--neutral-color)'
@@ -656,7 +810,6 @@ function TrainingPage() {
   );
 }
 
-// Component for expandable FAQ items
 function FaqItem({ faq, index }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);

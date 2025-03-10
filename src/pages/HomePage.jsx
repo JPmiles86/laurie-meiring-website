@@ -8,6 +8,7 @@ import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import VideoBackground from '../components/VideoBackground';
 import { IMAGES } from '../constants/images';
 import { getVisiblePosts } from '../utils/blogUtils';
+import GradientDivider from '../components/GradientDivider';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -369,10 +370,11 @@ function HomePage() {
             </div>
           </motion.section>
 
+          <GradientDivider />
+
           <section className="testimonials-section" style={{
             padding: isMobile ? '60px 0' : '100px 20px',
             backgroundColor: 'var(--neutral-color)', 
-            borderTop: '2px solid var(--secondary-color)',
             position: 'relative',
             overflow: 'hidden',
             width: '100%',
@@ -713,9 +715,9 @@ function HomePage() {
             </div>
           </div>
         </div>
-
+      
         <VideoBackground
-          videoId="Dx60IHP5QlE"
+          videoId="a-FZYnE7Ip0"
           startTime={0}
           endTime={30}
           height="90vh"

@@ -152,8 +152,7 @@ footer {
   background-color: var(--neutral-color);
   padding: 30px 0;
   text-align: center;
-  margin-top: 60px;
-  border-top: 2px solid var(--primary-color); /* Red Footer border */
+  margin-top: 0;
 }
 
 footer p {
