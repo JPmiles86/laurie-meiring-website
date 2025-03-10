@@ -337,7 +337,7 @@ function ToursPage() {
                     border: '3px solid var(--secondary-color)'
                   }}>
                     <OptimizedImage 
-                      src="/coaching-game.png"
+                      src="/fun-2.jpg"
                       alt="Pickleball Coaching"
                       style={{
                         position: 'absolute',
@@ -850,15 +850,16 @@ function ToursPage() {
                         marginBottom: '15px',
                         display: 'flex',
                         alignItems: 'center',
-                        fontSize: '1.1rem'
+                        fontSize: '1.1rem',
+                        color: 'white'
                       }}
                     >
                       <span style={{ 
                         color: 'white', 
                         marginRight: '10px',
                         fontWeight: 'bold'
-                      }}>✔️</span>
-                      <span style={{ fontWeight: 'bold' }}>{reason}</span>
+                      }}>✓</span>
+                      <span style={{ color: 'white' }}>{reason}</span>
                     </motion.li>
                   ))}
                 </ul>
@@ -970,7 +971,7 @@ function ToursPage() {
         </section>
 
         <section className="faq-section" style={{ 
-          padding: isMobile ? '60px 15px' : '80px 20px',
+          padding: isMobile ? '60px 15px 30px' : '80px 20px 40px',
           backgroundColor: 'var(--neutral-color)',
           borderTop: '1px solid #eee'
         }}>
@@ -1037,7 +1038,7 @@ function ToursPage() {
         </section>
 
         <section className="cta-section" style={{ 
-          padding: isMobile ? '60px 15px' : '80px 20px',
+          padding: isMobile ? '30px 15px 60px' : '40px 20px 80px',
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>

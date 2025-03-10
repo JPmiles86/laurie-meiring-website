@@ -145,7 +145,7 @@ function TrainingPage() {
                 order: isMobile ? 1 : 0
               }}>
                 <OptimizedImage
-                  src={IMAGES.PICKLEBALL.COURTS}
+                  src="/coaching-game.png"
                   alt="Pickleball Courts in Costa Rica"
                   width={600}
                   height={400}
