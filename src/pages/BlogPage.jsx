@@ -26,10 +26,9 @@ function BlogPage() {
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
           marginTop: '-80px',
-          marginBottom: isMobile ? '30px' : '40px',
-          borderBottom: '4px solid var(--primary-color)'
+          marginBottom: isMobile ? '30px' : '40px'
         }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', padding: isMobile ? '0 15px' : '0 20px' }}>
+          <div style={{ marginTop: '100px', maxWidth: '800px', margin: '0 auto', padding: isMobile ? '0 15px' : '0 20px' }}>
             <h1 style={{ 
               color: 'var(--neutral-color)',
               fontSize: isMobile ? '2.6rem' : '3.2rem',

@@ -77,6 +77,7 @@ function AboutPage() {
                 width: isMobile ? '120px' : '150px', 
                 height: isMobile ? '120px' : '150px', 
                 margin: '0 auto',
+                marginTop: '80px',
                 position: 'relative'
               }}>
                 <OptimizedImage
@@ -511,6 +512,7 @@ function AboutPage() {
               display: 'flex', 
               gap: isMobile ? '15px' : '20px', 
               justifyContent: 'center',
+              marginBottom: '80px',
               flexWrap: 'wrap'
             }}>
               <Link to="/training" className="button" style={{
