@@ -642,7 +642,7 @@ function TrainingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <VideoPlayer 
-                videoId="a-FZYnE7Ip0" 
+                videoId="EJr0NeGfrok" 
                 title="Pickleball Training Session" 
                 description="Watch a sample coaching session to see my teaching style and approach"
               />
