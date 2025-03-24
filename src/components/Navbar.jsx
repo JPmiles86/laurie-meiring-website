@@ -158,7 +158,7 @@ function Navbar() {
           border-radius: 20px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 865px) {
           .mobile-menu-button {
             display: block;
             background: none;
