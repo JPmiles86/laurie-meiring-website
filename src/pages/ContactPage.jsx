@@ -37,17 +37,17 @@ function ContactPage() {
     {
       title: "Pickleball Training",
       description: "Book private or group lessons to improve your game",
-      image: "/laurie medals 1.jpg"
+      image: "/ contact/LaurieCoachHero1.jpg"
     },
     {
       title: "Pickleball Tours",
       description: "Join our guided pickleball adventures in Costa Rica",
-      image: "/beach surf 3x2.jpg"
+      image: "/ contact/PickleballTours2.jpg"
     },
     {
       title: "General Inquiries",
       description: "Questions about services, availability, or custom requests",
-      image: "/toucan 2x3.jpg"
+      image: "/ contact/PickleballGeneric4.jpg"
     }
   ];
 
@@ -111,14 +111,14 @@ WhatsApp: +506 6200 2747`
     <PageTransition>
       <div className="contact-page">
         <section className="page-hero" style={{ 
-          padding: isMobile ? '60px 0 40px' : '90px 0', 
+          padding: isMobile ? '80px 0 40px' : '100px 0 50px', 
           textAlign: 'center',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           width: '100vw',
           marginLeft: 'calc(-50vw + 50%)',
           marginRight: 'calc(-50vw + 50%)',
-          marginTop: '20px'
+          marginTop: '0'
         }}>
           <motion.div 
             initial="initial"
@@ -135,7 +135,7 @@ WhatsApp: +506 6200 2747`
                 lineHeight: 1.2
               }}
             >
-              Get in Touch
+              Let's Connect!
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
@@ -147,7 +147,7 @@ WhatsApp: +506 6200 2747`
                 padding: isMobile ? '0 15px' : 0
               }}
             >
-              Ready to start your pickleball journey in Costa Rica? We're here to help!
+              Whether you're ready to dive into pickleball in Costa Rica or just have a question, I'd love to hear from you!
             </motion.p>
           </motion.div>
         </section>
@@ -285,17 +285,17 @@ WhatsApp: +506 6200 2747`
                       fontSize: isMobile ? '0.95rem' : '1rem',
                       flexWrap: isMobile ? 'wrap' : 'nowrap'
                     }}>
-                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✉</span>
+                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📧</span>
                       <strong>Email:</strong>{' '}
                       <a 
-                        href="mailto:Laurie.meiring@gmail.com"
+                        href="mailto:laurie@pbguidecr.com"
                         style={{ 
                           color: 'var(--primary-color)',
                           textDecoration: 'none',
                           wordBreak: 'break-word'
                         }}
                       >
-                        Laurie.meiring@gmail.com
+                        laurie@pbguidecr.com
                       </a>
                     </p>
                     <p style={{ 
@@ -305,7 +305,7 @@ WhatsApp: +506 6200 2747`
                       gap: '10px',
                       fontSize: isMobile ? '0.95rem' : '1rem'
                     }}>
-                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📱</span>
+                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>💬</span>
                       <strong>WhatsApp:</strong>{' '}
                       <a 
                         href="https://wa.me/50662002747"
@@ -327,31 +327,70 @@ WhatsApp: +506 6200 2747`
                       marginBottom: isMobile ? '12px' : '15px',
                       fontSize: isMobile ? '1.4rem' : '1.5rem'
                     }}>Location</h3>
-                    <p style={{ 
-                      marginBottom: '10px', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: '10px',
-                      fontSize: isMobile ? '0.95rem' : '1rem'
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                      gap: '20px'
                     }}>
-                      <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📍</span>
-                      <span>Jaco, Costa Rica</span>
-                    </p>
-                    <div style={{ 
-                      marginTop: '20px', 
-                      borderRadius: '12px', 
-                      overflow: 'hidden', 
-                      height: isMobile ? '160px' : '200px' 
-                    }}>
-                      <img 
-                        src="/jaco.jpg" 
-                        alt="Jaco, Costa Rica"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover'
-                        }}
-                      />
+                      {/* Jaco Location */}
+                      <div>
+                        <p style={{ 
+                          marginBottom: '10px', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: '10px',
+                          fontSize: isMobile ? '0.95rem' : '1rem'
+                        }}>
+                          <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📍</span>
+                          <span>Jaco, Costa Rica</span>
+                        </p>
+                        <div style={{ 
+                          marginTop: '10px', 
+                          borderRadius: '12px', 
+                          overflow: 'hidden', 
+                          height: isMobile ? '160px' : '200px' 
+                        }}>
+                          <img 
+                            src="/jaco.jpg" 
+                            alt="Jaco, Costa Rica"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover'
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Ojochal Location */}
+                      <div>
+                        <p style={{ 
+                          marginBottom: '10px', 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: '10px',
+                          fontSize: isMobile ? '0.95rem' : '1rem'
+                        }}>
+                          <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📍</span>
+                          <span>Ojochal, Costa Rica</span>
+                        </p>
+                        <div style={{ 
+                          marginTop: '10px', 
+                          borderRadius: '12px', 
+                          overflow: 'hidden', 
+                          height: isMobile ? '160px' : '200px' 
+                        }}>
+                          <img 
+                            src="/ contact/OjochalWaterfall2.jpg" 
+                            alt="Ojochal, Costa Rica"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover'
+                            }}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -369,7 +408,7 @@ WhatsApp: +506 6200 2747`
                         gap: '10px',
                         fontSize: isMobile ? '0.95rem' : '1rem'
                       }}>
-                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
+                        <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
                         <strong>Pickleball Training:</strong> Individual & group sessions
                       </li>
                       <li style={{ 
@@ -379,7 +418,7 @@ WhatsApp: +506 6200 2747`
                         gap: '10px',
                         fontSize: isMobile ? '0.95rem' : '1rem'
                       }}>
-                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
+                        <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
                         <strong>Pickleball Tours:</strong> Guided adventures in Costa Rica
                       </li>
                       <li style={{ 
@@ -389,7 +428,7 @@ WhatsApp: +506 6200 2747`
                         gap: '10px',
                         fontSize: isMobile ? '0.95rem' : '1rem'
                       }}>
-                        <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>✓</span>
+                        <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
                         <strong>Custom Experiences:</strong> Tailored to your needs
                       </li>
                     </ul>
@@ -661,6 +700,7 @@ WhatsApp: +506 6200 2747`
                 display: 'flex', 
                 gap: isMobile ? '15px' : '20px', 
                 justifyContent: 'center', 
+                marginBottom: '75px',
                 flexWrap: 'wrap' 
               }}>
                 <Link to="/tours" className="button" style={{
@@ -672,7 +712,7 @@ WhatsApp: +506 6200 2747`
                   textDecoration: 'none',
                   display: 'inline-block',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
                 }}>
                   Explore Tours
                 </Link>

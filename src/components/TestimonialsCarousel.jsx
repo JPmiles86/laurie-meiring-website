@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
+import OptimizedImage from './OptimizedImage';
 
 const testimonials = [
   {
     id: 1,
     name: 'Tara Miller',
     text: 'If you want to level up your pickleball game quickly, Laurie is the man! He is a excellent coach who gives you diversity in training, he challenges you to go to the next level while still being very encouraging.',
-    rating: 5
+    rating: 5,
+    image: '/ home/TaraGold.jpg'
   },
   {
     id: 2,
     name: 'Liam Miller',
-    text: 'Since training with Laurie, I have gotten so much better, fast. In the Last Tournament I played I won Two Golds',
-    rating: 5
+    text: 'Since training with Laurie, I have gotten so much better, fast. In the Last Tournament I played I won Two Golds Medals',
+    rating: 5,
+    image: '/ home/LiamGold.jpg'
   },
   {
     id: 3,
     name: 'JP Miles',
     text: 'Laurie is just a fucking awesome guy all round and so passionate about Pickleball, its infectious. His energy and authenticity make every interaction memorable',
-    rating: 5
+    rating: 5,
+    image: '/ home/JPGold.jpg'
   }
 ];
 
@@ -143,6 +147,27 @@ function TestimonialsCarousel() {
               position: 'relative',
               margin: '0 15px'
             }}>
+              <div style={{
+                width: '120px',
+                height: '120px',
+                margin: '0 auto 20px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '3px solid var(--primary-color)',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
+              }}>
+                <OptimizedImage
+                  src={testimonials[testimonialIndex].image}
+                  alt={testimonials[testimonialIndex].name}
+                  width={120}
+                  height={120}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
               <div style={{
                 fontSize: isMobile ? '1rem' : '1.2rem',
                 lineHeight: 1.6,

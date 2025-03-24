@@ -48,7 +48,7 @@ function HomePage() {
         padding: 0
       }}>
         <VideoBackground
-          videoId="wbtnFI4NLPY"
+          videoId="1068887257"
           startTime={0}
           endTime={0}
           height="100vh"
@@ -188,7 +188,7 @@ function HomePage() {
                   fontSize: isMobile ? '2.5rem' : '3rem'
                 }}
               >
-                Pickleball Services in Paradise
+                Pickleball Passion Meets Paradise
               </motion.h2>
               
               {/* Add responsive styles */}
@@ -347,14 +347,14 @@ function HomePage() {
                 <div className="card-image" style={{ 
                   overflow: 'hidden',
                   height: '100%',
-                  aspectRatio: '1/1',
+                  aspectRatio: '4/3',
                   minHeight: '400px',
                   maxHeight: '500px',
                   order: 2,
                   borderRadius: '12px'
                 }}>
                   <img 
-                    src="/beach surf 3x2.jpg" 
+                    src="/ home/PickleballTours1.jpg" 
                     alt="Pickleball Tours"
                     style={{
                       width: '100%',
@@ -418,7 +418,7 @@ function HomePage() {
         </div>
 
         <VideoBackground
-          videoId="wORVp9Pg5DY"
+          videoId="1068891210"
           startTime={5}
           endTime={35}
           height="90vh"
@@ -527,7 +527,9 @@ function HomePage() {
               gap: '30px',
               marginBottom: '40px',
               boxSizing: 'border-box',
-              padding: isMobile ? '0 10px' : '0'
+              padding: isMobile ? '0 10px' : '0',
+              alignItems: 'stretch',
+              height: '100%'
             }}>
               {recentPosts.map((post, index) => (
                 <motion.article
@@ -542,7 +544,11 @@ function HomePage() {
                     overflow: 'hidden',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                    margin: isMobile ? '0 10px' : '0'
+                    margin: isMobile ? '0' : '0',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative'
                   }}
                   whileHover={{
                     transform: 'translateY(-5px)',
@@ -552,7 +558,8 @@ function HomePage() {
                   {post.featuredImage && (
                     <div style={{
                       height: '200px',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      flexShrink: 0
                     }}>
                       <img
                         src={post.featuredImage}
@@ -560,12 +567,18 @@ function HomePage() {
                         style={{
                           width: '100%',
                           height: '100%',
-                          objectFit: 'cover'
+                          objectFit: 'cover',
+                          objectPosition: 'top'
                         }}
                       />
                     </div>
                   )}
-                  <div style={{ padding: '20px' }}>
+                  <div style={{ 
+                    padding: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1
+                  }}>
                     <h3 style={{
                       fontSize: '1.5rem',
                       marginBottom: '10px',
@@ -589,22 +602,26 @@ function HomePage() {
                     }}>
                       {new Date(post.publishDate).toLocaleDateString()}
                     </div>
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      className="button"
-                      style={{
-                        display: 'inline-block',
-                        padding: '8px 16px',
-                        backgroundColor: 'var(--primary-color)',
-                        color: 'var(--neutral-color)',
-                        borderRadius: '20px',
-                        textDecoration: 'none',
-                        fontSize: '0.9rem',
-                        marginTop: '10px'
-                      }}
-                    >
-                      Read More
-                    </Link>
+                    <div style={{ flexGrow: 1 }}></div>
+                    <div style={{ textAlign: 'left', marginTop: '15px' }}>
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="button"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          padding: '8px 16px',
+                          backgroundColor: 'var(--primary-color)',
+                          color: 'var(--neutral-color)',
+                          borderRadius: '20px',
+                          textDecoration: 'none',
+                          fontSize: '0.9rem',
+                          width: 'auto'
+                        }}
+                      >
+                        Read More
+                      </Link>
+                    </div>
                   </div>
                 </motion.article>
               ))}
@@ -717,7 +734,7 @@ function HomePage() {
         </div>
       
         <VideoBackground
-          videoId="a-FZYnE7Ip0"
+          videoId="1068891210"
           startTime={0}
           endTime={30}
           height="90vh"

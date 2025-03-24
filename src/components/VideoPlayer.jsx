@@ -5,6 +5,7 @@ function VideoPlayer({ videoId, title, description }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showControls, setShowControls] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
   const playerRef = useRef(null);
 
   useEffect(() => {
@@ -12,9 +13,21 @@ function VideoPlayer({ videoId, title, description }) {
       setIsMobile(window.innerWidth <= 768);
     };
 
+    // Fetch Vimeo thumbnail
+    const fetchThumbnail = async () => {
+      try {
+        const response = await fetch(`https://vimeo.com/api/v2/video/${videoId}.json`);
+        const data = await response.json();
+        setThumbnailUrl(data[0].thumbnail_large);
+      } catch (error) {
+        console.error('Error fetching Vimeo thumbnail:', error);
+      }
+    };
+
+    fetchThumbnail();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [videoId]);
 
   const handlePlayClick = () => {
     if (!isPlaying) {
@@ -44,7 +57,7 @@ function VideoPlayer({ videoId, title, description }) {
           onClick={handlePlayClick}
         >
           <img 
-            src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+            src={thumbnailUrl}
             alt={title || "Video thumbnail"}
             style={{
               width: '100%',
@@ -88,7 +101,7 @@ function VideoPlayer({ videoId, title, description }) {
                 borderTop: isMobile ? '12px solid transparent' : '15px solid transparent',
                 borderBottom: isMobile ? '12px solid transparent' : '15px solid transparent',
                 borderLeft: isMobile ? '20px solid white' : '25px solid white',
-                marginLeft: isMobile ? '6px' : '8px' // Offset to center the triangle
+                marginLeft: isMobile ? '6px' : '8px'
               }} />
             </motion.div>
             {title && (
@@ -119,7 +132,7 @@ function VideoPlayer({ videoId, title, description }) {
       ) : (
         <div style={{ 
           position: 'relative',
-          paddingBottom: '56.25%', // 16:9 aspect ratio
+          paddingBottom: '56.25%',
           height: 0,
           overflow: 'hidden',
           borderRadius: '12px'
@@ -128,10 +141,10 @@ function VideoPlayer({ videoId, title, description }) {
             ref={playerRef}
             width="100%"
             height="100%"
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-            title={title || "YouTube video player"}
+            src={`https://player.vimeo.com/video/${videoId}?autoplay=1&byline=0&title=0`}
+            title={title || "Vimeo video player"}
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
             style={{
               position: 'absolute',

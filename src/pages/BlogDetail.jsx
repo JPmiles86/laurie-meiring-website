@@ -4,11 +4,12 @@ import { getPostBySlug, getVisiblePosts } from '../utils/blogUtils';
 import ReactMarkdown from 'react-markdown';
 import PageTransition from '../components/PageTransition';
 import BlogSidebar from '../components/BlogSidebar';
+import { motion } from 'framer-motion';
 
 function BlogDetail() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const { slug } = useParams();
-  const post = getPostBySlug(slug);
+  const [post, setPost] = useState(null);
   const allPosts = getVisiblePosts();
   const currentIndex = allPosts.findIndex(p => p.slug === slug);
   const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
@@ -23,8 +24,49 @@ function BlogDetail() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const foundPost = getPostBySlug(slug);
+    setPost(foundPost);
+  }, [slug]);
+
+  // Custom components for ReactMarkdown
+  const components = {
+    img: ({node, ...props}) => (
+      <div style={{ 
+        width: '80%', 
+        margin: '2rem auto', 
+        textAlign: 'center',
+        perspective: '1500px'
+      }}>
+        <motion.div 
+          whileHover={{ 
+            rotateX: 0,
+            y: -5,
+            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.2)'
+          }}
+          style={{
+            transform: 'rotateX(2deg)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.15)',
+            borderRadius: '12px',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+          }}
+        >
+          <img 
+            {...props} 
+            style={{ 
+              maxWidth: '100%', 
+              height: 'auto',
+              borderRadius: '12px',
+              display: 'block'
+            }} 
+          />
+        </motion.div>
+      </div>
+    )
+  };
+
   if (!post) {
-    return <div>Post not found</div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -52,7 +94,7 @@ function BlogDetail() {
           ← Back to Blog
         </Link>
 
-        {/* Rest of the existing content */}
+        {/* Header Banner Image */}
         {post.featuredImage && (
           <div style={{
             width: '100vw',
@@ -68,7 +110,8 @@ function BlogDetail() {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover'
+                objectFit: 'cover',
+                objectPosition: 'top center'
               }}
             />
           </div>
@@ -100,44 +143,7 @@ function BlogDetail() {
             fontSize: isMobile ? '1rem' : '1.1rem',
             lineHeight: 1.8
           }}>
-            <ReactMarkdown
-              components={{
-                img: ({node, ...props}) => (
-                  <img
-                    style={{
-                      maxWidth: '100%',
-                      height: 'auto',
-                      borderRadius: '8px',
-                      marginTop: '20px',
-                      marginBottom: '20px'
-                    }}
-                    {...props}
-                  />
-                ),
-                p: ({node, ...props}) => (
-                  <p style={{ marginBottom: '1.5rem' }} {...props} />
-                ),
-                h2: ({node, ...props}) => (
-                  <h2 style={{ 
-                    fontSize: isMobile ? '1.8rem' : '2rem',
-                    marginTop: '2rem',
-                    marginBottom: '1rem',
-                    color: 'var(--primary-color)'
-                  }} {...props} />
-                ),
-                ul: ({node, ...props}) => (
-                  <ul style={{ 
-                    marginBottom: '1.5rem',
-                    paddingLeft: isMobile ? '1.5rem' : '2rem'
-                  }} {...props} />
-                ),
-                li: ({node, ...props}) => (
-                  <li style={{ 
-                    marginBottom: '0.5rem'
-                  }} {...props} />
-                )
-              }}
-            >
+            <ReactMarkdown components={components}>
               {post.content}
             </ReactMarkdown>
           </div>

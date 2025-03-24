@@ -141,7 +141,7 @@ function ToursPage() {
     <PageTransition>
       <div className="tours-page">
         <VideoBackground
-          videoId="XdpFc98GcPM"
+          videoId="1068883249"
           startTime={0}
           endTime={30}
           height="95vh"
@@ -174,7 +174,7 @@ function ToursPage() {
                 textShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)'
               }}
             >
-              6-Day Adventure $2199 p/p
+              6-Day Adventure $2199* p/p
             </motion.p>
             <motion.div variants={fadeInUp}>
               <Link to="/contact" className="button" style={{
@@ -291,7 +291,8 @@ function ToursPage() {
                         'Destinations: Ojochal (Jungle), Jaco (Beach), Tamarindo (Coastal Town)',
                         'Experience Level: Tailored for competitive players with similar DUPR ratings',
                         'Group Size: 6-8 players',
-                        'Price: $2199 per person'
+                        'Price: $2199* per person',
+                        '*: Subject to change based on seasonal pricing'
                       ].map((detail, index) => {
                         const parts = detail.split(':');
                         const beforeColon = parts[0];
@@ -337,8 +338,8 @@ function ToursPage() {
                     border: '3px solid var(--secondary-color)'
                   }}>
                     <OptimizedImage 
-                      src="/fun-2.jpg"
-                      alt="Pickleball Coaching"
+                      src="/tours/PickleballGeneric2.jpg"
+                      alt="Pickleball Adventure"
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -376,7 +377,7 @@ function ToursPage() {
                       border: '3px solid var(--secondary-color)'
                     }}>
                       <OptimizedImage 
-                        src="/local courts.jpg"
+                        src="/tours/PickleballGeneric3.jpg"
                         alt="Pickleball Courts"
                         style={{
                           position: 'absolute',
@@ -428,8 +429,9 @@ function ToursPage() {
                           <span style={{ 
                             color: 'var(--primary-color)', 
                             marginRight: '10px',
-                            fontWeight: 'bold'
-                          }}>✔️</span>
+                            fontWeight: 'bold',
+                            fontSize: '1.2rem'
+                          }}>✓</span>
                           {feature}
                         </motion.li>
                       ))}
@@ -562,7 +564,7 @@ function ToursPage() {
                   border: '3px solid var(--secondary-color)'
                 }}>
                   <OptimizedImage 
-                    src="/toucan 2x3.jpg"
+                    src="/tours/OjochalWaterfall.jpg"
                     alt="Ojochal - Jungle Retreat"
                     style={{
                       position: 'absolute',
@@ -663,7 +665,7 @@ function ToursPage() {
                   border: '3px solid var(--secondary-color)'
                 }}>
                   <OptimizedImage 
-                    src="/jaco.jpg"
+                    src="/tours/fun-2.jpg"
                     alt="Jaco Beach"
                     style={{
                       position: 'absolute',
@@ -762,7 +764,7 @@ function ToursPage() {
                   border: '3px solid var(--secondary-color)'
                 }}>
                   <OptimizedImage 
-                    src="/drone beach waves.jpg"
+                    src="/tours/PickleballGeneric5.jpg"
                     alt="Tamarindo - Coastal Town"
                     style={{
                       position: 'absolute',
@@ -806,8 +808,8 @@ function ToursPage() {
                 border: '4px solid white'
               }}>
                 <OptimizedImage 
-                  src="/blog2pic1.jpeg"
-                  alt="Group Fun"
+                  src="/tours/PickleballAdventure1.jpg"
+                  alt="Why Choose Our Tour"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -855,9 +857,10 @@ function ToursPage() {
                       }}
                     >
                       <span style={{ 
-                        color: 'white', 
+                        color: 'var(--neutral-color)', 
                         marginRight: '10px',
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        fontSize: '1.2rem'
                       }}>✓</span>
                       <span style={{ color: 'white' }}>{reason}</span>
                     </motion.li>

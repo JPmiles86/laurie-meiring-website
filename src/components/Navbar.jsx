@@ -1,254 +1,214 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import OptimizedImage from './OptimizedImage';
 import { IMAGES } from '../constants/images';
-import { motion, AnimatePresence } from 'framer-motion';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      const isScrollingUp = prevScrollPos > currentScrollPos;
-      const isAtTop = currentScrollPos < 10;
+    let lastScrollY = window.pageYOffset;
 
-      // Show navbar when scrolling up or at the top, hide when scrolling down
-      setVisible(isScrollingUp || isAtTop);
-      setPrevScrollPos(currentScrollPos);
+    const handleScroll = () => {
+      const currentScrollY = window.pageYOffset;
+      const isScrollingUp = currentScrollY < lastScrollY;
+      const isPastThreshold = currentScrollY > 200;
+
+      if (isPastThreshold && isScrollingUp) {
+        setIsScrolled(true);
+      } else if (!isPastThreshold) {
+        setIsScrolled(false);
+      }
+
+      lastScrollY = currentScrollY;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos]);
+  }, []);
 
-  // Function to close the menu when a link is clicked
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
-  // Function to handle navigation and close menu
-  const handleNavigation = (path) => {
-    closeMenu();
-    navigate(path);
-  };
+  const NavContent = () => (
+    <div className="container">
+      <Link to="/" onClick={closeMenu} className="logo-link">
+        <div className="logo-container">
+          <OptimizedImage
+            src={IMAGES.LOGO.TEXT}
+            alt="Your Pickleball Guide Costa Rica"
+            width={150}
+            height={75}
+            loading="eager"
+            className="logo-image"
+          />
+        </div>
+      </Link>
+
+      <button 
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className={`mobile-menu-button ${isMenuOpen ? 'open' : ''}`}
+        aria-label="Toggle menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+        <li><Link to="/" onClick={closeMenu}>HOME</Link></li>
+        <li><Link to="/training" onClick={closeMenu}>PICKLEBALL TRAINING</Link></li>
+        <li><Link to="/tours" onClick={closeMenu}>TOURS</Link></li>
+        <li><Link to="/blog" onClick={closeMenu}>BLOG</Link></li>
+        <li><Link to="/about" onClick={closeMenu}>ABOUT</Link></li>
+        <li><Link to="/contact" onClick={closeMenu} className="contact-button">Contact</Link></li>
+      </ul>
+    </div>
+  );
 
   return (
-    <AnimatePresence>
-      <motion.div 
-        initial={{ y: -100 }}
-        animate={{ y: visible ? 0 : -100 }}
-        transition={{ 
-          type: 'spring', 
-          stiffness: 100, 
-          damping: 20,
-          mass: 1
-        }}
-        style={{ 
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          backgroundColor: 'var(--neutral-color)',
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.08)'
-        }}
-      >
-        <div className="container" style={{ 
-          maxWidth: '100%', 
-          margin: '0 auto', 
-          padding: '15px 15px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-          boxSizing: 'border-box'
-        }}>
-          <Link to="/" onClick={closeMenu} style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '15px', 
-            textDecoration: 'none',
-            flexShrink: 0
-          }}>
-            <div style={{ width: '150px', height: '75px', flexShrink: 0 }}>
-              <OptimizedImage
-                src={IMAGES.LOGO.TEXT}
-                alt="Your Pickleball Guide Costa Rica"
-                width={150}
-                height={75}
-                loading="eager"
-                style={{
-                  borderRadius: '0%',
-                  objectFit: 'contain',
-                  objectPosition: 'center',
-                  backgroundColor: 'transparent'
-                }}
-              />
-            </div>
-          </Link>
+    <>
+      {/* Original header */}
+      <header className="original-header">
+        <NavContent />
+      </header>
 
-          {/* Mobile Menu Button */}
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="mobile-menu-button"
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '8px'
-            }}
-            aria-label="Toggle menu"
-          >
-            <span style={{
-              display: 'block',
-              width: '25px',
-              height: '2px',
-              background: 'var(--text-color)',
-              marginBottom: '5px',
-              transition: '0.3s'
-            }}></span>
-            <span style={{
-              display: 'block',
-              width: '25px',
-              height: '2px',
-              background: 'var(--text-color)',
-              marginBottom: '5px',
-              transition: '0.3s'
-            }}></span>
-            <span style={{
-              display: 'block',
-              width: '25px',
-              height: '2px',
-              background: 'var(--text-color)',
-              transition: '0.3s'
-            }}></span>
-          </button>
+      {/* Fixed header */}
+      <header className={`fixed-header ${isScrolled ? 'visible' : ''}`}>
+        <NavContent />
+      </header>
 
-          <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`} style={{ 
-            listStyle: 'none', 
-            padding: 0, 
-            margin: 0, 
-            display: 'flex', 
-            gap: '40px',
-            alignItems: 'center'
-          }}>
-            <li>
-              <Link to="/" onClick={closeMenu} style={{
-                textDecoration: 'none',
-                color: 'var(--text-color)',
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
-              }}>
-                HOME
-              </Link>
-            </li>
-            <li>
-              <Link to="/training" onClick={closeMenu} style={{
-                textDecoration: 'none',
-                color: 'var(--text-color)',
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
-              }}>
-                PICKLEBALL TRAINING
-              </Link>
-            </li>
-            <li>
-              <Link to="/tours" onClick={closeMenu} style={{
-                textDecoration: 'none',
-                color: 'var(--text-color)',
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
-              }}>
-                TOURS
-              </Link>
-            </li>
-            <li>
-              <Link to="/blog" onClick={closeMenu} style={{
-                textDecoration: 'none',
-                color: 'var(--text-color)',
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
-              }}>
-                BLOG
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" onClick={closeMenu} style={{
-                textDecoration: 'none',
-                color: 'var(--text-color)',
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
-              }}>
-                ABOUT
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" onClick={closeMenu} style={{
-                backgroundColor: 'var(--primary-color)',
-                color: 'var(--neutral-color)',
-                padding: '10px 24px',
-                borderRadius: '25px',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontWeight: '500',
-                transition: 'all 0.3s ease',
-                display: 'inline-block',
-                textTransform: 'uppercase'
-              }}>
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
+      <style>{`
+        .original-header {
+          width: 100%;
+          background-color: var(--neutral-color);
+          position: relative;
+          z-index: 1;
+        }
 
-        <style>{`
-          @media (max-width: 768px) {
-            .mobile-menu-button {
-              display: block !important;
-            }
-            .nav-links {
-              display: none !important;
-              width: 100%;
-              position: absolute;
-              top: 100%;
-              left: 0;
-              background-color: var(--neutral-color);
-              padding: 20px;
-              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-              z-index: 1000;
-            }
-            .nav-links.open {
-              display: flex !important;
-              flex-direction: column;
-              padding: 20px 20px 30px 20px !important;
-            }
-            .nav-links li {
-              width: 100%;
-              text-align: center;
-              margin-bottom: 15px;
-            }
-            .nav-links li:last-child {
-              margin-bottom: 0;
-              padding-bottom: 10px;
-            }
-            .nav-links .contact-button {
-              width: fit-content;
-              margin: 10px auto;
-            }
+        .fixed-header {
+          width: 100%;
+          background-color: var(--neutral-color);
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          transform: translateY(-100%);
+          transition: transform 0.3s ease;
+          z-index: 1000;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .fixed-header.visible {
+          transform: translateY(0);
+        }
+
+        .container {
+          max-width: 100%;
+          margin: 0 auto;
+          padding: 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        .logo-link {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          text-decoration: none;
+          flex-shrink: 0;
+        }
+
+        .logo-container {
+          width: 150px;
+          height: 75px;
+          flex-shrink: 0;
+        }
+
+        .logo-image {
+          border-radius: 0;
+          object-fit: contain;
+          object-position: center;
+          background-color: transparent;
+        }
+
+        .nav-links {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          gap: 40px;
+          align-items: center;
+        }
+
+        .nav-links a {
+          text-decoration: none;
+          color: var(--text-color);
+        }
+
+        .contact-button {
+          padding: 8px 16px;
+          background-color: var(--primary-color);
+          color: var(--neutral-color) !important;
+          border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+          .mobile-menu-button {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
           }
-        `}</style>
-      </motion.div>
-    </AnimatePresence>
+
+          .mobile-menu-button span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: var(--text-color);
+            transition: 0.3s;
+          }
+
+          .nav-links {
+            display: none;
+            width: 100%;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--neutral-color);
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+          }
+
+          .nav-links.open {
+            display: flex;
+          }
+
+          .nav-links li {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 15px;
+          }
+
+          .nav-links li:last-child {
+            margin-bottom: 0;
+          }
+
+          .nav-links .contact-button {
+            width: fit-content;
+            margin: 10px auto;
+          }
+        }
+      `}</style>
+    </>
   );
 }
 

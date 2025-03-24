@@ -45,7 +45,6 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
       const maxHeight = Math.max(containerHeight, windowHeight);
       
       // Use moderate scaling for desktop and more aggressive for mobile
-      // This prevents excessive zoom on desktop while ensuring coverage on mobile
       let baseScale = isMobile ? 2.0 : 1.1;
       
       // Additional scaling based on device
@@ -56,16 +55,14 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
       
       // Different scaling approaches based on aspect ratio
       const containerAspectRatio = containerWidth / containerHeight;
-      const videoAspectRatio = 16 / 9; // Standard YouTube aspect ratio
+      const videoAspectRatio = 16 / 9;
       
       let newWidth, newHeight;
       
       if (containerAspectRatio > videoAspectRatio) {
-        // Container is wider than the video - scale based on width
         newWidth = maxWidth * baseScale * deviceScale;
         newHeight = (newWidth / videoAspectRatio);
       } else {
-        // Container is taller than the video - scale based on height
         newHeight = maxHeight * baseScale * deviceScale;
         newWidth = (newHeight * videoAspectRatio);
       }
@@ -86,15 +83,12 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
       });
     };
     
-    // Calculate dimensions immediately
     calculateDimensions();
     
-    // Recalculate on various events
     window.addEventListener('resize', calculateDimensions);
     window.addEventListener('orientationchange', calculateDimensions);
     window.addEventListener('resize', setVhVariable);
     
-    // Also set a timer to recalculate after a delay
     const recalcTimer = setTimeout(calculateDimensions, 1000);
     
     return () => {
@@ -105,10 +99,9 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
     };
   }, [isMobile, isIOS, isLoaded]);
 
-  // Construct video URL with parameters
-  const videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&playlist=${videoId}&start=${startTime}${endTime ? `&end=${endTime}` : ''}&version=3&vq=hd1080`;
+  // Construct Vimeo video URL with parameters
+  const videoUrl = `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1${startTime ? `#t=${startTime}s` : ''}`;
   
-  // Determine container class based on device type
   const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isMobile ? 'mobile' : ''} ${isIOS ? 'ios' : ''} ${isLoaded ? 'loaded' : 'loading'}`;
 
   return (
@@ -167,7 +160,6 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
             height: calc(var(--vh, 1vh) * 100);
           }
           
-          /* Mobile optimizations */
           @media (max-width: 768px) {
             .video-background-container {
               height: ${type === 'hero' ? '100vh' : '70vh'} !important;
@@ -180,37 +172,12 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
               right: 0 !important;
               padding: 0 !important;
             }
-            
-            .video-background-container h1 {
-              font-size: 2.5rem !important;
-              padding: 0 15px !important;
-              margin-bottom: 10px !important;
-            }
-            
-            .video-background-container h2 {
-              font-size: 2rem !important;
-              padding: 0 15px !important;
-              margin-bottom: 10px !important;
-            }
-            
-            .video-background-container p {
-              font-size: 1.1rem !important;
-              padding: 0 15px !important;
-              margin-left: 0 !important;
-              margin-right: 0 !important;
-            }
           }
           
           @media (max-width: 480px) {
             .video-background-iframe {
               min-width: 300vw !important;
               min-height: 300vh !important;
-            }
-            
-            /* Stack buttons on very small screens */
-            .video-background-container [style*="display: flex"] {
-              flex-direction: column !important;
-              gap: 10px !important;
             }
           }
         `}
@@ -222,35 +189,29 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
         src={videoUrl}
         title="Background Video"
         frameBorder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         onLoad={() => {
           setIsLoaded(true);
-          
-          // Recalculate dimensions after iframe is loaded
           if (containerRef.current && iframeRef.current) {
             const containerWidth = containerRef.current.offsetWidth;
             const containerHeight = containerRef.current.offsetHeight;
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
             
-            // Calculate aspect ratio to maintain 16:9
             const videoRatio = 16 / 9;
             const containerRatio = containerWidth / containerHeight;
             
             let newWidth, newHeight;
             
             if (containerRatio > videoRatio) {
-              // Container is wider than video aspect ratio
               newWidth = containerWidth;
               newHeight = containerWidth / videoRatio;
             } else {
-              // Container is taller than video aspect ratio
               newHeight = containerHeight;
               newWidth = containerHeight * videoRatio;
             }
             
-            // Ensure the video is always large enough to cover the container
             newWidth = Math.max(newWidth, windowWidth * (isMobile ? 2.0 : 1.05));
             newHeight = Math.max(newHeight, windowHeight * (isMobile ? 2.0 : 1.05));
             
@@ -272,8 +233,8 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
           zIndex: 0,
           opacity: isLoaded ? 1 : 0,
           transition: 'opacity 0.5s ease-in-out',
-          minWidth: isMobile ? '250vw' : '100vw', // CSS fallback if JS calculations fail
-          minHeight: isMobile ? '250vh' : '100vh' // CSS fallback if JS calculations fail
+          minWidth: isMobile ? '250vw' : '100vw',
+          minHeight: isMobile ? '250vh' : '100vh'
         }}
       />
       <div 

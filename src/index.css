@@ -7,6 +7,8 @@
   --accent-color: #F1E730;         /* Warm Yellow */
   --neutral-color: #F8F8FF;        /* Off-White */
   --text-color: #333;             /* Charcoal Gray */
+  --header-height: 105px;         /* Height of the header */
+  --header-transition: all 0.3s ease; /* Smooth transition for header */
 }
 
 html, body {
@@ -15,6 +17,7 @@ html, body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -25,13 +28,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0L6 6M6 0L0 6' stroke='%23e0e0e0' stroke-width='1' stroke-opacity='0.2'/%3E%3C/svg%3E"); /* Subtle grainy background */
+  padding-top: 0; /* Remove default padding */
 }
 
 main {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
   position: relative; /* For absolute positioning of pseudo-elements for shapes */
+  min-height: calc(100vh - var(--header-height));
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -112,27 +117,42 @@ a:hover {
 
 /* Navbar Styles */
 nav {
-  background-color: var(--neutral-color); /* Navbar background */
+  background-color: transparent;
   padding: 15px 0;
-  border-bottom: 2px solid var(--primary-color); /* Red Navbar border */
+  transition: var(--header-transition);
+  width: 100%;
+  z-index: 1000;
+}
+
+nav.scrolled {
+  background-color: var(--neutral-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 nav .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  transition: var(--header-transition);
 }
 
 nav a {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.5rem;
   color: var(--text-color);
-  transition: color 0.3s ease;
+  transition: var(--header-transition);
+}
+
+nav.scrolled a {
+  color: var(--text-color);
 }
 
 nav a:hover {
-  color: var(--primary-color); /* Red on Navbar link hover */
-  text-decoration: none; /* Remove underline on Navbar link hover */
+  color: var(--primary-color);
+  text-decoration: none;
 }
 
 nav ul {
@@ -141,10 +161,27 @@ nav ul {
   margin: 0;
   display: flex;
   gap: 30px;
+  align-items: center;
 }
 
 nav li a {
   font-size: 1.2rem;
+  position: relative;
+}
+
+nav li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+nav li a:hover::after {
+  width: 100%;
 }
 
 /* Footer Styles */
@@ -162,7 +199,7 @@ footer p {
 
 /* Hero Section (Homepage) */
 .hero-section {
-  padding: 80px 0;
+  padding-top: calc(var(--header-height) + 40px);
   text-align: center;
   position: relative;
   overflow: hidden; /* Clip angled background */
@@ -377,17 +414,18 @@ footer p {
   h1 { font-size: 3rem; }
   h2 { font-size: 2.4rem; }
   h3 { font-size: 1.9rem; }
-  .hero-section { padding: 60px 0; }
+  .hero-section { padding-top: calc(var(--header-height) + 20px); }
   .services-section { padding: 40px 0; }
   .service-card { flex-basis: 100%; } /* Stack service cards on smaller screens */
-  nav ul { gap: 15px; } /* Reduce navbar link gap on smaller screens */
+  nav .container { padding: 0 15px; }
+  nav ul { gap: 15px; }
   nav li a { font-size: 1rem; }
 }
 
 @media (max-width: 576px) {
   h1 { font-size: 2.5rem; }
   h2 { font-size: 2rem; }
-  .hero-section { padding: 40px 0; }
+  .hero-section { padding-top: calc(var(--header-height) + 20px); }
   nav .container { flex-direction: column; align-items: flex-start; } /* Stack navbar items */
   nav ul { flex-direction: column; gap: 10px; margin-top: 10px; } /* Stack navbar links vertically */
 }
@@ -1358,4 +1396,94 @@ body, html {
   .training-page .faq-section div[style*="grid-template-columns"] > div:hover {
     transform: none !important;
   }
+}
+
+/* Navbar Styles */
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.nav-links a:not(.contact-button)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:not(.contact-button):hover::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.nav-links a.contact-button {
+  background-color: var(--primary-color);
+  color: var(--neutral-color);
+  padding: 10px 24px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a.contact-button:hover {
+  background-color: var(--text-color);
+  color: var(--neutral-color);
+  transform: translateY(-2px);
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+  .mobile-menu-button span {
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-menu-button.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-button.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-button.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  .nav-links {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Menu Button Styles */
+.mobile-menu-button span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: var(--text-color);
+  margin-bottom: 5px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-menu-button span:last-child {
+  margin-bottom: 0;
+}
+
+/* Base Nav Link Styles */
+.nav-links a {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
 }

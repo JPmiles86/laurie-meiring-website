@@ -17,7 +17,7 @@ export const getVisiblePosts = () => {
   return posts.filter(post => 
     post.status === 'published' || 
     (post.status === 'scheduled' && new Date(post.publishDate) <= now)
-  ).sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+  ).sort((a, b) => new Date(a.publishDate) - new Date(b.publishDate));
 };
 
 // Get posts by category

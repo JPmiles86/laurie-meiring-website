@@ -70,14 +70,14 @@ function TrainingPage() {
     'Tournament Experience & Gold Medallist',
     'Coaching for All Skill Levels',
     'Private & Group Lessons Available',
-    'Train in Stunning Costa Rica Locations'
+    'Train in Stunning Costa Rica Locations Including Jaco & Ojochal'
   ];
 
   return (
     <PageTransition>
       <div className="training-page">
         <VideoBackground
-          videoId="XdpFc98GcPM"
+          videoId="1068883249"
           startTime={0}
           endTime={30}
           height="95vh"
@@ -131,7 +131,7 @@ function TrainingPage() {
                 fontSize: isMobile ? '2.4rem' : '2.8rem'
               }}
             >
-              Professional Pickleball Training
+              Train Smarter, Play Better <br></br> Pickleball Coaching for All Levels
             </motion.h2>
             <div className="training-intro" style={{ 
               display: 'flex',
@@ -145,10 +145,10 @@ function TrainingPage() {
                 order: isMobile ? 1 : 0
               }}>
                 <OptimizedImage
-                  src="/coaching-game.png"
+                  src="/ training/PickleballGeneric6.jpg"
                   alt="Pickleball Courts in Costa Rica"
                   width={600}
-                  height={400}
+                  height={450}
                   style={{
                     borderRadius: isMobile ? '16px' : '12px',
                     boxShadow: isMobile ? '0 8px 20px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -173,7 +173,7 @@ function TrainingPage() {
                     marginBottom: '15px' 
                   }}
                 >
-                  Professional Coaching
+                  Professional Coaching in Jaco or Ojochal
                 </motion.h3>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
@@ -213,7 +213,12 @@ function TrainingPage() {
                         lineHeight: '1.6'
                       }}
                     >
-                      <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
+                      <span style={{ 
+                        color: 'var(--primary-color)', 
+                        marginRight: '10px',
+                        fontWeight: 'bold',
+                        fontSize: '1.2rem'
+                      }}>✓</span>
                       {item}
                     </motion.li>
                   ))}
@@ -458,8 +463,9 @@ function TrainingPage() {
                       <span style={{ 
                         color: 'var(--neutral-color)', 
                         marginRight: '10px',
-                        fontWeight: 'bold'
-                      }}>✅</span>
+                        fontWeight: 'bold',
+                        fontSize: '1.2rem'
+                      }}>✓</span>
                       {benefit}
                     </motion.li>
                   ))}
@@ -508,7 +514,7 @@ function TrainingPage() {
                 <h3 style={{ 
                   fontSize: isMobile ? '1.8rem' : '2.2rem', 
                   marginBottom: '20px',
-                  color: 'var(--text-color)'
+                  color: 'var(--primary-color)'
                 }}>
                   My Coaching Approach
                 </h3>
@@ -552,8 +558,9 @@ function TrainingPage() {
                         marginRight: '10px',
                         fontWeight: 'bold',
                         flexShrink: 0,
-                        marginTop: '3px'
-                      }}>✅</span>
+                        marginTop: '3px',
+                        fontSize: '1.2rem'
+                      }}>✓</span>
                       <span>{approach}</span>
                     </motion.li>
                   ))}
@@ -642,7 +649,7 @@ function TrainingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <VideoPlayer 
-                videoId="EJr0NeGfrok" 
+                videoId="1068891210"
                 title="Pickleball Training Session" 
                 description="Watch a sample coaching session to see my teaching style and approach"
               />

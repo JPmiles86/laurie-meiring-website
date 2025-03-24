@@ -56,7 +56,7 @@ function AboutPage() {
     <PageTransition>
       <div className="about-page">
         <section className="about-header" style={{ 
-          padding: isMobile ? '60px 15px 30px' : '80px 20px 40px', 
+          padding: isMobile ? '40px 15px 30px' : '60px 20px 40px', 
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           textAlign: 'center',
@@ -77,7 +77,7 @@ function AboutPage() {
                 width: isMobile ? '120px' : '150px', 
                 height: isMobile ? '120px' : '150px', 
                 margin: '0 auto',
-                marginTop: '80px',
+                marginTop: '20px',
                 position: 'relative'
               }}>
                 <OptimizedImage
@@ -191,7 +191,7 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src={IMAGES.PICKLEBALL.MEDAL_1}
+                src="/ about/MeliLaurie1.jpg"
                 alt="Laurie with Pickleball Medals"
                 className="medal-image"
                 width={isMobile ? 350 : 400}
@@ -234,8 +234,10 @@ function AboutPage() {
               </motion.h2>
               <div className="achievements-grid" style={{
                 display: 'grid',
-                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
-                gap: isMobile ? '15px' : '20px'
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, minmax(0, 1fr))',
+                gap: isMobile ? '20px' : '30px',
+                width: '100%',
+                boxSizing: 'border-box'
               }}>
                 {achievements.map((achievement, index) => (
                   <motion.div 
@@ -246,7 +248,7 @@ function AboutPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     style={{
-                      padding: isMobile ? '15px 10px' : '20px 15px',
+                      padding: isMobile ? '15px 10px' : '15px',
                       borderRadius: '8px',
                       backgroundColor: 'rgba(255, 255, 255, 0.1)',
                       display: 'flex',
@@ -254,7 +256,9 @@ function AboutPage() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       textAlign: 'center',
-                      gap: '10px'
+                      gap: '8px',
+                      width: '100%',
+                      boxSizing: 'border-box'
                     }}
                   >
                     <div className="achievement-icon" style={{
@@ -288,7 +292,7 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src={IMAGES.PICKLEBALL.COURTS}
+                src="/ about/PickleballGeneric8.jpg"
                 alt="Pickleball Courts in Costa Rica"
                 width={500}
                 height={350}
@@ -337,7 +341,7 @@ function AboutPage() {
                       gap: isMobile ? '10px' : '15px'
                     }}
                   >
-                    <span style={{ color: 'var(--secondary-color)', fontSize: isMobile ? '1.1rem' : '1.2rem' }}>✓</span>
+                    <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
                     {item}
                   </motion.li>
                 ))}

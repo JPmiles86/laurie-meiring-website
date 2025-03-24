@@ -17,6 +17,27 @@ function BlogList({ isMobile }) {
     return textContent.substring(0, 200) + '...';
   };
 
+  // Custom components for ReactMarkdown
+  const components = {
+    img: ({node, ...props}) => (
+      <div style={{ 
+        width: '80%', 
+        margin: '2rem auto', 
+        textAlign: 'center'
+      }}>
+        <img 
+          {...props} 
+          style={{ 
+            maxWidth: '100%', 
+            height: 'auto',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+          }} 
+        />
+      </div>
+    )
+  };
+
   return (
     <div className="blog-list" style={{
       maxWidth: '800px',
@@ -53,7 +74,8 @@ function BlogList({ isMobile }) {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  objectPosition: 'top center'
                 }}
               />
             </div>
@@ -86,7 +108,9 @@ function BlogList({ isMobile }) {
             lineHeight: 1.6,
             marginBottom: '15px'
           }}>
-            {getPreviewContent(post.content)}
+            <ReactMarkdown components={components}>
+              {getPreviewContent(post.content)}
+            </ReactMarkdown>
           </div>
           <Link
             to={`/blog/${post.slug}`}

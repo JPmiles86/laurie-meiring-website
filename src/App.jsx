@@ -35,12 +35,31 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
-      <Navbar />
-      <main style={{ margin: 0, padding: 0, width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
-        <AnimatedRoutes />
-      </main>
-      <FloatingButtons />
-      <Footer />
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        minHeight: '100vh',
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        position: 'relative'
+      }}>
+        <Navbar />
+        <main style={{ 
+          margin: 0, 
+          padding: 0, 
+          width: '100%', 
+          maxWidth: '100%', 
+          overflow: 'hidden',
+          flexGrow: 1,
+          position: 'relative',
+          zIndex: 1
+        }}>
+          <AnimatedRoutes />
+        </main>
+        <FloatingButtons />
+        <Footer />
+      </div>
     </Router>
   );
 }
