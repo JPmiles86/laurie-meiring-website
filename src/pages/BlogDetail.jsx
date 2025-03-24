@@ -148,6 +148,60 @@ function BlogDetail() {
             </ReactMarkdown>
           </div>
 
+          {/* Subscribe Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{
+              backgroundColor: 'var(--secondary-color)',
+              borderRadius: '12px',
+              padding: isMobile ? '30px 20px' : '40px',
+              marginTop: '40px',
+              marginBottom: '40px',
+              textAlign: 'center',
+              color: 'var(--neutral-color)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
+            }}
+          >
+            <h3 style={{
+              fontSize: isMobile ? '1.8rem' : '2rem',
+              marginBottom: '15px',
+              color: 'var(--neutral-color)'
+            }}>
+              Stay Updated with Pickleball Paradise
+            </h3>
+            <p style={{
+              fontSize: isMobile ? '1.1rem' : '1.2rem',
+              marginBottom: '25px',
+              maxWidth: '600px',
+              margin: '0 auto 25px'
+            }}>
+              Get the latest pickleball tips, tournament updates, and Costa Rica adventures delivered straight to your inbox.
+            </p>
+            <button
+              onClick={() => {
+                // Temporary alert until Beehiiv integration
+                alert('Coming soon! Subscribe functionality will be added shortly.');
+              }}
+              style={{
+                backgroundColor: 'var(--neutral-color)',
+                color: 'var(--primary-color)',
+                border: 'none',
+                padding: isMobile ? '12px 25px' : '15px 30px',
+                borderRadius: '30px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              Subscribe to Newsletter
+            </button>
+          </motion.div>
+
           {/* Previous/Next Navigation */}
           <div style={{
             display: 'flex',

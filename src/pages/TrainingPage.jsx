@@ -423,14 +423,7 @@ function TrainingPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-              >
-                <h3 style={{ 
-                  fontSize: isMobile ? '1.8rem' : '2.2rem', 
-                  marginBottom: '20px',
-                  color: 'var(--neutral-color)'
-                }}>
-                  Professional Pickleball Coaching
-                </h3>
+              > 
                 <p style={{ 
                   fontSize: '1.1rem', 
                   lineHeight: 1.6, 
@@ -511,13 +504,6 @@ function TrainingPage() {
                 transition={{ duration: 0.6 }}
                 style={{ order: isMobile ? 2 : 1 }}
               >
-                <h3 style={{ 
-                  fontSize: isMobile ? '1.8rem' : '2.2rem', 
-                  marginBottom: '20px',
-                  color: 'var(--primary-color)'
-                }}>
-                  My Coaching Approach
-                </h3>
                 <p style={{ 
                   fontSize: '1.1rem', 
                   lineHeight: 1.6, 
@@ -668,16 +654,14 @@ function TrainingPage() {
           </div>
         </section>
 
-        <section className="cta-section" style={{
+        {/* Subscribe Section */}
+        <section style={{
           padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)',
-          marginBottom: '0'
+          textAlign: 'center'
         }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -685,64 +669,41 @@ function TrainingPage() {
               transition={{ duration: 0.6 }}
             >
               <h2 style={{ 
-                fontSize: isMobile ? '2.4rem' : '2.8rem', 
-                marginBottom: isMobile ? '15px' : '20px',
+                fontSize: isMobile ? '2.2rem' : '2.8rem', 
+                marginBottom: '20px',
                 color: 'var(--neutral-color)'
               }}>
-                Ready to Elevate Your Pickleball Game?
+                Get Pickleball Tips & Updates
               </h2>
               <p style={{ 
                 fontSize: isMobile ? '1.1rem' : '1.2rem', 
                 lineHeight: 1.6,
-                marginBottom: isMobile ? '25px' : '30px',
+                marginBottom: '30px',
                 maxWidth: '600px',
-                margin: '0 auto 30px',
-                color: 'var(--neutral-color)',
-                padding: isMobile ? '0 10px' : '0'
+                margin: '0 auto 30px'
               }}>
-                Whether you're a beginner or an experienced player, I'm here to help you reach your pickleball goals in the beautiful setting of Costa Rica.
+                Subscribe to our newsletter for exclusive training tips, tournament updates, and special offers.
               </p>
-              <div className="button-container" style={{ 
-                display: 'flex', 
-                gap: '20px', 
-                justifyContent: 'center', 
-                flexWrap: 'wrap',
-                flexDirection: isMobile ? 'column' : 'row',
-                alignItems: 'center',
-                maxWidth: isMobile ? '280px' : 'none',
-                margin: '0 auto'
-              }}>
-                <Link to="/contact" className="button" style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
-                  padding: isMobile ? '14px 20px' : '15px 30px',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1.1rem' : '1.2rem',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease',
-                  width: isMobile ? '100%' : 'auto',
-                  fontWeight: 'bold'
-                }}>
-                  Book a Session
-                </Link>
-                <Link to="/tours" className="button" style={{
+              <button
+                onClick={() => {
+                  // Temporary alert until Beehiiv integration
+                  alert('Coming soon! Subscribe functionality will be added shortly.');
+                }}
+                style={{
                   backgroundColor: 'var(--neutral-color)',
                   color: 'var(--primary-color)',
-                  padding: isMobile ? '14px 20px' : '15px 30px',
+                  border: 'none',
+                  padding: isMobile ? '12px 25px' : '15px 30px',
                   borderRadius: '30px',
                   fontSize: isMobile ? '1.1rem' : '1.2rem',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  fontWeight: '500',
+                  cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  width: isMobile ? '100%' : 'auto',
-                  fontWeight: 'bold'
-                }}>
-                  Explore Tours
-                </Link>
-              </div>
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                Subscribe to Newsletter
+              </button>
             </motion.div>
           </div>
         </section>

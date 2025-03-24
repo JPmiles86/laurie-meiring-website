@@ -9,6 +9,7 @@ import VideoBackground from '../components/VideoBackground';
 import { IMAGES } from '../constants/images';
 import { getVisiblePosts } from '../utils/blogUtils';
 import GradientDivider from '../components/GradientDivider';
+import SubscribeModal from '../components/SubscribeModal';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -27,6 +28,7 @@ const staggerChildren = {
 function HomePage() {
   const recentPosts = getVisiblePosts().slice(0, 3);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -626,7 +628,13 @@ function HomePage() {
                 </motion.article>
               ))}
             </div>
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ 
+              textAlign: 'center',
+              display: 'flex',
+              gap: '20px',
+              justifyContent: 'center',
+              flexWrap: isMobile ? 'wrap' : 'nowrap'
+            }}>
               <Link
                 to="/blog"
                 className="button"
@@ -643,6 +651,24 @@ function HomePage() {
               >
                 View All Posts
               </Link>
+              <button
+                onClick={() => setIsSubscribeModalOpen(true)}
+                className="button"
+                style={{
+                  display: 'inline-block',
+                  padding: '12px 30px',
+                  backgroundColor: 'var(--neutral-color)',
+                  color: 'var(--primary-color)',
+                  borderRadius: '25px',
+                  border: '2px solid var(--primary-color)',
+                  textDecoration: 'none',
+                  fontSize: '1.1rem',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+              >
+                Subscribe Now
+              </button>
             </div>
           </div>
         </section>
@@ -791,6 +817,14 @@ function HomePage() {
             </Link>
           </motion.div>
         </VideoBackground>
+
+        <GradientDivider />
+
+        {/* Subscribe Modal */}
+        <SubscribeModal 
+          isOpen={isSubscribeModalOpen} 
+          onClose={() => setIsSubscribeModalOpen(false)} 
+        />
 
       </div>
     </PageTransition>

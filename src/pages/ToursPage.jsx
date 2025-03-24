@@ -973,6 +973,60 @@ function ToursPage() {
           </div>
         </section>
 
+        {/* Subscribe Section */}
+        <section style={{ 
+          padding: isMobile ? '60px 15px' : '80px 20px',
+          backgroundColor: 'var(--neutral-color)',
+          textAlign: 'center'
+        }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 style={{ 
+                fontSize: isMobile ? '2.2rem' : '2.8rem', 
+                marginBottom: '20px',
+                color: 'var(--primary-color)'
+              }}>
+                Stay Updated on Tour Dates
+              </h2>
+              <p style={{ 
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
+                lineHeight: 1.6,
+                marginBottom: '30px',
+                maxWidth: '600px',
+                margin: '0 auto 30px',
+                color: 'var(--text-color)'
+              }}>
+                Be the first to know about new tour dates, special offers, and pickleball adventures in Costa Rica.
+              </p>
+              <button
+                onClick={() => {
+                  // Temporary alert until Beehiiv integration
+                  alert('Coming soon! Subscribe functionality will be added shortly.');
+                }}
+                style={{
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
+                  border: 'none',
+                  padding: isMobile ? '12px 25px' : '15px 30px',
+                  borderRadius: '30px',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                Subscribe to Newsletter
+              </button>
+            </motion.div>
+          </div>
+        </section>
+
         <section className="faq-section" style={{ 
           padding: isMobile ? '60px 15px 30px' : '80px 20px 40px',
           backgroundColor: 'var(--neutral-color)',

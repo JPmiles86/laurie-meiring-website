@@ -68,6 +68,7 @@ Thank you for your interest in our ${e.target.service.value} services. I have re
 Here's a summary of your request:
 - Service: ${e.target.service.value}
 - Message: ${e.target.message.value}
+${e.target.newsletter.checked ? '- Newsletter: You have opted to receive our newsletter. Welcome to the community!' : ''}
 
 Best regards,
 Laurie Meiring
@@ -80,9 +81,11 @@ WhatsApp: +506 6200 2747`
         "Service Type": e.target.service.value,
         "Name": e.target.name.value,
         "Email": e.target.email.value,
-        "Message": e.target.message.value
+        "Message": e.target.message.value,
+        "Newsletter Subscription": e.target.newsletter.checked ? "Yes" : "No"
       };
 
+      // Send form data to Formspree
       const response = await fetch("https://formspree.io/f/mrbergeo", {
         method: "POST",
         headers: {
@@ -95,6 +98,13 @@ WhatsApp: +506 6200 2747`
       });
       
       if (response.ok) {
+        // If user opted for newsletter and form submission was successful
+        if (e.target.newsletter.checked) {
+          // Here you would typically integrate with your newsletter service (e.g., Beehiiv)
+          // For now, we'll just include it in the form submission
+          console.log('User opted in for newsletter:', e.target.email.value);
+        }
+        
         setSubmitted(true);
         e.target.reset();
       } else {
@@ -633,6 +643,36 @@ WhatsApp: +506 6200 2747`
                         ></textarea>
                       </div>
 
+                      <div style={{ 
+                        marginBottom: isMobile ? '20px' : '25px',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '10px'
+                      }}>
+                        <input 
+                          type="checkbox" 
+                          id="newsletter" 
+                          name="newsletter"
+                          style={{
+                            marginTop: '4px',
+                            width: '16px',
+                            height: '16px',
+                            accentColor: 'var(--primary-color)'
+                          }}
+                        />
+                        <label 
+                          htmlFor="newsletter" 
+                          style={{ 
+                            fontSize: isMobile ? '0.9rem' : '1rem',
+                            lineHeight: 1.4,
+                            color: 'var(--text-color)',
+                            opacity: 0.9
+                          }}
+                        >
+                          Yes, I'd like to receive the newsletter with pickleball tips, updates, and Costa Rica adventures.
+                        </label>
+                      </div>
+
                       <motion.button 
                         type="submit" 
                         disabled={submitting}
@@ -659,6 +699,61 @@ WhatsApp: +506 6200 2747`
                 </div>
               </motion.div>
             </div>
+          </div>
+        </section>
+
+        {/* Subscribe Section */}
+        <section style={{
+          padding: isMobile ? '60px 15px' : '80px 20px',
+          backgroundColor: 'var(--neutral-color)',
+          borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.1)'
+        }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 style={{ 
+                fontSize: isMobile ? '2.2rem' : '2.8rem', 
+                marginBottom: '20px',
+                color: 'var(--primary-color)'
+              }}>
+                Join Our Newsletter
+              </h2>
+              <p style={{ 
+                fontSize: isMobile ? '1.1rem' : '1.2rem', 
+                lineHeight: 1.6,
+                marginBottom: '30px',
+                maxWidth: '600px',
+                margin: '0 auto 30px',
+                color: 'var(--text-color)'
+              }}>
+                Get exclusive updates, training tips, and Costa Rica pickleball news delivered straight to your inbox.
+              </p>
+              <button
+                onClick={() => {
+                  // Temporary alert until Beehiiv integration
+                  alert('Coming soon! Subscribe functionality will be added shortly.');
+                }}
+                style={{
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
+                  border: 'none',
+                  padding: isMobile ? '12px 25px' : '15px 30px',
+                  borderRadius: '30px',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                Subscribe to Newsletter
+              </button>
+            </motion.div>
           </div>
         </section>
 
