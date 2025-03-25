@@ -19,13 +19,13 @@ function BlogPost({ isMobile }) {
 
   // Custom components for ReactMarkdown
   const components = {
-    h1: ({node, ...props}) => <h1 style={{ fontSize: '1.8rem', marginBottom: '1rem', marginTop: '2rem' }} {...props} />,
-    h2: ({node, ...props}) => <h2 style={{ fontSize: '1.6rem', marginBottom: '1rem', marginTop: '2rem' }} {...props} />,
-    h3: ({node, ...props}) => <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', marginTop: '1.5rem' }} {...props} />,
-    h4: ({node, ...props}) => <h4 style={{ fontSize: '1.2rem', marginBottom: '1rem', marginTop: '1.5rem' }} {...props} />,
+    h1: ({node, ...props}) => <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }} {...props} />,
+    h2: ({node, ...props}) => <h2 style={{ fontSize: '1.75rem', marginBottom: '1rem' }} {...props} />,
+    h3: ({node, ...props}) => <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }} {...props} />,
+    h4: ({node, ...props}) => <h4 style={{ fontSize: '1.25rem', marginBottom: '1rem' }} {...props} />,
     img: ({node, ...props}) => (
       <div style={{ 
-        width: '80%', 
+        width: '100%', 
         margin: '2rem auto', 
         textAlign: 'center'
       }}>
@@ -42,39 +42,6 @@ function BlogPost({ isMobile }) {
     )
   };
 
-  // Determine which CTA to show based on the blog post
-  const getCTA = () => {
-    if (post.slug === 'from-player-to-coach') {
-      return {
-        title: "Ready to Start Your Training?",
-        description: "Schedule your coaching sessions and take your game to the next level.",
-        primaryButton: {
-          text: "Schedule Training",
-          link: "/training"
-        },
-        secondaryButton: {
-          text: "Get in Touch",
-          link: "/contact"
-        }
-      };
-    }
-    
-    return {
-      title: "Want to Learn More?",
-      description: "Get in touch to discuss training options or book a tour in Costa Rica.",
-      primaryButton: {
-        text: "Contact Me",
-        link: "/contact"
-      },
-      secondaryButton: {
-        text: "View Training Options",
-        link: "/training"
-      }
-    };
-  };
-
-  const cta = getCTA();
-
   return (
     <motion.article
       initial={{ opacity: 0 }}
@@ -84,33 +51,9 @@ function BlogPost({ isMobile }) {
       style={{
         maxWidth: '800px',
         margin: '0 auto',
-        padding: isMobile ? '15px' : '20px',
-        marginTop: '40px'
+        padding: isMobile ? '15px' : '20px'
       }}
     >
-      {/* Back to Blog List Button */}
-      <Link
-        to="/blog"
-        style={{
-          position: 'fixed',
-          bottom: isMobile ? '30px' : '100px',
-          left: '20px',
-          backgroundColor: 'var(--primary-color)',
-          color: 'var(--neutral-color)',
-          padding: isMobile ? '8px 16px' : '10px 20px',
-          borderRadius: '25px',
-          textDecoration: 'none',
-          zIndex: 1000,
-          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-          fontSize: isMobile ? '0.9rem' : '1rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '5px'
-        }}
-      >
-        ← All Blog Posts
-      </Link>
-
       <h1 style={{
         fontSize: isMobile ? '2.2rem' : '2.8rem',
         marginBottom: '20px',
@@ -150,18 +93,15 @@ function BlogPost({ isMobile }) {
       }}>
         <h3 style={{ 
           fontSize: '1.8rem', 
-          marginBottom: '15px',
-          marginTop: 0,
-          color: 'var(--neutral-color)'
+          marginBottom: '15px' 
         }}>
-          {cta.title}
+          Ready to Improve Your Game?
         </h3>
         <p style={{ 
           fontSize: '1.1rem', 
-          marginBottom: '20px',
-          color: 'var(--neutral-color)'
+          marginBottom: '20px' 
         }}>
-          {cta.description}
+          Schedule your coaching sessions or get in touch to learn more about our training programs.
         </p>
         <div style={{
           display: 'flex',
@@ -170,7 +110,7 @@ function BlogPost({ isMobile }) {
           flexWrap: 'wrap'
         }}>
           <Link
-            to={cta.primaryButton.link}
+            to="/contact"
             style={{
               backgroundColor: 'var(--neutral-color)',
               color: 'var(--primary-color)',
@@ -181,10 +121,10 @@ function BlogPost({ isMobile }) {
               fontWeight: '500'
             }}
           >
-            {cta.primaryButton.text}
+            Get in Touch
           </Link>
           <Link
-            to={cta.secondaryButton.link}
+            to="/training"
             style={{
               backgroundColor: 'var(--primary-color)',
               color: 'var(--neutral-color)',
@@ -195,7 +135,7 @@ function BlogPost({ isMobile }) {
               fontWeight: '500'
             }}
           >
-            {cta.secondaryButton.text}
+            Schedule Training
           </Link>
         </div>
       </div>
@@ -213,15 +153,11 @@ function BlogPost({ isMobile }) {
             to={`/blog/${adjacentPosts.prev.slug}`}
             style={{
               textDecoration: 'none',
-              color: 'var(--text-color)',
-              flex: '1',
-              textAlign: 'left'
+              color: 'var(--primary-color)',
+              fontSize: '1.1rem'
             }}
           >
-            <div style={{ fontSize: '0.9rem', color: 'var(--primary-color)', marginBottom: '5px' }}>
-              Previous Post
-            </div>
-            <div style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>{adjacentPosts.prev.title}</div>
+            ← {adjacentPosts.prev.title}
           </Link>
         )}
         {adjacentPosts.next && (
@@ -229,16 +165,12 @@ function BlogPost({ isMobile }) {
             to={`/blog/${adjacentPosts.next.slug}`}
             style={{
               textDecoration: 'none',
-              color: 'var(--text-color)',
-              flex: '1',
-              textAlign: 'right',
-              marginLeft: adjacentPosts.prev ? '20px' : '0'
+              color: 'var(--primary-color)',
+              fontSize: '1.1rem',
+              marginLeft: 'auto'
             }}
           >
-            <div style={{ fontSize: '0.9rem', color: 'var(--primary-color)', marginBottom: '5px' }}>
-              Next Post
-            </div>
-            <div style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>{adjacentPosts.next.title}</div>
+            {adjacentPosts.next.title} →
           </Link>
         )}
       </nav>

@@ -106,7 +106,10 @@ function BlogPage() {
           </div>
         </motion.section>
 
-        <BlogList isMobile={isMobile} />
+        <BlogList 
+          isMobile={isMobile} 
+          onSubscribe={() => setIsSubscribeModalOpen(true)} 
+        />
 
         {/* Subscribe Modal */}
         <SubscribeModal 

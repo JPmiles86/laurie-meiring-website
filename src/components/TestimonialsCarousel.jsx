@@ -85,12 +85,11 @@ function TestimonialsCarousel() {
     const isRightSwipe = distance < -50;
     
     if (isLeftSwipe) {
-      paginate(1); // Next slide
+      paginate(1);
     } else if (isRightSwipe) {
-      paginate(-1); // Previous slide
+      paginate(-1);
     }
     
-    // Reset values
     setTouchStart(null);
     setTouchEnd(null);
   };
@@ -101,17 +100,21 @@ function TestimonialsCarousel() {
       width: '100%',
       maxWidth: '100%',
       margin: '0 auto',
-      padding: isMobile ? '20px 15px' : '40px 30px',
-      overflow: 'hidden'
+      padding: isMobile ? '20px 15px 60px' : '40px 30px 60px',
+      overflow: 'hidden',
+      minHeight: isMobile ? '450px' : '400px',
+      display: 'flex',
+      flexDirection: 'column'
     }}>
       <div 
         style={{
           position: 'relative',
           width: '100%',
-          height: isMobile ? '350px' : '300px',
+          flex: 1,
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          marginBottom: '40px'
         }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -262,7 +265,11 @@ function TestimonialsCarousel() {
         display: 'flex',
         justifyContent: 'center',
         gap: '10px',
-        marginTop: '20px'
+        position: 'absolute',
+        bottom: '20px',
+        left: '0',
+        right: '0',
+        zIndex: 30
       }}>
         {testimonials.map((_, index) => (
           <button

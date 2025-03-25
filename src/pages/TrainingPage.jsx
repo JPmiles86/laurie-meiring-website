@@ -79,7 +79,7 @@ function TrainingPage() {
     <PageTransition>
       <div className="training-page">
         <VideoBackground
-          videoId="1068883249"
+          videoId="1069242767"
           startTime={0}
           endTime={30}
           height="95vh"
@@ -637,7 +637,7 @@ function TrainingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <VideoPlayer 
-                videoId="1068891210"
+                videoId="1069277578"
                 title="Pickleball Training Session" 
                 description="Watch a sample coaching session to see my teaching style and approach"
               />

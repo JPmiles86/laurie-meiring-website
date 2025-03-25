@@ -11,14 +11,9 @@ export const CATEGORIES = [
 ];
 
 // Get all visible posts (published or scheduled & due)
-export const getVisiblePosts = () => {
-  const posts = JSON.parse(localStorage.getItem('blog_posts')) || blogData.posts;
-  const now = new Date();
-  return posts.filter(post => 
-    post.status === 'published' || 
-    (post.status === 'scheduled' && new Date(post.publishDate) <= now)
-  ).sort((a, b) => new Date(a.publishDate) - new Date(b.publishDate));
-};
+export function getVisiblePosts() {
+  return [...blogData.posts].sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+}
 
 // Get posts by category
 export const getPostsByCategory = (category) => {
@@ -44,14 +39,13 @@ export const getAllTags = () => {
 
 // Get all posts for admin
 export const getAllPosts = () => {
-  return JSON.parse(localStorage.getItem('blog_posts')) || blogData.posts;
+  return blogData.posts;
 };
 
 // Get a single post by slug
-export const getPostBySlug = (slug) => {
-  const posts = JSON.parse(localStorage.getItem('blog_posts')) || blogData.posts;
-  return posts.find(post => post.slug === slug);
-};
+export function getPostBySlug(slug) {
+  return blogData.posts.find(post => post.slug === slug);
+}
 
 // Save or update a post
 export const savePost = async (postData) => {
@@ -183,4 +177,16 @@ export const savePosts = async (posts) => {
     console.error('Error saving posts:', error);
     return false;
   }
-}; 
+};
+
+export function getAdjacentPosts(currentPost) {
+  if (!currentPost) return { prev: null, next: null };
+
+  const sortedPosts = [...blogData.posts].sort((a, b) => new Date(a.publishDate) - new Date(b.publishDate));
+  const currentIndex = sortedPosts.findIndex(post => post.id === currentPost.id);
+
+  return {
+    prev: currentIndex > 0 ? sortedPosts[currentIndex - 1] : null,
+    next: currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null
+  };
+} 
