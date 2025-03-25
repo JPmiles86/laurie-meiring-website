@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import BlogList from '../components/BlogList';
 import PageTransition from '../components/PageTransition';
 import { motion } from 'framer-motion';
+import SubscribeModal from '../components/SubscribeModal';
 
 function BlogPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -85,10 +87,7 @@ function BlogPage() {
               Join our growing community of pickleball enthusiasts and get the latest updates, tips, and stories delivered to your inbox.
             </p>
             <button
-              onClick={() => {
-                // Temporary alert until Beehiiv integration
-                alert('Coming soon! Subscribe functionality will be added shortly.');
-              }}
+              onClick={() => setIsSubscribeModalOpen(true)}
               style={{
                 backgroundColor: 'var(--primary-color)',
                 color: 'var(--neutral-color)',
@@ -108,6 +107,12 @@ function BlogPage() {
         </motion.section>
 
         <BlogList isMobile={isMobile} />
+
+        {/* Subscribe Modal */}
+        <SubscribeModal 
+          isOpen={isSubscribeModalOpen} 
+          onClose={() => setIsSubscribeModalOpen(false)} 
+        />
       </div>
     </PageTransition>
   );

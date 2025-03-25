@@ -7,9 +7,11 @@ import { IMAGES } from '../constants/images';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import GradientDivider from '../components/GradientDivider';
+import SubscribeModal from '../components/SubscribeModal';
 
 function TrainingPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
   
   useEffect(() => {
     const handleResize = () => {
@@ -685,10 +687,7 @@ function TrainingPage() {
                 Subscribe to our newsletter for exclusive training tips, tournament updates, and special offers.
               </p>
               <button
-                onClick={() => {
-                  // Temporary alert until Beehiiv integration
-                  alert('Coming soon! Subscribe functionality will be added shortly.');
-                }}
+                onClick={() => setIsSubscribeModalOpen(true)}
                 style={{
                   backgroundColor: 'var(--neutral-color)',
                   color: 'var(--primary-color)',
@@ -773,6 +772,12 @@ function TrainingPage() {
             </div>
           </div>
         </section>
+
+        {/* Subscribe Modal */}
+        <SubscribeModal 
+          isOpen={isSubscribeModalOpen} 
+          onClose={() => setIsSubscribeModalOpen(false)} 
+        />
       </div>
     </PageTransition>
   );

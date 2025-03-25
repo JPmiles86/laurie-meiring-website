@@ -6,6 +6,7 @@ import OptimizedImage from '../components/OptimizedImage';
 import VideoBackground from '../components/VideoBackground';
 import { IMAGES } from '../constants/images';
 import GradientDivider from '../components/GradientDivider';
+import SubscribeModal from '../components/SubscribeModal';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -23,6 +24,7 @@ const staggerChildren = {
 
 function ToursPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -919,7 +921,8 @@ function ToursPage() {
               gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: isMobile ? '30px' : '40px',
               textAlign: 'center',
-              padding: '0 10px'
+              padding: '0 10px',
+              marginBottom: '40px'
             }}>
               {accommodations.map((accommodation, index) => (
                 <motion.div
@@ -970,6 +973,48 @@ function ToursPage() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Added CTA Buttons */}
+            <div className="button-container" style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              justifyContent: 'center', 
+              flexWrap: 'wrap',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: 'center',
+              maxWidth: isMobile ? '280px' : 'none',
+              margin: '0 auto'
+            }}>
+              <Link to="/contact" className="button" style={{
+                backgroundColor: 'var(--neutral-color)',
+                color: 'var(--primary-color)',
+                padding: isMobile ? '14px 20px' : '15px 30px',
+                borderRadius: '30px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                textDecoration: 'none',
+                display: 'inline-block',
+                boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                transition: 'all 0.3s ease',
+                width: isMobile ? '100%' : 'auto'
+              }}>
+                Book Now
+              </Link>
+              <Link to="/contact" className="button" style={{
+                backgroundColor: 'var(--primary-color)',
+                color: 'var(--neutral-color)',
+                padding: isMobile ? '14px 20px' : '15px 30px',
+                borderRadius: '30px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                textDecoration: 'none',
+                display: 'inline-block',
+                border: '2px solid var(--neutral-color)',
+                boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                transition: 'all 0.3s ease',
+                width: isMobile ? '100%' : 'auto'
+              }}>
+                Request Info
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -1004,10 +1049,7 @@ function ToursPage() {
                 Be the first to know about new tour dates, special offers, and pickleball adventures in Costa Rica.
               </p>
               <button
-                onClick={() => {
-                  // Temporary alert until Beehiiv integration
-                  alert('Coming soon! Subscribe functionality will be added shortly.');
-                }}
+                onClick={() => setIsSubscribeModalOpen(true)}
                 style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
@@ -1094,77 +1136,11 @@ function ToursPage() {
           </div>
         </section>
 
-        <section className="cta-section" style={{ 
-          padding: isMobile ? '30px 15px 60px' : '40px 20px 80px',
-          backgroundColor: 'var(--neutral-color)'
-        }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 style={{ 
-                fontSize: isMobile ? '2.4rem' : '2.8rem', 
-                marginBottom: isMobile ? '15px' : '20px',
-                color: 'var(--neutral-color)'
-              }}>
-                Ready for Your Pickleball Adventure?
-              </h2>
-              <p style={{ 
-                fontSize: isMobile ? '1.1rem' : '1.2rem', 
-                lineHeight: 1.6,
-                marginBottom: isMobile ? '25px' : '30px',
-                maxWidth: '600px',
-                margin: '0 auto 30px',
-                color: 'var(--neutral-color)',
-                padding: isMobile ? '0 10px' : '0'
-              }}>
-                Book your tour today and experience the perfect combination of pickleball improvement and Costa Rican paradise.
-              </p>
-              <div className="button-container" style={{ 
-                display: 'flex', 
-                gap: '20px', 
-                justifyContent: 'center', 
-                flexWrap: 'wrap',
-                flexDirection: isMobile ? 'column' : 'row',
-                alignItems: 'center',
-                maxWidth: isMobile ? '280px' : 'none',
-                margin: '0 auto'
-              }}>
-                <Link to="/contact" className="button" style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
-                  padding: isMobile ? '14px 20px' : '15px 30px',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1.1rem' : '1.2rem',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease',
-                  width: isMobile ? '100%' : 'auto'
-                }}>
-                  Book Now
-                </Link>
-                <Link to="/contact" className="button" style={{
-                  backgroundColor: 'var(--neutral-color)',
-                  color: 'var(--primary-color)',
-                  padding: isMobile ? '14px 20px' : '15px 30px',
-                  borderRadius: '30px',
-                  fontSize: isMobile ? '1.1rem' : '1.2rem',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
-                  transition: 'all 0.3s ease',
-                  width: isMobile ? '100%' : 'auto'
-                }}>
-                  Request Info
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        {/* Subscribe Modal */}
+        <SubscribeModal 
+          isOpen={isSubscribeModalOpen} 
+          onClose={() => setIsSubscribeModalOpen(false)} 
+        />
       </div>
     </PageTransition>
   );

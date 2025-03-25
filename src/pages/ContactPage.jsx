@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
 import OptimizedImage from '../components/OptimizedImage';
 import { IMAGES } from '../constants/images';
+import SubscribeModal from '../components/SubscribeModal';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -23,6 +24,7 @@ function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -734,10 +736,7 @@ WhatsApp: +506 6200 2747`
                 Get exclusive updates, training tips, and Costa Rica pickleball news delivered straight to your inbox.
               </p>
               <button
-                onClick={() => {
-                  // Temporary alert until Beehiiv integration
-                  alert('Coming soon! Subscribe functionality will be added shortly.');
-                }}
+                onClick={() => setIsSubscribeModalOpen(true)}
                 style={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
@@ -828,6 +827,12 @@ WhatsApp: +506 6200 2747`
             </motion.div>
           </div>
         </section>
+
+        {/* Subscribe Modal */}
+        <SubscribeModal 
+          isOpen={isSubscribeModalOpen} 
+          onClose={() => setIsSubscribeModalOpen(false)} 
+        />
       </div>
     </PageTransition>
   );

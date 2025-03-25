@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { IMAGES } from '../constants/images';
 import GradientDivider from './GradientDivider';
 
 function Footer() {
-  const [email, setEmail] = useState('');
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    // Temporary alert until Beehiiv integration
-    alert('Coming soon! Subscribe functionality will be added shortly.');
-    setEmail('');
-  };
-
   return (
     <>
       <GradientDivider />
@@ -32,60 +23,24 @@ function Footer() {
         }}>
           {/* Newsletter Section */}
           <div style={{
-            maxWidth: '400px',
+            maxWidth: '500px',
             width: '100%',
             marginBottom: '20px'
           }}>
-            <h3 style={{
-              fontSize: '1.4rem',
-              color: 'var(--primary-color)',
-              marginBottom: '15px'
-            }}>
-              Stay Connected
-            </h3>
-            <p style={{
-              fontSize: '1rem',
-              color: 'var(--text-color)',
-              marginBottom: '20px',
-              lineHeight: 1.5
-            }}>
-              Join our newsletter for pickleball tips and Costa Rica updates
-            </p>
-            <form onSubmit={handleSubscribe} style={{
-              display: 'flex',
-              gap: '10px',
-              maxWidth: '100%'
-            }}>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                style={{
-                  flex: 1,
-                  padding: '8px 12px',
-                  borderRadius: '20px',
-                  border: '2px solid var(--primary-color)',
-                  fontSize: '0.95rem'
-                }}
-              />
-              <button
-                type="submit"
-                style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '0.95rem',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                Subscribe
-              </button>
-            </form>
+            <iframe 
+              src="https://embeds.beehiiv.com/d7455a7d-5406-4269-baa1-a7ea2fcd88e1" 
+              data-test-id="beehiiv-embed" 
+              width="100%" 
+              height="320" 
+              frameBorder="0" 
+              scrolling="no" 
+              style={{
+                borderRadius: '4px',
+                border: '2px solid #e5e7eb',
+                margin: 0,
+                backgroundColor: 'transparent'
+              }}
+            />
           </div>
 
           <div style={{ 
