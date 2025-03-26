@@ -20,23 +20,45 @@ function BlogPage() {
   return (
     <PageTransition>
       <div className="blog-page">
+        {/* 
+          HERO SECTION STYLING:
+          - Mobile top spacing is controlled by padding + marginTop + the inner div's margin-top
+          - To increase/decrease space above title: adjust the padding first value (240px)
+          - To fix right margin issues: ensure width is 100% and padding is equal on both sides
+        */}
         <section className="page-hero" style={{ 
+          /* Top/bottom padding - adjust first value to change space above content */
           padding: isMobile ? '150px 0 60px' : '180px 0 80px', 
           textAlign: 'center',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)',
-          marginTop: '-80px',
-          marginBottom: '0'
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          /* Offset for desktop vs mobile */
+          marginTop: isMobile ? '0' : '-80px',
+          marginBottom: '0',
+          position: 'relative',
+          zIndex: 1
         }}>
-          <div style={{ marginTop: '100px', maxWidth: '800px', margin: '0 auto', padding: isMobile ? '0 15px' : '0 20px' }}>
+          <div style={{ 
+            maxWidth: '800px', 
+            /* Additional top margin for mobile */
+            margin: isMobile ? '10px auto 0' : '0 auto', 
+            /* Left/right padding - must be equal on both sides */
+            padding: '0 40px',
+            width: '100%',
+            boxSizing: 'border-box',
+            position: 'relative'
+          }}>
             <h1 style={{ 
               color: 'var(--neutral-color)',
               fontSize: isMobile ? '2.6rem' : '3.2rem',
-              marginBottom: isMobile ? '10px' : '15px',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'
+              /* Space below title */
+              marginBottom: isMobile ? '20px' : '15px',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
+              /* Additional top padding if needed */
+              paddingTop: isMobile ? '10px' : '0'
             }}>
               Pickleball & Paradise
             </h1>
@@ -45,10 +67,14 @@ function BlogPage() {
               color: 'var(--neutral-color)',
               fontWeight: 'bold',
               maxWidth: '800px', 
+              /* Center horizontally */
               margin: '0 auto',
-              marginBottom: '10px',
-              lineHeight: '1.6',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)'
+              /* Space below subtitle */
+              marginBottom: isMobile ? '20px' : '10px',
+              lineHeight: 1.6,
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
+              /* Left/right padding for text wrapping */
+              padding: '0 10px'
             }}>
               Stories, tips, and adventures from {isMobile ? '' : <br></br>}Costa Rica's vibrant pickleball community
             </p>

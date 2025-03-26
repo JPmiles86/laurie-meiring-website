@@ -100,8 +100,8 @@ function TestimonialsCarousel() {
       width: '100%',
       maxWidth: '100%',
       margin: '0 auto',
-      padding: isMobile ? '20px 15px 60px' : '40px 30px 60px',
-      overflow: 'hidden',
+      padding: '20px 0 60px',
+      overflow: 'visible',
       minHeight: isMobile ? '450px' : '400px',
       display: 'flex',
       flexDirection: 'column'
@@ -137,22 +137,24 @@ function TestimonialsCarousel() {
             style={{
               position: 'absolute',
               width: '100%',
-              maxWidth: isMobile ? '90%' : '800px',
+              maxWidth: '800px',
               textAlign: 'center',
-              padding: isMobile ? '10px' : '20px'
+              padding: '0 50px'
             }}
           >
             <div style={{
               backgroundColor: 'var(--neutral-color)',
               borderRadius: '15px',
-              padding: isMobile ? '25px 20px' : '40px',
+              padding: isMobile ? '30px 35px' : '40px 40px',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               position: 'relative',
-              margin: '0 15px'
+              margin: '0 auto',
+              width: '100%',
+              boxSizing: 'border-box'
             }}>
               <div style={{
-                width: '120px',
-                height: '120px',
+                width: isMobile ? '100px' : '120px',
+                height: isMobile ? '100px' : '120px',
                 margin: '0 auto 20px',
                 borderRadius: '50%',
                 overflow: 'hidden',
@@ -205,7 +207,7 @@ function TestimonialsCarousel() {
         onClick={() => paginate(-1)}
         style={{
           position: 'absolute',
-          left: isMobile ? '15px' : '30px',
+          left: '10px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',
@@ -234,7 +236,7 @@ function TestimonialsCarousel() {
         onClick={() => paginate(1)}
         style={{
           position: 'absolute',
-          right: isMobile ? '30px' : '60px',
+          right: '10px',
           top: '50%',
           transform: 'translateY(-50%)',
           background: 'var(--primary-color)',

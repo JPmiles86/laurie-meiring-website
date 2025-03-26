@@ -478,10 +478,12 @@ WhatsApp: +506 6200 2747`
                 </div>
                 
                 <div style={{ 
-                  padding: isMobile ? '30px 20px' : '40px', 
+                  padding: isMobile ? '30px 25px' : '40px', 
                   display: 'flex', 
                   flexDirection: 'column', 
-                  justifyContent: 'space-between' 
+                  justifyContent: 'space-between',
+                  boxSizing: 'border-box',
+                  width: '100%'
                 }}>
                   {submitted ? (
                     <motion.div 
@@ -523,8 +525,8 @@ WhatsApp: +506 6200 2747`
                       </button>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit}>
-                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
+                    <form onSubmit={handleSubmit} style={{ width: '100%', boxSizing: 'border-box' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px', width: '100%', boxSizing: 'border-box' }}>
                         <label 
                           htmlFor="service" 
                           style={{ 
@@ -546,7 +548,8 @@ WhatsApp: +506 6200 2747`
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
                             fontSize: isMobile ? '0.95rem' : '1rem',
-                            backgroundColor: 'white'
+                            backgroundColor: 'white',
+                            boxSizing: 'border-box'
                           }}
                           required
                         >
@@ -558,7 +561,7 @@ WhatsApp: +506 6200 2747`
                         </select>
                       </div>
 
-                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px', width: '100%', boxSizing: 'border-box' }}>
                         <label 
                           htmlFor="name" 
                           style={{ 
@@ -580,13 +583,14 @@ WhatsApp: +506 6200 2747`
                             padding: isMobile ? '10px' : '12px',
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
-                            fontSize: isMobile ? '0.95rem' : '1rem'
+                            fontSize: isMobile ? '0.95rem' : '1rem',
+                            boxSizing: 'border-box'
                           }} 
                           required
                         />
                       </div>
 
-                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px', width: '100%', boxSizing: 'border-box' }}>
                         <label 
                           htmlFor="email" 
                           style={{ 
@@ -608,13 +612,14 @@ WhatsApp: +506 6200 2747`
                             padding: isMobile ? '10px' : '12px',
                             borderRadius: '8px',
                             border: '2px solid var(--primary-color)',
-                            fontSize: isMobile ? '0.95rem' : '1rem'
+                            fontSize: isMobile ? '0.95rem' : '1rem',
+                            boxSizing: 'border-box'
                           }} 
                           required
                         />
                       </div>
 
-                      <div style={{ marginBottom: isMobile ? '15px' : '20px' }}>
+                      <div style={{ marginBottom: isMobile ? '15px' : '20px', width: '100%', boxSizing: 'border-box' }}>
                         <label 
                           htmlFor="message" 
                           style={{ 
@@ -638,7 +643,8 @@ WhatsApp: +506 6200 2747`
                             border: '2px solid var(--primary-color)',
                             fontSize: isMobile ? '0.95rem' : '1rem',
                             resize: 'vertical',
-                            minHeight: isMobile ? '100px' : '120px'
+                            minHeight: isMobile ? '100px' : '120px',
+                            boxSizing: 'border-box'
                           }}
                           placeholder="Please provide details about your inquiry, including preferred dates/times if applicable."
                           required
@@ -649,7 +655,9 @@ WhatsApp: +506 6200 2747`
                         marginBottom: isMobile ? '20px' : '25px',
                         display: 'flex',
                         alignItems: 'flex-start',
-                        gap: '10px'
+                        gap: '10px',
+                        width: '100%',
+                        boxSizing: 'border-box'
                       }}>
                         <input 
                           type="checkbox" 
@@ -691,6 +699,7 @@ WhatsApp: +506 6200 2747`
                           cursor: submitting ? 'not-allowed' : 'pointer',
                           transition: 'all 0.3s ease',
                           width: '100%',
+                          boxSizing: 'border-box',
                           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
                         }}
                       >
@@ -765,12 +774,22 @@ WhatsApp: +506 6200 2747`
           marginRight: 'calc(-50vw + 50%)',
           marginBottom: '-80px'
         }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ 
+            maxWidth: '800px', 
+            margin: '0 auto', 
+            textAlign: 'center',
+            boxSizing: 'border-box',
+            padding: isMobile ? '0 20px' : '0'
+          }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              style={{
+                width: '100%',
+                boxSizing: 'border-box'
+              }}
             >
               <h2 style={{ 
                 fontSize: isMobile ? '2.2rem' : '2.8rem', 
@@ -786,7 +805,8 @@ WhatsApp: +506 6200 2747`
                 maxWidth: '600px',
                 margin: isMobile ? '0 auto 25px' : '0 auto 30px',
                 color: 'var(--neutral-color)',
-                padding: isMobile ? '0 10px' : 0
+                padding: isMobile ? '0 40px' : '0 20px',
+                boxSizing: 'border-box'
               }}>
                 Whether you're looking for training, tours, or a custom experience, we're here to make your pickleball dreams come true in Costa Rica.
               </p>
@@ -795,7 +815,10 @@ WhatsApp: +506 6200 2747`
                 gap: isMobile ? '15px' : '20px', 
                 justifyContent: 'center', 
                 marginBottom: '75px',
-                flexWrap: 'wrap' 
+                flexWrap: 'wrap',
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '0 10px'
               }}>
                 <Link to="/tours" className="button" style={{
                   backgroundColor: 'var(--primary-color)',

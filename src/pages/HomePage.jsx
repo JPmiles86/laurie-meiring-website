@@ -375,12 +375,11 @@ function HomePage() {
           <GradientDivider />
 
           <section className="testimonials-section" style={{
-            padding: isMobile ? '60px 0' : '100px 20px',
+            padding: isMobile ? '60px 0' : '100px 0',
             backgroundColor: 'var(--neutral-color)', 
             position: 'relative',
-            overflow: 'hidden',
-            width: '100%',
-            maxWidth: '100vw'
+            overflow: 'visible',
+            width: '100%'
           }}>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -392,8 +391,7 @@ function HomePage() {
               <h2 style={{
                 fontSize: isMobile ? '2.4rem' : '3rem',
                 color: 'var(--primary-color)',
-                marginBottom: '20px',
-                marginTop: '80px'
+                marginBottom: '20px'
               }}>
                 Player Testimonials
               </h2>
@@ -409,10 +407,10 @@ function HomePage() {
               </p>
             </motion.div>
             <div style={{ 
-              marginBottom: '40px',
-              position: 'relative',
-              padding: '0 80px',
-              overflow: 'visible'
+              maxWidth: '1200px',
+              margin: '0 auto',
+              padding: '0 20px',
+              position: 'relative'
             }}>
               <TestimonialsCarousel />
             </div>
@@ -752,7 +750,8 @@ function HomePage() {
                   fontSize: '1.2rem',
                   borderRadius: '30px',
                   textDecoration: 'none',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  marginBottom: '8px'
                 }}>Training Options</Link>
               </motion.div>
             </div>

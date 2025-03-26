@@ -1,0 +1,131 @@
+/**
+ * EXAMPLE IMPLEMENTATION FILE
+ * Created by Agent-1: Atlas on 2023-05-25
+ * 
+ * These are example styles for the TournamentList component.
+ * They are intended as a reference for implementation and should be
+ * considered a draft, not production-ready code.
+ */
+
+.tournament-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tournament-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.tournament-card.featured {
+  border: 2px solid var(--primary-color);
+}
+
+.tournament-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.tournament-header h3 {
+  margin: 0;
+  color: var(--primary-color);
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status.upcoming {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status.closed {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.status.in-progress {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.tournament-dates,
+.tournament-location,
+.tournament-fees,
+.tournament-registration,
+.tournament-contact {
+  margin-bottom: 12px;
+}
+
+.tournament-divisions ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0;
+}
+
+.tournament-divisions li {
+  margin-bottom: 4px;
+}
+
+.tournament-description {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.register-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover {
+  background: #a32147;
+  transform: translateY(-1px);
+}
+
+.no-tournaments {
+  text-align: center;
+  color: var(--text-color);
+  font-style: italic;
+  padding: 40px 0;
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+  .tournament-list {
+    padding: 10px;
+  }
+
+  .tournament-card {
+    padding: 15px;
+  }
+
+  .tournament-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status {
+    margin-top: 8px;
+  }
+} 

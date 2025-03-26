@@ -895,14 +895,24 @@ function ToursPage() {
         </section>
 
         <section className="features" style={{ 
-          padding: isMobile ? '60px 15px' : '80px 20px',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)'
+          position: 'relative',
+          width: '100%',
+          padding: isMobile ? '60px 0' : '80px 0',
+          boxSizing: 'border-box',
+          display: 'flex',
+          justifyContent: 'center'
         }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ 
+            maxWidth: '1200px', 
+            width: '100%',
+            padding: isMobile ? '0 15px' : '0 20px',
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -911,18 +921,20 @@ function ToursPage() {
               style={{
                 marginBottom: isMobile ? '30px' : '40px',
                 fontSize: isMobile ? '2.4rem' : '2.8rem',
-                color: 'var(--neutral-color)'
+                color: 'var(--neutral-color)',
+                textAlign: 'center',
+                width: '100%'
               }}
             >
               Accommodations
             </motion.h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
               gap: isMobile ? '30px' : '40px',
-              textAlign: 'center',
-              padding: '0 10px',
-              marginBottom: '40px'
+              width: '100%',
+              maxWidth: '1000px',
+              margin: '0 auto 40px'
             }}>
               {accommodations.map((accommodation, index) => (
                 <motion.div
@@ -932,7 +944,11 @@ function ToursPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   style={{
-                    padding: '0 10px'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    width: '100%'
                   }}
                 >
                   <div style={{ 
@@ -940,9 +956,10 @@ function ToursPage() {
                     height: isMobile ? '120px' : '150px', 
                     borderRadius: '50%', 
                     overflow: 'hidden',
-                    margin: '0 auto 20px',
+                    marginBottom: '20px',
                     border: '4px solid var(--neutral-color)',
-                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                    flexShrink: 0
                   }}>
                     <img 
                       src={accommodation.image} 
@@ -957,16 +974,18 @@ function ToursPage() {
                   <h3 style={{ 
                     fontSize: isMobile ? '1.6rem' : '1.8rem', 
                     marginBottom: '15px', 
-                    color: '#ffffff' 
+                    color: '#ffffff',
+                    textAlign: 'center'
                   }}>
                     {accommodation.title}
                   </h3>
                   <p style={{ 
                     fontSize: isMobile ? '1rem' : '1.1rem', 
                     lineHeight: 1.6,
-                    maxWidth: '100%',
-                    wordWrap: 'break-word',
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    textAlign: 'center',
+                    maxWidth: '300px',
+                    margin: '0 auto'
                   }}>
                     {accommodation.description}
                   </p>
@@ -974,46 +993,69 @@ function ToursPage() {
               ))}
             </div>
 
-            {/* Added CTA Buttons */}
-            <div className="button-container" style={{ 
+            {/* CTA Buttons */}
+            <div style={{ 
               display: 'flex', 
               gap: '20px', 
               justifyContent: 'center', 
               flexWrap: 'wrap',
               flexDirection: isMobile ? 'column' : 'row',
               alignItems: 'center',
-              maxWidth: isMobile ? '280px' : 'none',
-              margin: '0 auto'
+              width: '100%',
+              maxWidth: '100%',
+              marginLeft: 'auto',
+              marginRight: 'auto'
             }}>
-              <Link to="/contact" className="button" style={{
-                backgroundColor: 'var(--neutral-color)',
-                color: 'var(--primary-color)',
-                padding: isMobile ? '14px 20px' : '15px 30px',
-                borderRadius: '30px',
-                fontSize: isMobile ? '1.1rem' : '1.2rem',
-                textDecoration: 'none',
-                display: 'inline-block',
-                boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.3s ease',
-                width: isMobile ? '100%' : 'auto'
+              <div style={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: '20px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                maxWidth: isMobile ? '280px' : '600px',
+                margin: '0 auto',
+                width: '100%'
               }}>
-                Book Now
-              </Link>
-              <Link to="/contact" className="button" style={{
-                backgroundColor: 'var(--primary-color)',
-                color: 'var(--neutral-color)',
-                padding: isMobile ? '14px 20px' : '15px 30px',
-                borderRadius: '30px',
-                fontSize: isMobile ? '1.1rem' : '1.2rem',
-                textDecoration: 'none',
-                display: 'inline-block',
-                border: '2px solid var(--neutral-color)',
-                boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
-                transition: 'all 0.3s ease',
-                width: isMobile ? '100%' : 'auto'
-              }}>
-                Request Info
-              </Link>
+                <Link to="/contact" className="button" style={{
+                  backgroundColor: 'var(--neutral-color)',
+                  color: 'var(--primary-color)',
+                  padding: isMobile ? '14px 20px' : '15px 30px',
+                  borderRadius: '30px',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease',
+                  width: isMobile ? '100%' : 'auto',
+                  minWidth: isMobile ? '120px' : 'auto',
+                  maxWidth: isMobile ? '280px' : 'none',
+                  textAlign: 'center'
+                }}>
+                  Book Now
+                </Link>
+                <Link to="/contact" className="button" style={{
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'var(--neutral-color)',
+                  padding: isMobile ? '14px 20px' : '15px 30px',
+                  borderRadius: '30px',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
+                  textDecoration: 'none',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  border: '2px solid var(--neutral-color)',
+                  boxShadow: isMobile ? '0 6px 12px rgba(0, 0, 0, 0.2)' : '0 4px 6px rgba(0, 0, 0, 0.2)',
+                  transition: 'all 0.3s ease',
+                  width: isMobile ? '100%' : 'auto',
+                  minWidth: isMobile ? '120px' : 'auto',
+                  maxWidth: isMobile ? '280px' : 'none',
+                  textAlign: 'center'
+                }}>
+                  Request Info
+                </Link>
+              </div>
             </div>
           </div>
         </section>

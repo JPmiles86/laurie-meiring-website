@@ -56,16 +56,22 @@ function AboutPage() {
     <PageTransition>
       <div className="about-page">
         <section className="about-header" style={{ 
-          padding: isMobile ? '40px 15px 30px' : '60px 20px 40px', 
+          padding: isMobile ? '40px 0' : '60px 0', 
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
           textAlign: 'center',
           marginBottom: isMobile ? '40px' : '60px',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)'
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center'
         }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ 
+            maxWidth: '1200px', 
+            margin: '0 auto', 
+            width: '100%', 
+            padding: '0 20px', 
+            boxSizing: 'border-box' 
+          }}>
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -103,7 +109,8 @@ function AboutPage() {
                 color: 'var(--neutral-color)',
                 fontSize: isMobile ? '2.5rem' : '3.5rem',
                 marginBottom: isMobile ? '15px' : '20px',
-                lineHeight: 1.2
+                lineHeight: 1.2,
+                padding: '0 10px'
               }}
             >
               Meet Your Pickleball Guide
@@ -120,7 +127,7 @@ function AboutPage() {
                 color: 'var(--neutral-color)',
                 opacity: 0.9,
                 lineHeight: 1.6,
-                padding: isMobile ? '0 10px' : 0
+                padding: '0 10px'
               }}
             >
               Tournament Champion | PCI-Certified Coach | Pickleball Strategist | Costa Rica Expert
@@ -207,16 +214,23 @@ function AboutPage() {
           <div style={{ 
             backgroundColor: 'var(--secondary-color)',
             color: 'var(--neutral-color)',
-            padding: isMobile ? '40px 15px' : '60px 20px',
+            padding: isMobile ? '40px 0' : '60px 0',
             borderRadius: '0',
             marginBottom: isMobile ? '50px' : '80px',
             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
             width: '100vw',
             marginLeft: 'calc(-50vw + 50%)',
             marginRight: 'calc(-50vw + 50%)',
-            overflow: 'hidden'
+            display: 'flex',
+            justifyContent: 'center'
           }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ 
+              maxWidth: '1200px', 
+              margin: '0 auto', 
+              width: '100%', 
+              padding: '0 20px', 
+              boxSizing: 'border-box' 
+            }}>
               <motion.h2 
                 className="section-title"
                 initial={{ opacity: 0, y: 20 }}
@@ -312,7 +326,8 @@ function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               style={{
-                order: isMobile ? 1 : 2
+                order: isMobile ? 1 : 2,
+                paddingLeft: isMobile ? '15px' : '0'
               }}
             >
               <h2 style={{ 
@@ -338,7 +353,8 @@ function AboutPage() {
                       marginBottom: isMobile ? '12px' : '15px',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: isMobile ? '10px' : '15px'
+                      gap: isMobile ? '10px' : '15px',
+                      paddingLeft: isMobile ? '10px' : '0'
                     }}
                   >
                     <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
@@ -372,9 +388,12 @@ function AboutPage() {
             </motion.h2>
             <div style={{ 
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(280px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: isMobile ? '25px' : '30px',
-              justifyContent: 'center'
+              placeItems: 'center',
+              width: '100%',
+              maxWidth: '1000px',
+              margin: '0 auto'
             }}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -477,12 +496,12 @@ function AboutPage() {
         </section>
 
         <section className="ready-section" style={{
-          padding: isMobile ? '60px 15px' : '80px 20px',
+          padding: isMobile ? '60px 0' : '80px 0',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
-          width: '100vw',
-          marginLeft: 'calc(-50vw + 50%)',
-          marginRight: 'calc(-50vw + 50%)',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           marginBottom: '-80px'
         }}>
           <motion.div 
@@ -494,13 +513,16 @@ function AboutPage() {
               maxWidth: '800px', 
               margin: '0 auto', 
               textAlign: 'center',
-              padding: isMobile ? '0 10px' : '0 20px'
+              padding: '0 20px',
+              width: '100%',
+              boxSizing: 'border-box'
             }}
           >
             <h2 style={{ 
               fontSize: isMobile ? '2.4rem' : '3rem',
               marginBottom: isMobile ? '15px' : '20px',
-              color: 'var(--neutral-color)'
+              color: 'var(--neutral-color)',
+              padding: '0 10px'
             }}>
               Ready to Elevate Your Game?
             </h2>
@@ -508,7 +530,8 @@ function AboutPage() {
               fontSize: isMobile ? '1.1rem' : '1.3rem',
               lineHeight: 1.6,
               color: 'var(--neutral-color)',
-              marginBottom: isMobile ? '25px' : '30px'
+              marginBottom: isMobile ? '25px' : '30px',
+              padding: '0 10px'
             }}>
               Whether you're looking for personalized coaching or an unforgettable pickleball tour in Costa Rica, I'm here to help you achieve your goals.
             </p>
