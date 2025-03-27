@@ -78,10 +78,12 @@ function HomePage() {
                 marginBottom: '20px',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
                 letterSpacing: '1px',
-                color: 'var(--neutral-color)'
+                color: 'var(--neutral-color)',
+                margin: isMobile ? '0 15px 20px' : '0 20px 20px'
               }}
             >
-              Your Pickleball Guide Costa Rica
+              <span style={{ display: 'block', marginBottom: '10px' }}>Your Pickleball Guide</span>
+              <span style={{ display: 'block' }}>Costa Rica</span>
             </motion.h1>
             <motion.p 
               variants={fadeInUp}
