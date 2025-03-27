@@ -558,6 +558,7 @@ WhatsApp: +506 6200 2747`
                           <option value="pickleball tours">Pickleball Tours</option>
                           <option value="custom experience">Custom Experience</option>
                           <option value="general inquiry">General Inquiry</option>
+                          <option value="feature my club">Feature My Club</option>
                         </select>
                       </div>
 

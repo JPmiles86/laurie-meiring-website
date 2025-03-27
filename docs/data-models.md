@@ -69,13 +69,12 @@ export const clubs = [
 ];
 ```
 
-### Business Model: Featured Clubs
+### Featured Clubs Presentation
 
-Only clubs with `isFeatured = true` and a valid `featuredUntil` date (in the future) will be displayed in the featured clubs section. This is part of the website's business model, where clubs pay for featured listings.
+Clubs with `isFeatured = true` and a valid `featuredUntil` date (in the future) will be displayed in the featured clubs section. This allows the website to showcase selected pickleball clubs across Costa Rica.
 
-- **Monthly Fee**: $30-50 USD recommended based on the Costa Rican market
-- **Benefits**: Visibility on the website, ability to post events, detailed profile with images
-- **Implementation**: The contact form will include a "Feature my club" option for inquiries
+- **Benefits for Players**: Easy access to information about established pickleball facilities across Costa Rica
+- **Implementation**: The contact form includes a simple option for club representatives to inquire about inclusion
 
 ## Pickleball Events Calendar
 
@@ -151,9 +150,24 @@ export const events = [
 ];
 ```
 
-### Relationship with Featured Clubs
+### Events Calendar Presentation
 
-Events can be linked to featured clubs using the `clubId` property in the `hostedBy` object. When displaying event details, if the event is hosted by a featured club, the website will provide a link to that club's information.
+The events calendar is designed to show pickleball activities across Costa Rica, helping players find opportunities to play and compete.
+
+- **Implementation**: 
+  - All approved events show on the events calendar page
+  - Events are linked to clubs when applicable
+  - The events page includes a simple way for event organizers to submit their events
+  - Past events are automatically removed to keep the calendar current
+
+### Relationship between Events and Clubs
+
+Events can be linked to clubs using the `clubId` property in the `hostedBy` object. This creates a helpful connection:
+
+1. Players viewing event details can easily find information about the hosting club
+2. Players viewing club details can see upcoming events at that location
+
+This integration helps players get a complete picture of pickleball activities at various locations.
 
 ## Partner Matching Form
 

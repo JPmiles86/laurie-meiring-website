@@ -12,8 +12,8 @@ This directory contains comprehensive documentation for the Costa Rica Picklebal
 
 ## Features
 
-1. **Pickleball Clubs Directory** - Static directory of pickleball clubs in Costa Rica
-2. **Tournament Calendar** - Static calendar of upcoming tournaments
+1. **Featured Clubs Section** - Section showcasing paid featured pickleball clubs in Costa Rica
+2. **Pickleball Events Calendar** - Chronological listing of various pickleball events (tournaments, leagues, clinics, etc.)
 3. **Partner Matching Form** - Interactive form for matching pickleball partners
 
 ## Getting Started

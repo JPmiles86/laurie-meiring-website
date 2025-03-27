@@ -9,6 +9,9 @@ import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetail from './pages/BlogDetail';
 import BlogAdmin from './components/BlogAdmin';
+import FeaturedClubsPage from './pages/FeaturedClubsPage';
+import EventsCalendarPage from './pages/EventsCalendarPage';
+import PartnerMatchingPage from './pages/PartnerMatchingPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingButtons from './components/FloatingButtons';
@@ -27,6 +30,9 @@ function AnimatedRoutes() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
         <Route path="/admin/blog" element={<BlogAdmin />} />
+        <Route path="/clubs" element={<FeaturedClubsPage />} />
+        <Route path="/events" element={<EventsCalendarPage />} />
+        <Route path="/find-partner" element={<PartnerMatchingPage />} />
       </Routes>
     </AnimatePresence>
   );

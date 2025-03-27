@@ -109,6 +109,134 @@
 4. Test tournament display in development
 5. Deploy changes
 
+### Adding a New Featured Club
+
+1. Open `src/data/clubs.js`
+2. Add new club object following this template, making sure to set `isFeatured` to `true` and set the appropriate `featuredUntil` date:
+```javascript
+{
+  id: "unique-club-id",
+  name: "Club Name",
+  location: {
+    city: "City Name",
+    province: "Province",
+    address: "Full Address",
+    coordinates: {
+      lat: 0.0000,
+      lng: 0.0000
+    }
+  },
+  facilities: {
+    indoorCourts: 0,
+    outdoorCourts: 4,
+    hasLighting: true,
+    surfaceType: "Concrete",
+    amenities: ["Restrooms", "Water", "Parking"]
+  },
+  schedule: {
+    regularPlay: "Daily schedule",
+    openPlay: "Open play times",
+    lessons: "Lesson availability"
+  },
+  skillLevels: ["Beginner", "Intermediate", "Advanced"],
+  contact: {
+    phone: "+506 XXXX-XXXX",
+    email: "contact@example.com",
+    website: "https://example.com"
+  },
+  photos: ["/clubs/club-photo-1.jpg", "/clubs/club-photo-2.jpg"],
+  description: "Club description",
+  isFeatured: true,
+  featuredUntil: "2024-12-31T23:59:59Z" // ISO date format
+}
+```
+
+3. Add club photos to `/public/clubs/` directory
+4. Test club display in development
+5. Deploy changes
+
+### Adding a New Event
+
+1. Open `src/data/events.js`
+2. Add new event object following this template:
+```javascript
+{
+  id: "unique-event-id",
+  name: "Event Name",
+  eventType: "tournament", // or "league", "clinic", "social", "other"
+  startDate: "2024-01-01T09:00:00Z", // ISO date format
+  endDate: "2024-01-03T18:00:00Z", // ISO date format
+  location: {
+    venue: "Venue Name",
+    city: "City Name",
+    province: "Province",
+    address: "Full Address",
+    coordinates: {
+      lat: 0.0000,
+      lng: 0.0000
+    }
+  },
+  hostedBy: {
+    name: "Host Organization Name",
+    clubId: "club-id" // Optional: Reference to a featured club if applicable
+  },
+  details: {
+    format: "Event Format",
+    divisions: ["3.0", "3.5", "4.0"],
+    fees: "Entry Fee",
+    prizes: "Prize Information"
+  },
+  registration: {
+    deadline: "2023-12-15T23:59:59Z", // ISO date format
+    link: "https://registration-link.com",
+    contact: "contact@example.com"
+  },
+  description: "Event description",
+  images: ["/events/event-image.jpg"]
+}
+```
+
+3. Add event images to `/public/events/` directory
+4. Test event display in development
+5. Deploy changes
+
+### Removing Expired Content
+
+#### Managing Featured Club Expirations
+
+1. Weekly check of `featuredUntil` dates for all clubs
+2. For expired listings, either:
+   - Update the `featuredUntil` date if the club has renewed
+   - Set `isFeatured` to `false` if the club has not renewed
+3. Deploy changes after updates
+
+#### Removing Past Events
+
+1. Weekly check of event dates
+2. Remove events where `endDate` has passed
+3. Alternatively, you can add an `isArchived: true` property to events you want to keep in the data but not display
+4. Deploy changes after updates
+
+## Content Management Schedule
+
+### Weekly Tasks
+- Remove past events
+- Update featured club status
+- Add new events
+- Respond to new inquiries about listings
+
+### Monthly Tasks
+- Check for upcoming featured club expirations
+- Contact clubs about renewals
+- Review and update event information
+- Optimize any new images
+
+### Quarterly Tasks
+- Full audit of all content
+- Clean up archived data
+- Back up data files
+- Review and update business model
+
 ## Troubleshooting
 
 ### Form Submission Issues

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-function VideoPlayer({ videoId, title, description }) {
+function VideoPlayer({ videoId, mobileVideoId, title, description }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showControls, setShowControls] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -16,7 +16,9 @@ function VideoPlayer({ videoId, title, description }) {
     // Fetch Vimeo thumbnail
     const fetchThumbnail = async () => {
       try {
-        const response = await fetch(`https://vimeo.com/api/v2/video/${videoId}.json`);
+        // Determine which video ID to use for thumbnail
+        const activeVideoId = isMobile && mobileVideoId ? mobileVideoId : videoId;
+        const response = await fetch(`https://vimeo.com/api/v2/video/${activeVideoId}.json`);
         const data = await response.json();
         setThumbnailUrl(data[0].thumbnail_large);
       } catch (error) {
@@ -27,7 +29,7 @@ function VideoPlayer({ videoId, title, description }) {
     fetchThumbnail();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [videoId]);
+  }, [videoId, mobileVideoId, isMobile]);
 
   const handlePlayClick = () => {
     if (!isPlaying) {
@@ -35,6 +37,9 @@ function VideoPlayer({ videoId, title, description }) {
       setShowControls(true);
     }
   };
+
+  // Determine which video ID to use
+  const activeVideoId = isMobile && mobileVideoId ? mobileVideoId : videoId;
 
   return (
     <div className="video-player-container" style={{ 
@@ -132,7 +137,7 @@ function VideoPlayer({ videoId, title, description }) {
       ) : (
         <div style={{ 
           position: 'relative',
-          paddingBottom: '56.25%',
+          paddingBottom: isMobile && mobileVideoId ? '177.78%' : '56.25%', // 9:16 aspect ratio for mobile, 16:9 for desktop
           height: 0,
           overflow: 'hidden',
           borderRadius: '12px'
@@ -141,7 +146,7 @@ function VideoPlayer({ videoId, title, description }) {
             ref={playerRef}
             width="100%"
             height="100%"
-            src={`https://player.vimeo.com/video/${videoId}?autoplay=1&byline=0&title=0`}
+            src={`https://player.vimeo.com/video/${activeVideoId}?autoplay=1&byline=0&title=0`}
             title={title || "Vimeo video player"}
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"

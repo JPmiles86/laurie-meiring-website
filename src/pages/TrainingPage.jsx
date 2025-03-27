@@ -54,14 +54,14 @@ function TrainingPage() {
     {
       title: 'Group Training',
       price: '$20',
-      duration: 'per person/hour (2-4 players)',
+      duration: 'per Person/Hour (2-4 players)',
       description: 'Train with friends or family and enjoy the benefits of group coaching.',
       features: [
-        'Tailored group drills & exercises',
+        'Tailored Group Drills & Exercises',
         'Competitive Play Scenarios',
         'Match Strategy & Teamwork',
         'Game-based Learning',
-        'Fun & social atmosphere'
+        'Fun & Social Atmosphere'
       ],
       featured: false
     }
@@ -80,7 +80,9 @@ function TrainingPage() {
       <div className="training-page">
         <VideoBackground
           videoId="1069242767"
+          mobileVideoId="1070003063"
           startTime={0}
+          mobileStartTime={0}
           endTime={30}
           height="95vh"
           overlayColor="rgba(0, 0, 0, 0.4)"
@@ -512,7 +514,7 @@ function TrainingPage() {
                   marginBottom: '25px',
                   color: 'var(--text-color)'
                 }}>
-                  I believe the fastest way to improve is by mastering both the slow and fast aspects of the game. That's why every session starts at the kitchen, focusing on control, technique, and strategic shot selection. By assessing footwork, paddle mechanics, and shot consistency, I tailor each lesson to individual needs—whether it's refining the drop shot, enhancing variety, or building a more complete game.
+                  The key to improvement is mastering both the soft and fast game. That's why every session starts at the kitchen, focusing on control, technique, and smart shot selection. I tailor each lesson to your needs, refining footwork, paddle mechanics, and shot consistency.
                 </p>
                 
                 <ul style={{ 
@@ -521,12 +523,12 @@ function TrainingPage() {
                   margin: '0 0 30px 0' 
                 }}>
                   {[
-                    'Kitchen-First Approach – Master soft game fundamentals before adding speed',
-                    'Personalised Coaching – Identify key areas for improvement based on real-time play',
-                    'Drop Shot Focus – Learn the most effective way to transition to the net',
-                    'Pressure Drills – Use scoring and match scenarios to improve decision-making',
-                    'Variety & Strategy – Develop a mix of shots to keep opponents off balance',
-                    'Game-Based Learning – End each session with live play to apply new skills'
+                    'Kitchen-First Approach – Build soft game fundamentals before adding speed',
+                    'Personalised Coaching – Improve based on real-time play feedback',
+                    'Drop Shot Mastery – Learn the best way to transition to the net',
+                    'Pressure Drills – Sharpen decision-making with match scenarios',
+                    'Variety & Strategy – Develop a mix of shots to stay unpredictable',
+                    'Game-Based Learning – Apply new skills through live play'
                   ].map((approach, index) => (
                     <motion.li 
                       key={index}

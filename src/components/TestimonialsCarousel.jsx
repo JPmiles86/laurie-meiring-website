@@ -21,7 +21,7 @@ const testimonials = [
   {
     id: 3,
     name: 'JP Miles',
-    text: 'Laurie is just a fucking awesome guy all round and so passionate about Pickleball, its infectious. His energy and authenticity make every interaction memorable',
+    text: 'Laurie is an awesome guy all round and so passionate about Pickleball, its infectious. His energy and positivity make him an amazing partner to play with and I have improved so much since training with him.',
     rating: 5,
     image: '/ home/JPGold.jpg'
   }

@@ -51,7 +51,9 @@ function HomePage() {
       }}>
         <VideoBackground
           videoId="1068887257"
+          mobileVideoId="1069736755"
           startTime={0}
+          mobileStartTime={0}
           endTime={0}
           height="100vh"
           overlayColor="rgba(0, 0, 0, 0.5)"
@@ -356,7 +358,7 @@ function HomePage() {
                   borderRadius: '12px'
                 }}>
                   <img 
-                    src="/ home/PickleballTours1.jpg" 
+                    src="/tours/PickleballAdventure1.jpg" 
                     alt="Pickleball Tours"
                     style={{
                       width: '100%',
@@ -419,7 +421,9 @@ function HomePage() {
 
         <VideoBackground
           videoId="1069240161"
+          mobileVideoId="1069970440"
           startTime={5}
+          mobileStartTime={0}
           endTime={35}
           height="90vh"
           overlayColor="rgba(0, 0, 0, 0.5)"
@@ -448,11 +452,12 @@ function HomePage() {
             </h2>
             <p style={{ 
               fontSize: isMobile ? '1.1rem' : '1.3rem', 
-              maxWidth: '700px', 
+              maxWidth: isMobile ? '90%' : '700px', 
               margin: '0 auto 30px',
               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)',
               color: 'var(--neutral-color)',
-              lineHeight: 1.6
+              lineHeight: 1.6,
+              padding: isMobile ? '0 15px' : '0'
             }}>
               Experience the joy of playing pickleball in one of the most beautiful settings on earth. 
               Costa Rica offers the perfect backdrop for improving your game while enjoying paradise.
@@ -468,21 +473,6 @@ function HomePage() {
               margin: '0 auto'
             }}>
               <Link to="/training" className="button" style={{
-                backgroundColor: 'var(--primary-color)',
-                color: 'var(--neutral-color)',
-                display: 'inline-block',
-                padding: isMobile ? '12px 24px' : '15px 30px',
-                fontSize: isMobile ? '1.1rem' : '1.2rem',
-                textDecoration: 'none',
-                borderRadius: '30px',
-                fontWeight: 'bold',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.3s ease',
-                width: 'auto'
-              }}>
-                Start Your Journey
-              </Link>
-              <Link to="/contact" className="button" style={{
                 backgroundColor: 'var(--neutral-color)',
                 color: 'var(--primary-color)',
                 display: 'inline-block',
@@ -490,7 +480,20 @@ function HomePage() {
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
                 textDecoration: 'none',
                 borderRadius: '30px',
-                fontWeight: 'bold',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease',
+                width: 'auto'
+              }}>
+                Start Your Journey
+              </Link>
+              <Link to="/contact" className="button" style={{
+                backgroundColor: 'var(--primary-color)',
+                color: 'var(--neutral-color)',
+                display: 'inline-block',
+                padding: isMobile ? '12px 24px' : '15px 30px',
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                textDecoration: 'none',
+                borderRadius: '30px',
                 border: '2px solid var(--neutral-color)',
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 transition: 'all 0.3s ease',
@@ -760,7 +763,9 @@ function HomePage() {
       
         <VideoBackground
           videoId="1068891210"
+          mobileVideoId="1070004138"
           startTime={0}
+          mobileStartTime={0}
           endTime={30}
           height="90vh"
           overlayColor="rgba(0, 0, 0, 0.5)"

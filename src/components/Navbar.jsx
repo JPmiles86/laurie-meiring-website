@@ -59,8 +59,12 @@ function Navbar() {
 
       <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
         <li><Link to="/" onClick={closeMenu}>HOME</Link></li>
-        <li><Link to="/training" onClick={closeMenu}>PICKLEBALL TRAINING</Link></li>
+        <li><Link to="/training" onClick={closeMenu}>TRAINING</Link></li>
         <li><Link to="/tours" onClick={closeMenu}>TOURS</Link></li>
+        {/* Temporarily hidden links */}
+        {/* <li><Link to="/clubs" onClick={closeMenu}>CLUBS</Link></li> */}
+        {/* <li><Link to="/events" onClick={closeMenu}>EVENTS</Link></li> */}
+        {/* <li><Link to="/find-partner" onClick={closeMenu}>FIND A PARTNER</Link></li> */}
         <li><Link to="/blog" onClick={closeMenu}>BLOG</Link></li>
         <li><Link to="/about" onClick={closeMenu}>ABOUT</Link></li>
         <li><Link to="/contact" onClick={closeMenu} className="contact-button">Contact</Link></li>
@@ -142,13 +146,15 @@ function Navbar() {
           padding: 0;
           margin: 0;
           display: flex;
-          gap: 40px;
+          gap: 20px;
           align-items: center;
         }
 
         .nav-links a {
           text-decoration: none;
           color: var(--text-color);
+          text-align: center;
+          white-space: nowrap;
         }
 
         .contact-button {
@@ -157,23 +163,50 @@ function Navbar() {
           color: var(--neutral-color) !important;
           border-radius: 20px;
         }
+        
+        .mobile-menu-button {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          z-index: 100;
+        }
 
+        .mobile-menu-button span {
+          display: block;
+          width: 25px;
+          height: 3px;
+          margin: 5px 0;
+          background-color: var(--text-color);
+          transition: 0.3s;
+        }
+        
+        .mobile-menu-button.open span:nth-child(1) {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .mobile-menu-button.open span:nth-child(2) {
+          opacity: 0;
+        }
+        
+        .mobile-menu-button.open span:nth-child(3) {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        @media (min-width: 865px) and (max-width: 1240px) {
+          .nav-links {
+            gap: 10px;
+          }
+          
+          .nav-links a {
+            font-size: 0.85rem;
+          }
+        }
+        
         @media (max-width: 865px) {
           .mobile-menu-button {
             display: block;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-          }
-
-          .mobile-menu-button span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            margin: 5px 0;
-            background-color: var(--text-color);
-            transition: 0.3s;
           }
 
           .nav-links {
@@ -186,6 +219,7 @@ function Navbar() {
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             flex-direction: column;
+            z-index: 999;
           }
 
           .nav-links.open {

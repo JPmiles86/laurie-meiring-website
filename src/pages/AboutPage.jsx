@@ -182,7 +182,18 @@ function AboutPage() {
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
-                My background in hospitality and business gives me a unique perspective on creating exceptional pickleball experiences, from private lessons to guided tours throughout Costa Rica's most beautiful pickleball destinations.
+                <a 
+                  href="https://www.linkedin.com/in/laurie-meiring/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{
+                    color: 'var(--primary-color)',
+                    textDecoration: 'none',
+                    borderBottom: '1px solid var(--primary-color)',
+                  }}
+                >
+                  My background in hospitality and business
+                </a> gives me a unique perspective on creating exceptional pickleball experiences, from private lessons to guided tours throughout Costa Rica's most beautiful pickleball destinations.
               </p>
             </motion.div>
             <motion.div 

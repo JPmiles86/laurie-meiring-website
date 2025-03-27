@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import './VideoBackground.css';
 
-function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh', overlayColor = 'rgba(0, 0, 0, 0.4)', children, type = 'section' }) {
+function VideoBackground({ 
+  videoId, 
+  mobileVideoId,
+  startTime = 0, 
+  endTime = 0, 
+  mobileStartTime,
+  height = '100vh', 
+  overlayColor = 'rgba(0, 0, 0, 0.4)', 
+  children, 
+  type = 'section' 
+}) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
-  const iframeRef = useRef(null);
 
   useEffect(() => {
     // Check specifically for iOS
@@ -15,6 +26,11 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
       setIsIOS(isIOSDevice);
     };
     
+    // Check for mobile devices
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
     // Fix for iOS 100vh issue
     const setVhVariable = () => {
       const vh = window.innerHeight * 0.01;
@@ -22,138 +38,83 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
     };
     
     checkIOS();
+    checkMobile();
     setVhVariable();
     
-    window.addEventListener('resize', setVhVariable);
+    window.addEventListener('resize', () => {
+      setVhVariable();
+      checkMobile();
+    });
     
     return () => {
       window.removeEventListener('resize', setVhVariable);
+      window.removeEventListener('resize', checkMobile);
     };
   }, []);
 
-  // Construct Vimeo video URL with parameters
-  const videoUrl = `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1${startTime ? `#t=${startTime}s` : ''}`;
+  // SOLUTION 5: Direct approach with inline styles
+  // Determine which video ID to use
+  const activeVideoId = isMobile && mobileVideoId ? mobileVideoId : videoId;
   
-  const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isIOS ? 'ios' : ''} ${isLoaded ? 'loaded' : 'loading'}`;
+  // Determine which start time to use
+  const activeStartTime = isMobile && mobileStartTime !== undefined ? mobileStartTime : startTime;
+  
+  // Base URL parameters
+  const baseParams = "background=1&autoplay=1&loop=1&byline=0&title=0&muted=1";
+  
+  // More specific parameters for mobile
+  const qualityParams = isMobile && mobileVideoId 
+    ? "&quality=1080p&transparent=0&dnt=1&portrait=0&autopause=0&controls=0&responsive=1" 
+    : "&quality=1080p";
+  
+  const timeParam = activeStartTime ? `#t=${activeStartTime}s` : '';
+  
+  // Construct Vimeo video URL with parameters
+  const videoUrl = `https://player.vimeo.com/video/${activeVideoId}?${baseParams}${qualityParams}${timeParam}`;
+  
+  // Determine CSS classes
+  const containerClassName = `video-background-container ${type === 'hero' ? 'video-background-hero' : ''} ${isIOS ? 'ios' : ''} ${isMobile ? 'mobile' : ''}`;
+  
+  // Simple container height style
+  const containerStyle = {
+    height: isIOS ? `calc(var(--vh, 1vh) * 100 * ${height.replace('vh', '') / 100})` : height
+  };
 
   return (
     <div 
       ref={containerRef}
       className={containerClassName}
-      style={{ 
-        position: 'relative',
-        height: isIOS ? `calc(var(--vh, 1vh) * 100 * ${height.replace('vh', '') / 100})` : height,
-        width: '100vw',
-        maxWidth: '100vw',
-        overflow: 'hidden',
-        boxSizing: 'border-box',
-        marginLeft: 'calc(-50vw + 50%)',
-        marginRight: 'calc(-50vw + 50%)',
-        left: 0,
-        right: 0
-      }}
+      style={containerStyle}
     >
+      {/* Video container with specific desktop/mobile classes */}
+      <div className={`video-container ${isMobile && mobileVideoId ? 'mobile-container' : 'desktop-container'}`}>
+        <iframe 
+          className={isLoaded ? 'loaded' : ''}
+          src={videoUrl}
+          title="Background Video"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          onLoad={() => setIsLoaded(true)}
+          style={isMobile && mobileVideoId ? {
+            position: 'absolute',
+            width: '110%', 
+            height: '110%',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+          } : {}}
+        />
+      </div>
+      
+      {/* Overlay */}
       <div 
-        style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: overlayColor,
-          zIndex: 1
-        }}
+        className="video-background-overlay"
+        style={{ backgroundColor: overlayColor }}
       />
       
-      <style>
-        {`
-          .video-background-container {
-            position: relative;
-            overflow: hidden;
-          }
-          
-          .video-background-iframe {
-            border: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw !important;
-            height: 56.25vw !important; /* maintain 16:9 aspect ratio */
-            min-height: 100vh;
-            min-width: 177.77vh; /* maintain 16:9 aspect ratio */
-            transform: translate(-50%, -50%);
-          }
-          
-          @media (max-width: 1280px) {
-            .video-background-iframe {
-              width: 200vw !important;
-              height: 112.5vw !important;
-              min-width: 355.54vh;
-            }
-          }
-          
-          @media (max-width: 770px) {
-            .video-background-iframe {
-              width: 250vw !important;
-              height: 140.625vw !important;
-              min-width: 444.425vh;
-            }
-          }
-          
-          .video-background-container.loading::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            z-index: 3;
-          }
-          
-          .video-background-hero {
-            height: 100vh;
-            height: calc(var(--vh, 1vh) * 100);
-          }
-          
-          .video-background-container.ios .video-background-iframe {
-            transform: translate(-50%, -50%) scale(1.2);
-          }
-        `}
-      </style>
-      
-      <iframe 
-        ref={iframeRef}
-        className="video-background-iframe"
-        src={videoUrl}
-        title="Background Video"
-        frameBorder="0"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowFullScreen
-        onLoad={() => setIsLoaded(true)}
-        style={{ 
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.5s ease-in-out'
-        }}
-      />
-      <div 
-        style={{ 
-          position: 'relative',
-          zIndex: 2,
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 20px',
-          boxSizing: 'border-box'
-        }}
-      >
+      {/* Content */}
+      <div className="video-background-content">
         {children}
       </div>
     </div>
@@ -162,7 +123,9 @@ function VideoBackground({ videoId, startTime = 0, endTime = 0, height = '100vh'
 
 VideoBackground.propTypes = {
   videoId: PropTypes.string.isRequired,
+  mobileVideoId: PropTypes.string,
   startTime: PropTypes.number,
+  mobileStartTime: PropTypes.number,
   endTime: PropTypes.number,
   height: PropTypes.string,
   overlayColor: PropTypes.string,

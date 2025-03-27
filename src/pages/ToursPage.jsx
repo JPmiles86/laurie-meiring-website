@@ -144,7 +144,9 @@ function ToursPage() {
       <div className="tours-page">
         <VideoBackground
           videoId="1068883249"
+          mobileVideoId="1070006749"
           startTime={0}
+          mobileStartTime={0}
           endTime={30}
           height="95vh"
           overlayColor="rgba(0, 0, 0, 0.4)"
@@ -291,7 +293,7 @@ function ToursPage() {
                       {[
                         'Duration: 6 full days (excluding 2 flight days)',
                         'Destinations: Ojochal (Jungle), Jaco (Beach), Tamarindo (Coastal Town)',
-                        'Experience Level: Tailored for competitive players with similar DUPR ratings',
+                        'Experience Level: Tailored for competitive or social players with similar DUPR ratings ',
                         'Group Size: 6-8 players',
                         'Price: $2199* per person',
                         '*: Subject to change based on seasonal pricing'

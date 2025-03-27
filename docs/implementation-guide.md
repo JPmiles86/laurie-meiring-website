@@ -98,6 +98,7 @@ import React, { useState } from 'react';
 import FeaturedClubList from '../components/FeaturedClubList';
 import ClubFilter from '../components/ClubFilter';
 import '../styles/FeaturedClubsPage.css';
+import { Link } from 'react-router-dom';
 
 const FeaturedClubsPage = () => {
   const [filters, setFilters] = useState({
@@ -120,11 +121,20 @@ const FeaturedClubsPage = () => {
       
       <FeaturedClubList filters={filters} />
       
-      <div className="featured-cta">
-        <h2>Want your club to be featured?</h2>
-        <p>Get more visibility for your pickleball club. Contact us to learn about our featured listings.</p>
-        <a href="/contact" className="cta-button">Contact Us</a>
-      </div>
+      <FeatureClubCTA />
+    </div>
+  );
+};
+
+// CTA Component for Featured Clubs Page
+const FeatureClubCTA = () => {
+  return (
+    <div className="feature-club-cta">
+      <h2>Do you run a pickleball club?</h2>
+      <p>If you'd like your club to appear on this page, reach out through our contact form.</p>
+      <Link to="/contact" className="cta-button">
+        Contact Us
+      </Link>
     </div>
   );
 };
@@ -484,7 +494,7 @@ To support the business model for featured clubs, implement the following:
 {formData.service === 'feature-club' && (
   <div className="club-feature-fields">
     <h3>Featured Club Listing Information</h3>
-    <p>Monthly Fee: $30-50 USD</p>
+    <p>Please provide details about your club below, and we'll contact you with more information about featuring your club on our site.</p>
     
     <div className="form-group">
       <label htmlFor="clubName">Club Name</label>
@@ -494,15 +504,6 @@ To support the business model for featured clubs, implement the following:
     <div className="form-group">
       <label htmlFor="clubLocation">Club Location</label>
       <input type="text" id="clubLocation" name="clubLocation" />
-    </div>
-    
-    <div className="form-group">
-      <label htmlFor="preferredPlan">Preferred Plan</label>
-      <select id="preferredPlan" name="preferredPlan">
-        <option value="monthly">Monthly ($30/month)</option>
-        <option value="premium">Premium ($50/month)</option>
-        <option value="annual">Annual ($300/year - 2 months free)</option>
-      </select>
     </div>
   </div>
 )}
@@ -580,8 +581,8 @@ const EventsCalendarPage = () => {
       <EventList filters={filters} />
       
       <div className="events-cta">
-        <h2>Want to list your event?</h2>
-        <p>Contact us to get your pickleball event listed on our calendar.</p>
+        <h2>Have an upcoming pickleball event?</h2>
+        <p>Let us know about your event through our contact form.</p>
         <a href="/contact" className="cta-button">Contact Us</a>
       </div>
     </div>
