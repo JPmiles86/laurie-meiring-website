@@ -1,0 +1,12 @@
+id,name,listingType,city,province,website,email,phone,googleMapsEmbedIFrame
+club-example-1,"Example Club Name","basic","Example City","Example Province","https://example.com","","+506 1234-5678",9.1234,-84.5678
+club-example-2,"Another Club","basic","Another City","Guanacaste","","info@another.com","","<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.646721575792!2d-84.62694932497376!3d9.625655390461441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c70060ee762b%3A0xcd4a6763518825bd!2sPura%20Pickleball!5e0!3m2!1sen!2scr!4v1744055316055!5m2!1sen!2scr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>"
+# Instructions:
+# - id: unique identifier (lowercase & hyphens for spaces. e.g. santa-teresa-courts)
+# - name: Full club name
+# - listingType: Keep as 'basic'
+# - city: City name
+# - province: Province name
+# - website & email & phone: Provide at least one contact method. Leave others blank if unknown.
+# - latitude & longitude: GPS coordinates (optional, needed for map pin). Leave blank if unknown.
+# Add new rows for each basic club. 

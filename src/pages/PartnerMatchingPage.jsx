@@ -79,46 +79,12 @@ function PartnerMatchingPage() {
           backgroundColor: 'var(--neutral-color)'
         }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <div style={{
-              backgroundColor: 'white',
-              borderRadius: '12px',
-              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-              overflow: 'hidden',
-              marginBottom: '50px'
-            }}>
-              <div style={{
-                backgroundColor: 'var(--primary-color)',
-                padding: isMobile ? '25px 20px' : '30px',
-                color: 'white',
-                textAlign: 'center'
-              }}>
-                <h2 style={{
-                  fontSize: isMobile ? '1.8rem' : '2.2rem',
-                  color: 'white',
-                  margin: 0
-                }}>Partner Matching Form</h2>
-              </div>
-              
-              <div style={{
-                padding: isMobile ? '30px 20px' : '40px'
-              }}>
-                <p style={{
-                  fontSize: '1.1rem',
-                  marginBottom: '30px',
-                  lineHeight: 1.6
-                }}>
-                  Complete the form below with your information and preferences. Our team will help match you with compatible players in your area. This service is free and aims to grow the pickleball community in Costa Rica.
-                </p>
-                
-                <PartnerMatchingForm />
-              </div>
-            </div>
             
             <div style={{
               backgroundColor: '#f8f8f8',
               borderRadius: '12px',
               padding: isMobile ? '30px 20px' : '40px',
-              marginBottom: '20px'
+              marginBottom: '50px'
             }}>
               <h3 style={{
                 fontSize: '1.6rem',
@@ -168,6 +134,41 @@ function PartnerMatchingPage() {
               }}>
                 Note: For privacy and safety, we only share contact information with mutual consent. Your information will never be used for marketing purposes or shared with third parties.
               </p>
+            </div>
+
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+              overflow: 'hidden',
+              marginBottom: '50px'
+            }}>
+              <div style={{
+                backgroundColor: 'var(--primary-color)',
+                padding: isMobile ? '25px 20px' : '30px',
+                color: 'white',
+                textAlign: 'center'
+              }}>
+                <h2 style={{
+                  fontSize: isMobile ? '1.8rem' : '2.2rem',
+                  color: 'white',
+                  margin: 0
+                }}>Partner Matching Form</h2>
+              </div>
+              
+              <div style={{
+                padding: isMobile ? '30px 20px' : '40px'
+              }}>
+                <p style={{
+                  fontSize: '1.1rem',
+                  marginBottom: '30px',
+                  lineHeight: 1.6
+                }}>
+                  Complete the form below with your information and preferences. Our team will help match you with compatible players in your area. This service is free and aims to grow the pickleball community in Costa Rica.
+                </p>
+                
+                <PartnerMatchingForm />
+              </div>
             </div>
           </div>
         </section>
