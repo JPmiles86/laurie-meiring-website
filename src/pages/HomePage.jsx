@@ -395,7 +395,8 @@ function HomePage() {
               <h2 style={{
                 fontSize: isMobile ? '2.4rem' : '3rem',
                 color: 'var(--primary-color)',
-                marginBottom: '20px'
+                marginBottom: '20px', 
+                marginTop: '60px'
               }}>
                 Player Testimonials
               </h2>
@@ -414,7 +415,8 @@ function HomePage() {
               maxWidth: '1200px',
               margin: '0 auto',
               padding: '0 20px',
-              position: 'relative'
+              position: 'relative', 
+              marginBottom: '60px'
             }}>
               <TestimonialsCarousel />
             </div>

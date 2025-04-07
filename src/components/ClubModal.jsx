@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { events } from '../data/events';
 
 const ClubModal = ({ club, onClose }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [activeTab, setActiveTab] = useState('details');
+  const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   
   // Close modal on escape key
   useEffect(() => {
@@ -50,7 +52,8 @@ const ClubModal = ({ club, onClose }) => {
   
   const {
     name, location, contactInfo, courtDetails,
-    playInfo, amenities, images, description, upcomingEvents
+    playInfo, amenities, images, description, upcomingEvents,
+    laurieReview
   } = club;
   
   // Format date
@@ -67,6 +70,9 @@ const ClubModal = ({ club, onClose }) => {
   
   // Sort events by date
   clubEvents.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+  
+  // Check if coordinates exist for the map
+  const hasCoordinates = location?.coordinates?.lat != null && location?.coordinates?.lng != null;
   
   return (
     <motion.div 
@@ -370,88 +376,86 @@ const ClubModal = ({ club, onClose }) => {
                     </ul>
                   </div>
                 </div>
+
+                {/* Laurie's Review Section - NEW */}
+                {laurieReview && (
+                  <div className="laurie-review-section" style={{ 
+                    marginTop: '30px',
+                    padding: '20px',
+                    backgroundColor: 'var(--secondary-color)', // Use secondary color for contrast
+                    borderRadius: '8px',
+                    color: 'var(--neutral-color)'
+                  }}>
+                    <h3 style={{ 
+                      fontSize: '1.3rem', 
+                      color: 'var(--neutral-color)', 
+                      marginBottom: '10px', 
+                      textAlign: 'center' 
+                    }}>
+                      ⭐ Laurie's Recommendation ⭐
+                    </h3>
+                    <p style={{ 
+                      fontSize: isMobile ? '1rem' : '1.1rem', 
+                      lineHeight: 1.6, 
+                      fontStyle: 'italic',
+                      margin: 0
+                    }}>
+                      "{laurieReview}"
+                    </p>
+                  </div>
+                )}
                 
-                <div className="club-location-map" style={{
-                  marginTop: '30px'
-                }}>
+                <div className="club-location-map" style={{ marginTop: '30px' }}>
                   <h3 style={{
                     fontSize: '1.3rem',
                     color: 'var(--primary-color)',
                     marginBottom: '15px'
                   }}>Location</h3>
                   <p style={{ marginBottom: '15px' }}>{location.address}</p>
-                  <div className="map-container" style={{
-                    width: '100%',
-                    height: '300px',
-                    borderRadius: '8px',
-                    overflow: 'hidden'
+                  
+                  <div className="map-container" style={{ 
+                    width: '100%', 
+                    height: '300px', 
+                    borderRadius: '8px', 
+                    overflow: 'hidden', 
+                    border: '1px solid #eee' 
                   }}>
-                    {/* Solution that works in development and prod */}
-                    <div style={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#f0f0f0',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      padding: '20px',
-                      textAlign: 'center',
-                      backgroundImage: name === "Pura Pickleball Sports Club + Kitchen" 
-                        ? "url('/jaco.jpg')" 
-                        : undefined,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      position: 'relative'
-                    }}>
-                      {/* Map iframe wrapped in try-catch wrapper */}
-                      {name === "Pura Pickleball Sports Club + Kitchen" && (
-                        <div style={{ 
-                          position: 'absolute', 
-                          top: 0, 
-                          left: 0, 
-                          width: '100%', 
-                          height: '100%',
-                          zIndex: 1,
-                          opacity: 0.9
-                        }}>
-                          <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.6466599930736!2d-84.62694932396019!3d9.625660679362053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c70060ee762b%3A0xcd4a6763518825bd!2sPura%20Pickleball!5e0!3m2!1sen!2scr!4v1743025859396!5m2!1sen!2scr" 
-                            width="100%" 
-                            height="100%" 
-                            style={{ border: 0 }} 
-                            allowFullScreen="" 
-                            loading="lazy" 
-                            referrerPolicy="no-referrer-when-downgrade"
-                            onError={(e) => {
-                              // Iframe loading failed, hide it
-                              e.target.style.display = 'none';
-                            }}
-                          ></iframe>
-                        </div>
-                      )}
-                      
-                      {/* Location info overlay - always visible as fallback */}
+                    {hasCoordinates && GOOGLE_MAPS_API_KEY ? (
+                      <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
+                        <Map
+                          mapId={`modal-map-${club.id}`}
+                          style={{ width: '100%', height: '100%' }}
+                          defaultCenter={location.coordinates}
+                          defaultZoom={14} // Zoom in a bit more for modal view
+                          gestureHandling={'greedy'}
+                          disableDefaultUI={true}
+                        >
+                          <AdvancedMarker position={location.coordinates} title={name}>
+                            <Pin 
+                              background={'var(--primary-color)'} 
+                              glyphColor={'white'}
+                              borderColor={'var(--secondary-color)'}
+                            />
+                          </AdvancedMarker>
+                        </Map>
+                      </APIProvider>
+                    ) : (
                       <div style={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                        padding: '15px',
-                        borderRadius: '8px',
-                        maxWidth: '90%',
-                        marginBottom: '15px',
-                        zIndex: 2,
-                        alignSelf: 'center'
+                        width: '100%', height: '100%', backgroundColor: '#f0f0f0', 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: '#888', textAlign: 'center', padding: '20px'
                       }}>
-                        <p style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                          {name}
-                        </p>
-                        <p>
-                          {location.city}, {location.province}<br />
-                          {location.address}
-                        </p>
+                        {GOOGLE_MAPS_API_KEY 
+                          ? 'Map coordinates not available for this club.' 
+                          : 'Map requires API key configuration.'}
                       </div>
-                      
+                    )}
+                  </div>
+                  {/* Add Google Maps link as a fallback or supplementary info */} 
+                  {hasCoordinates && (
+                    <div style={{ marginTop: '15px', textAlign: 'center' }}>
                       <a 
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} ${location.city} ${location.province}`)}`}
+                        href={`https://www.google.com/maps/search/?api=1&query=${location.coordinates.lat},${location.coordinates.lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
@@ -470,7 +474,7 @@ const ClubModal = ({ club, onClose }) => {
                         View on Google Maps
                       </a>
                     </div>
-                  </div>
+                  )}
                 </div>
               </motion.div>
             ) : (

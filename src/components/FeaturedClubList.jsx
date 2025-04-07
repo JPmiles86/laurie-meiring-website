@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ClubCard from './ClubCard';
-import ClubModal from './ClubModal';
-import { clubs } from '../data/clubs';
 import { motion } from 'framer-motion';
 
-const FeaturedClubList = ({ filters }) => {
-  const [selectedClub, setSelectedClub] = useState(null);
+const FeaturedClubList = ({ clubs, onClubSelect }) => {
   const [filteredClubs, setFilteredClubs] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   
@@ -18,17 +15,14 @@ const FeaturedClubList = ({ filters }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Just display all clubs without filtering
   useEffect(() => {
-    setFilteredClubs(clubs);
-  }, []);
+    setFilteredClubs(clubs || []);
+  }, [clubs]);
   
   const handleClubSelect = (club) => {
-    setSelectedClub(club);
-  };
-  
-  const handleCloseModal = () => {
-    setSelectedClub(null);
+    if (onClubSelect) {
+      onClubSelect(club);
+    }
   };
   
   return (
@@ -66,13 +60,6 @@ const FeaturedClubList = ({ filters }) => {
             </motion.div>
           ))}
         </div>
-      )}
-      
-      {selectedClub && (
-        <ClubModal 
-          club={selectedClub} 
-          onClose={handleCloseModal} 
-        />
       )}
     </div>
   );

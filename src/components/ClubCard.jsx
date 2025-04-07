@@ -87,7 +87,9 @@ const ClubCard = ({ club, onClick }) => {
               fontWeight: '500',
               cursor: 'pointer',
               width: '100%',
-              marginTop: '10px'
+              marginTop: '10px',
+              fontFamily: 'Montserrat, sans-serif',
+              textTransform: 'none'
             }}
           >
             View Details
