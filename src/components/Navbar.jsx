@@ -64,7 +64,7 @@ function Navbar() {
         {/* Temporarily hidden links */}
         {/* <li><Link to="/clubs" onClick={closeMenu}>CLUBS</Link></li> */}
         {/* <li><Link to="/events" onClick={closeMenu}>EVENTS</Link></li> */}
-        {/* <li><Link to="/find-partner" onClick={closeMenu}>FIND A PARTNER</Link></li> */}
+        <li><Link to="/find-partner" onClick={closeMenu}>FIND A PARTNER</Link></li>
         <li><Link to="/blog" onClick={closeMenu}>BLOG</Link></li>
         <li><Link to="/about" onClick={closeMenu}>ABOUT</Link></li>
         <li><Link to="/contact" onClick={closeMenu} className="contact-button">Contact</Link></li>

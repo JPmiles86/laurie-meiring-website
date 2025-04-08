@@ -363,7 +363,8 @@ WhatsApp: +506 6200 2747`;
                 padding: '12px',
                 borderRadius: '8px',
                 border: errors.name ? '2px solid #c62828' : '2px solid var(--primary-color)',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                boxSizing: 'border-box'
               }}
             />
             {errors.name && (
@@ -396,7 +397,8 @@ WhatsApp: +506 6200 2747`;
                 padding: '12px',
                 borderRadius: '8px',
                 border: errors.email ? '2px solid #c62828' : '2px solid var(--primary-color)',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                boxSizing: 'border-box'
               }}
             />
             {errors.email && (
@@ -429,7 +431,8 @@ WhatsApp: +506 6200 2747`;
                 padding: '12px',
                 borderRadius: '8px',
                 border: '2px solid var(--primary-color)',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                boxSizing: 'border-box'
               }}
               placeholder="WhatsApp preferred"
             />
@@ -474,7 +477,8 @@ WhatsApp: +506 6200 2747`;
                 borderRadius: '8px',
                 border: errors.skillLevel ? '2px solid #c62828' : '2px solid var(--primary-color)',
                 fontSize: '1rem',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                boxSizing: 'border-box'
               }}
             >
               <option value="">Select skill level</option>
@@ -514,7 +518,8 @@ WhatsApp: +506 6200 2747`;
                 borderRadius: '8px',
                 border: errors.yearsPlaying ? '2px solid #c62828' : '2px solid var(--primary-color)',
                 fontSize: '1rem',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                boxSizing: 'border-box'
               }}
             >
               <option value="">Select experience</option>
@@ -553,7 +558,8 @@ WhatsApp: +506 6200 2747`;
                 borderRadius: '8px',
                 border: '2px solid var(--primary-color)',
                 fontSize: '1rem',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                boxSizing: 'border-box'
               }}
             >
               <option value="">No preference</option>
@@ -769,7 +775,8 @@ WhatsApp: +506 6200 2747`;
                 padding: '12px',
                 borderRadius: '8px',
                 border: errors.preferredLocations ? '2px solid #c62828' : '2px solid var(--primary-color)',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                boxSizing: 'border-box'
               }}
             />
             <button 
@@ -869,7 +876,8 @@ WhatsApp: +506 6200 2747`;
               borderRadius: '8px',
               border: '2px solid var(--primary-color)',
               fontSize: '1rem',
-              backgroundColor: 'white'
+              backgroundColor: 'white',
+              boxSizing: 'border-box'
             }}
           >
             <option value="">Select travel distance</option>
@@ -918,7 +926,8 @@ WhatsApp: +506 6200 2747`;
                 borderRadius: '8px',
                 border: '2px solid var(--primary-color)',
                 fontSize: '1rem',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                boxSizing: 'border-box'
               }}
             >
               <option value="">No preference</option>
@@ -953,7 +962,8 @@ WhatsApp: +506 6200 2747`;
                 padding: '12px',
                 borderRadius: '8px',
                 border: '2px solid var(--primary-color)',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                boxSizing: 'border-box'
               }}
             />
           </div>
@@ -981,7 +991,8 @@ WhatsApp: +506 6200 2747`;
                 borderRadius: '8px',
                 border: '2px solid var(--primary-color)',
                 fontSize: '1rem',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                boxSizing: 'border-box'
               }}
             >
               <option value="">No preference</option>
@@ -1014,7 +1025,8 @@ WhatsApp: +506 6200 2747`;
                 padding: '12px',
                 borderRadius: '8px',
                 border: '2px solid var(--primary-color)',
-                fontSize: '1rem'
+                fontSize: '1rem',
+                boxSizing: 'border-box'
               }}
             />
           </div>
@@ -1046,7 +1058,8 @@ WhatsApp: +506 6200 2747`;
             borderRadius: '8px',
             border: '2px solid var(--primary-color)',
             fontSize: '1rem',
-            resize: 'vertical'
+            resize: 'vertical',
+            boxSizing: 'border-box'
           }}
         ></textarea>
       </div>
