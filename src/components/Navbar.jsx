@@ -64,9 +64,12 @@ function Navbar() {
         {/* Temporarily hidden links */}
         {/* <li><Link to="/clubs" onClick={closeMenu}>CLUBS</Link></li> */}
         {/* <li><Link to="/events" onClick={closeMenu}>EVENTS</Link></li> */}
-        <li><Link to="/find-partner" onClick={closeMenu}>FIND A PARTNER</Link></li>
+        {/* Re-commenting Find a Partner */}
+        {/* <li><Link to="/find-partner" onClick={closeMenu}>FIND A PARTNER</Link></li> */}
         <li><Link to="/blog" onClick={closeMenu}>BLOG</Link></li>
         <li><Link to="/about" onClick={closeMenu}>ABOUT</Link></li>
+        {/* Adding Feature Your Club link */}
+        <li><Link to="/feature-your-club" onClick={closeMenu}>FEATURE YOUR CLUB</Link></li>
         <li><Link to="/contact" onClick={closeMenu} className="contact-button">Contact</Link></li>
       </ul>
     </div>
