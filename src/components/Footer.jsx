@@ -75,6 +75,40 @@ function Footer() {
             </form>
           </div>
 
+          {/* Instagram Link Section */}
+          <div style={{
+            marginBottom: '30px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            <a 
+              href="https://www.instagram.com/pickleballguide_cr" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textDecoration: 'none',
+                transition: 'transform 0.2s ease',
+                color: 'var(--text-color)'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <img 
+                src="/Instagram_Glyph_Gradient.png" 
+                alt="Instagram" 
+                width="40" 
+                height="40" 
+                style={{ marginBottom: '8px' }}
+              />
+              <span style={{ fontSize: '1rem', fontWeight: '500' }}>Follow me on Instagram</span>
+            </a>
+          </div>
+
           <div style={{ 
             marginBottom: '20px',
             display: 'flex',
