@@ -25,8 +25,8 @@
 
 ### **Court Details**
 
-* **Indoor Courts:** 0  
-* **Outdoor Courts:** 4  
+* **Indoor Courts:** 4  
+* **Outdoor Courts:** 0  
 * **Lighting Available:** Yes  
 * **Surface Type:** Hardcourt
 
