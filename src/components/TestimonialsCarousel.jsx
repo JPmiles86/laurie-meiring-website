@@ -24,6 +24,20 @@ const testimonials = [
     text: 'Laurie is an awesome guy all round and so passionate about Pickleball, its infectious. His energy and positivity make him an amazing partner to play with and I have improved so much since training with him.',
     rating: 5,
     image: '/ home/JPGold.jpg'
+  },
+  {
+    id: 4,
+    name: 'Lisa DiPaoli',
+    text: 'Working with Laurie transformed my pickleball game! He quickly spotted habits to tweak and gave me the confidence to level up. Patient, encouraging, and full of great tips!',
+    rating: 5,
+    image: '/testimonials/LisaLaurie1.jpg'
+  },
+  {
+    id: 5,
+    name: 'Lisle Head',
+    text: 'Laurie is a total game-changer! In just three lessons, his clear and focused coaching—plus the use of video feedback—has helped me break bad habits, understand my game better, and level up faster than I ever expected.',
+    rating: 5,
+    image: '/testimonials/LisleLaurie1.jpg'
   }
 ];
 
@@ -102,7 +116,7 @@ function TestimonialsCarousel() {
       margin: '0 auto',
       padding: '20px 0 60px',
       overflow: 'visible',
-      minHeight: isMobile ? '450px' : '400px',
+      minHeight: isMobile ? '500px' : '450px',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -153,19 +167,19 @@ function TestimonialsCarousel() {
               boxSizing: 'border-box'
             }}>
               <div style={{
-                width: isMobile ? '100px' : '120px',
-                height: isMobile ? '100px' : '120px',
-                margin: '0 auto 20px',
+                width: isMobile ? '150px' : '250px',
+                height: isMobile ? '150px' : '250px',
+                margin: '0 auto 25px',
                 borderRadius: '50%',
                 overflow: 'hidden',
-                border: '3px solid var(--primary-color)',
-                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)'
+                border: '4px solid var(--primary-color)',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
               }}>
                 <OptimizedImage
                   src={testimonials[testimonialIndex].image}
                   alt={testimonials[testimonialIndex].name}
-                  width={120}
-                  height={120}
+                  width={250}
+                  height={250}
                   style={{
                     width: '100%',
                     height: '100%',
