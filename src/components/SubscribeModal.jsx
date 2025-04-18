@@ -61,26 +61,59 @@ function SubscribeModal({ isOpen, onClose }) {
 
             <div style={{ 
               width: '100%',
-              height: '320px',
-              position: 'relative'
+              textAlign: 'center'
             }}>
-              <iframe 
-                src="https://embeds.beehiiv.com/d7455a7d-5406-4269-baa1-a7ea2fcd88e1" 
-                data-test-id="beehiiv-embed" 
-                width="100%" 
-                height="320" 
-                frameBorder="0" 
-                scrolling="no" 
-                style={{
-                  borderRadius: '4px',
-                  border: '2px solid #e5e7eb',
-                  margin: 0,
-                  backgroundColor: 'transparent',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0
-                }}
-              />
+              <h2 style={{ 
+                color: 'var(--primary-color)',
+                marginTop: '0',
+                marginBottom: '15px',
+                fontSize: '1.8rem' 
+              }}>
+                Subscribe to Our Newsletter
+              </h2>
+              <p style={{ 
+                marginBottom: '20px',
+                fontSize: '1rem',
+                lineHeight: '1.5'
+              }}>
+                Stay up to date with the latest pickleball news, events, and tips in Costa Rica!
+              </p>
+              <form
+                action="https://formspree.io/f/mjnqlnyz"
+                method="POST"
+                style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}
+              >
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your email address"
+                  required
+                  style={{
+                    padding: '12px 15px',
+                    borderRadius: '6px',
+                    border: '1px solid #ddd',
+                    fontSize: '1rem',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                />
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: 'var(--primary-color)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '30px',
+                    padding: '12px 20px',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  Subscribe
+                </button>
+              </form>
             </div>
           </motion.div>
         </motion.div>
