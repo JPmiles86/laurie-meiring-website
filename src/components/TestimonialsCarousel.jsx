@@ -23,7 +23,7 @@ const testimonials = [
     name: 'JP Miles',
     text: 'Laurie is an awesome guy all round and so passionate about Pickleball, its infectious. His energy and positivity make him an amazing partner to play with and I have improved so much since training with him.',
     rating: 5,
-    image: '/ home/JPGold.jpg'
+    image: '/testimonials/JPLaurie.jpg'
   },
   {
     id: 4,
