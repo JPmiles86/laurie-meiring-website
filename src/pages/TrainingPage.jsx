@@ -750,7 +750,7 @@ function TrainingPage() {
                 },
                 {
                   question: "Is equipment provided for training sessions?",
-                  answer: "Yes, we provide high-quality paddles and balls for all training sessions. However, if you prefer to use your own equipment, you're welcome to bring it."
+                  answer: "Please bring your own paddle to training sessions. Balls are available and we have quality paddles available to rent if needed."
                 },
                 {
                   question: "What should I wear to training sessions?",
@@ -766,7 +766,7 @@ function TrainingPage() {
                 },
                 {
                   question: "How do I track my progress?",
-                  answer: "For clients booking multiple sessions, we provide progress tracking and personalized feedback. We can also record video analysis of your play to help identify areas for improvement."
+                  answer: "Video recording is included with your session. You will receive a YouTube link to review your recorded session. DUPR (Dynamic Universal Pickleball Rating) is our best measure of progress."
                 }
               ].map((faq, index) => (
                 <FaqItem key={index} faq={faq} index={index} />
