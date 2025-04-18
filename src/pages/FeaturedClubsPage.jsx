@@ -116,7 +116,7 @@ const FeaturedClubsPage = () => {
              <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--primary-color)' }}>Club Locations Map</h3>
              <ClubMap
                clubs={filteredMapClubs}
-               apiKey={VITE_GOOGLE_MAPS_API_KEY}
+               apiKey={GOOGLE_MAPS_API_KEY}
                isMobile={isMobile}
                onMarkerClick={handleClubSelect}
              />
