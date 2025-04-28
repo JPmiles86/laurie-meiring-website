@@ -116,7 +116,7 @@ function TestimonialsCarousel() {
       margin: '0 auto',
       padding: '20px 0 60px',
       overflow: 'visible',
-      minHeight: isMobile ? '500px' : '450px',
+      minHeight: isMobile ? '550px' : '500px',
       display: 'flex',
       flexDirection: 'column'
     }}>
@@ -159,7 +159,7 @@ function TestimonialsCarousel() {
             <div style={{
               backgroundColor: 'var(--neutral-color)',
               borderRadius: '15px',
-              padding: isMobile ? '30px 35px' : '40px 40px',
+              padding: isMobile ? '30px 35px 40px' : '40px 40px 50px',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               position: 'relative',
               margin: '0 auto',

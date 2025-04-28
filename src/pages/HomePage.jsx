@@ -379,7 +379,7 @@ function HomePage() {
           <GradientDivider />
 
           <section className="testimonials-section" style={{
-            padding: isMobile ? '60px 0' : '100px 0',
+            padding: isMobile ? '60px 0 80px' : '100px 0 120px',
             backgroundColor: 'var(--neutral-color)', 
             position: 'relative',
             overflow: 'visible',
@@ -416,7 +416,7 @@ function HomePage() {
               margin: '0 auto',
               padding: '0 20px',
               position: 'relative', 
-              marginBottom: '60px'
+              marginBottom: '80px'
             }}>
               <TestimonialsCarousel />
             </div>
