@@ -408,7 +408,7 @@ function HomePage() {
                 opacity: 0.8,
                 lineHeight: 1.6
               }}>
-                Real experiences from players who've transformed their game and enjoyed the pickleball paradise of Costa Rica
+                Real experiences from players who've transformed their game and enjoyed the pickleball paradise of Costa Rica.
               </p>
             </motion.div>
             <div style={{ 

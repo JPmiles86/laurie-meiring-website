@@ -23,23 +23,31 @@ function BlogPost({ isMobile }) {
     h2: ({node, ...props}) => <h2 style={{ fontSize: '1.6rem', marginBottom: '1rem', marginTop: '2rem' }} {...props} />,
     h3: ({node, ...props}) => <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', marginTop: '1.5rem' }} {...props} />,
     h4: ({node, ...props}) => <h4 style={{ fontSize: '1.2rem', marginBottom: '1rem', marginTop: '1.5rem' }} {...props} />,
-    img: ({node, ...props}) => (
-      <div style={{ 
-        width: '80%', 
-        margin: '2rem auto', 
-        textAlign: 'center'
-      }}>
-        <img 
-          {...props} 
-          style={{ 
-            maxWidth: '100%', 
-            height: 'auto',
-            borderRadius: '8px',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
-          }} 
-        />
-      </div>
-    )
+    img: ({node, ...props}) => {
+      // Check if this is a portrait image from blog5 (or other portrait images we know of)
+      const isPortraitImage = props.src && (
+        props.src.includes('/blog5/') || // New blog images
+        props.src.includes('/blog3/LaurieCoachingHero1.jpg') // Other known portrait images
+      );
+      
+      return (
+        <div style={{ 
+          width: isPortraitImage ? (isMobile ? '70%' : '50%') : '80%', 
+          margin: '2rem auto', 
+          textAlign: 'center'
+        }}>
+          <img 
+            {...props} 
+            style={{ 
+              maxWidth: '100%', 
+              height: 'auto',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+            }} 
+          />
+        </div>
+      );
+    }
   };
 
   // Determine which CTA to show based on the blog post
