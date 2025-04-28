@@ -4,6 +4,9 @@ import { IMAGES } from '../constants/images';
 import GradientDivider from './GradientDivider';
 
 function Footer() {
+  // The iframe HTML code
+  const iframeHTML = `<iframe src="https://embeds.beehiiv.com/d7455a7d-5406-4269-baa1-a7ea2fcd88e1" data-test-id="beehiiv-embed" width="100%" height="320" frameborder="0" scrolling="no" style="border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;"></iframe>`;
+  
   return (
     <>
       <GradientDivider />
@@ -37,42 +40,9 @@ function Footer() {
             <p style={{ marginBottom: '20px', fontSize: '1rem' }}>
               Get the latest pickleball news, events, and tips in Costa Rica!
             </p>
-            <form
-              action="https://formspree.io/f/mjnqlnyz"
-              method="POST"
-              style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}
-            >
-              <input
-                type="email"
-                name="email"
-                placeholder="Your email address"
-                required
-                style={{
-                  padding: '12px 15px',
-                  borderRadius: '6px',
-                  border: '1px solid #ddd',
-                  fontSize: '1rem',
-                  width: '100%',
-                  boxSizing: 'border-box'
-                }}
-              />
-              <button
-                type="submit"
-                style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '30px',
-                  padding: '12px 20px',
-                  fontSize: '1rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                Subscribe
-              </button>
-            </form>
+            <div 
+              dangerouslySetInnerHTML={{ __html: iframeHTML }}
+            />
           </div>
 
           {/* Instagram Link Section */}

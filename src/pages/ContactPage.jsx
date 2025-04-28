@@ -100,15 +100,16 @@ WhatsApp: +506 6200 2747`
       });
       
       if (response.ok) {
-        // If user opted for newsletter and form submission was successful
-        if (e.target.newsletter.checked) {
-          // Here you would typically integrate with your newsletter service (e.g., Beehiiv)
-          // For now, we'll just include it in the form submission
-          console.log('User opted in for newsletter:', e.target.email.value);
-        }
-        
+        // If user opted for newsletter, open the subscribe modal after the form is submitted
         setSubmitted(true);
         e.target.reset();
+        
+        if (e.target.newsletter.checked) {
+          // Open the subscribe modal if newsletter checkbox was checked
+          setTimeout(() => {
+            setIsSubscribeModalOpen(true);
+          }, 1000);
+        }
       } else {
         alert("There was an error submitting the form. Please try again.");
       }
