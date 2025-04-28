@@ -26,7 +26,7 @@ const BasicClubListItem = ({ club, isMobile, onClubSelect }) => {
           style={{ color: 'var(--primary-color)', textDecoration: 'underline', display: 'block' }}
           onClick={(e) => e.stopPropagation()}
         >
-          {contactInfo.website}
+          Website
         </a>
       );
     }
@@ -67,15 +67,18 @@ const BasicClubListItem = ({ club, isMobile, onClubSelect }) => {
           style={{ color: 'var(--primary-color)', textDecoration: 'underline', display: 'block' }}
           onClick={(e) => e.stopPropagation()}
         >
-          {contactInfo.instagram} (Instagram)
+          Instagram
         </a>
       );
     }
     if (contactInfo?.phone) {
       contacts.push(
-        <span key="phone" style={{ display: 'block' }}>{contactInfo.phone}</span>
-        // Or make it a tel: link:
-        // <a key="phone" href={`tel:${contactInfo.phone}`} style={{ color: 'var(--primary-color)', textDecoration: 'underline', display: 'block' }} onClick={(e) => e.stopPropagation()}>{contactInfo.phone}</a>
+        <span 
+          key="phone" 
+          style={{ color: 'var(--text-color)', display: 'block' }} 
+        >
+          {contactInfo.phone}
+        </span>
       );
     }
 

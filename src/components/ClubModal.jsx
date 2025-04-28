@@ -336,9 +336,9 @@ const ClubModal = ({ club, onClose }) => {
                       {contactInfo.phone && (
                         <li style={{ marginBottom: '10px' }}>
                           <strong>Phone:</strong>{' '}
-                          <a href={`tel:${contactInfo.phone}`} style={{ color: 'var(--secondary-color)', textDecoration: 'none' }}>
+                          <span style={{ color: 'var(--text-color)' }}>
                             {contactInfo.phone}
-                          </a>
+                          </span>
                         </li>
                       )}
                       {contactInfo.email && typeof contactInfo.email === 'string' && (

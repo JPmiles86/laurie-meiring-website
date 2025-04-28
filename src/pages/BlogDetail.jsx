@@ -42,7 +42,9 @@ function BlogPost({ isMobile }) {
               maxWidth: '100%', 
               height: 'auto',
               borderRadius: '8px',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+              objectFit: 'cover',
+              objectPosition: 'top center'
             }} 
           />
         </div>
