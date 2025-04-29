@@ -4,8 +4,10 @@ import { IMAGES } from '../constants/images';
 import GradientDivider from './GradientDivider';
 
 function Footer() {
-  // The iframe HTML code
-  const iframeHTML = `<iframe src="https://embeds.beehiiv.com/d7455a7d-5406-4269-baa1-a7ea2fcd88e1" data-test-id="beehiiv-embed" width="100%" height="320" frameborder="0" scrolling="no" style="border-radius: 4px; border: 2px solid #e5e7eb; margin: 0; background-color: transparent;"></iframe>`;
+  // Function to open Beehiiv in a new tab
+  const openBeehiivSubscribe = () => {
+    window.open('https://embeds.beehiiv.com/d7455a7d-5406-4269-baa1-a7ea2fcd88e1', '_blank');
+  };
   
   return (
     <>
@@ -40,9 +42,44 @@ function Footer() {
             <p style={{ marginBottom: '20px', fontSize: '1rem' }}>
               Get the latest pickleball news, events, and tips in Costa Rica!
             </p>
-            <div 
-              dangerouslySetInnerHTML={{ __html: iframeHTML }}
-            />
+            <button
+              onClick={openBeehiivSubscribe}
+              style={{
+                backgroundColor: 'var(--primary-color)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '30px',
+                padding: '12px 20px',
+                fontSize: '1rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                width: 'auto'
+              }}
+            >
+              Subscribe Now
+            </button>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              marginTop: '15px' 
+            }}>
+              <span style={{ 
+                fontSize: '0.8rem',
+                color: '#777'
+              }}>
+                Powered by 
+              </span>
+              <img 
+                src="/beehiiv-logo.png" 
+                alt="Powered by Beehiiv" 
+                style={{ 
+                  height: '18px',
+                  marginRight: '5px', marginLeft: '5px'
+                }} 
+              />
+            </div>
           </div>
 
           {/* Instagram Link Section */}
