@@ -25,7 +25,7 @@ function TrainingPage() {
   const pricingPlans = [
     {
       title: 'Single Session',
-      price: '$30',
+      price: '$40',
       duration: 'per Hour',
       description: 'Personalized one-on-one coaching designed to match your skill level and goals.',
       features: [
@@ -39,8 +39,8 @@ function TrainingPage() {
     },
     {
       title: 'Bundle Package',
-      price: '$250',
-      duration: 'for 10 Sessions (Save $50)',
+      price: '$300',
+      duration: 'for 10 Sessions (Save $100)',
       description: 'Perfect for committed players looking to see real progress over time.',
       features: [
         'All Single Session Features',
@@ -53,7 +53,7 @@ function TrainingPage() {
     },
     {
       title: 'Group Training',
-      price: '$20',
+      price: '$25',
       duration: 'per Person/Hour (2-4 players)',
       description: 'Train with friends or family and enjoy the benefits of group coaching.',
       features: [
@@ -72,7 +72,7 @@ function TrainingPage() {
     'Tournament Experience & Gold Medallist',
     'Coaching for All Skill Levels',
     'Private & Group Lessons Available',
-    'Train in Stunning Costa Rica Locations Including Jaco & Ojochal'
+    'Train in Stunning Costa Rica Locations Including Ojochal & Surrounds'
   ];
 
   return (
@@ -177,7 +177,7 @@ function TrainingPage() {
                     marginBottom: '15px' 
                   }}
                 >
-                  Professional Coaching in Jaco or Ojochal
+                  Professional Coaching in Ojochal or Surrounds
                 </motion.h3>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
@@ -356,7 +356,7 @@ function TrainingPage() {
                       ))}
                     </ul>
                     <div style={{ marginTop: 'auto' }}>
-                      <Link to="/contact" className="button" style={{
+                      <a href="https://calendly.com/laurie-pickleball/60min" className="button" style={{
                         display: 'block',
                         textAlign: 'center',
                         backgroundColor: 'var(--primary-color)',
@@ -369,7 +369,7 @@ function TrainingPage() {
                         transition: 'all 0.3s ease'
                       }}>
                         Book Now
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </motion.div>
@@ -434,7 +434,7 @@ function TrainingPage() {
                   marginBottom: '25px',
                   color: 'var(--neutral-color)'
                 }}>
-                  As a 4.2 DUPR player, PCI Certified Coach, and multi-time tournament winner, I bring both experience and passion to helping players elevate their game. My proven coaching approach makes learning fun and effective—whether you're a beginner or an advanced player.
+                  As a 4.3 DUPR player, PCI Certified Coach, and multi-time tournament winner, I bring both experience and passion to helping players elevate their game. My proven coaching approach makes learning fun and effective—whether you're a beginner or an advanced player.
                 </p>
                 
                 <ul style={{ 
@@ -563,7 +563,7 @@ function TrainingPage() {
                   transition={{ duration: 0.6 }}
                   style={{ textAlign: isMobile ? 'center' : 'left' }}
                 >
-                  <Link to="/contact" className="button" style={{
+                  <a href="https://calendly.com/laurie-pickleball/60min" className="button" style={{
                     backgroundColor: 'var(--primary-color)',
                     color: 'var(--neutral-color)',
                     display: 'inline-block',
@@ -572,7 +572,7 @@ function TrainingPage() {
                     borderRadius: '30px',
                     textDecoration: 'none',
                     transition: 'all 0.3s ease'
-                  }}>Schedule your Session</Link>
+                  }}>Schedule your Session</a>
                 </motion.div>
               </motion.div>
               
@@ -762,7 +762,7 @@ function TrainingPage() {
                 },
                 {
                   question: "Do you offer group discounts?",
-                  answer: "Yes! Our group training option is already discounted at $20 per person per hour for groups of 2-4 players. For larger groups, please contact us for special rates."
+                  answer: "Yes! Our group training option is already discounted at $25 per person per hour for groups of 2-4 players. For larger groups, please contact us for special rates."
                 },
                 {
                   question: "How do I track my progress?",

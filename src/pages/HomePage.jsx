@@ -6,6 +6,7 @@ import PageTransition from '../components/PageTransition';
 import OptimizedImage from '../components/OptimizedImage';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import VideoBackground from '../components/VideoBackground';
+import CalendlyButton from '../components/CalendlyButton';
 import { IMAGES } from '../constants/images';
 import { getVisiblePosts } from '../utils/blogUtils';
 import GradientDivider from '../components/GradientDivider';
@@ -108,10 +109,8 @@ function HomePage() {
               maxWidth: isMobile ? '90%' : '100%',
               margin: '0 auto'
             }}>
-              <Link 
-                to="/contact" 
-                className="button"
-                style={{
+              <CalendlyButton 
+                buttonStyle={{
                   backgroundColor: 'var(--primary-color)',
                   color: 'var(--neutral-color)',
                   padding: isMobile ? '12px 24px' : '18px 36px',
@@ -123,11 +122,13 @@ function HomePage() {
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
                   position: 'relative',
                   overflow: 'hidden',
-                  maxWidth: '90%'
+                  maxWidth: '90%',
+                  border: 'none',
+                  cursor: 'pointer'
                 }}
               >
                 Schedule a Lesson
-              </Link>
+              </CalendlyButton>
               <Link 
                 to="/tours" 
                 className="button"
@@ -289,7 +290,7 @@ function HomePage() {
                 }}>
                   <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Championship Pickleball Training</h3>
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                    Learn from a Tournament Champion in Jaco Beach or in the Jungle of Ojochal. Whether you are a beginner or a competitive player, elevate your game with personalized coaching and strategy development. Coaching available for individuals or in teams of 2 or more.
+                  Learn from a Tournament Champion in the Jungle of Ojochal and Surrounds. Whether you are a beginner or a competitive player, elevate your game with personalized coaching and strategy development. Coaching available for individuals or in teams of 2 or more.
                   </p>
                   <div style={{ textAlign: 'center' }}>
                     <Link to="/training" className="button" style={{
@@ -476,20 +477,24 @@ function HomePage() {
               maxWidth: isMobile ? '250px' : '100%',
               margin: '0 auto'
             }}>
-              <Link to="/training" className="button" style={{
-                backgroundColor: 'var(--neutral-color)',
-                color: 'var(--primary-color)',
-                display: 'inline-block',
-                padding: isMobile ? '12px 24px' : '15px 30px',
-                fontSize: isMobile ? '1.1rem' : '1.2rem',
-                textDecoration: 'none',
-                borderRadius: '30px',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.3s ease',
-                width: 'auto'
-              }}>
+              <CalendlyButton
+                buttonStyle={{
+                  backgroundColor: 'var(--neutral-color)',
+                  color: 'var(--primary-color)',
+                  display: 'inline-block',
+                  padding: isMobile ? '12px 24px' : '15px 30px',
+                  fontSize: isMobile ? '1.1rem' : '1.2rem',
+                  textDecoration: 'none',
+                  borderRadius: '30px',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                  transition: 'all 0.3s ease',
+                  width: 'auto',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
+              >
                 Start Your Journey
-              </Link>
+              </CalendlyButton>
               <Link to="/contact" className="button" style={{
                 backgroundColor: 'var(--primary-color)',
                 color: 'var(--neutral-color)',
@@ -740,7 +745,7 @@ function HomePage() {
                 }}
               >
                 Laurie is a tournament champion and certified pickleball coach with a passion for the game. 
-                Based in Jaco, Costa Rica, he offers personalized training and guided pickleball experiences 
+                Based in Ojochal, Costa Rica, he offers personalized training and guided pickleball experiences 
                 that will transform your game and create unforgettable memories.
               </motion.p>
               <motion.div
@@ -749,17 +754,23 @@ function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <Link to="/training" className="button" style={{
-                  backgroundColor: 'var(--primary-color)',
-                  color: 'var(--neutral-color)',
-                  display: 'inline-block',
-                  padding: '15px 30px',
-                  fontSize: '1.2rem',
-                  borderRadius: '30px',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease',
-                  marginBottom: '8px'
-                }}>Training Options</Link>
+                <CalendlyButton
+                  buttonStyle={{
+                    backgroundColor: 'var(--primary-color)',
+                    color: 'var(--neutral-color)',
+                    display: 'inline-block',
+                    padding: '15px 30px',
+                    fontSize: '1.2rem',
+                    borderRadius: '30px',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s ease',
+                    marginBottom: '8px',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Training Options
+                </CalendlyButton>
               </motion.div>
             </div>
           </div>
@@ -807,22 +818,26 @@ function HomePage() {
             }}>
               Join us for world-class pickleball training and tours in the beautiful setting of Costa Rica
             </p>
-            <Link to="/training" className="button" style={{
-              backgroundColor: 'var(--neutral-color)',
-              color: 'var(--primary-color)',
-              padding: '15px 30px',
-              borderRadius: '30px',
-              fontSize: '1.2rem',
-              textDecoration: 'none',
-              display: 'block',
-              fontWeight: 'bold',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'all 0.3s ease',
-              width: '175px',
-              margin: '0 auto'
-            }}>
+            <CalendlyButton 
+              buttonStyle={{
+                backgroundColor: 'var(--neutral-color)',
+                color: 'var(--primary-color)',
+                padding: '15px 30px',
+                borderRadius: '30px',
+                fontSize: '1.2rem',
+                textDecoration: 'none',
+                display: 'block',
+                fontWeight: 'bold',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease',
+                width: '175px',
+                margin: '0 auto',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
               Start Your Journey
-            </Link>
+            </CalendlyButton>
           </motion.div>
         </VideoBackground>
 

@@ -6,34 +6,41 @@ import OptimizedImage from './OptimizedImage';
 const testimonials = [
   {
     id: 1,
+    name: 'Rome Petricca',
+    text: 'Laurie is the Best Coach! Skilled, enthusiastic and supportive AND an all-round cool guy 😎',
+    rating: 5,
+    image: '/RomeLaurieMedal.jpg'
+  },
+  {
+    id: 2,
     name: 'Tara Miller',
     text: 'If you want to level up your pickleball game quickly, Laurie is the man! He is a excellent coach who gives you diversity in training, he challenges you to go to the next level while still being very encouraging.',
     rating: 5,
     image: '/ home/TaraGold.jpg'
   },
   {
-    id: 2,
+    id: 3,
     name: 'Liam Miller',
     text: 'Since training with Laurie, I have gotten so much better, fast. In the Last Tournament I played I won Two Golds Medals',
     rating: 5,
     image: '/ home/LiamGold.jpg'
   },
   {
-    id: 3,
+    id: 4,
     name: 'JP Miles',
     text: 'Laurie is an awesome guy all round and so passionate about Pickleball, its infectious. His energy and positivity make him an amazing partner to play with and I have improved so much since training with him.',
     rating: 5,
     image: '/testimonials/JPLaurie.jpg'
   },
   {
-    id: 4,
+    id: 5,
     name: 'Lisa DiPaoli',
     text: 'Working with Laurie transformed my pickleball game! He quickly spotted habits to tweak and gave me the confidence to level up. Patient, encouraging, and full of great tips!',
     rating: 5,
     image: '/testimonials/LisaLaurie1.jpg'
   },
   {
-    id: 5,
+    id: 6,
     name: 'Lisle Head',
     text: 'Laurie is a total game-changer! In just three lessons, his clear and focused coaching—plus the use of video feedback—has helped me break bad habits, understand my game better, and level up faster than I ever expected.',
     rating: 5,

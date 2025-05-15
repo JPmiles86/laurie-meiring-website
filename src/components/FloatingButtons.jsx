@@ -21,6 +21,10 @@ function FloatingButtons() {
     });
   };
 
+  const openCalendly = () => {
+    window.open('https://calendly.com/laurie-pickleball/60min', '_blank');
+  };
+
   return (
     <div className="floating-buttons" style={{
       position: 'fixed',
@@ -31,6 +35,50 @@ function FloatingButtons() {
       gap: '10px',
       zIndex: 1000
     }}>
+      <button
+        onClick={openCalendly}
+        className="floating-schedule"
+        style={{
+          backgroundColor: '#0069ff',
+          color: '#ffffff',
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          border: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
+          transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+          cursor: 'pointer'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.1)';
+          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+        }}
+        title="Schedule time with me"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+      </button>
+      
       <Link
         to="/contact"
         className="floating-contact"
@@ -117,4 +165,4 @@ function FloatingButtons() {
   );
 }
 
-export default FloatingButtons; 
+export default FloatingButtons;

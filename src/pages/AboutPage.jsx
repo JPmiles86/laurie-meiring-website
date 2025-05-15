@@ -23,7 +23,7 @@ function AboutPage() {
       icon: <i className="fas fa-certificate"></i>
     },
     {
-      title: "4.2 DUPR Rated Player",
+      title: "4.3 DUPR Rated Player",
       icon: <i className="fas fa-chart-line"></i>
     },
     {
@@ -167,7 +167,7 @@ function AboutPage() {
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
-                Based in the vibrant coastal town of Jaco, Costa Rica, I've dedicated myself to the sport of pickleball, competing in tournaments and helping players of all levels improve their game. My passion for pickleball has taken me from recreational play to competitive tournaments and professional coaching.
+                Based in Ojochal, Costa Rica, I've dedicated myself to the sport of pickleball, competing in tournaments and helping players of all levels improve their game. My passion for pickleball has taken me from recreational play to competitive tournaments and professional coaching.
               </p>
               <p style={{ 
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
@@ -175,7 +175,7 @@ function AboutPage() {
                 color: 'var(--text-color)',
                 marginBottom: isMobile ? '20px' : '25px'
               }}>
-                As a PCI-certified coach with a 4.2 DUPR rating, I bring technical expertise and strategic insight to every coaching session. Whether you're a beginner looking to learn the basics or an advanced player aiming to refine your strategy, my personalized approach will help you reach your goals.
+                As a PCI-certified coach with a 4.3 DUPR rating, I bring technical expertise and strategic insight to every coaching session. Whether you're a beginner looking to learn the basics or an advanced player aiming to refine your strategy, my personalized approach will help you reach your goals.
               </p>
               <p style={{ 
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
