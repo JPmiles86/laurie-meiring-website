@@ -209,7 +209,7 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src="/ about/MeliLaurie1.jpg"
+                src="/LaurieShauna.jpg"
                 alt="Laurie with Pickleball Medals"
                 className="medal-image"
                 width={isMobile ? 350 : 400}
@@ -435,7 +435,7 @@ function AboutPage() {
                   marginBottom: isMobile ? '8px' : '10px'
                 }}>Beach Courts</h3>
                 <p style={{ fontSize: isMobile ? '1rem' : '1.1rem' }}>
-                  Play with ocean breezes and stunning views at our beachside courts.
+                  Play with ocean breezes & stunning views at our beachside courts.
                 </p>
               </motion.div>
               <motion.div
