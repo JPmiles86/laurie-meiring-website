@@ -157,8 +157,8 @@ export const clubs = [
     }
   },
   {
-    id: "solis-pcibleball",
-    name: "Solis Pickelball",
+    id: "solis-pickleball",
+    name: "Solis Pickleball",
     listingType: 'basic',
     location: { 
       city: "Quesada, San Carlos", 
@@ -169,6 +169,26 @@ export const clubs = [
     contactInfo: { 
       phone: "+506 8780-4855",
       instagram: "https://www.instagram.com/solis_pickleball"
+    },
+    courtDetails: {
+      indoorCourts: 0,
+      outdoorCourts: 0,
+      surfaceType: ""
+    }
+  },
+  {
+    id: "ojochal-racquet-club",
+    name: "Ojochal Racquet Club",
+    listingType: 'basic',
+    location: { 
+      city: "Ojochal", 
+      province: "Puntarenas", 
+      coordinates: { lat: 9.074841890988374, lng: -83.6571309242663 },
+      googleMapsEmbed: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.87839273316!2d-83.6571309242663!3d9.074841890988374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa3ffbcc603a87d%3A0xdad8c7801a8edb49!2sOjochal%20Racquet%20Club!5e0!3m2!1sen!2scr!4v1748438661166!5m2!1sen!2scr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+    },
+    contactInfo: { 
+      phone: "+506 8608-5333",
+      website: "https://racquetclubcr.com/"
     },
     courtDetails: {
       indoorCourts: 0,

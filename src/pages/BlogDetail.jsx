@@ -27,6 +27,7 @@ function BlogPost({ isMobile }) {
       // Check if this is a portrait image from blog5 (or other portrait images we know of)
       const isPortraitImage = props.src && (
         props.src.includes('/blog5/') || // New blog images
+        props.src.includes('/blog7/ShaunaLaurie3.jpg') || // Blog 7 portrait image
         props.src.includes('/blog3/LaurieCoachingHero1.jpg') // Other known portrait images
       );
       

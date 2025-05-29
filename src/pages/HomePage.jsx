@@ -361,7 +361,7 @@ function HomePage() {
                   borderRadius: '12px'
                 }}>
                   <img 
-                    src="/tours/PickleballAdventure1.jpg" 
+                    src="/blog7/JumpingGroup3.jpg" 
                     alt="Pickleball Tours"
                     style={{
                       width: '100%',
