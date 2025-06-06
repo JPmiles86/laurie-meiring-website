@@ -28,7 +28,8 @@ function BlogPost({ isMobile }) {
       const isPortraitImage = props.src && (
         props.src.includes('/blog5/') || // New blog images
         props.src.includes('/blog7/ShaunaLaurie3.jpg') || // Blog 7 portrait image
-        props.src.includes('/blog3/LaurieCoachingHero1.jpg') // Other known portrait images
+        props.src.includes('/blog3/LaurieCoachingHero1.jpg') || // Other known portrait images
+        props.src.includes('/blog8/LauriePiOldTourney.jpg') // Blog 8 portrait image
       );
       
       return (
