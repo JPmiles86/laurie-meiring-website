@@ -29,7 +29,8 @@ function BlogPost({ isMobile }) {
         props.src.includes('/blog5/') || // New blog images
         props.src.includes('/blog7/ShaunaLaurie3.jpg') || // Blog 7 portrait image
         props.src.includes('/blog3/LaurieCoachingHero1.jpg') || // Other known portrait images
-        props.src.includes('/blog8/LauriePiOldTourney.jpg') // Blog 8 portrait image
+        props.src.includes('/blog8/LauriePiOldTourney.jpg') || // Blog 8 portrait image
+        props.src.includes('/blog9/KenLaurie.jpg') // Blog 9 portrait image
       );
       
       return (
@@ -51,6 +52,61 @@ function BlogPost({ isMobile }) {
           />
         </div>
       );
+    },
+    p: ({node, children, ...props}) => {
+      // Check if the paragraph contains our YouTube marker
+      if (children && Array.isArray(children)) {
+        for (let i = 0; i < children.length; i++) {
+          if (typeof children[i] === 'string') {
+            const youtubeMatch = children[i].match(/\[youtube:([^\]]+)\]/);
+            if (youtubeMatch) {
+              const videoId = youtubeMatch[1];
+              // Replace the text with the YouTube embed
+              const beforeText = children[i].substring(0, youtubeMatch.index);
+              const afterText = children[i].substring(youtubeMatch.index + youtubeMatch[0].length);
+              
+              return (
+                <>
+                  {beforeText && <p>{beforeText}</p>}
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.25%', // 16:9 aspect ratio
+                    height: 0,
+                    margin: '2rem auto',
+                    width: isMobile ? '100%' : '80%',
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                  }}>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}`}
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        border: 'none'
+                      }}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title="YouTube video player"
+                    />
+                  </div>
+                  {afterText && <p>{afterText}</p>}
+                </>
+              );
+            }
+          }
+        }
+      }
+      
+      // Check if the paragraph contains HTML (from our YouTube embed)
+      if (children && typeof children === 'string' && children.includes('youtube-embed-wrapper')) {
+        return <div dangerouslySetInnerHTML={{ __html: children }} />;
+      }
+      
+      return <p {...props}>{children}</p>;
     }
   };
 

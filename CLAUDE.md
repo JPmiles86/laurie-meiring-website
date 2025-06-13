@@ -5,6 +5,10 @@
 - `npm run build` - Build production version
 - `npm run preview` - Preview production build
 
+## Environment Setup
+- Create `.env` file with GitHub token for blog admin functionality
+- See `GITHUB_SETUP_GUIDE.md` for detailed instructions
+
 ## Style Guidelines
 - **Imports**: Group imports by React, external libs, internal components, constants
 - **Components**: Use JSX with functional components and named exports

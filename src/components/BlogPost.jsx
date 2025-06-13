@@ -17,6 +17,25 @@ function BlogPost({ isMobile }) {
 
   if (!post) return null;
 
+  // Process content to handle custom image syntax
+  const processedContent = post.content.replace(
+    /!\[([^\]]*)\]\(([^)]+)\)(?:\{([^}]+)\})?/g,
+    (match, alt, src, attrs) => {
+      if (!attrs) return match; // Return unchanged if no attributes
+      
+      let size = 'large';
+      let align = 'center';
+      
+      const sizeMatch = attrs.match(/size=([^\s]+)/);
+      const alignMatch = attrs.match(/align=([^\s]+)/);
+      if (sizeMatch) size = sizeMatch[1];
+      if (alignMatch) align = alignMatch[1];
+      
+      // Convert to HTML-like syntax that ReactMarkdown can process
+      return `<customimg src="${src}" alt="${alt}" size="${size}" align="${align}" />`;
+    }
+  );
+
   // Custom components for ReactMarkdown
   const components = {
     h1: ({node, ...props}) => <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }} {...props} />,
@@ -39,7 +58,48 @@ function BlogPost({ isMobile }) {
           }} 
         />
       </div>
-    )
+    ),
+    customimg: ({src, alt, size = 'large', align = 'center'}) => {
+      const sizeStyles = {
+        small: { maxWidth: '50%' },
+        medium: { maxWidth: '75%' },
+        large: { maxWidth: '100%' }
+      };
+      
+      const alignStyles = {
+        left: { 
+          float: 'left', 
+          margin: '1rem 1rem 1rem 0',
+          clear: 'left'
+        },
+        center: { 
+          margin: '2rem auto',
+          display: 'block',
+          float: 'none',
+          clear: 'both'
+        },
+        right: { 
+          float: 'right', 
+          margin: '1rem 0 1rem 1rem',
+          clear: 'right'
+        }
+      };
+      
+      return (
+        <img
+          src={src}
+          alt={alt}
+          className={`ql-image-${size} ql-image-align-${align}`}
+          style={{
+            ...sizeStyles[size],
+            ...alignStyles[align],
+            height: 'auto',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+          }}
+        />
+      );
+    }
   };
 
   return (
@@ -77,8 +137,16 @@ function BlogPost({ isMobile }) {
         lineHeight: 1.6,
         color: 'var(--text-color)'
       }}>
-        <ReactMarkdown components={components}>
-          {post.content}
+        <ReactMarkdown 
+          components={components}
+          allowedElements={['h1', 'h2', 'h3', 'h4', 'p', 'strong', 'em', 'ul', 'ol', 'li', 'blockquote', 'a', 'img', 'customimg', 'code', 'pre']}
+          allowElement={(element) => {
+            // Allow customimg elements
+            if (element.tagName === 'customimg') return true;
+            return true;
+          }}
+        >
+          {processedContent}
         </ReactMarkdown>
       </div>
 

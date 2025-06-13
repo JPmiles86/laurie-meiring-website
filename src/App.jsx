@@ -9,12 +9,14 @@ import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetail from './pages/BlogDetail';
 import BlogAdmin from './components/BlogAdmin';
+import AdminPage from './pages/AdminPage';
 import FeaturedClubsPage from './pages/FeaturedClubsPage';
 import EventsCalendarPage from './pages/EventsCalendarPage';
 import PartnerMatchingPage from './pages/PartnerMatchingPage';
 import FeatureClubPage from './pages/FeatureClubPage';
 import ClubInformationPage from './pages/ClubInformationPage';
 import EventSubmissionPage from './pages/EventSubmissionPage';
+import TestStyleBible from './pages/TestStyleBible';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingButtons from './components/FloatingButtons';
@@ -33,12 +35,14 @@ function AnimatedRoutes() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
         <Route path="/admin/blog" element={<BlogAdmin />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="/clubs" element={<FeaturedClubsPage />} />
         <Route path="/events" element={<EventsCalendarPage />} />
         <Route path="/find-partner" element={<PartnerMatchingPage />} />
         <Route path="/feature-your-club" element={<FeatureClubPage />} />
         <Route path="/club-information-form" element={<ClubInformationPage />} />
         <Route path="/submit-event" element={<EventSubmissionPage />} />
+        <Route path="/test-style-bible" element={<TestStyleBible />} />
       </Routes>
     </AnimatePresence>
   );

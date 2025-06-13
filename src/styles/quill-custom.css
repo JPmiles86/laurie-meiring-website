@@ -1,0 +1,261 @@
+/* Custom Quill Editor Styles */
+.ql-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+}
+
+.ql-editor {
+  min-height: 350px;
+  padding: 20px;
+}
+
+.ql-toolbar {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+
+.ql-container {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 0 0 6px 6px;
+}
+
+.ql-toolbar button {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 3px !important;
+}
+
+.ql-toolbar button:hover {
+  background-color: #e9ecef !important;
+  border-radius: 4px;
+}
+
+.ql-toolbar button.ql-active {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.ql-toolbar .ql-stroke {
+  stroke: #495057 !important;
+}
+
+.ql-toolbar .ql-fill {
+  fill: #495057 !important;
+}
+
+.ql-toolbar button.ql-active .ql-stroke {
+  stroke: white !important;
+}
+
+.ql-toolbar button.ql-active .ql-fill {
+  fill: white !important;
+}
+
+/* Headers in editor */
+.ql-editor h1 {
+  font-size: 2em;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.ql-editor h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.8rem;
+  margin-top: 1.3rem;
+}
+
+.ql-editor h3 {
+  font-size: 1.3em;
+  margin-bottom: 0.6rem;
+  margin-top: 1rem;
+}
+
+.ql-editor h4 {
+  font-size: 1.1em;
+  margin-bottom: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+/* Lists */
+.ql-editor ul,
+.ql-editor ol {
+  padding-left: 1.5em;
+  margin-bottom: 1rem;
+}
+
+.ql-editor li {
+  margin-bottom: 0.3rem;
+}
+
+/* Blockquotes */
+.ql-editor blockquote {
+  border-left: 4px solid #dee2e6;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #6c757d;
+}
+
+/* Links */
+.ql-editor a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.ql-editor a:hover {
+  color: #0056b3;
+}
+
+/* Images */
+.ql-editor img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 6px;
+}
+
+/* Image sizes */
+.ql-editor img.ql-image-small,
+.ql-image-small {
+  max-width: 50%;
+}
+
+.ql-editor img.ql-image-medium,
+.ql-image-medium {
+  max-width: 75%;
+}
+
+.ql-editor img.ql-image-large,
+.ql-image-large {
+  max-width: 100%;
+}
+
+/* Image alignment */
+.ql-editor img.ql-image-align-left,
+.ql-image-align-left {
+  margin: 1rem 1rem 1rem 0;
+  float: left;
+  clear: left;
+}
+
+.ql-editor img.ql-image-align-center,
+.ql-image-align-center {
+  margin: 1rem auto;
+  display: block;
+  float: none;
+  clear: both;
+}
+
+.ql-editor img.ql-image-align-right,
+.ql-image-align-right {
+  margin: 1rem 0 1rem 1rem;
+  float: right;
+  clear: right;
+}
+
+/* Clear floats after paragraphs containing aligned images */
+.ql-editor p:has(img.ql-image-align-left)::after,
+.ql-editor p:has(img.ql-image-align-right)::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* Code blocks */
+.ql-editor pre {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.ql-editor code {
+  background-color: #f8f9fa;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+/* Video embeds in editor */
+.ql-editor .ql-video {
+  display: block;
+  max-width: 100%;
+  height: 400px;
+  margin: 1rem auto;
+}
+
+.ql-editor iframe.ql-video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* YouTube embeds in rendered content */
+.youtube-embed-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  margin: 2rem auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.youtube-embed-wrapper iframe,
+.youtube-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* YouTube button styling */
+.ql-youtube {
+  width: auto !important;
+  padding: 3px 5px !important;
+}
+
+.ql-youtube::before {
+  content: 'YouTube';
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.ql-toolbar .ql-youtube:hover {
+  background-color: #e9ecef !important;
+  border-radius: 4px;
+}
+
+/* Responsive video sizing */
+@media (max-width: 768px) {
+  .ql-editor .ql-video {
+    height: 250px;
+  }
+  
+  /* Responsive image sizes on mobile */
+  .ql-editor img.ql-image-small,
+  .ql-image-small {
+    max-width: 75%;
+  }
+  
+  .ql-editor img.ql-image-medium,
+  .ql-image-medium {
+    max-width: 90%;
+  }
+  
+  /* Ensure aligned images don't take full width on mobile */
+  .ql-editor img.ql-image-align-left,
+  .ql-editor img.ql-image-align-right {
+    max-width: 45%;
+  }
+}
