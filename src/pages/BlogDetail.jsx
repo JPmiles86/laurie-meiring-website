@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPostBySlug, getAdjacentPosts } from '../utils/blogUtils';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { motion } from 'framer-motion';
+import VideoEmbed from '../components/VideoEmbed';
 
 function BlogPost({ isMobile }) {
   const { slug } = useParams();
@@ -30,7 +32,8 @@ function BlogPost({ isMobile }) {
         props.src.includes('/blog7/ShaunaLaurie3.jpg') || // Blog 7 portrait image
         props.src.includes('/blog3/LaurieCoachingHero1.jpg') || // Other known portrait images
         props.src.includes('/blog8/LauriePiOldTourney.jpg') || // Blog 8 portrait image
-        props.src.includes('/blog9/KenLaurie.jpg') // Blog 9 portrait image
+        props.src.includes('/blog9/KenLaurie.jpg') || // Blog 9 portrait image
+        props.src.includes('/blog10/JulesJosue2.jpeg') // Blog 10 portrait image
       );
       
       return (
@@ -53,61 +56,7 @@ function BlogPost({ isMobile }) {
         </div>
       );
     },
-    p: ({node, children, ...props}) => {
-      // Check if the paragraph contains our YouTube marker
-      if (children && Array.isArray(children)) {
-        for (let i = 0; i < children.length; i++) {
-          if (typeof children[i] === 'string') {
-            const youtubeMatch = children[i].match(/\[youtube:([^\]]+)\]/);
-            if (youtubeMatch) {
-              const videoId = youtubeMatch[1];
-              // Replace the text with the YouTube embed
-              const beforeText = children[i].substring(0, youtubeMatch.index);
-              const afterText = children[i].substring(youtubeMatch.index + youtubeMatch[0].length);
-              
-              return (
-                <>
-                  {beforeText && <p>{beforeText}</p>}
-                  <div style={{
-                    position: 'relative',
-                    paddingBottom: '56.25%', // 16:9 aspect ratio
-                    height: 0,
-                    margin: '2rem auto',
-                    width: isMobile ? '100%' : '80%',
-                    overflow: 'hidden',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
-                  }}>
-                    <iframe
-                      src={`https://www.youtube.com/embed/${videoId}`}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        border: 'none'
-                      }}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      title="YouTube video player"
-                    />
-                  </div>
-                  {afterText && <p>{afterText}</p>}
-                </>
-              );
-            }
-          }
-        }
-      }
-      
-      // Check if the paragraph contains HTML (from our YouTube embed)
-      if (children && typeof children === 'string' && children.includes('youtube-embed-wrapper')) {
-        return <div dangerouslySetInnerHTML={{ __html: children }} />;
-      }
-      
-      return <p {...props}>{children}</p>;
-    }
+    p: ({node, children, ...props}) => <p {...props}>{children}</p>,
   };
 
   // Determine which CTA to show based on the blog post
@@ -142,6 +91,66 @@ function BlogPost({ isMobile }) {
   };
 
   const cta = getCTA();
+
+  // Function to render content with video embeds
+  const renderContentWithVideos = (content) => {
+    // Split content by paragraphs to process each section
+    const sections = content.split(/\n\n+/);
+    
+    return sections.map((section, index) => {
+      // Check for video markers
+      const vimeoMatch = section.match(/^\[vimeo:(\d+)\]$/);
+      const youtubeMatch = section.match(/^\[youtube:([^\]]+)\]$/);
+      const localVideoMatch = section.match(/^\[localvideo:([^\]]+)\]$/);
+      
+      if (localVideoMatch) {
+        const videoPath = localVideoMatch[1];
+        return (
+          <div key={index} style={{
+            margin: '2rem auto',
+            width: isMobile ? '100%' : '80%',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+          }}>
+            <video 
+              width="100%" 
+              controls 
+              style={{ display: 'block' }}
+            >
+              <source src={videoPath} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        );
+      }
+      
+      if (vimeoMatch) {
+        const videoId = vimeoMatch[1];
+        return <VideoEmbed key={index} videoId={videoId} platform="vimeo" isMobile={isMobile} />;
+      }
+      
+      if (youtubeMatch) {
+        const videoId = youtubeMatch[1];
+        return <VideoEmbed key={index} videoId={videoId} platform="youtube" isMobile={isMobile} />;
+      }
+      
+      // For non-video content, render as markdown
+      if (section.trim()) {
+        return (
+          <ReactMarkdown 
+            key={index}
+            components={components}
+            rehypePlugins={[rehypeRaw]}
+          >
+            {section}
+          </ReactMarkdown>
+        );
+      }
+      
+      return null;
+    }).filter(Boolean);
+  };
 
   return (
     <motion.article
@@ -202,9 +211,7 @@ function BlogPost({ isMobile }) {
         lineHeight: 1.6,
         color: 'var(--text-color)'
       }}>
-        <ReactMarkdown components={components}>
-          {post.content}
-        </ReactMarkdown>
+        {renderContentWithVideos(post.content)}
       </div>
 
       {/* Call to Action Section */}

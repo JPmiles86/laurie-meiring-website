@@ -81,56 +81,7 @@ function BlogPage() {
           </div>
         </section>
 
-        {/* Subscribe Section */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{
-            backgroundColor: 'var(--neutral-color)',
-            padding: isMobile ? '40px 15px' : '60px 20px',
-            textAlign: 'center',
-            borderBottom: '1px solid rgba(0, 0, 0, 0.1)'
-          }}
-        >
-          <div style={{
-            maxWidth: '600px',
-            margin: '0 auto'
-          }}>
-            <h2 style={{
-              fontSize: isMobile ? '2rem' : '2.4rem',
-              marginBottom: '20px',
-              color: 'var(--primary-color)'
-            }}>
-              Never Miss a Story
-            </h2>
-            <p style={{
-              fontSize: isMobile ? '1.1rem' : '1.2rem',
-              marginBottom: '30px',
-              color: 'var(--text-color)',
-              lineHeight: 1.6
-            }}>
-              Join our growing community of pickleball enthusiasts and get the latest updates, tips, and stories delivered to your inbox.
-            </p>
-            <button
-              onClick={() => setIsSubscribeModalOpen(true)}
-              style={{
-                backgroundColor: 'var(--primary-color)',
-                color: 'var(--neutral-color)',
-                border: 'none',
-                padding: isMobile ? '12px 25px' : '15px 30px',
-                borderRadius: '30px',
-                fontSize: isMobile ? '1.1rem' : '1.2rem',
-                fontWeight: '500',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-              }}
-            >
-              Subscribe to Newsletter
-            </button>
-          </div>
-        </motion.section>
+
 
         <BlogList 
           isMobile={isMobile} 
