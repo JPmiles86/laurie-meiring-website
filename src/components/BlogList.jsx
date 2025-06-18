@@ -6,10 +6,45 @@ import ReactMarkdown from 'react-markdown';
 
 function BlogList({ isMobile, onSubscribe }) {
   const [posts, setPosts] = useState([]);
+  const containerRef = React.useRef(null);
 
   useEffect(() => {
     setPosts(getVisiblePosts());
   }, []);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const gridContainer = container.querySelector('.blog-grid');
+      
+      const adjustHeight = () => {
+        console.log('BlogList container height:', container.offsetHeight);
+        console.log('BlogList scrollHeight:', container.scrollHeight);
+        console.log('Grid container height:', gridContainer?.offsetHeight);
+        console.log('Grid scrollHeight:', gridContainer?.scrollHeight);
+        
+        // Force container to contain its content
+        if (gridContainer && gridContainer.scrollHeight > 0) {
+          const totalHeight = gridContainer.scrollHeight + 40; // Reduced padding
+          container.style.minHeight = `${totalHeight}px`;
+          console.log('Setting container minHeight to:', totalHeight);
+        }
+      };
+      
+      // Initial adjustment
+      setTimeout(adjustHeight, 100);
+      
+      // Watch for size changes
+      const resizeObserver = new ResizeObserver(adjustHeight);
+      if (gridContainer) {
+        resizeObserver.observe(gridContainer);
+      }
+      
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
+  }, [posts]);
 
   const getPreviewContent = (content) => {
     // Remove image markdown before getting preview
@@ -39,17 +74,19 @@ function BlogList({ isMobile, onSubscribe }) {
   };
 
   return (
-    <div className="blog-list" style={{
+    <div ref={containerRef} className="blog-list" style={{
       maxWidth: '1200px',
       margin: '0 auto',
       padding: isMobile ? '15px' : '20px',
+      paddingBottom: '20px',
       marginBottom: '60px'
     }}>
-      <div style={{
+      <div className="blog-grid" style={{
         display: 'grid',
         gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
         gap: '40px',
-        rowGap: '60px'
+        rowGap: '60px',
+        width: '100%'
       }}>
         {posts.map((post, index) => (
           <motion.article

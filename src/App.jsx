@@ -51,32 +51,41 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        minHeight: '100vh',
-        width: '100%',
-        maxWidth: '100%',
-        overflow: 'hidden',
-        position: 'relative'
-      }}>
-        <Navbar />
-        <main style={{ 
-          margin: 0, 
-          padding: 0, 
-          width: '100%', 
-          maxWidth: '100%', 
-          overflow: 'hidden',
-          flexGrow: 1,
-          position: 'relative',
-          zIndex: 1
-        }}>
-          <AnimatedRoutes />
-        </main>
-        <FloatingButtons />
-        <Footer />
-      </div>
+      <AppContent />
     </Router>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+  
+  return (
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      minHeight: '100vh',
+      width: '100%',
+      maxWidth: '100%',
+      position: 'relative'
+    }}>
+      <Navbar />
+      <main style={{ 
+        margin: 0, 
+        padding: 0, 
+        width: '100%', 
+        maxWidth: '100%', 
+        position: 'relative',
+        zIndex: 1,
+        overflow: 'visible',
+        height: 'auto',
+        minHeight: 'auto',
+        display: 'block'
+      }}>
+        <AnimatedRoutes />
+      </main>
+      <FloatingButtons />
+      <Footer />
+    </div>
   );
 }
 

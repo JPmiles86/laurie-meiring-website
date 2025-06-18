@@ -15,9 +15,12 @@ html, body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  overflow-y: visible;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  height: auto;
+  min-height: 100%;
 }
 
 body {
@@ -36,7 +39,6 @@ main {
   max-width: 100%;
   margin: 0;
   position: relative; /* For absolute positioning of pseudo-elements for shapes */
-  min-height: calc(100vh - var(--header-height));
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1487,6 +1489,48 @@ body, html {
   font-weight: 500;
   text-transform: uppercase;
 }
+
+/* Blog page specific fixes - TEMPORARILY DISABLED FOR DEBUGGING */
+/*
+.blog-page {
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.blog-list {
+  overflow: visible !important;
+  height: auto !important;
+  min-height: auto !important;
+  flex: 1 1 auto !important;
+}
+*/
+
+/* Force AnimatePresence to not constrain height - TEMPORARILY DISABLED */
+/*
+main > div {
+  height: auto !important;
+  min-height: auto !important;
+  overflow: visible !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+*/
+
+/* Override any parent container constraints - TEMPORARILY DISABLED */
+/*
+#root,
+#root > div,
+main,
+main > div > div {
+  overflow: visible !important;
+  height: auto !important;
+  min-height: auto !important;
+}
+*/
 
 /* Base styles for content container - ADD BORDER HERE TOO */
 .content-container {

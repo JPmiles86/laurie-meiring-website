@@ -17,6 +17,57 @@ function BlogPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Dynamically fix height constraints
+  useEffect(() => {
+    // Wait for DOM to be ready
+    setTimeout(() => {
+      // Find all parent containers
+      const blogPage = document.querySelector('.blog-page');
+      const main = document.querySelector('main');
+      const allDivs = document.querySelectorAll('main > div, main > div > div');
+      
+      // Remove any height constraints
+      if (blogPage) {
+        blogPage.style.height = 'auto';
+        blogPage.style.minHeight = '100vh';
+        blogPage.style.overflow = 'visible';
+      }
+      
+      if (main) {
+        main.style.height = 'auto';
+        main.style.overflow = 'visible';
+      }
+      
+      allDivs.forEach(div => {
+        div.style.height = 'auto';
+        div.style.overflow = 'visible';
+        div.style.maxHeight = 'none';
+      });
+      
+      // Also fix root and body elements
+      const root = document.getElementById('root');
+      const body = document.body;
+      const html = document.documentElement;
+      
+      if (root) {
+        root.style.height = 'auto';
+        root.style.overflow = 'visible';
+      }
+      
+      body.style.height = 'auto';
+      body.style.overflow = 'visible';
+      html.style.height = 'auto';
+      html.style.overflow = 'visible';
+      
+      // Log current computed styles for debugging
+      console.log('Blog page computed height:', blogPage ? getComputedStyle(blogPage).height : 'not found');
+      console.log('Main computed height:', main ? getComputedStyle(main).height : 'not found');
+      console.log('Parent divs:', allDivs.length);
+      console.log('Body overflow:', getComputedStyle(body).overflow);
+      console.log('Root overflow:', root ? getComputedStyle(root).overflow : 'not found');
+    }, 100);
+  }, []);
+
   return (
     <PageTransition>
       <div className="blog-page">
@@ -28,7 +79,7 @@ function BlogPage() {
         */}
         <section className="page-hero" style={{ 
           /* Top/bottom padding - adjust first value to change space above content */
-          padding: isMobile ? '150px 0 60px' : '180px 0 80px', 
+          padding: isMobile ? '80px 0 60px' : '100px 0 80px', 
           textAlign: 'center',
           backgroundColor: 'var(--secondary-color)',
           color: 'var(--neutral-color)',
@@ -36,10 +87,11 @@ function BlogPage() {
           display: 'flex',
           justifyContent: 'center',
           /* Offset for desktop vs mobile */
-          marginTop: isMobile ? '0' : '-80px',
+          marginTop: '0', /* No gap needed */
           marginBottom: '0',
           position: 'relative',
-          zIndex: 1
+          zIndex: 1,
+          flexShrink: 0
         }}>
           <div style={{ 
             maxWidth: '800px', 
