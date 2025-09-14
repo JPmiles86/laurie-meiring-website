@@ -6,14 +6,21 @@ const InputPanel = ({
   setBlogIdea,
   selectedProvider,
   setSelectedProvider,
+  tone,
+  setTone,
+  length,
+  setLength,
   variationCount,
   setVariationCount,
   onGenerate,
   isGenerating,
   error,
-  onOpenIdeaGenerator
+  onOpenIdeaGenerator,
+  hasValidApiKey,
+  toneOptions = {},
+  lengthOptions = {}
 }) => {
-  const maxCharacters = 500;
+  const maxCharacters = 5000;
   const remainingChars = maxCharacters - blogIdea.length;
 
   const suggestedPrompts = [
@@ -39,14 +46,45 @@ const InputPanel = ({
             <select 
               value={selectedProvider} 
               onChange={(e) => setSelectedProvider(e.target.value)}
+              disabled={!hasValidApiKey}
             >
               <option value="openai">OpenAI (GPT-4)</option>
               <option value="anthropic">Anthropic (Claude)</option>
             </select>
           </div>
 
+          <div className="tone-selection">
+            <label>Tone:</label>
+            <select 
+              value={tone} 
+              onChange={(e) => setTone(e.target.value)}
+            >
+              {Object.entries(toneOptions).map(([key, option]) => (
+                <option key={key} value={key}>
+                  {option.label} - {option.description}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="length-selection">
+            <label>Length:</label>
+            <select 
+              value={length} 
+              onChange={(e) => setLength(e.target.value)}
+            >
+              {Object.entries(lengthOptions).map(([key, option]) => (
+                <option key={key} value={key}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="variation-selection">
-            <label>Variations to Generate:</label>
+            <label>Variations:</label>
             <div className="variation-buttons">
               {[1, 2, 3, 4].map(num => (
                 <button
@@ -91,7 +129,7 @@ const InputPanel = ({
             value={blogIdea}
             onChange={(e) => setBlogIdea(e.target.value.slice(0, maxCharacters))}
             placeholder="Describe your blog post idea in detail. Include the main topic, key points you want to cover, and the tone you're aiming for..."
-            rows={5}
+            rows={8}
             className={remainingChars < 0 ? 'over-limit' : ''}
           />
         </div>

@@ -1,6 +1,6 @@
-import blogsData from '../../../data/blogs.json';
+import { fetchPosts } from '../../../services/blogApi';
 
-// Analyze blog patterns
+// Analyze blog patterns from API data
 const analyzeBlogPatterns = (blogs) => {
   const patterns = {
     categories: {},
@@ -162,24 +162,111 @@ const generateIdeas = (patterns) => {
 };
 
 // Main function to generate contextual ideas
-export const generateBlogIdeas = () => {
-  const blogs = blogsData.posts;
-  const patterns = analyzeBlogPatterns(blogs);
-  const ideas = generateIdeas(patterns);
+export const generateBlogIdeas = async (userGuidance = null) => {
+  try {
+    // Fetch latest blog posts from API
+    const { posts } = await fetchPosts({ limit: 100 });
+    const patterns = analyzeBlogPatterns(posts);
+    let ideas = generateIdeas(patterns);
+    
+    // If user provided guidance, filter and prioritize ideas accordingly
+    if (userGuidance) {
+      ideas = prioritizeIdeasByGuidance(ideas, userGuidance);
+    }
+    
+    // Sort ideas by relevance/variety
+    return ideas.sort((a, b) => {
+      // Prioritize categories that are less covered
+      const aCategoryCount = patterns.categories[a.tags[0]] || 0;
+      const bCategoryCount = patterns.categories[b.tags[0]] || 0;
+      return aCategoryCount - bCategoryCount;
+    });
+  } catch (error) {
+    console.error('Error generating blog ideas:', error);
+    // Fallback to basic ideas if API fails
+    return generateBasicIdeas();
+  }
+};
+
+// Prioritize ideas based on user guidance
+const prioritizeIdeasByGuidance = (ideas, guidance) => {
+  const guidanceLower = guidance.toLowerCase();
   
-  // Sort ideas by relevance/variety
-  return ideas.sort((a, b) => {
-    // Prioritize categories that are less covered
-    const aCategoryCount = patterns.categories[a.tags[0]] || 0;
-    const bCategoryCount = patterns.categories[b.tags[0]] || 0;
-    return aCategoryCount - bCategoryCount;
-  });
+  // Keywords that indicate seasonal content
+  const seasonalKeywords = ['holiday', 'christmas', 'new year', 'summer', 'winter', 'valentine'];
+  const isSeasonalRequest = seasonalKeywords.some(keyword => guidanceLower.includes(keyword));
+  
+  if (isSeasonalRequest) {
+    // Add seasonal ideas to the mix
+    ideas.push({
+      category: 'Seasonal Content',
+      title: 'Holiday Pickleball: Building Community During the Festive Season',
+      description: 'Explore how pickleball communities come together during holidays, special tournaments, and year-end celebrations.',
+      tags: ['holiday', 'community', 'celebration'],
+      reasoning: 'Perfect for seasonal content that brings the community together.'
+    });
+  }
+  
+  // Topic-specific guidance
+  if (guidanceLower.includes('beginner')) {
+    ideas.unshift({
+      category: 'Beginner Guide',
+      title: 'Starting Your Pickleball Journey: What I Wish I Knew on Day One',
+      description: 'A comprehensive guide for absolute beginners covering equipment, basic rules, and getting started in the local community.',
+      tags: ['beginners', 'getting started', 'tips'],
+      reasoning: 'Addresses the user\'s focus on beginner-friendly content.'
+    });
+  }
+  
+  if (guidanceLower.includes('advanced') || guidanceLower.includes('pro')) {
+    ideas.unshift({
+      category: 'Advanced Strategy',
+      title: 'Pro-Level Tactics: Advanced Court Positioning and Shot Selection',
+      description: 'Deep dive into advanced strategies used by top players, including complex positioning and shot selection decisions.',
+      tags: ['advanced', 'strategy', 'pro tips'],
+      reasoning: 'Caters to the user\'s interest in advanced-level content.'
+    });
+  }
+  
+  return ideas;
+};
+
+// Fallback basic ideas if API fails
+const generateBasicIdeas = () => {
+  return [
+    {
+      category: 'Tournament Strategy',
+      title: 'Breaking Down the Perfect Tournament Warm-Up Routine',
+      description: 'Share your pre-tournament rituals, warm-up exercises, and mental preparation techniques.',
+      tags: ['tournaments', 'preparation', 'mental game'],
+      reasoning: 'Tournament preparation is always relevant.'
+    },
+    {
+      category: 'Coaching Insights',
+      title: 'The 5 Most Common Mistakes I See in Intermediate Players',
+      description: 'Help intermediate players identify and fix common technical and strategic errors.',
+      tags: ['coaching', 'tips', 'intermediate players'],
+      reasoning: 'Coaching content has broad appeal.'
+    },
+    {
+      category: 'Equipment Guide',
+      title: 'Choosing the Right Paddle: A Complete Guide',
+      description: 'Everything players need to know about selecting the perfect paddle for their playing style.',
+      tags: ['equipment', 'paddles', 'guide'],
+      reasoning: 'Equipment guides are evergreen content.'
+    }
+  ];
 };
 
 // Function to get a fresh set of ideas
-export const refreshIdeas = (currentIdeas) => {
-  const allIdeas = generateBlogIdeas();
-  // Shuffle and return different ideas
-  const shuffled = [...allIdeas].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 10);
+export const refreshIdeas = async (currentIdeas, userGuidance = null) => {
+  try {
+    const allIdeas = await generateBlogIdeas(userGuidance);
+    // Shuffle and return different ideas
+    const shuffled = [...allIdeas].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 10);
+  } catch (error) {
+    console.error('Error refreshing ideas:', error);
+    return generateBasicIdeas();
+  }
 };

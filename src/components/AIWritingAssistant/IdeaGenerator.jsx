@@ -11,23 +11,31 @@ const IdeaGenerator = ({ onSelectIdea, onClose }) => {
     loadIdeas();
   }, []);
 
-  const loadIdeas = () => {
+  const loadIdeas = async () => {
     setLoading(true);
-    setTimeout(() => {
-      const generatedIdeas = generateBlogIdeas();
+    try {
+      const generatedIdeas = await generateBlogIdeas();
       setIdeas(generatedIdeas.slice(0, 10));
+    } catch (error) {
+      console.error('Error loading ideas:', error);
+      // Fallback to basic ideas
+      setIdeas([]);
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setLoading(true);
-    setTimeout(() => {
-      const newIdeas = refreshIdeas(ideas);
+    try {
+      const newIdeas = await refreshIdeas(ideas);
       setIdeas(newIdeas);
-      setLoading(false);
       setSelectedIdea(null);
-    }, 500);
+    } catch (error) {
+      console.error('Error refreshing ideas:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSelectIdea = (idea) => {

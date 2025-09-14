@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPostBySlug, getAdjacentPosts } from '../utils/blogUtils';
+import { fetchPostBySlug, transformPost } from '../services/blogApi';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { motion } from 'framer-motion';
@@ -10,12 +11,40 @@ function BlogPost({ isMobile }) {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [adjacentPosts, setAdjacentPosts] = useState({ prev: null, next: null });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const currentPost = getPostBySlug(slug);
-    setPost(currentPost);
-    setAdjacentPosts(getAdjacentPosts(currentPost));
+    const loadPost = async () => {
+      setLoading(true);
+      try {
+        // Try to fetch from API first
+        const apiPost = await fetchPostBySlug(slug);
+        const transformedPost = transformPost(apiPost);
+        setPost(transformedPost);
+        // For adjacent posts, we'll need to fetch all posts
+        // but for now just disable navigation
+        setAdjacentPosts({ prev: null, next: null });
+      } catch (error) {
+        console.error('Failed to fetch post from API, falling back to local:', error);
+        // Fallback to local data
+        const currentPost = getPostBySlug(slug);
+        setPost(currentPost);
+        setAdjacentPosts(getAdjacentPosts(currentPost));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPost();
   }, [slug]);
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <div>Loading...</div>
+      </div>
+    );
+  }
 
   if (!post) return null;
 

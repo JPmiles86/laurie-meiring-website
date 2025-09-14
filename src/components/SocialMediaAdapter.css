@@ -1,0 +1,403 @@
+.social-media-adapter {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
+}
+
+.adapter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.adapter-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.regenerate-all-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.regenerate-all-button:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.regenerate-all-button .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.social-adapter-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-color-light);
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.adapter-loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.adapter-loading .spinner {
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.adapter-error {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  color: var(--error-color);
+}
+
+.adapter-error .icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+}
+
+.adapter-error button {
+  margin-top: 12px;
+  padding: 8px 20px;
+  background: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.platform-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.platform-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.platform-tab:hover {
+  border-color: var(--primary-color);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.platform-tab.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.platform-icon {
+  font-size: 1.2rem;
+}
+
+.error-indicator {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--error-color);
+  color: white;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.variation-content {
+  min-height: 300px;
+}
+
+.platform-variation {
+  animation: fadeIn 0.3s ease;
+}
+
+.variation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.platform-info h4 {
+  margin: 0 0 4px 0;
+  color: var(--text-color);
+}
+
+.platform-tips {
+  font-size: 0.9rem;
+  color: var(--text-color-light);
+  margin: 0;
+}
+
+.variation-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon-button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.icon-button .spinner {
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-button:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.copy-button.copied {
+  background: var(--success-color);
+  border-color: var(--success-color);
+  color: white;
+}
+
+.copy-button .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.variation-error {
+  text-align: center;
+  padding: 40px;
+  color: var(--error-color);
+}
+
+.variation-error .icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 12px;
+}
+
+.variation-error button {
+  margin-top: 16px;
+  padding: 8px 20px;
+  background: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.variation-body {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.content-preview {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.content-preview p {
+  margin: 0;
+}
+
+.twitter-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tweet {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+}
+
+.tweet-number {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.8rem;
+  color: var(--text-color-light);
+}
+
+.tweet p {
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+}
+
+.character-count {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-color-light);
+}
+
+.character-count .over-limit {
+  color: var(--error-color);
+  font-weight: bold;
+}
+
+.hashtags {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.hashtags h5 {
+  margin: 0 0 12px 0;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.hashtag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hashtag {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+}
+
+.character-info {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.character-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.character-fill {
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.character-info .character-count {
+  font-size: 0.85rem;
+  color: var(--text-color-light);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .social-media-adapter {
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .adapter-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .platform-tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .platform-tab {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .variation-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .variation-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

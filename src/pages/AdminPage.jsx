@@ -2,37 +2,78 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BlogEditor from '../components/BlogEditor';
 import AIWritingAssistant from '../components/AIWritingAssistant';
+import IntelligentDraftManager from '../components/IntelligentDraftManager';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
+import { login as apiLogin, isAuthenticated as checkAuth } from '../services/auth';
+import { isFeatureEnabled, FeatureGate } from '../config/features';
+
+// Debug logging
+console.log('🚨 AdminPage Debug:', {
+  aiWritingAssistant: isFeatureEnabled('AI_WRITING_ASSISTANT'),
+  aiDraftIntelligence: isFeatureEnabled('AI_DRAFT_INTELLIGENCE'),
+  viteEnvMode: import.meta.env.VITE_DEPLOYMENT_MODE,
+  viteAiAssistant: import.meta.env.VITE_ENABLE_AI_WRITING_ASSISTANT,
+  viteDraftIntel: import.meta.env.VITE_ENABLE_AI_DRAFT_INTELLIGENCE
+});
 
 function AdminPage({ isMobile }) {
+  const { isAuthenticated: contextAuth, login: contextLogin } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [activeView, setActiveView] = useState('editor'); // 'editor' or 'ai'
+  const [loading, setLoading] = useState(false);
+  const [activeView, setActiveView] = useState('editor'); // 'editor', 'ai', or 'drafts'
   const [aiGeneratedContent, setAiGeneratedContent] = useState(null);
   const navigate = useNavigate();
 
   // Check if already authenticated
   useEffect(() => {
-    const auth = sessionStorage.getItem('blogAdminAuth');
-    if (auth === 'authenticated') {
+    // Check both API auth and legacy session auth
+    const hasApiAuth = checkAuth();
+    const hasSessionAuth = sessionStorage.getItem('blogAdminAuth') === 'authenticated';
+    
+    if (hasApiAuth || hasSessionAuth) {
       setIsAuthenticated(true);
     }
-  }, []);
+  }, [contextAuth]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Simple password check - in production, this should be more secure
-    if (password === 'lauriepickleball2024') {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('blogAdminAuth', 'authenticated');
-      setError('');
-    } else {
-      setError('Incorrect password');
+    setLoading(true);
+    setError('');
+    
+    try {
+      // Try API login first
+      const result = await apiLogin(password);
+      if (result.success) {
+        setIsAuthenticated(true);
+        // Keep session storage for backward compatibility
+        sessionStorage.setItem('blogAdminAuth', 'authenticated');
+        setError('');
+      }
+    } catch (error) {
+      // Fallback to hardcoded password for backward compatibility
+      if (password === 'lauriepickleball2024') {
+        setIsAuthenticated(true);
+        sessionStorage.setItem('blogAdminAuth', 'authenticated');
+        setError('');
+      } else {
+        setError(error.message || 'Incorrect password');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      // Use the auth service logout directly
+      const { logout } = await import('../services/auth');
+      await logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
     sessionStorage.removeItem('blogAdminAuth');
     setIsAuthenticated(false);
     navigate('/');
@@ -114,6 +155,7 @@ function AdminPage({ isMobile }) {
             
             <button
               type="submit"
+              disabled={loading}
               style={{
                 width: '100%',
                 padding: '12px',
@@ -122,10 +164,11 @@ function AdminPage({ isMobile }) {
                 border: 'none',
                 borderRadius: '8px',
                 fontSize: '1.1rem',
-                cursor: 'pointer'
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading ? 0.7 : 1
               }}
             >
-              Login
+              {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
         </div>
@@ -198,22 +241,44 @@ function AdminPage({ isMobile }) {
             >
               Blog Editor
             </button>
-            <button
-              onClick={() => setActiveView('ai')}
-              style={{
-                padding: '10px 20px',
-                backgroundColor: activeView === 'ai' ? 'var(--primary-color)' : 'transparent',
-                color: activeView === 'ai' ? 'white' : 'var(--text-color)',
-                border: activeView === 'ai' ? 'none' : '1px solid var(--border-color)',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontSize: '1rem',
-                fontWeight: activeView === 'ai' ? 'bold' : 'normal'
-              }}
-            >
-              AI Assistant
-            </button>
+            
+            {isFeatureEnabled('AI_WRITING_ASSISTANT') && (
+              <button
+                onClick={() => setActiveView('ai')}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: activeView === 'ai' ? 'var(--primary-color)' : 'transparent',
+                  color: activeView === 'ai' ? 'white' : 'var(--text-color)',
+                  border: activeView === 'ai' ? 'none' : '1px solid var(--border-color)',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontSize: '1rem',
+                  fontWeight: activeView === 'ai' ? 'bold' : 'normal'
+                }}
+              >
+                AI Assistant
+              </button>
+            )}
+            
+            {isFeatureEnabled('AI_DRAFT_INTELLIGENCE') && (
+              <button
+                onClick={() => setActiveView('drafts')}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: activeView === 'drafts' ? 'var(--primary-color)' : 'transparent',
+                  color: activeView === 'drafts' ? 'white' : 'var(--text-color)',
+                  border: activeView === 'drafts' ? 'none' : '1px solid var(--border-color)',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontSize: '1rem',
+                  fontWeight: activeView === 'drafts' ? 'bold' : 'normal'
+                }}
+              >
+                🧠 Draft Intelligence
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -234,7 +299,7 @@ function AdminPage({ isMobile }) {
               onContentUsed={() => setAiGeneratedContent(null)}
             />
           </motion.div>
-        ) : (
+        ) : activeView === 'ai' && isFeatureEnabled('AI_WRITING_ASSISTANT') ? (
           <motion.div
             key="ai"
             initial={{ opacity: 0, x: 20 }}
@@ -246,7 +311,19 @@ function AdminPage({ isMobile }) {
               onEditBlog={handleAIContentGenerated}
             />
           </motion.div>
-        )}
+        ) : activeView === 'drafts' && isFeatureEnabled('AI_DRAFT_INTELLIGENCE') ? (
+          <motion.div
+            key="drafts"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <IntelligentDraftManager 
+              isMobile={isMobile}
+            />
+          </motion.div>
+        ) : null}
       </AnimatePresence>
     </div>
   );

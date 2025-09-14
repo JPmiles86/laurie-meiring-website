@@ -4,13 +4,18 @@ import { getVisiblePosts } from '../utils/blogUtils';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
-function BlogList({ isMobile, onSubscribe }) {
+function BlogList({ isMobile, onSubscribe, posts: propPosts }) {
   const [posts, setPosts] = useState([]);
   const containerRef = React.useRef(null);
 
   useEffect(() => {
-    setPosts(getVisiblePosts());
-  }, []);
+    // Use props if provided, otherwise fallback to local data
+    if (propPosts && propPosts.length > 0) {
+      setPosts(propPosts);
+    } else {
+      setPosts(getVisiblePosts());
+    }
+  }, [propPosts]);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -106,14 +111,19 @@ function BlogList({ isMobile, onSubscribe }) {
             }}
           >
             {post.featuredImage && (
-              <div style={{
-                marginBottom: '20px',
-                marginLeft: isMobile ? '-15px' : '-20px',
-                marginRight: isMobile ? '-15px' : '-20px',
-                marginTop: isMobile ? '-15px' : '-20px',
-                height: '250px',
-                overflow: 'hidden'
-              }}>
+              <Link
+                to={`/blog/${post.slug}`}
+                style={{
+                  display: 'block',
+                  marginBottom: '20px',
+                  marginLeft: isMobile ? '-15px' : '-20px',
+                  marginRight: isMobile ? '-15px' : '-20px',
+                  marginTop: isMobile ? '-15px' : '-20px',
+                  height: '250px',
+                  overflow: 'hidden',
+                  cursor: 'pointer'
+                }}
+              >
                 <img
                   src={post.featuredImage}
                   alt={post.title}
@@ -121,10 +131,13 @@ function BlogList({ isMobile, onSubscribe }) {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    objectPosition: 'top center'
+                    objectPosition: 'top center',
+                    transition: 'transform 0.3s ease',
                   }}
+                  onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                  onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                 />
-              </div>
+              </Link>
             )}
             <h2 style={{
               fontSize: isMobile ? '1.6rem' : '1.8rem',

@@ -1,5 +1,6 @@
 // AI Service for blog generation
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const OPENAI_IMAGE_API_URL = 'https://api.openai.com/v1/images/generations';
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 
 export const generateBlogPost = async ({ provider, apiKey, idea, styleBible, temperature = 0.7 }) => {
@@ -244,4 +245,195 @@ const analyzeWithAnthropic = async (apiKey, prompt, temperature) => {
 
   const data = await response.json();
   return data.content[0].text;
+};
+
+// Image Generation Functions
+export const generateImage = async ({ 
+  provider, 
+  apiKey, 
+  prompt, 
+  size = '1024x1024',
+  style = 'vivid',
+  quality = 'standard',
+  variations = 1 
+}) => {
+  try {
+    if (provider === 'openai') {
+      return await generateImageWithOpenAI(apiKey, prompt, size, style, quality, variations);
+    } else {
+      throw new Error('Image generation is currently only supported with OpenAI');
+    }
+  } catch (error) {
+    console.error('Error generating image:', error);
+    throw error;
+  }
+};
+
+const generateImageWithOpenAI = async (apiKey, prompt, size, style, quality, variations) => {
+  const images = [];
+  
+  // Generate multiple variations by making multiple API calls
+  for (let i = 0; i < variations; i++) {
+    const response = await fetch(OPENAI_IMAGE_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'dall-e-3',
+        prompt: prompt,
+        n: 1, // DALL-E 3 only supports n=1
+        size: size,
+        style: style,
+        quality: quality,
+        response_format: 'url'
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error?.message || 'Failed to generate image');
+    }
+
+    const data = await response.json();
+    images.push({
+      url: data.data[0].url,
+      revised_prompt: data.data[0].revised_prompt,
+      variation: i + 1
+    });
+  }
+  
+  return images;
+};
+
+// Generate contextual images for blog content
+export const generateBlogImages = async ({
+  provider,
+  apiKey,
+  blogTitle,
+  blogContent,
+  imageTypes = ['featured', 'content'],
+  variations = 2
+}) => {
+  const images = {};
+  
+  try {
+    // Generate featured/hero image
+    if (imageTypes.includes('featured')) {
+      const featuredPrompt = await createImagePrompt(blogTitle, blogContent, 'featured');
+      images.featured = await generateImage({
+        provider,
+        apiKey,
+        prompt: featuredPrompt,
+        size: '1792x1024', // Wider aspect ratio for hero images
+        style: 'vivid',
+        quality: 'hd',
+        variations
+      });
+    }
+    
+    // Generate content images
+    if (imageTypes.includes('content')) {
+      const contentPrompts = await createContentImagePrompts(blogTitle, blogContent);
+      images.content = [];
+      
+      for (const prompt of contentPrompts) {
+        const contentImages = await generateImage({
+          provider,
+          apiKey,
+          prompt: prompt,
+          size: '1024x1024',
+          style: 'natural',
+          quality: 'standard',
+          variations
+        });
+        images.content.push(contentImages);
+      }
+    }
+    
+    // Generate social media images
+    if (imageTypes.includes('social')) {
+      const socialPrompt = await createImagePrompt(blogTitle, blogContent, 'social');
+      images.social = await generateImage({
+        provider,
+        apiKey,
+        prompt: socialPrompt,
+        size: '1024x1024', // Square for social media
+        style: 'vivid',
+        quality: 'standard',
+        variations
+      });
+    }
+    
+    return images;
+  } catch (error) {
+    console.error('Error generating blog images:', error);
+    throw error;
+  }
+};
+
+// Helper function to create image prompts from blog content
+const createImagePrompt = async (title, content, type = 'featured') => {
+  // Extract key themes from the blog
+  const themes = extractThemes(title, content);
+  
+  // Create different prompts based on image type
+  switch (type) {
+    case 'featured':
+      return `A professional, eye-catching hero image for a blog post titled "${title}". ${themes}. High quality, vibrant colors, pickleball-themed, Costa Rica setting, professional photography style.`;
+    
+    case 'social':
+      return `A square social media image for a blog post about "${title}". ${themes}. Bold, attention-grabbing, optimized for small screens, includes visual elements that represent the topic.`;
+    
+    case 'content':
+      return `An informative illustration for a blog post about "${title}". ${themes}. Clear, educational, supports the written content, professional style.`;
+    
+    default:
+      return `A high-quality image for a blog post titled "${title}". ${themes}. Professional, relevant, engaging.`;
+  }
+};
+
+// Extract themes from blog content for better image generation
+const extractThemes = (title, content) => {
+  // Simple theme extraction - could be enhanced with AI
+  const lowerContent = (title + ' ' + content).toLowerCase();
+  const themes = [];
+  
+  // Pickleball-related themes
+  if (lowerContent.includes('tournament')) themes.push('pickleball tournament');
+  if (lowerContent.includes('paddle')) themes.push('pickleball paddles');
+  if (lowerContent.includes('court')) themes.push('pickleball court');
+  if (lowerContent.includes('player')) themes.push('pickleball players');
+  
+  // Location themes
+  if (lowerContent.includes('costa rica')) themes.push('tropical Costa Rica setting');
+  if (lowerContent.includes('beach')) themes.push('beach location');
+  
+  // Mood themes
+  if (lowerContent.includes('win') || lowerContent.includes('victory')) themes.push('celebration, victory');
+  if (lowerContent.includes('learn') || lowerContent.includes('tip')) themes.push('educational, instructional');
+  
+  return themes.join(', ');
+};
+
+// Create multiple content image prompts based on blog sections
+const createContentImagePrompts = (title, content) => {
+  const prompts = [];
+  
+  // Extract major sections from content (assuming HTML)
+  const sections = content.match(/<h[2-3]>(.*?)<\/h[2-3]>/gi) || [];
+  
+  // Generate prompts for up to 3 major sections
+  sections.slice(0, 3).forEach((section, index) => {
+    const sectionTitle = section.replace(/<\/?h[2-3]>/gi, '');
+    prompts.push(`An illustrative image for a blog section about "${sectionTitle}" in an article titled "${title}". Professional, informative, pickleball-related.`);
+  });
+  
+  // If no sections found, create a general content image
+  if (prompts.length === 0) {
+    prompts.push(createImagePrompt(title, content, 'content'));
+  }
+  
+  return prompts;
 };

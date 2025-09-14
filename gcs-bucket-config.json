@@ -1,0 +1,113 @@
+{
+  "bucket_creation": {
+    "name": "laurie-blog-media",
+    "location": "US-CENTRAL1",
+    "storage_class": "STANDARD",
+    "uniform_bucket_level_access": true,
+    "versioning": true,
+    "cors": [
+      {
+        "origin": ["*"],
+        "method": ["GET", "PUT", "POST", "DELETE"],
+        "responseHeader": ["Content-Type", "x-goog-resumable"],
+        "maxAgeSeconds": 3600
+      }
+    ]
+  },
+  
+  "folder_structure": {
+    "laurie-personal": {
+      "blog-images": "Blog post images",
+      "hero-images": "Header/banner images", 
+      "videos": "Video content",
+      "documents": "PDF downloads"
+    },
+    "laurie-agency": {
+      "blog-images": "Agency blog images",
+      "portfolio": "Client work examples",
+      "team-photos": "Staff images"
+    },
+    "shared": {
+      "templates": "Reusable design assets",
+      "icons": "UI icons and symbols"
+    }
+  },
+  
+  "lifecycle_policy": {
+    "rule": [
+      {
+        "action": {
+          "type": "SetStorageClass",
+          "storageClass": "NEARLINE"
+        },
+        "condition": {
+          "age": 30,
+          "matchesPrefix": ["*/temp/"]
+        }
+      },
+      {
+        "action": {
+          "type": "Delete"
+        },
+        "condition": {
+          "age": 365,
+          "matchesPrefix": ["*/temp/", "*/drafts/"]
+        }
+      }
+    ]
+  },
+  
+  "iam_policy": {
+    "service_account": "laurie-storage@your-project.iam.gserviceaccount.com",
+    "roles": [
+      "roles/storage.objectViewer",
+      "roles/storage.objectCreator"
+    ],
+    "conditions": {
+      "expression": "resource.name.startsWith('projects/_/buckets/laurie-blog-media/objects/laurie-')",
+      "title": "laurie-tenant-access"
+    }
+  },
+  
+  "security_settings": {
+    "public_access_prevention": "enforced",
+    "uniform_bucket_level_access": true,
+    "retention_policy": {
+      "retentionPeriod": "86400",
+      "isLocked": false
+    }
+  },
+  
+  "cdn_settings": {
+    "enable_cdn": true,
+    "cache_control": {
+      "images": "public, max-age=86400",
+      "videos": "public, max-age=604800",
+      "documents": "public, max-age=3600"
+    },
+    "compression": true
+  },
+  
+  "cost_optimization": {
+    "autoclass": true,
+    "requester_pays": false,
+    "logging": {
+      "logBucket": "laurie-access-logs",
+      "logObjectPrefix": "access-logs/"
+    }
+  },
+  
+  "monitoring": {
+    "notifications": {
+      "topic": "projects/your-project/topics/storage-notifications",
+      "eventTypes": [
+        "OBJECT_FINALIZE",
+        "OBJECT_DELETE"
+      ]
+    },
+    "metrics": [
+      "storage.googleapis.com/storage/total_bytes",
+      "storage.googleapis.com/api/request_count"
+    ]
+  }
+}

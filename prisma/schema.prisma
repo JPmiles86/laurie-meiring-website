@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,347 +7,507 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Tenant model - each client (like Laurie) is a tenant
-model Tenant {
-  id          String   @id @default(cuid())
-  name        String   // "Laurie Meiring Personal"
-  domain      String   @unique // "laurie-pickleball.com"
-  subdomain   String   @unique // "laurie-personal"
-  config      Json     @default("{}") // Branding, features, etc.
-  storageConfig Json   @default("{}") // GCS bucket settings
-  planTier    String   @default("starter") // starter, professional, agency
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model ai_content {
+  id                                                                            String                     @id
+  tenantId                                                                      String
+  userId                                                                        String
+  contentType                                                                   String
+  title                                                                         String?
+  status                                                                        String                     @default("draft")
+  currentVersionId                                                              String?
+  parentContentId                                                               String?
+  metadata                                                                      Json                       @default("{}")
+  createdAt                                                                     DateTime                   @default(now())
+  updatedAt                                                                     DateTime
+  publishedAt                                                                   DateTime?
+  archivedAt                                                                    DateTime?
+  ai_content                                                                    ai_content?                @relation("ai_contentToai_content", fields: [parentContentId], references: [id])
+  other_ai_content                                                              ai_content[]               @relation("ai_contentToai_content")
+  tenants                                                                       tenants                    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  users                                                                         users                      @relation(fields: [userId], references: [id])
+  ai_content_critiques                                                          ai_content_critiques[]
+  ai_content_interactions                                                       ai_content_interactions[]
+  ai_content_relationships_ai_content_relationships_childContentIdToai_content  ai_content_relationships[] @relation("ai_content_relationships_childContentIdToai_content")
+  ai_content_relationships_ai_content_relationships_parentContentIdToai_content ai_content_relationships[] @relation("ai_content_relationships_parentContentIdToai_content")
+  ai_content_versions                                                           ai_content_versions[]
+  ai_generation_sessions                                                        ai_generation_sessions[]
+  ai_instruction_history                                                        ai_instruction_history[]
+  content_performance_data                                                      content_performance_data[]
+  content_quality_scores                                                        content_quality_scores[]
+  content_workflow_state                                                        content_workflow_state?
 
-  // Relationships
-  users       User[]
-  posts       Post[]
-  categories  Category[]
-  tags        Tag[]
-  media       Media[]
-  aiContent   AiContent[]
-  aiLearningPatterns AiLearningPattern[]
-
-  @@map("tenants")
+  @@index([contentType])
+  @@index([status])
+  @@index([tenantId])
 }
 
-// User model - supports multiple users per tenant
-model User {
-  id        String   @id @default(cuid())
-  email     String   
-  name      String
-  passwordHash String? // For simple auth initially
-  role      Role     @default(EDITOR)
-  tenantId  String
-  isActive  Boolean  @default(true)
-  lastLogin DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model ai_content_critiques {
+  id                  String               @id
+  contentId           String
+  versionId           String?
+  userId              String
+  critiqueType        String
+  specificFocus       String?
+  severity            String
+  originalText        String?
+  suggestedText       String?
+  reasoning           String?
+  wasAccepted         Boolean?
+  actualResolution    String?
+  learningWeight      Float                @default(1.0)
+  similarCritiques    String[]
+  effectiveness       Float?
+  createdAt           DateTime             @default(now())
+  resolvedAt          DateTime?
+  ai_content          ai_content           @relation(fields: [contentId], references: [id])
+  ai_content_versions ai_content_versions? @relation(fields: [versionId], references: [id])
 
-  // Relationships
-  tenant    Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  posts     Post[]
-  media     Media[]
-  aiContent AiContent[]
-
-  @@unique([email, tenantId]) // Email unique per tenant
-  @@map("users")
+  @@index([contentId, critiqueType])
+  @@index([userId, critiqueType])
 }
 
-// API Keys for BYOK (Bring Your Own Key) model
-model ApiKey {
-  id           String   @id @default(cuid())
-  userId       String   // Changed from tenantId to userId for simpler auth
-  provider     String   // 'openai', 'anthropic', 'google', 'stability'
-  encryptedKey String   // AES-256 encrypted API key
-  name         String   // User-friendly name for the key
-  keyHash      String   // SHA-256 hash for validation
-  isActive     Boolean  @default(true)
-  usageCount   Int      @default(0)
-  lastUsed     DateTime?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model ai_content_interactions {
+  id              String     @id
+  contentId       String
+  userId          String
+  interactionType String
+  duration        Int?
+  sequence        Int
+  contextData     Json       @default("{}")
+  emotionalState  String?
+  outcome         String?
+  createdAt       DateTime   @default(now())
+  ai_content      ai_content @relation(fields: [contentId], references: [id])
 
-  @@map("api_keys")
+  @@index([contentId, userId])
+  @@index([interactionType])
 }
 
-// AI Usage tracking
-model AiUsage {
-  id         String   @id @default(cuid())
+model ai_content_relationships {
+  id                                                              String     @id
+  parentContentId                                                 String
+  childContentId                                                  String
+  relationshipType                                                String
+  strength                                                        Float      @default(1.0)
+  metadata                                                        Json       @default("{}")
+  createdAt                                                       DateTime   @default(now())
+  ai_content_ai_content_relationships_childContentIdToai_content  ai_content @relation("ai_content_relationships_childContentIdToai_content", fields: [childContentId], references: [id])
+  ai_content_ai_content_relationships_parentContentIdToai_content ai_content @relation("ai_content_relationships_parentContentIdToai_content", fields: [parentContentId], references: [id])
+
+  @@unique([parentContentId, childContentId])
+}
+
+model ai_content_versions {
+  id                        String                   @id
+  contentId                 String
+  versionNumber             Int
+  contentData               Json
+  generationParams          Json?
+  instructions              String[]
+  parentVersionId           String?
+  changeSummary             String?
+  createdBy                 String?
+  createdAt                 DateTime                 @default(now())
+  isPublished               Boolean                  @default(false)
+  ai_content_critiques      ai_content_critiques[]
+  ai_content                ai_content               @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  ai_content_versions       ai_content_versions?     @relation("ai_content_versionsToai_content_versions", fields: [parentVersionId], references: [id])
+  other_ai_content_versions ai_content_versions[]    @relation("ai_content_versionsToai_content_versions")
+  content_quality_scores    content_quality_scores[]
+
+  @@unique([contentId, versionNumber])
+  @@index([contentId])
+}
+
+model ai_feedback {
+  id               String         @id
+  aiGenerationId   String
+  tenantId         String
+  feedbackType     String
+  rating           Int?
+  comments         String?
+  suggestions      String?
+  wasUseful        Boolean?
+  improvementNotes String?
+  createdAt        DateTime       @default(now())
+  ai_generations   ai_generations @relation(fields: [aiGenerationId], references: [id], onDelete: Cascade)
+
+  @@index([aiGenerationId])
+  @@index([tenantId, feedbackType])
+}
+
+model ai_generation_sessions {
+  id               String     @id
+  contentId        String
+  userId           String
+  sessionStart     DateTime   @default(now())
+  sessionEnd       DateTime?
+  totalDuration    Int?
+  actionsCount     Int        @default(0)
+  generationsCount Int        @default(0)
+  critiquesCount   Int        @default(0)
+  finalOutcome     String?
+  sessionMetadata  Json       @default("{}")
+  ai_content       ai_content @relation(fields: [contentId], references: [id])
+
+  @@index([contentId])
+  @@index([userId, sessionStart])
+}
+
+model ai_generations {
+  id              String        @id
+  tenantId        String
+  postId          String?
+  provider        String
+  model           String
+  promptType      String
+  prompt          String
+  response        String
+  tokensUsed      Int?
+  cost            Decimal?      @db.Decimal(10, 6)
+  createdAt       DateTime      @default(now())
+  contentType     String        @default("generation")
+  editsByUser     String?
+  isUsed          Boolean       @default(false)
+  performanceData Json          @default("{}")
+  status          String        @default("generated")
+  usedInPostId    String?
+  userFeedback    String?
+  userRating      Int?
+  ai_feedback     ai_feedback[]
+
+  @@index([tenantId, contentType, status])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, provider])
+}
+
+model ai_instruction_history {
+  id              String     @id
+  contentId       String
+  versionId       String?
+  instructionType String?
+  instructionText String
+  appliedAt       DateTime?
+  createdBy       String?
+  createdAt       DateTime   @default(now())
+  ai_content      ai_content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+
+  @@index([contentId])
+}
+
+model ai_learning_patterns {
+  id                String    @id
+  tenantId          String
+  userId            String?
+  patternType       String
+  pattern           Json
+  confidence        Float
+  usageCount        Int       @default(0)
+  successRate       Float?
+  context           Json      @default("{}")
+  exampleContentIds String[]
+  negativeExamples  String[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime
+  lastUsed          DateTime?
+  tenants           tenants   @relation(fields: [tenantId], references: [id])
+
+  @@index([confidence])
+  @@index([tenantId, patternType])
+}
+
+model ai_usage {
+  id         String   @id
   userId     String
-  provider   String   // 'openai', 'anthropic', etc.
-  action     String   // 'blog_generation', 'title_generation', 'social_adaptation'
+  provider   String
+  action     String
   tokensUsed Int      @default(0)
   metadata   Json     @default("{}")
   createdAt  DateTime @default(now())
 
-  @@index([userId, provider])
   @@index([userId, createdAt])
-  @@map("ai_usage")
+  @@index([userId, provider])
 }
 
-// Posts model - core blog content
-model Post {
-  id          String     @id @default(cuid())
-  title       String
-  slug        String
-  content     String     @db.Text
-  excerpt     String?
-  status      PostStatus @default(DRAFT)
-  publishDate DateTime?
-  authorId    String
-  tenantId    String
-  featuredImage String?  // URL to featured image
-  metaDescription String?
-  metaKeywords String?
-  readingTime Int?      // Estimated reading time in minutes
-  viewCount   Int       @default(0)
-  
-  // New blog summary fields
-  headline    String?   // Main attention-grabbing headline
-  subheadline String?   // Supporting headline/tagline
-  summary     String?   @db.Text // Brief summary for AI context and social sharing
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  // Relationships
-  author     User           @relation(fields: [authorId], references: [id])
-  tenant     Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  categories PostCategory[]
-  tags       PostTag[]
-  media      PostMedia[]
-  versions   PostVersion[]  // For version history
-
-  @@unique([slug, tenantId]) // Slug unique per tenant
-  @@index([tenantId, status, publishDate])
-  @@index([tenantId, authorId])
-  @@map("posts")
+model api_keys {
+  id           String    @id
+  provider     String
+  encryptedKey String
+  isActive     Boolean   @default(true)
+  usageCount   Int       @default(0)
+  lastUsed     DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  keyHash      String
+  name         String
+  userId       String
 }
 
-// Post versions for history/rollback
-model PostVersion {
-  id        String   @id @default(cuid())
-  postId    String
-  content   String   @db.Text
-  title     String
-  version   Int
-  createdAt DateTime @default(now())
+model blog_ideas {
+  id                String   @id
+  tenantId          String
+  title             String
+  description       String
+  category          String?
+  tags              String[]
+  priority          String   @default("medium")
+  status            String   @default("idea")
+  source            String   @default("manual")
+  aiPrompt          String?
+  publishedPostId   String?
+  userNotes         String?
+  seasonality       String?
+  targetAudience    String?
+  estimatedReadTime Int?
+  keywords          String[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime
 
-  // Relationships
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-
-  @@unique([postId, version])
-  @@map("post_versions")
+  @@index([tenantId, createdAt])
+  @@index([tenantId, priority])
+  @@index([tenantId, status])
 }
 
-// Categories model
-model Category {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String
-  description String?
-  tenantId    String
-  color       String?  // Hex color for UI
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model categories {
+  id              String            @id
+  name            String
+  slug            String
+  description     String?
+  tenantId        String
+  color           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime
+  tenants         tenants           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  post_categories post_categories[]
 
-  // Relationships
-  tenant Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  posts  PostCategory[]
-
-  @@unique([slug, tenantId]) // Slug unique per tenant
-  @@map("categories")
+  @@unique([slug, tenantId])
 }
 
-// Tags model
-model Tag {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String
-  tenantId  String
-  useCount  Int      @default(0) // Track how often used
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model content_performance_data {
+  id                  String     @id
+  aiContentId         String
+  publishedPostId     String?
+  generationParams    Json
+  userModifications   Json
+  performanceMetrics  Json
+  attributionScore    Float?
+  timeframe           String
+  benchmarkComparison Json
+  successFactors      String[]
+  recordedAt          DateTime   @default(now())
+  ai_content          ai_content @relation(fields: [aiContentId], references: [id])
 
-  // Relationships
-  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  posts  PostTag[]
-
-  @@unique([slug, tenantId]) // Slug unique per tenant
-  @@map("tags")
+  @@index([aiContentId])
+  @@index([recordedAt])
 }
 
-// Junction table for Post-Category many-to-many
-model PostCategory {
-  postId     String
-  categoryId String
-  createdAt  DateTime @default(now())
+model content_quality_scores {
+  id                     String               @id
+  contentId              String
+  versionId              String?
+  scoreType              String
+  qualityDimensions      Json
+  overallScore           Float
+  confidenceScore        Float
+  scoringReasons         String[]
+  improvementSuggestions String[]
+  comparativeRank        Int?
+  scoredAt               DateTime             @default(now())
+  scoredBy               String?
+  ai_content             ai_content           @relation(fields: [contentId], references: [id])
+  ai_content_versions    ai_content_versions? @relation(fields: [versionId], references: [id])
 
-  // Relationships
-  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  @@id([postId, categoryId])
-  @@map("post_categories")
+  @@index([contentId, scoreType])
+  @@index([overallScore])
 }
 
-// Junction table for Post-Tag many-to-many
-model PostTag {
-  postId    String
-  tagId     String
-  createdAt DateTime @default(now())
+model content_workflow_state {
+  id            String     @id
+  contentId     String     @unique
+  currentState  String
+  stateHistory  Json
+  blockers      String[]
+  nextActions   String[]
+  stateMetadata Json       @default("{}")
+  updatedAt     DateTime
+  ai_content    ai_content @relation(fields: [contentId], references: [id])
 
-  // Relationships
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([postId, tagId])
-  @@map("post_tags")
+  @@index([currentState])
 }
 
-// Media files model (images, videos, documents)
-model Media {
-  id           String     @id @default(cuid())
+model feature_usage {
+  id         String   @id
+  tenantId   String
+  feature    String
+  usageCount Int      @default(0)
+  lastUsed   DateTime @default(now())
+  monthYear  String
+
+  @@unique([tenantId, feature, monthYear])
+}
+
+model media {
+  id           String       @id
   filename     String
   originalName String
   mimeType     String
-  size         Int        // File size in bytes
-  url          String     // GCS URL
-  path         String     // Path in GCS bucket
-  alt          String?    // Alt text for images
+  size         Int
+  url          String
+  path         String
+  alt          String?
   caption      String?
   tenantId     String
   uploadedById String
-  isPublic     Boolean    @default(false)
-  metadata     Json       @default("{}") // Image dimensions, etc.
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-
-  // Relationships
-  tenant     Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  uploadedBy User        @relation(fields: [uploadedById], references: [id])
-  posts      PostMedia[]
+  isPublic     Boolean      @default(false)
+  metadata     Json         @default("{}")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime
+  tenants      tenants      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  users        users        @relation(fields: [uploadedById], references: [id])
+  post_media   post_media[]
 
   @@index([tenantId, mimeType])
-  @@map("media")
 }
 
-// Junction table for Post-Media many-to-many
-model PostMedia {
+model post_categories {
+  postId     String
+  categoryId String
+  createdAt  DateTime   @default(now())
+  categories categories @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  posts      posts      @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@id([postId, categoryId])
+}
+
+model post_media {
   postId  String
   mediaId String
-  order   Int     @default(0) // For ordering images in posts
-
-  // Relationships
-  post  Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
-  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  order   Int    @default(0)
+  media   media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  posts   posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([postId, mediaId])
-  @@map("post_media")
 }
 
-// AI Generated Content tracking (enhanced for idea storage)
-model AiGeneration {
-  id          String   @id @default(cuid())
-  tenantId    String
-  postId      String?  // If generated for a specific post
-  provider    String   // 'openai', 'anthropic', etc.
-  model       String   // 'gpt-4', 'claude-3', etc.
-  promptType  String   // 'blog_post', 'social_media', 'image', 'idea', 'analysis', etc.
-  prompt      String   @db.Text
-  response    String   @db.Text
-  tokensUsed  Int?
-  cost        Decimal? @db.Decimal(10, 6) // Track costs if needed
-  createdAt   DateTime @default(now())
-  
-  // New fields for idea storage system
-  contentType String   @default("generation") // 'idea', 'blog', 'social_post', 'analysis', 'seo_suggestion'
-  status      String   @default("generated") // 'generated', 'reviewed', 'used', 'discarded'
-  userRating  Int?     // 1-5 star rating from user
-  userFeedback String? @db.Text // User comments/feedback
-  isUsed      Boolean  @default(false) // Whether content was actually used
-  usedInPostId String? // If used, which post it was used in
-  editsByUser String?  @db.Text // Any edits made by user
-  performanceData Json @default("{}") // Metrics like views, engagement, etc.
-  
-  // Relationships
-  feedbacks   AiFeedback[]
+model post_tags {
+  postId    String
+  tagId     String
+  createdAt DateTime @default(now())
+  posts     posts    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tags      tags     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
-  @@index([tenantId, provider])
-  @@index([tenantId, createdAt])
-  @@index([tenantId, contentType, status])
-  @@map("ai_generations")
+  @@id([postId, tagId])
 }
 
-// AI Feedback tracking for learning from user input
-model AiFeedback {
-  id             String   @id @default(cuid())
-  aiGenerationId String
-  tenantId       String
-  feedbackType   String   // 'rating', 'edit', 'usage', 'performance'
-  rating         Int?     // 1-5 stars
-  comments       String?  @db.Text
-  suggestions    String?  @db.Text
-  wasUseful      Boolean?
-  improvementNotes String? @db.Text
-  createdAt      DateTime @default(now())
-  
-  // Relationships
-  aiGeneration   AiGeneration @relation(fields: [aiGenerationId], references: [id], onDelete: Cascade)
-  
-  @@index([tenantId, feedbackType])
-  @@index([aiGenerationId])
-  @@map("ai_feedback")
+model post_versions {
+  id        String   @id
+  postId    String
+  content   String
+  title     String
+  version   Int
+  createdAt DateTime @default(now())
+  posts     posts    @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, version])
 }
 
-// Blog Ideas and Topics tracking
-model BlogIdea {
-  id          String   @id @default(cuid())
-  tenantId    String
-  title       String
-  description String   @db.Text
-  category    String?
-  tags        String[] // Array of tag strings
-  priority    String   @default("medium") // 'low', 'medium', 'high', 'urgent'
-  status      String   @default("idea") // 'idea', 'in_progress', 'published', 'cancelled'
-  source      String   @default("manual") // 'manual', 'ai_generated', 'user_suggestion'
-  aiPrompt    String?  @db.Text // If AI generated, the prompt used
-  publishedPostId String? // If turned into a post
-  userNotes   String?  @db.Text
-  seasonality String?  // 'holiday', 'summer', 'winter', etc.
-  targetAudience String?
-  estimatedReadTime Int? // Estimated reading time in minutes
-  keywords    String[] // SEO keywords array
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  @@index([tenantId, status])
-  @@index([tenantId, priority])
-  @@index([tenantId, createdAt])
-  @@map("blog_ideas")
+model posts {
+  id              String            @id
+  title           String
+  slug            String
+  content         String
+  excerpt         String?
+  status          PostStatus        @default(DRAFT)
+  publishDate     DateTime?
+  authorId        String
+  tenantId        String
+  featuredImage   String?
+  metaDescription String?
+  metaKeywords    String?
+  readingTime     Int?
+  viewCount       Int               @default(0)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime
+  headline        String?
+  subheadline     String?
+  summary         String?
+  post_categories post_categories[]
+  post_media      post_media[]
+  post_tags       post_tags[]
+  post_versions   post_versions[]
+  users           users             @relation(fields: [authorId], references: [id])
+  tenants         tenants           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([slug, tenantId])
+  @@index([tenantId, authorId])
+  @@index([tenantId, status, publishDate])
 }
 
-// Feature flags and usage tracking
-model FeatureUsage {
-  id         String   @id @default(cuid())
-  tenantId   String
-  feature    String   // 'ai_blog_generation', 'social_media', etc.
-  usageCount Int      @default(0)
-  lastUsed   DateTime @default(now())
-  monthYear  String   // Format: "2024-06" for monthly tracking
+model tags {
+  id        String      @id
+  name      String
+  slug      String
+  tenantId  String
+  useCount  Int         @default(0)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime
+  post_tags post_tags[]
+  tenants   tenants     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  @@unique([tenantId, feature, monthYear])
-  @@map("feature_usage")
+  @@unique([slug, tenantId])
 }
 
-// Enums
-enum Role {
-  SUPER_ADMIN  // Your master admin role
-  ADMIN        // Client admin (like Laurie)
-  EDITOR       // Content creator
-  VIEWER       // Read-only access
+model tenants {
+  id                   String                 @id
+  name                 String
+  domain               String                 @unique
+  subdomain            String                 @unique
+  config               Json                   @default("{}")
+  storageConfig        Json                   @default("{}")
+  planTier             String                 @default("starter")
+  isActive             Boolean                @default(true)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime
+  ai_content           ai_content[]
+  ai_learning_patterns ai_learning_patterns[]
+  categories           categories[]
+  media                media[]
+  posts                posts[]
+  tags                 tags[]
+  users                users[]
+}
+
+model user_content_preferences {
+  id              String   @id
+  userId          String
+  preferenceType  String
+  preferenceValue Json
+  strength        Float
+  context         Json     @default("{}")
+  learnedFrom     String[]
+  updatedAt       DateTime
+  createdAt       DateTime @default(now())
+
+  @@index([userId, preferenceType])
+}
+
+model users {
+  id           String       @id
+  email        String
+  name         String
+  passwordHash String?
+  role         Role         @default(EDITOR)
+  tenantId     String
+  isActive     Boolean      @default(true)
+  lastLogin    DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime
+  ai_content   ai_content[]
+  media        media[]
+  posts        posts[]
+  tenants      tenants      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([email, tenantId])
 }
 
 enum PostStatus {
@@ -361,271 +518,9 @@ enum PostStatus {
   TRASH
 }
 
-// INTELLIGENT AI CONTENT VERSION CONTROL SYSTEM TABLES
-// Added by Sub-Agent 1A on 2025-06-27
-
-// 1. Core AI Content Management
-model AiContent {
-  id                String    @id @default(uuid())
-  tenantId          String
-  userId            String
-  contentType       String    // 'blog', 'image', 'social', etc.
-  title             String?
-  status            String    @default("draft") // draft, in_review, published, archived
-  currentVersionId  String?
-  parentContentId   String?
-  metadata          Json      @default("{}")
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  publishedAt       DateTime?
-  archivedAt        DateTime?
-  
-  tenant            Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  user              User      @relation(fields: [userId], references: [id])
-  parentContent     AiContent? @relation("ContentHierarchy", fields: [parentContentId], references: [id])
-  childContent      AiContent[] @relation("ContentHierarchy")
-  versions          AiContentVersion[]
-  instructions      AiInstructionHistory[]
-  sessions          AiGenerationSession[]
-  relationships     AiContentRelationship[] @relation("ParentContent")
-  relatedContent    AiContentRelationship[] @relation("ChildContent")
-  critiques         AiContentCritique[]
-  interactions      AiContentInteraction[]
-  qualityScores     ContentQualityScore[]
-  performanceData   ContentPerformanceData[]
-  workflowState     ContentWorkflowState?
-  
-  @@index([tenantId])
-  @@index([status])
-  @@index([contentType])
-  @@map("ai_content")
-}
-
-// 2. Version Control with Enhanced History
-model AiContentVersion {
-  id                String    @id @default(uuid())
-  contentId         String
-  versionNumber     Int
-  contentData       Json      // Stores all content based on type
-  generationParams  Json?     // AI params used (model, temp, etc.)
-  instructions      String[]  // Array of instructions used
-  parentVersionId   String?
-  changeSummary     String?
-  createdBy         String?
-  createdAt         DateTime  @default(now())
-  isPublished       Boolean   @default(false)
-  
-  content           AiContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  parentVersion     AiContentVersion? @relation("VersionHistory", fields: [parentVersionId], references: [id])
-  childVersions     AiContentVersion[] @relation("VersionHistory")
-  critiques         AiContentCritique[]
-  qualityScores     ContentQualityScore[]
-  
-  @@unique([contentId, versionNumber])
-  @@index([contentId])
-  @@map("ai_content_versions")
-}
-
-// 3. User Interaction Tracking for Learning
-model AiContentInteraction {
-  id              String   @id @default(uuid())
-  contentId       String
-  userId          String
-  interactionType String   // 'view', 'edit', 'copy', 'critique', 'compare', 'select', 'reject', 'abandon'
-  duration        Int?     // Time spent in seconds
-  sequence        Int      // Order of interactions in session
-  contextData     Json     @default("{}") // What was user doing
-  emotionalState  String?  // 'frustrated', 'satisfied', 'confused' (inferred)
-  outcome         String?  // What happened as result
-  createdAt       DateTime @default(now())
-  
-  content         AiContent @relation(fields: [contentId], references: [id])
-  
-  @@index([contentId, userId])
-  @@index([interactionType])
-  @@map("ai_content_interactions")
-}
-
-// 4. AI Learning Pattern Recognition
-model AiLearningPattern {
-  id              String   @id @default(uuid())
-  tenantId        String
-  userId          String?  // User-specific pattern or null for global
-  patternType     String   // 'instruction_success', 'user_preference', 'topic_performance', 'timing_optimal'
-  pattern         Json     // The actual pattern data
-  confidence      Float    // 0-1 confidence score
-  usageCount      Int      @default(0)
-  successRate     Float?   // Success rate when applied
-  context         Json     @default("{}") // When this pattern applies
-  exampleContentIds String[] // Examples where this pattern worked
-  negativeExamples String[] // Examples where it didn't work
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt  
-  lastUsed        DateTime?
-  
-  tenant          Tenant @relation(fields: [tenantId], references: [id])
-  
-  @@index([tenantId, patternType])
-  @@index([confidence])
-  @@map("ai_learning_patterns")
-}
-
-// 5. User Content Preferences
-model UserContentPreference {
-  id              String   @id @default(uuid())
-  userId          String
-  preferenceType  String   // 'tone', 'length', 'structure', 'topic', 'style'
-  preferenceValue Json     // The actual preference data
-  strength        Float    // How strong this preference is (0-1)
-  context         Json     @default("{}") // When this preference applies
-  learnedFrom     String[] // Content IDs this was learned from
-  updatedAt       DateTime @updatedAt
-  createdAt       DateTime @default(now())
-  
-  @@index([userId, preferenceType])
-  @@map("user_content_preferences")
-}
-
-// 6. Sophisticated Critique System
-model AiContentCritique {
-  id              String   @id @default(uuid())
-  contentId       String
-  versionId       String?
-  userId          String
-  critiqueType    String   // 'grammar', 'tone', 'audience', 'seo', 'brand', 'structure', 'factual'
-  specificFocus   String?  // "for Gen Z", "spelling only", "more professional"
-  severity        String   // 'suggestion', 'issue', 'critical'
-  originalText    String?  // What was being critiqued
-  suggestedText   String?  // AI or user suggestion
-  reasoning       String?  // Why this critique was made
-  wasAccepted     Boolean? // Did user accept suggestion
-  actualResolution String? // How user actually resolved it
-  learningWeight  Float    @default(1.0) // How much to learn from this
-  similarCritiques String[] // IDs of similar past critiques
-  effectiveness   Float?   // How effective was this critique
-  createdAt       DateTime @default(now())
-  resolvedAt      DateTime?
-  
-  content         AiContent @relation(fields: [contentId], references: [id])
-  version         AiContentVersion? @relation(fields: [versionId], references: [id])
-  
-  @@index([contentId, critiqueType])
-  @@index([userId, critiqueType])
-  @@map("ai_content_critiques")
-}
-
-// 7. Content Quality Scoring
-model ContentQualityScore {
-  id              String   @id @default(uuid())
-  contentId       String
-  versionId       String?
-  scoreType       String   // 'ai_generated', 'user_rated', 'performance_based', 'peer_reviewed'
-  qualityDimensions Json   // Grammar, readability, engagement, SEO, brand alignment
-  overallScore    Float    // 0-100 composite score
-  confidenceScore Float    // How confident we are in this score
-  scoringReasons  String[] // Detailed reasons for score
-  improvementSuggestions String[] // Specific suggestions
-  comparativeRank Int?     // Rank compared to similar content
-  scoredAt        DateTime @default(now())
-  scoredBy        String?  // User ID or 'system'
-  
-  content         AiContent @relation(fields: [contentId], references: [id])
-  version         AiContentVersion? @relation(fields: [versionId], references: [id])
-  
-  @@index([contentId, scoreType])
-  @@index([overallScore])
-  @@map("content_quality_scores")
-}
-
-// 8. Performance Attribution Tracking
-model ContentPerformanceData {
-  id                String   @id @default(uuid())
-  aiContentId       String   // Original AI content
-  publishedPostId   String?  // Final published post
-  generationParams  Json     // Exact AI parameters used
-  userModifications Json     // What user changed
-  performanceMetrics Json    // Views, engagement, conversions
-  attributionScore  Float?   // How much success attributed to AI vs user
-  timeframe         String   // '1d', '7d', '30d', '90d'
-  benchmarkComparison Json   // vs other content
-  successFactors    String[] // What made this successful
-  recordedAt        DateTime @default(now())
-  
-  aiContent         AiContent @relation(fields: [aiContentId], references: [id])
-  
-  @@index([aiContentId])
-  @@index([recordedAt])
-  @@map("content_performance_data")
-}
-
-// 9. Workflow Intelligence
-model ContentWorkflowState {
-  id              String   @id @default(uuid())
-  contentId       String   @unique
-  currentState    String   // 'generating', 'reviewing', 'critiquing', 'improving', 'ready', 'published'
-  stateHistory    Json     // Full history of state changes
-  blockers        String[] // What's preventing progress
-  nextActions     String[] // Suggested next steps
-  stateMetadata   Json     @default("{}")
-  updatedAt       DateTime @updatedAt
-  
-  content         AiContent @relation(fields: [contentId], references: [id])
-  
-  @@index([currentState])
-  @@map("content_workflow_state")
-}
-
-// 10. Instruction History Tracking
-model AiInstructionHistory {
-  id               String    @id @default(uuid())
-  contentId        String
-  versionId        String?
-  instructionType  String?   // 'initial', 'critique', 'edit', 'style'
-  instructionText  String
-  appliedAt        DateTime?
-  createdBy        String?
-  createdAt        DateTime @default(now())
-  
-  content          AiContent @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  
-  @@index([contentId])
-  @@map("ai_instruction_history")
-}
-
-// 11. Generation Session Management
-model AiGenerationSession {
-  id              String   @id @default(uuid())
-  contentId       String
-  userId          String
-  sessionStart    DateTime @default(now())
-  sessionEnd      DateTime?
-  totalDuration   Int?     // Total session time in seconds
-  actionsCount    Int      @default(0)
-  generationsCount Int     @default(0)
-  critiquesCount  Int      @default(0)
-  finalOutcome    String?  // 'published', 'saved_draft', 'abandoned'
-  sessionMetadata Json     @default("{}")
-  
-  content         AiContent @relation(fields: [contentId], references: [id])
-  
-  @@index([contentId])
-  @@index([userId, sessionStart])
-  @@map("ai_generation_sessions")
-}
-
-// 12. Content Relationship Mapping
-model AiContentRelationship {
-  id              String   @id @default(uuid())
-  parentContentId String
-  childContentId  String
-  relationshipType String  // 'variation', 'improvement', 'adaptation', 'derivative'
-  strength        Float    @default(1.0) // How strong the relationship is
-  metadata        Json     @default("{}")
-  createdAt       DateTime @default(now())
-  
-  parentContent   AiContent @relation("ParentContent", fields: [parentContentId], references: [id])
-  childContent    AiContent @relation("ChildContent", fields: [childContentId], references: [id])
-  
-  @@unique([parentContentId, childContentId])
-  @@map("ai_content_relationships")
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+  VIEWER
 }

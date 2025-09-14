@@ -506,6 +506,7 @@ function AboutPage() {
           </div>
         </section>
 
+        {/* CTA Section */}
         <section className="ready-section" style={{
           padding: isMobile ? '60px 0' : '80px 0',
           backgroundColor: 'var(--secondary-color)',
@@ -513,7 +514,8 @@ function AboutPage() {
           width: '100%',
           display: 'flex',
           justifyContent: 'center',
-          marginBottom: '-80px'
+          marginTop: '0',
+          marginBottom: '0'
         }}>
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -550,7 +552,7 @@ function AboutPage() {
               display: 'flex', 
               gap: isMobile ? '15px' : '20px', 
               justifyContent: 'center',
-              marginBottom: '80px',
+              marginBottom: '0',
               flexWrap: 'wrap'
             }}>
               <Link to="/training" className="button" style={{
@@ -581,7 +583,7 @@ function AboutPage() {
               </Link>
             </div>
           </motion.div>
-        </section>
+      </section>
       </div>
     </PageTransition>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { AuthProvider, ProtectedRoute } from './contexts/AuthContext';
 import HomePage from './pages/HomePage';
 import TrainingPage from './pages/TrainingPage';
 import ToursPage from './pages/ToursPage';
@@ -8,7 +9,11 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetail from './pages/BlogDetail';
+import BlogTagPage from './pages/BlogTagPage';
+import BlogCategoryPage from './pages/BlogCategoryPage';
+import BlogArchivePage from './pages/BlogArchivePage';
 import BlogAdmin from './components/BlogAdmin';
+import BlogManagementPage from './pages/BlogManagementPage';
 import AdminPage from './pages/AdminPage';
 import FeaturedClubsPage from './pages/FeaturedClubsPage';
 import EventsCalendarPage from './pages/EventsCalendarPage';
@@ -33,8 +38,12 @@ function AnimatedRoutes() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/tag/:tag" element={<BlogTagPage />} />
+        <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
+        <Route path="/blog/archive/:year/:month" element={<BlogArchivePage />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
         <Route path="/admin/blog" element={<BlogAdmin />} />
+        <Route path="/admin/blog-management" element={<BlogManagementPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/clubs" element={<FeaturedClubsPage />} />
         <Route path="/events" element={<EventsCalendarPage />} />
@@ -51,7 +60,9 @@ function AnimatedRoutes() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 }

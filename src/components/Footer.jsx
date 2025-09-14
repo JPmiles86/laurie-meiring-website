@@ -16,7 +16,9 @@ function Footer() {
         backgroundColor: 'var(--neutral-color)',
         padding: '40px 15px 20px',
         textAlign: 'center',
-        marginTop: 0
+        marginTop: 0,
+        position: 'relative',
+        zIndex: 1
       }}>
         <div style={{
           maxWidth: '1200px',

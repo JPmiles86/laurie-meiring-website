@@ -3,8 +3,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import '../styles/quill-custom.css';
 import { getAllPosts, createSlug } from '../utils/blogUtils';
-import { saveToGitHub } from '../utils/blogApi';
+import { createPost, updatePost, fetchAdminPosts, transformPost } from '../services/blogApi';
 import ReactMarkdown from 'react-markdown';
+import MediaUploader from './MediaUploader';
 
 function BlogEditor({ isMobile, initialContent, onContentUsed }) {
   const [title, setTitle] = useState('');
@@ -19,6 +20,9 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
   const [showExistingPosts, setShowExistingPosts] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [imageModalData, setImageModalData] = useState({ url: '', size: 'large', align: 'center' });
+  const [existingPosts, setExistingPosts] = useState([]);
+  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [showMediaUploader, setShowMediaUploader] = useState(false);
   const quillRef = useRef();
 
   // Load initial content from AI if available
@@ -73,16 +77,29 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
         }
       });
       
-      // Image handler with size/alignment options
+      // Image handler with media uploader
       toolbar.addHandler('image', () => {
-        const url = prompt('Enter image URL:');
-        if (url) {
-          setImageModalData({ url, size: 'large', align: 'center' });
-          setShowImageModal(true);
-        }
+        setShowMediaUploader(true);
       });
     }
   }, []);
+
+  // Handle image selection from media uploader
+  const handleImageSelect = (imageData) => {
+    if (quillRef.current && imageData.url) {
+      const editor = quillRef.current.getEditor();
+      const range = editor.getSelection(true);
+      
+      // Insert image at cursor position
+      editor.insertEmbed(range.index, 'image', imageData.url);
+      
+      // Move cursor after the image
+      editor.setSelection(range.index + 1);
+      
+      // Close the uploader
+      setShowMediaUploader(false);
+    }
+  };
 
   // Handle image insertion with size and alignment
   const insertImage = () => {
@@ -212,6 +229,28 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
       .trim();
   };
 
+  // Load existing posts from API
+  const loadExistingPosts = async () => {
+    setLoadingPosts(true);
+    try {
+      const { posts } = await fetchAdminPosts({ limit: 100 });
+      setExistingPosts(posts.map(transformPost));
+    } catch (error) {
+      console.error('Failed to load posts:', error);
+      // Fallback to local data
+      setExistingPosts(getAllPosts());
+    } finally {
+      setLoadingPosts(false);
+    }
+  };
+
+  // Load posts when showing existing posts
+  useEffect(() => {
+    if (showExistingPosts && existingPosts.length === 0) {
+      loadExistingPosts();
+    }
+  }, [showExistingPosts]);
+
   // Handle save/publish
   const handlePublish = async () => {
     if (!title || !content) {
@@ -222,45 +261,29 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
     setSaving(true);
     
     try {
-      const posts = getAllPosts();
       const markdownContent = htmlToMarkdown(content);
+      const slug = editingId ? undefined : createSlug(title); // Keep existing slug on update
       
-      let postData;
+      const postData = {
+        title,
+        content: markdownContent,
+        featuredImage: featuredImage || (editingId ? undefined : `/blog${Date.now()}/featured.jpg`),
+        categories: categories.length > 0 ? categories : ['Pickleball'],
+        tags: tags.split(',').map(t => t.trim()).filter(t => t),
+        status: 'PUBLISHED',
+        ...(slug && { slug })
+      };
+
+      let result;
       if (editingId) {
         // Update existing post
-        const existingPost = posts.find(p => p.id === editingId);
-        postData = {
-          ...existingPost,
-          title,
-          content: markdownContent,
-          featuredImage: featuredImage || existingPost.featuredImage,
-          categories: categories.length > 0 ? categories : ['Pickleball'],
-          tags: tags.split(',').map(t => t.trim()).filter(t => t),
-          slug: existingPost.slug // Keep the same slug
-        };
+        result = await updatePost(editingId, postData);
+        setMessage('Post updated successfully!');
       } else {
         // Create new post
-        const newId = String(Math.max(...posts.map(p => parseInt(p.id))) + 1);
-        const slug = createSlug(title);
-        
-        postData = {
-          id: newId,
-          title,
-          content: markdownContent,
-          publishDate: new Date().toISOString(),
-          status: 'published',
-          author: 'Laurie Meiring',
-          slug,
-          featuredImage: featuredImage || `/blog${newId}/featured.jpg`,
-          categories: categories.length > 0 ? categories : ['Pickleball'],
-          tags: tags.split(',').map(t => t.trim()).filter(t => t)
-        };
+        result = await createPost(postData);
+        setMessage('Post published successfully!');
       }
-
-      // Save to GitHub
-      await saveToGitHub(postData, !!editingId);
-      
-      setMessage(editingId ? 'Post updated successfully!' : 'Post published successfully!');
       
       // Clear form
       setTitle('');
@@ -270,17 +293,12 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
       setTags('');
       setEditingId(null);
       
-      // Reload the page after a short delay to show updated posts
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      // Reload posts
+      await loadExistingPosts();
       
     } catch (error) {
-      if (error.message.includes('token not configured')) {
-        setMessage('GitHub token not configured. Please add VITE_GITHUB_TOKEN to your .env file');
-      } else {
-        setMessage('Error publishing post: ' + error.message);
-      }
+      console.error('Publish error:', error);
+      setMessage('Error publishing post: ' + (error.message || 'Unknown error'));
     } finally {
       setSaving(false);
     }
@@ -404,8 +422,15 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
           maxHeight: '300px',
           overflowY: 'auto'
         }}>
-          <h3 style={{ marginBottom: '15px' }}>Select a Post to Edit</h3>
-          {getAllPosts().map(post => (
+          <h3 style={{ marginBottom: '15px' }}>
+            {loadingPosts ? 'Loading posts...' : 'Select a Post to Edit'}
+          </h3>
+          {loadingPosts ? (
+            <div style={{ textAlign: 'center', padding: '20px' }}>
+              Loading posts...
+            </div>
+          ) : (
+            existingPosts.map(post => (
             <div
               key={post.id}
               style={{
@@ -423,7 +448,8 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
                 {new Date(post.publishDate).toLocaleDateString()} - {post.status}
               </div>
             </div>
-          ))}
+          ))
+          )}
         </div>
       )}
 
@@ -840,6 +866,14 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Media Uploader Modal */}
+      {showMediaUploader && (
+        <MediaUploader 
+          onImageSelect={handleImageSelect}
+          onClose={() => setShowMediaUploader(false)}
+        />
       )}
     </div>
   );

@@ -189,4 +189,44 @@ export function getAdjacentPosts(currentPost) {
     prev: currentIndex > 0 ? sortedPosts[currentIndex - 1] : null,
     next: currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null
   };
+}
+
+// Function to find related posts based on tags and categories
+export function getRelatedPosts(currentPost, allPosts = null, limit = 4) {
+  if (!currentPost) return [];
+  
+  const posts = allPosts || getVisiblePosts();
+  
+  // Filter out the current post
+  const otherPosts = posts.filter(post => post.id !== currentPost.id);
+  
+  // Calculate similarity scores
+  const scoredPosts = otherPosts.map(post => {
+    let score = 0;
+    
+    // Score based on matching tags
+    if (currentPost.tags && post.tags) {
+      const matchingTags = currentPost.tags.filter(tag => 
+        post.tags.includes(tag)
+      );
+      score += matchingTags.length * 2; // Weight tags higher
+    }
+    
+    // Score based on matching categories
+    if (currentPost.categories && post.categories) {
+      const matchingCategories = currentPost.categories.filter(cat => 
+        post.categories.includes(cat)
+      );
+      score += matchingCategories.length;
+    }
+    
+    return { post, score };
+  });
+  
+  // Sort by score and return top matches
+  return scoredPosts
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(item => item.post);
 } 
