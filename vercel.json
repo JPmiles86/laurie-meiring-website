@@ -2,7 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/posts.js": {
+    "api/[...path].js": {
       "maxDuration": 10
     }
   },
