@@ -269,14 +269,14 @@ function HomePage() {
                   maxHeight: '500px',
                   borderRadius: '12px'
                 }}>
-                  <img 
-                    src="/Pickelball/HomeProfileShot.jpg" 
+                  <img
+                    src="/Pickelball/HomeProfileShot.jpg"
                     alt="Pickleball Training"
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
-                      objectPosition: 'center',
+                      objectPosition: 'top',
                       transition: 'transform 0.5s ease',
                       borderRadius: '12px'
                     }}

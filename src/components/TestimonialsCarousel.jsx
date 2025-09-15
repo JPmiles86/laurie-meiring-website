@@ -7,17 +7,17 @@ import OptimizedImage from './OptimizedImage';
 const fallbackTestimonials = [
   {
     id: 1,
-    name: 'Rome Petricca',
-    text: 'Laurie is the Best Coach! Skilled, enthusiastic and supportive AND an all-round cool guy 😎',
-    rating: 5,
-    image: '/RomeLaurieMedal.jpg'
-  },
-  {
-    id: 2,
     name: 'Allison Watts',
     text: 'Laurie is an amazing coach! My husband and I have both improved so much—he helps us build on our strengths and address weaknesses to become well-rounded players. He\'s always elevating his own game, which inspires us to keep growing too. Highly recommend!',
     rating: 5,
     image: '/Pickelball/AllisonWatts.jpg'
+  },
+  {
+    id: 2,
+    name: 'Rome Petricca',
+    text: 'Laurie is the Best Coach! Skilled, enthusiastic and supportive AND an all-round cool guy 😎',
+    rating: 5,
+    image: '/RomeLaurieMedal.jpg'
   },
   {
     id: 3,

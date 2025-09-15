@@ -421,16 +421,17 @@ function TrainingPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <OptimizedImage 
+                <OptimizedImage
                   src="/Pickelball/CoachPhoto3.jpg"
                   alt="Professional Pickleball Coaching"
                   style={{
                     width: '100%',
-                    height: isMobile ? '300px' : '400px',
+                    height: isMobile ? '400px' : '500px',
                     objectFit: 'cover',
+                    objectPosition: 'top',
                     borderRadius: '10px',
                     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
-                    aspectRatio: '1/1'
+                    aspectRatio: '3/4'
                   }}
                 />
               </motion.div>

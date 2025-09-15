@@ -471,6 +471,7 @@ model tenants {
   ai_content           ai_content[]
   ai_learning_patterns ai_learning_patterns[]
   categories           categories[]
+  clubs                clubs[]
   media                media[]
   posts                posts[]
   tags                 tags[]
@@ -529,6 +530,26 @@ model testimonials {
   createdAt DateTime @default(now())
   updatedAt DateTime
   tenants   tenants  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}
+
+model clubs {
+  id              String   @id
+  name            String
+  location        Json     // city, province, address, directions, coordinates
+  contactInfo     Json     // phone, email, website, instagram
+  courtDetails    Json     // indoorCourts, outdoorCourts, lightingAvailable, surfaceType
+  playInfo        Json     // openPlay, openPlaySchedule, reservationRequired, courtFees
+  amenities       String[]
+  images          String[]
+  description     String?
+  listingType     String   // 'featured' or 'basic'
+  upcomingEvents  String[]
+  tenantId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+  tenants         tenants  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
   @@index([tenantId])
 }

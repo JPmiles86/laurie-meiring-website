@@ -281,6 +281,128 @@ export default async function handler(req, res) {
       return res.json({ success: true });
     }
 
+    // Handle /api/clubs - GET all clubs
+    if (url.includes('/api/clubs') && !url.includes('/api/clubs/') && req.method === 'GET') {
+      const { tenant = 'laurie-personal' } = req.query;
+
+      const tenantRecord = await prisma.tenants.findFirst({
+        where: { subdomain: tenant }
+      });
+
+      if (!tenantRecord) {
+        return res.status(404).json({ error: 'Tenant not found' });
+      }
+
+      const clubs = await prisma.clubs.findMany({
+        where: {
+          tenantId: tenantRecord.id
+        },
+        orderBy: { createdAt: 'desc' }
+      });
+
+      return res.json({ success: true, clubs });
+    }
+
+    // Handle POST /api/clubs - create new club
+    if (req.method === 'POST' && url.includes('/api/clubs') && !url.includes('/api/clubs/')) {
+      const {
+        name,
+        location,
+        contactInfo,
+        courtDetails,
+        playInfo,
+        amenities,
+        images,
+        description,
+        listingType,
+        upcomingEvents
+      } = req.body;
+      const { tenant = 'laurie-personal' } = req.query;
+
+      if (!name || !location) {
+        return res.status(400).json({ error: 'Name and location are required' });
+      }
+
+      const tenantRecord = await prisma.tenants.findFirst({
+        where: { subdomain: tenant }
+      });
+
+      if (!tenantRecord) {
+        return res.status(404).json({ error: 'Tenant not found' });
+      }
+
+      const newClub = await prisma.clubs.create({
+        data: {
+          id: `club-${Date.now()}`,
+          name,
+          location: location || {},
+          contactInfo: contactInfo || {},
+          courtDetails: courtDetails || {},
+          playInfo: playInfo || {},
+          amenities: amenities || [],
+          images: images || [],
+          description: description || null,
+          listingType: listingType || 'basic',
+          upcomingEvents: upcomingEvents || [],
+          tenantId: tenantRecord.id,
+          updatedAt: new Date()
+        }
+      });
+
+      return res.json({ success: true, club: newClub });
+    }
+
+    // Handle PUT /api/clubs/[id] - update club
+    if (req.method === 'PUT' && url.includes('/api/clubs/')) {
+      const clubId = url.split('/api/clubs/')[1].split('?')[0];
+      const {
+        name,
+        location,
+        contactInfo,
+        courtDetails,
+        playInfo,
+        amenities,
+        images,
+        description,
+        listingType,
+        upcomingEvents
+      } = req.body;
+
+      if (!name || !location) {
+        return res.status(400).json({ error: 'Name and location are required' });
+      }
+
+      const updatedClub = await prisma.clubs.update({
+        where: { id: clubId },
+        data: {
+          name,
+          location: location || {},
+          contactInfo: contactInfo || {},
+          courtDetails: courtDetails || {},
+          playInfo: playInfo || {},
+          amenities: amenities || [],
+          images: images || [],
+          description: description || null,
+          listingType: listingType || 'basic',
+          upcomingEvents: upcomingEvents || [],
+          updatedAt: new Date()
+        }
+      });
+
+      return res.json({ success: true, club: updatedClub });
+    }
+
+    // Handle DELETE /api/clubs/[id] - delete club
+    if (req.method === 'DELETE' && url.includes('/api/clubs/')) {
+      const clubId = url.split('/api/clubs/')[1].split('?')[0];
+
+      await prisma.clubs.delete({
+        where: { id: clubId }
+      });
+
+      return res.json({ success: true });
+    }
+
     // Handle /api/posts/[slug] - get single post
     if (url.includes('/api/posts/')) {
       const slug = url.split('/api/posts/')[1].split('?')[0];
