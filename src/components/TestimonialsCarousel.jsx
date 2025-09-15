@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
 import OptimizedImage from './OptimizedImage';
 
-const testimonials = [
+// Fallback testimonials in case API fails
+const fallbackTestimonials = [
   {
     id: 1,
     name: 'Rome Petricca',
@@ -71,6 +72,30 @@ function TestimonialsCarousel() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [testimonials, setTestimonials] = useState(fallbackTestimonials);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch testimonials from database
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/testimonials');
+        const data = await response.json();
+
+        if (data.success && data.testimonials && data.testimonials.length > 0) {
+          setTestimonials(data.testimonials);
+        }
+        // If no testimonials in database or API fails, keep fallback testimonials
+      } catch (error) {
+        console.log('Using fallback testimonials:', error);
+        // Keep fallback testimonials
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -114,6 +139,31 @@ function TestimonialsCarousel() {
     setTouchStart(null);
     setTouchEnd(null);
   };
+
+  if (loading) {
+    return (
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        maxWidth: '100%',
+        margin: '0 auto',
+        padding: '20px 0 60px',
+        overflow: 'visible',
+        minHeight: isMobile ? '550px' : '500px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{
+          color: 'var(--text-color)',
+          fontSize: '1.2rem'
+        }}>
+          Loading testimonials...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{

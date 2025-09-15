@@ -193,6 +193,94 @@ export default async function handler(req, res) {
       return res.json({ success: true, posts });
     }
 
+    // Handle /api/testimonials - GET all testimonials
+    if (url.includes('/api/testimonials') && !url.includes('/api/testimonials/') && req.method === 'GET') {
+      const { tenant = 'laurie-personal' } = req.query;
+
+      const tenantRecord = await prisma.tenants.findFirst({
+        where: { subdomain: tenant }
+      });
+
+      if (!tenantRecord) {
+        return res.status(404).json({ error: 'Tenant not found' });
+      }
+
+      const testimonials = await prisma.testimonials.findMany({
+        where: {
+          tenantId: tenantRecord.id
+        },
+        orderBy: { createdAt: 'desc' }
+      });
+
+      return res.json({ success: true, testimonials });
+    }
+
+    // Handle POST /api/testimonials - create new testimonial
+    if (req.method === 'POST' && url.includes('/api/testimonials') && !url.includes('/api/testimonials/')) {
+      const { name, text, rating, image } = req.body;
+      const { tenant = 'laurie-personal' } = req.query;
+
+      if (!name || !text) {
+        return res.status(400).json({ error: 'Name and text are required' });
+      }
+
+      const tenantRecord = await prisma.tenants.findFirst({
+        where: { subdomain: tenant }
+      });
+
+      if (!tenantRecord) {
+        return res.status(404).json({ error: 'Tenant not found' });
+      }
+
+      const newTestimonial = await prisma.testimonials.create({
+        data: {
+          id: `testimonial-${Date.now()}`,
+          name,
+          text,
+          rating: rating || 5,
+          image: image || null,
+          tenantId: tenantRecord.id,
+          updatedAt: new Date()
+        }
+      });
+
+      return res.json({ success: true, testimonial: newTestimonial });
+    }
+
+    // Handle PUT /api/testimonials/[id] - update testimonial
+    if (req.method === 'PUT' && url.includes('/api/testimonials/')) {
+      const testimonialId = url.split('/api/testimonials/')[1].split('?')[0];
+      const { name, text, rating, image } = req.body;
+
+      if (!name || !text) {
+        return res.status(400).json({ error: 'Name and text are required' });
+      }
+
+      const updatedTestimonial = await prisma.testimonials.update({
+        where: { id: testimonialId },
+        data: {
+          name,
+          text,
+          rating: rating || 5,
+          image: image || null,
+          updatedAt: new Date()
+        }
+      });
+
+      return res.json({ success: true, testimonial: updatedTestimonial });
+    }
+
+    // Handle DELETE /api/testimonials/[id] - delete testimonial
+    if (req.method === 'DELETE' && url.includes('/api/testimonials/')) {
+      const testimonialId = url.split('/api/testimonials/')[1].split('?')[0];
+
+      await prisma.testimonials.delete({
+        where: { id: testimonialId }
+      });
+
+      return res.json({ success: true });
+    }
+
     // Handle /api/posts/[slug] - get single post
     if (url.includes('/api/posts/')) {
       const slug = url.split('/api/posts/')[1].split('?')[0];

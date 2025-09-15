@@ -474,6 +474,7 @@ model tenants {
   media                media[]
   posts                posts[]
   tags                 tags[]
+  testimonials         testimonials[]
   users                users[]
 }
 
@@ -516,6 +517,20 @@ enum PostStatus {
   SCHEDULED
   ARCHIVED
   TRASH
+}
+
+model testimonials {
+  id        String   @id
+  name      String
+  text      String
+  rating    Int      @default(5)
+  image     String?
+  tenantId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  tenants   tenants  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
 }
 
 enum Role {
