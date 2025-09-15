@@ -15,6 +15,9 @@ import BlogArchivePage from './pages/BlogArchivePage';
 import BlogAdmin from './components/BlogAdmin';
 import BlogManagementPage from './pages/BlogManagementPage';
 import AdminPage from './pages/AdminPage';
+import AdminDashboard from './pages/AdminDashboard';
+import TestimonialsAdmin from './pages/TestimonialsAdmin';
+import ClubsAdmin from './pages/ClubsAdmin';
 import FeaturedClubsPage from './pages/FeaturedClubsPage';
 import EventsCalendarPage from './pages/EventsCalendarPage';
 import PartnerMatchingPage from './pages/PartnerMatchingPage';
@@ -42,9 +45,11 @@ function AnimatedRoutes() {
         <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
         <Route path="/blog/archive/:year/:month" element={<BlogArchivePage />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
-        <Route path="/admin/blog" element={<BlogAdmin />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/blog" element={<AdminPage />} />
         <Route path="/admin/blog-management" element={<BlogManagementPage />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/testimonials" element={<TestimonialsAdmin />} />
+        <Route path="/admin/clubs" element={<ClubsAdmin />} />
         <Route path="/clubs" element={<FeaturedClubsPage />} />
         <Route path="/events" element={<EventsCalendarPage />} />
         <Route path="/find-partner" element={<PartnerMatchingPage />} />

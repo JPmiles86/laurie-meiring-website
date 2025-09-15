@@ -19,7 +19,7 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
   const [editingId, setEditingId] = useState(null);
   const [showExistingPosts, setShowExistingPosts] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
-  const [imageModalData, setImageModalData] = useState({ url: '', size: 'large', align: 'center' });
+  const [imageModalData, setImageModalData] = useState({ url: '', size: 'xlarge', align: 'center' });
   const [existingPosts, setExistingPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [showMediaUploader, setShowMediaUploader] = useState(false);
@@ -59,7 +59,7 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
   useEffect(() => {
     if (quillRef.current) {
       const toolbar = quillRef.current.getEditor().getModule('toolbar');
-      
+
       // YouTube handler
       toolbar.addHandler('youtube', () => {
         const url = prompt('Enter YouTube URL:');
@@ -76,11 +76,96 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
           }
         }
       });
-      
+
       // Image handler with media uploader
       toolbar.addHandler('image', () => {
         setShowMediaUploader(true);
       });
+    }
+  }, []);
+
+  // Add click-to-resize functionality for images in editor
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      const editorContainer = editor.container;
+
+      const handleImageClick = (e) => {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          e.stopPropagation();
+
+          // Get current size from class or default to xlarge
+          let currentSize = 'xlarge';
+          const classList = Array.from(e.target.classList);
+          for (const className of classList) {
+            if (className.startsWith('ql-image-') && !className.includes('align')) {
+              currentSize = className.replace('ql-image-', '');
+              break;
+            }
+          }
+
+          // Cycle through sizes: small (25%) -> medium (50%) -> large (75%) -> xlarge (100%) -> small
+          const sizeOrder = ['small', 'medium', 'large', 'xlarge'];
+          const currentIndex = sizeOrder.indexOf(currentSize);
+          const nextIndex = (currentIndex + 1) % sizeOrder.length;
+          const nextSize = sizeOrder[nextIndex];
+
+          // Update the image classes
+          // Remove old size class
+          sizeOrder.forEach(size => {
+            e.target.classList.remove(`ql-image-${size}`);
+          });
+
+          // Add new size class
+          e.target.classList.add(`ql-image-${nextSize}`);
+
+          // Update data attribute for markdown conversion
+          e.target.setAttribute('data-size', nextSize);
+
+          // Show a brief tooltip with the new size
+          const percentage = {
+            'small': '25%',
+            'medium': '50%',
+            'large': '75%',
+            'xlarge': '100%'
+          }[nextSize];
+
+          // Create tooltip
+          const tooltip = document.createElement('div');
+          tooltip.textContent = `Image size: ${percentage}`;
+          tooltip.style.cssText = `
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1000;
+            pointer-events: none;
+            top: ${e.pageY - 30}px;
+            left: ${e.pageX}px;
+          `;
+          document.body.appendChild(tooltip);
+
+          // Remove tooltip after 1 second
+          setTimeout(() => {
+            if (tooltip.parentNode) {
+              tooltip.parentNode.removeChild(tooltip);
+            }
+          }, 1000);
+
+          // Trigger content change to update the content state
+          const currentContent = editor.getContents();
+          setContent(editor.root.innerHTML);
+        }
+      };
+
+      editorContainer.addEventListener('click', handleImageClick);
+
+      return () => {
+        editorContainer.removeEventListener('click', handleImageClick);
+      };
     }
   }, []);
 
@@ -106,12 +191,12 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
     if (quillRef.current && imageModalData.url) {
       const editor = quillRef.current.getEditor();
       const range = editor.getSelection(true);
-      
+
       // Create a custom image element with data attributes
       const delta = editor.clipboard.convert(
-        `<img src="${imageModalData.url}" data-size="${imageModalData.size}" data-align="${imageModalData.align}" class="ql-image-${imageModalData.size} ql-image-align-${imageModalData.align}" />`
+        `<img src="${imageModalData.url}" data-size="${imageModalData.size}" data-align="${imageModalData.align}" class="ql-image-${imageModalData.size} ql-image-align-${imageModalData.align}" alt="" />`
       );
-      
+
       editor.updateContents(delta, 'user');
       editor.setSelection(range.index + 1);
     }
@@ -188,11 +273,11 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
       if (srcMatch) {
         const src = srcMatch[1];
         const alt = altMatch ? altMatch[1] : '';
-        const size = sizeMatch ? sizeMatch[1] : 'large';
+        const size = sizeMatch ? sizeMatch[1] : 'xlarge';
         const align = alignMatch ? alignMatch[1] : 'center';
-        
+
         // Only add attributes if they're not the defaults
-        if (size !== 'large' || align !== 'center') {
+        if (size !== 'xlarge' || align !== 'center') {
           return `![${alt}](${src}){size=${size} align=${align}}`;
         }
         return `![${alt}](${src})`;
@@ -335,16 +420,16 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
     
     // Convert images with size and alignment attributes
     markdown = markdown.replace(/!\[([^\]]*)\]\(([^)]+)\)(?:\{([^}]+)\})?/g, (match, alt, src, attrs) => {
-      let size = 'large';
+      let size = 'xlarge';
       let align = 'center';
-      
+
       if (attrs) {
         const sizeMatch = attrs.match(/size=([^\s]+)/);
         const alignMatch = attrs.match(/align=([^\s]+)/);
         if (sizeMatch) size = sizeMatch[1];
         if (alignMatch) align = alignMatch[1];
       }
-      
+
       return `<img src="${src}" alt="${alt}" data-size="${size}" data-align="${align}" class="ql-image-${size} ql-image-align-${align}">`;
     });
     
@@ -454,17 +539,15 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
       )}
 
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: preview ? '1fr 1fr' : '1fr',
-        gap: '20px',
+        display: 'flex',
+        flexDirection: 'column',
         height: 'calc(100vh - 120px)'
       }}>
         {/* Editor Panel */}
         <div style={{
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '8px',
-          overflowY: 'auto'
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column'
         }}>
           <div style={{ marginBottom: '20px' }}>
             <label style={{
@@ -522,45 +605,58 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
             }}>
               Content
             </label>
-            <div style={{ 
-              minHeight: '400px',
-              backgroundColor: 'white'
+            <div style={{
+              flex: 1,
+              backgroundColor: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: '600px'
             }}>
-              <ReactQuill
-                ref={quillRef}
-                theme="snow"
-                value={content}
-                onChange={(value, delta, source, editor) => {
-                  // Handle YouTube URL pasting
-                  if (source === 'user' && delta && delta.ops) {
-                    const insertOp = delta.ops.find(op => op.insert && typeof op.insert === 'string');
-                    if (insertOp) {
-                      const text = insertOp.insert;
-                      const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/;
-                      const match = text.match(youtubeRegex);
-                      if (match) {
-                        const videoId = match[1];
-                        const range = editor.getSelection();
-                        if (range) {
-                          // Delete the pasted URL
-                          editor.deleteText(range.index - text.length, text.length);
-                          // Insert the video embed
-                          editor.insertEmbed(range.index - text.length, 'video', `https://www.youtube.com/embed/${videoId}`);
-                          return;
+              <div
+                id="quill-editor-container"
+                style={{
+                  flex: 1,
+                  resize: 'vertical',
+                  overflow: 'hidden',
+                  minHeight: '600px'
+                }}
+              >
+                <ReactQuill
+                  ref={quillRef}
+                  theme="snow"
+                  value={content}
+                  onChange={(value, delta, source, editor) => {
+                    // Handle YouTube URL pasting
+                    if (source === 'user' && delta && delta.ops) {
+                      const insertOp = delta.ops.find(op => op.insert && typeof op.insert === 'string');
+                      if (insertOp) {
+                        const text = insertOp.insert;
+                        const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/?)([\w-]+)/;
+                        const match = text.match(youtubeRegex);
+                        if (match) {
+                          const videoId = match[1];
+                          const range = editor.getSelection();
+                          if (range) {
+                            // Delete the pasted URL
+                            editor.deleteText(range.index - text.length, text.length);
+                            // Insert the video embed
+                            editor.insertEmbed(range.index - text.length, 'video', `https://www.youtube.com/embed/${videoId}`);
+                            return;
+                          }
                         }
                       }
                     }
-                  }
-                  setContent(value);
-                }}
-                modules={modules}
-                formats={formats}
-                style={{ height: '350px' }}
-              />
+                    setContent(value);
+                  }}
+                  modules={modules}
+                  formats={formats}
+                  style={{ height: '100%' }}
+                />
+              </div>
             </div>
           </div>
 
-          <div style={{ marginBottom: '20px', marginTop: '60px' }}>
+          <div style={{ marginBottom: '20px', marginTop: '20px' }}>
             <label style={{
               display: 'block',
               marginBottom: '8px',
@@ -645,7 +741,7 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
                 cursor: 'pointer'
               }}
             >
-              {preview ? 'Hide Preview' : 'Show Preview'}
+              {preview ? 'Close Preview' : 'Preview'}
             </button>
             
             <button
@@ -666,57 +762,109 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
           </div>
         </div>
 
-        {/* Preview Panel */}
+        {/* Preview Modal */}
         {preview && (
           <div style={{
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '8px',
-            overflowY: 'auto'
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '20px'
           }}>
-            <h2 style={{ color: 'var(--primary-color)' }}>Preview</h2>
-            <hr style={{ marginBottom: '20px' }} />
-            
-            <h1 style={{
-              fontSize: '2.5rem',
-              marginBottom: '20px',
-              color: 'var(--primary-color)'
-            }}>
-              {title || 'Blog Title'}
-            </h1>
-            
             <div style={{
-              fontSize: '1rem',
-              color: 'var(--text-color)',
-              opacity: 0.8,
-              marginBottom: '30px'
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              width: '800px',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+              boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)'
             }}>
-              {new Date().toLocaleDateString()} by Laurie Meiring
-            </div>
+              {/* Modal Header */}
+              <div style={{
+                padding: '20px',
+                borderBottom: '1px solid var(--border-color)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                backgroundColor: '#f8f9fa'
+              }}>
+                <h2 style={{ color: 'var(--primary-color)', margin: 0 }}>Preview</h2>
+                <button
+                  onClick={() => setPreview(false)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    color: 'var(--text-color)',
+                    width: '30px',
+                    height: '30px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  ×
+                </button>
+              </div>
 
-            {featuredImage && (
-              <img 
-                src={featuredImage} 
-                alt="Featured"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  marginBottom: '30px',
-                  borderRadius: '8px'
-                }}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
-            )}
-            
-            <div style={{
-              fontSize: '1.1rem',
-              lineHeight: 1.6
-            }}>
-              <ReactMarkdown>
-                {htmlToMarkdown(content)}
-              </ReactMarkdown>
+              {/* Modal Content */}
+              <div style={{
+                flex: 1,
+                padding: '20px',
+                overflowY: 'auto'
+              }}>
+                <h1 style={{
+                  fontSize: '2.5rem',
+                  marginBottom: '20px',
+                  color: 'var(--primary-color)'
+                }}>
+                  {title || 'Blog Title'}
+                </h1>
+
+                <div style={{
+                  fontSize: '1rem',
+                  color: 'var(--text-color)',
+                  opacity: 0.8,
+                  marginBottom: '30px'
+                }}>
+                  {new Date().toLocaleDateString()} by Laurie Meiring
+                </div>
+
+                {featuredImage && (
+                  <img
+                    src={featuredImage}
+                    alt="Featured"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      marginBottom: '30px',
+                      borderRadius: '8px'
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                )}
+
+                <div style={{
+                  fontSize: '1.1rem',
+                  lineHeight: 1.6
+                }}>
+                  <ReactMarkdown>
+                    {htmlToMarkdown(content)}
+                  </ReactMarkdown>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -775,13 +923,12 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
               }}>
                 Size
               </label>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                {['small', 'medium', 'large'].map(size => (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                {['small', 'medium', 'large', 'xlarge'].map(size => (
                   <button
                     key={size}
                     onClick={() => setImageModalData({ ...imageModalData, size })}
                     style={{
-                      flex: 1,
                       padding: '8px',
                       border: '1px solid var(--border-color)',
                       borderRadius: '4px',
@@ -791,11 +938,12 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
                       textTransform: 'capitalize'
                     }}
                   >
-                    {size}
+                    {size === 'xlarge' ? 'X-Large' : size}
                     <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-                      {size === 'small' && '50%'}
-                      {size === 'medium' && '75%'}
-                      {size === 'large' && '100%'}
+                      {size === 'small' && '25%'}
+                      {size === 'medium' && '50%'}
+                      {size === 'large' && '75%'}
+                      {size === 'xlarge' && '100%'}
                     </div>
                   </button>
                 ))}
