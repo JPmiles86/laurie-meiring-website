@@ -62,7 +62,11 @@ function BlogPost({ isMobile }) {
         props.src.includes('/blog3/LaurieCoachingHero1.jpg') || // Other known portrait images
         props.src.includes('/blog8/LauriePiOldTourney.jpg') || // Blog 8 portrait image
         props.src.includes('/blog9/KenLaurie.jpg') || // Blog 9 portrait image
-        props.src.includes('/blog10/JulesJosue2.jpeg') // Blog 10 portrait image
+        props.src.includes('/blog10/JulesJosue2.jpeg') || // Blog 10 portrait image
+        props.src.includes('/blog11/LaurieShaunaGeorgia.jpeg') || // Blog 11 portrait images
+        props.src.includes('/blog11/LaurieKenJaco.jpeg') || // Blog 11 portrait images
+        props.src.includes('/blog12/MensSinglesVictory.jpeg') || // Blog 12 portrait image
+        props.src.includes('/blog12/MensDoublesVictory.jpeg') // Blog 12 portrait image
       );
       
       return (
