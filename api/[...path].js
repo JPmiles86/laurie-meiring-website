@@ -84,17 +84,23 @@ export default async function handler(req, res) {
         where: { subdomain: 'laurie-personal' }
       });
 
-      // Update post
+      // Extract author from metadata if provided
+      const metaDescription = metadata?.description || null;
+      const metaKeywords = metadata?.keywords || null;
+
+      // Update post - only include fields that exist in the schema
       const updatedPost = await prisma.posts.update({
         where: { id: postId },
         data: {
           title,
           content,
-          slug,
+          slug: slug || undefined,
           status: status || 'PUBLISHED',
           featuredImage,
           publishDate: publishDate ? new Date(publishDate) : new Date(),
-          metadata: metadata || {}
+          metaDescription,
+          metaKeywords,
+          updatedAt: new Date()
         },
         include: {
           users: true,
@@ -130,7 +136,11 @@ export default async function handler(req, res) {
         });
       }
 
-      // Create post
+      // Extract metadata fields if provided
+      const metaDescription = metadata?.description || null;
+      const metaKeywords = metadata?.keywords || null;
+
+      // Create post with correct field names
       const newPost = await prisma.posts.create({
         data: {
           id: `blog-${Date.now()}`,
@@ -141,9 +151,11 @@ export default async function handler(req, res) {
           featuredImage,
           publishDate: publishDate ? new Date(publishDate) : new Date(),
           tenantId: tenantRecord.id,
-          userId: user.id,
-          metadata: metadata || {},
-          viewCount: 0
+          authorId: user.id,  // Changed from userId to authorId
+          metaDescription,
+          metaKeywords,
+          viewCount: 0,
+          updatedAt: new Date()
         },
         include: {
           users: true,
