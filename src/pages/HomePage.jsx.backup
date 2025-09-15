@@ -270,7 +270,7 @@ function HomePage() {
                   borderRadius: '12px'
                 }}>
                   <img 
-                    src="/Pickelball/HomeProfileShot.jpg" 
+                    src="/IMG_home1.jpg" 
                     alt="Pickleball Training"
                     style={{
                       width: '100%',
@@ -288,9 +288,9 @@ function HomePage() {
                   flexDirection: 'column',
                   justifyContent: 'center'
                 }}>
-                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}><strong>Certified Coaching in the Jungle of Ojochal</strong></h3>
+                  <h3 style={{ fontSize: '2rem', marginBottom: '15px' }}>Championship Pickleball Training</h3>
                   <p style={{ fontSize: '1.1rem', lineHeight: 1.6, marginBottom: '25px' }}>
-                  Train with a tournament champion and <em>PiclUp Certified Coach</em> under Senior Pro Rich Lively's program. Whether you're stepping onto the court for the first time or preparing for high-level competition, elevate your game with proven progression-based methods, personalized strategy, and world-class coaching.
+                  Learn from a Tournament Champion in the Jungle of Ojochal and Surrounds. Whether you are a beginner or a competitive player, elevate your game with personalized coaching and strategy development. Coaching available for individuals or in teams of 2 or more.
                   </p>
                   <div style={{ textAlign: 'center' }}>
                     <Link to="/training" className="button" style={{
@@ -744,9 +744,9 @@ function HomePage() {
                   color: 'var(--neutral-color)'
                 }}
               >
-                Laurie Meiring is a tournament champion and <em>PiclUp Certified Coach</em> trained under Senior Pro Rich Lively.
-                Based in Ojochal, Costa Rica, he offers personalized coaching and guided pickleball experiences
-                designed to elevate your game and create unforgettable memories.
+                Laurie is a tournament champion and certified pickleball coach with a passion for the game. 
+                Based in Ojochal, Costa Rica, he offers personalized training and guided pickleball experiences 
+                that will transform your game and create unforgettable memories.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

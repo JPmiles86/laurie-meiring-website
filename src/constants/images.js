@@ -4,7 +4,7 @@ export const IMAGES = {
     TEXT: '/YPGCR-logo-text.png'
   },
   PROFILE: {
-    AI_GENERATED: '/Laurie-Coaching-Hero-2-2.jpg',
+    AI_GENERATED: '/Pickelball/ProfilePhoto2.jpg',
     NATURAL: '/chef laurie 1x1.jpg'
   },
   MARKETING: {

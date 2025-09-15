@@ -30,17 +30,17 @@ function TrainingPage() {
       description: 'Personalized one-on-one coaching designed to match your skill level and goals.',
       features: [
         'Skill Assessment',
-        'Identification of Improvement Areas',
+        'Progression-based Module Training',
         'Technique Refinement',
-        'Video Feedback',
+        'Drills and Mini Games',
         'Tournament Preparation & Strategy'
       ],
       featured: false
     },
     {
       title: 'Bundle Package',
-      price: '$300',
-      duration: 'for 10 Sessions (Save $100)',
+      price: '$144',
+      duration: 'for 4 Sessions (Save 10%)',
       description: 'Perfect for committed players looking to see real progress over time.',
       features: [
         'All Single Session Features',
@@ -52,9 +52,9 @@ function TrainingPage() {
       featured: true
     },
     {
-      title: 'Group Training',
+      title: 'Doubles Team Training',
       price: '$25',
-      duration: 'per Person/Hour (2-4 players)',
+      duration: 'per Person/Hour (2 players)',
       description: 'Train with friends or family and enjoy the benefits of group coaching.',
       features: [
         'Tailored Group Drills & Exercises',
@@ -64,14 +64,28 @@ function TrainingPage() {
         'Fun & Social Atmosphere'
       ],
       featured: false
+    },
+    {
+      title: 'Group Training',
+      price: '$20',
+      duration: 'per Person/Hour 3+ Players',
+      description: 'Train with friends or family and enjoy the benefits of group coaching.',
+      features: [
+        'Team Dynamics',
+        'Strategy Development',
+        'Middle Strategy & Stacking',
+        'Play Scenarios',
+        'Team Mental Approach'
+      ],
+      featured: false
     }
   ];
 
   const trainingBenefits = [
-    'PCI Certified Coach',
-    'Tournament Experience & Gold Medallist',
-    'Coaching for All Skill Levels',
-    'Private & Group Lessons Available',
+    'PCI & PiclUp Certified Pickleball Coach',
+    'Tournament Experience & Multi-Medallist',
+    'Proven Progression-Based Training Methods',
+    'Private & Group Lessons for All Levels',
     'Train in Stunning Costa Rica Locations Including Ojochal & Surrounds'
   ];
 
@@ -149,7 +163,7 @@ function TrainingPage() {
                 order: isMobile ? 1 : 0
               }}>
                 <OptimizedImage
-                  src="/ training/PickleballGeneric6.jpg"
+                  src="/Pickelball/LaurieShaunaTraining.jpg"
                   alt="Pickleball Courts in Costa Rica"
                   width={600}
                   height={450}
@@ -177,7 +191,7 @@ function TrainingPage() {
                     marginBottom: '15px' 
                   }}
                 >
-                  Professional Coaching in Ojochal or Surrounds
+                  PROFESSIONAL COACHING IN OJOCHAL & SURROUNDS
                 </motion.h3>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
@@ -186,8 +200,7 @@ function TrainingPage() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   style={{ fontSize: '1.1rem', marginBottom: '20px', color: 'var(--text-color)', lineHeight: '1.6' }}
                 >
-                  With tournament experience and a passion for teaching, I bring competitive insights 
-                  and proven strategies to help players of all levels improve their game.
+                  With <em>PiclUp Certification</em> under Senior Pro Rich Lively, tournament wins, and a passion for teaching, I bring proven progression-based methods and competitive insights to help players at every level elevate their game.
                 </motion.p>
                 <motion.ul 
                   initial={{ opacity: 0, y: 20 }}
@@ -409,7 +422,7 @@ function TrainingPage() {
                 transition={{ duration: 0.6 }}
               >
                 <OptimizedImage 
-                  src="/Laurie-Coaching-Hero-2.jpg"
+                  src="/Pickelball/CoachPhoto3.jpg"
                   alt="Professional Pickleball Coaching"
                   style={{
                     width: '100%',
@@ -434,7 +447,15 @@ function TrainingPage() {
                   marginBottom: '25px',
                   color: 'var(--neutral-color)'
                 }}>
-                  As a 4.3 DUPR player, PCI Certified Coach, and multi-time tournament winner, I bring both experience and passion to helping players elevate their game. My proven coaching approach makes learning fun and effective—whether you're a beginner or an advanced player.
+                  As a 4.3 DUPR player, PCI-Certified Coach, and multi-time tournament medalist, I combine on-court experience with advanced coaching methods to help players improve faster and enjoy the game more.
+                </p>
+                <p style={{
+                  fontSize: '1.1rem',
+                  lineHeight: 1.6,
+                  marginBottom: '25px',
+                  color: 'var(--neutral-color)'
+                }}>
+                  Recently completing the PiclUp "Coach the Coach" Certification under Senior Pro Rich Lively, I bring progression-based training techniques designed for all skill levels - from first-time players to competitive athletes.
                 </p>
                 
                 <ul style={{ 
@@ -514,7 +535,15 @@ function TrainingPage() {
                   marginBottom: '25px',
                   color: 'var(--text-color)'
                 }}>
-                  The key to improvement is mastering both the soft and fast game. That's why every session starts at the kitchen, focusing on control, technique, and smart shot selection. I tailor each lesson to your needs, refining footwork, paddle mechanics, and shot consistency.
+                  I now teach using the PiclUp Training System, a structured method built around four progressive modules that cover every zone of the court. Each lesson builds on the last, helping you master both the soft game and the fast game step by step.
+                </p>
+                <p style={{
+                  fontSize: '1.1rem',
+                  lineHeight: 1.6,
+                  marginBottom: '25px',
+                  color: 'var(--text-color)'
+                }}>
+                  From baseline rallies to dinking battles at the kitchen, we'll train the exact skills you need to level up with confidence. Every module is designed to sharpen footwork, paddle mechanics, shot selection, and match strategy through progressive drills and game-based learning.
                 </p>
                 
                 <ul style={{ 
@@ -523,12 +552,10 @@ function TrainingPage() {
                   margin: '0 0 30px 0' 
                 }}>
                   {[
-                    'Kitchen-First Approach – Build soft game fundamentals before adding speed',
-                    'Personalised Coaching – Improve based on real-time play feedback',
-                    'Drop Shot Mastery – Learn the best way to transition to the net',
-                    'Pressure Drills – Sharpen decision-making with match scenarios',
-                    'Variety & Strategy – Develop a mix of shots to stay unpredictable',
-                    'Game-Based Learning – Apply new skills through live play'
+                    'Module 1 – Foundation: Groundstrokes, defense, push dinks, and block volleys',
+                    'Module 2 – Building Blocks: Thirds, ankle breakers, slice dinks, and punch volleys',
+                    'Module 3 – Precision & Pressure: Serves, fourths, roll dinks, and roll volleys',
+                    'Module 4 – Advanced Play: Returns, transition tactics, offensive dinking, and resets/counters'
                   ].map((approach, index) => (
                     <motion.li 
                       key={index}
@@ -555,7 +582,15 @@ function TrainingPage() {
                     </motion.li>
                   ))}
                 </ul>
-                
+                <p style={{
+                  fontSize: '1.1rem',
+                  lineHeight: 1.6,
+                  marginBottom: '25px',
+                  color: 'var(--text-color)'
+                }}>
+                  This proven training approach blends structure with personalization—ensuring you not only learn the skills, but know exactly when and how to use them in live play.
+                </p>
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -599,7 +634,7 @@ function TrainingPage() {
                   boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
                 }}>
                   <OptimizedImage 
-                    src="/winners2-2.jpg"
+                    src="/Pickelball/CoachingPower.jpg"
                     alt="Pickleball Coaching Approach"
                     style={{
                       position: 'absolute',
@@ -742,7 +777,7 @@ function TrainingPage() {
                 },
                 {
                   question: "How long are the training sessions?",
-                  answer: "Standard sessions are one hour long, but can be extended to 90 minutes or 2 hours based on your preference and stamina. We recommend starting with one-hour sessions and adjusting as needed."
+                  answer: "Standard sessions are one hour long, but can be extended to 2 hours based on your preference and stamina. We recommend starting with one-hour sessions and adjusting as needed."
                 },
                 {
                   question: "Can I book multiple sessions in one day?",
@@ -750,23 +785,23 @@ function TrainingPage() {
                 },
                 {
                   question: "Is equipment provided for training sessions?",
-                  answer: "Please bring your own paddle to training sessions. Balls are available and we have quality paddles available to rent if needed."
+                  answer: "Please bring your own paddle to training sessions. Balls will be made available."
                 },
                 {
                   question: "What should I wear to training sessions?",
-                  answer: "Comfortable athletic clothing, court shoes, a hat, and sunglasses are recommended. Don't forget sunscreen and a water bottle as Costa Rica can get quite warm."
+                  answer: "Comfortable athletic clothing, court shoes, a hat, and protective eyewear is recommended. The Lighter the clothing the better, its always hot in Ojochal."
                 },
                 {
                   question: "Can I cancel or reschedule my training session?",
-                  answer: "Yes, we understand plans can change. We request at least 24 hours notice for cancellations or rescheduling. Last-minute cancellations may be subject to a fee."
+                  answer: "Yes, we understand plans can change. We request at least 24 hours notice for cancellations or rescheduling. Last-minute cancellations will be charged at full rate."
                 },
                 {
                   question: "Do you offer group discounts?",
-                  answer: "Yes! Our group training option is already discounted at $25 per person per hour for groups of 2-4 players. For larger groups, please contact us for special rates."
+                  answer: "Yes! For 2 players its $25 per person and for 3 or more its $20 per person."
                 },
                 {
                   question: "How do I track my progress?",
-                  answer: "Video recording is included with your session. You will receive a YouTube link to review your recorded session. DUPR (Dynamic Universal Pickleball Rating) is our best measure of progress."
+                  answer: "Progression through the Training Modules is the best measure of progress in addition to DUPR (Dynamic Universal Pickleball Rating) as the ultimate measure of progress."
                 }
               ].map((faq, index) => (
                 <FaqItem key={index} faq={faq} index={index} />
