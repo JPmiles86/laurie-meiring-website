@@ -1,4 +1,6 @@
-import { db } from './db-config.js';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -10,101 +12,62 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const path = req.query.path ? req.query.path.join('/') : '';
+  const url = req.url;
 
   try {
-    // Handle posts endpoints
-    if (path === 'posts' && req.method === 'GET') {
-      const { tenant = 'laurie-personal', limit = 100 } = req.query;
-
-      const tenantRecord = await db.tenants.findFirst({
-        where: { subdomain: tenant }
-      });
-
-      if (!tenantRecord) {
-        return res.status(404).json({ success: false, message: 'Tenant not found' });
-      }
-
-      const posts = await db.posts.findMany({
-        where: {
-          tenantId: tenantRecord.id,
-          status: 'PUBLISHED',
-          publishDate: { lte: new Date() }
-        },
-        include: {
-          users: {
-            select: { id: true, name: true, email: true }
-          },
-          post_categories: {
-            include: { categories: true }
-          },
-          post_tags: {
-            include: { tags: true }
-          }
-        },
-        orderBy: { publishDate: 'desc' },
-        take: parseInt(limit)
-      });
-
-      return res.json({
-        success: true,
-        posts,
-        pagination: { page: 1, limit: parseInt(limit), total: posts.length }
-      });
-    }
-
-    // Handle single post by slug
-    if (path.startsWith('posts/') && req.method === 'GET') {
-      const slug = path.replace('posts/', '');
+    // Handle /api/posts
+    if (url.includes('/api/posts') && !url.includes('/api/posts/')) {
       const { tenant = 'laurie-personal' } = req.query;
 
-      const tenantRecord = await db.tenants.findFirst({
+      const tenantRecord = await prisma.tenants.findFirst({
         where: { subdomain: tenant }
       });
 
-      if (!tenantRecord) {
-        return res.status(404).json({ success: false, message: 'Tenant not found' });
-      }
+      const posts = await prisma.posts.findMany({
+        where: {
+          tenantId: tenantRecord.id,
+          status: 'PUBLISHED'
+        },
+        include: {
+          users: true,
+          post_categories: {
+            include: { categories: true }
+          }
+        },
+        orderBy: { publishDate: 'desc' }
+      });
 
-      const post = await db.posts.findFirst({
+      return res.json({ success: true, posts });
+    }
+
+    // Handle /api/posts/[slug]
+    if (url.includes('/api/posts/')) {
+      const slug = url.split('/api/posts/')[1].split('?')[0];
+      const { tenant = 'laurie-personal' } = req.query;
+
+      const tenantRecord = await prisma.tenants.findFirst({
+        where: { subdomain: tenant }
+      });
+
+      const post = await prisma.posts.findFirst({
         where: {
           slug,
           tenantId: tenantRecord.id
         },
         include: {
-          users: {
-            select: { id: true, name: true, email: true }
-          },
+          users: true,
           post_categories: {
             include: { categories: true }
-          },
-          post_tags: {
-            include: { tags: true }
           }
         }
-      });
-
-      if (!post) {
-        return res.status(404).json({ success: false, message: 'Post not found' });
-      }
-
-      // Increment view count
-      await db.posts.update({
-        where: { id: post.id },
-        data: { viewCount: { increment: 1 } }
       });
 
       return res.json({ success: true, post });
     }
 
-    // Default 404
-    return res.status(404).json({ success: false, message: 'Endpoint not found' });
-
+    return res.status(404).json({ error: 'Not found' });
   } catch (error) {
-    console.error('API Error:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'Internal server error'
-    });
+    console.error(error);
+    return res.status(500).json({ error: error.message });
   }
 }
