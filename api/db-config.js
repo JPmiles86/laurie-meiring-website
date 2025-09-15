@@ -1,15 +1,18 @@
 // Database configuration for Vercel serverless functions
 import { PrismaClient } from '@prisma/client';
 
-const globalForPrisma = globalThis;
+let db;
 
-export const db = globalForPrisma.prisma ?? new PrismaClient({
-  log: process.env.NODE_ENV === 'development' ? ['query'] : [],
-});
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = db;
+if (process.env.NODE_ENV === 'production') {
+  db = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  db = global.prisma;
 }
+
+export { db };
 
 // Handle GCS key file
 if (process.env.GCS_KEY_FILE && !process.env.GOOGLE_APPLICATION_CREDENTIALS) {
