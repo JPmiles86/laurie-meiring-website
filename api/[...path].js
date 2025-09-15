@@ -1,4 +1,4 @@
-import { db } from '../src/lib/db.js';
+import { db } from './db-config.js';
 
 export default async function handler(req, res) {
   // Enable CORS
