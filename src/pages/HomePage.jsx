@@ -8,7 +8,6 @@ import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import VideoBackground from '../components/VideoBackground';
 import CalendlyButton from '../components/CalendlyButton';
 import { IMAGES } from '../constants/images';
-import { getVisiblePosts } from '../utils/blogUtils';
 import GradientDivider from '../components/GradientDivider';
 import SubscribeModal from '../components/SubscribeModal';
 
@@ -27,7 +26,8 @@ const staggerChildren = {
 };
 
 function HomePage() {
-  const recentPosts = getVisiblePosts().slice(0, 3);
+  const [recentPosts, setRecentPosts] = useState([]);
+  const [postsLoading, setPostsLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isSubscribeModalOpen, setIsSubscribeModalOpen] = useState(false);
 
@@ -38,6 +38,26 @@ function HomePage() {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    // Fetch recent posts from the API
+    const fetchRecentPosts = async () => {
+      try {
+        const response = await fetch('/api/posts');
+        const data = await response.json();
+        if (data.success && data.posts) {
+          // Get the first 3 posts
+          setRecentPosts(data.posts.slice(0, 3));
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setPostsLoading(false);
+      }
+    };
+
+    fetchRecentPosts();
   }, []);
 
   return (

@@ -225,7 +225,6 @@ const FeaturedClubsPage = () => {
         </div>
       </section>
 
-      {/* Render Modal at Page Level */}
       {selectedClub && (
         <ClubModal 
           club={selectedClub} 

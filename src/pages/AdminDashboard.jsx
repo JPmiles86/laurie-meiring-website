@@ -5,6 +5,15 @@ import { getAllPosts } from '../utils/blogUtils';
 
 function AdminDashboard() {
   const navigate = useNavigate();
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('blogAdminAuth') === 'authenticated';
+    if (!isAuthenticated) {
+      navigate('/admin');
+      return;
+    }
+  }, [navigate]);
   const [stats, setStats] = useState({
     blogCount: 0,
     testimonialsCount: 0, // Placeholder for future implementation
@@ -16,16 +25,42 @@ function AdminDashboard() {
     loadStats();
   }, []);
 
-  const loadStats = () => {
+  const loadStats = async () => {
     try {
+      // Get blog posts count
       const allPosts = getAllPosts();
       const publishedPosts = allPosts.filter(post => post.status === 'published');
+      const totalViews = allPosts.reduce((sum, post) => sum + (post.views || 0), 0);
+
+      // Get testimonials count
+      let testimonialsCount = 0;
+      try {
+        const testimonialsResponse = await fetch('/api/testimonials');
+        const testimonialsData = await testimonialsResponse.json();
+        if (testimonialsData.success) {
+          testimonialsCount = testimonialsData.testimonials.length;
+        }
+      } catch (error) {
+        console.error('Error fetching testimonials count:', error);
+      }
+
+      // Get clubs count
+      let clubsCount = 0;
+      try {
+        const clubsResponse = await fetch('/api/clubs?tenant=laurie-personal');
+        const clubsData = await clubsResponse.json();
+        if (clubsData.success) {
+          clubsCount = clubsData.clubs.length;
+        }
+      } catch (error) {
+        console.error('Error fetching clubs count:', error);
+      }
 
       setStats({
         blogCount: publishedPosts.length,
-        testimonialsCount: 12, // Placeholder - would come from testimonials service
-        clubsCount: 8, // Placeholder - would come from clubs service
-        totalViews: allPosts.reduce((sum, post) => sum + (post.views || 0), 0)
+        testimonialsCount,
+        clubsCount,
+        totalViews
       });
     } catch (error) {
       console.error('Error loading stats:', error);
@@ -222,12 +257,14 @@ function AdminDashboard() {
             value={stats.testimonialsCount}
             icon="💬"
             color="#28a745"
+            onClick={() => navigate('/admin/testimonials')}
           />
           <StatCard
             title="Featured Clubs"
             value={stats.clubsCount}
             icon="🏟️"
             color="#e74c3c"
+            onClick={() => navigate('/admin/clubs')}
           />
           <StatCard
             title="Total Views"
@@ -268,7 +305,6 @@ function AdminDashboard() {
             icon="💬"
             color="#28a745"
             onClick={() => navigate('/admin/testimonials')}
-            isComingSoon={true}
           />
           <NavCard
             title="Clubs Management"
@@ -276,7 +312,6 @@ function AdminDashboard() {
             icon="🏟️"
             color="#e74c3c"
             onClick={() => navigate('/admin/clubs')}
-            isComingSoon={true}
           />
         </div>
       </div>

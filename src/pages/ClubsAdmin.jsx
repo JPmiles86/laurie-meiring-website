@@ -6,6 +6,16 @@ const API_BASE_URL = 'http://localhost:3001/api';
 
 function ClubsAdmin() {
   const navigate = useNavigate();
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('blogAdminAuth') === 'authenticated';
+    if (!isAuthenticated) {
+      navigate('/admin');
+      return;
+    }
+  }, [navigate]);
+
   const [clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);

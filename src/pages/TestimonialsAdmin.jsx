@@ -6,6 +6,16 @@ import MediaUploader from '../components/MediaUploader';
 
 function TestimonialsAdmin() {
   const navigate = useNavigate();
+
+  // Check authentication on component mount
+  useEffect(() => {
+    const isAuthenticated = sessionStorage.getItem('blogAdminAuth') === 'authenticated';
+    if (!isAuthenticated) {
+      navigate('/admin');
+      return;
+    }
+  }, [navigate]);
+
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
