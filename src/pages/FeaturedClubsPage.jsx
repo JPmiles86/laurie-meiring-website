@@ -225,12 +225,12 @@ const FeaturedClubsPage = () => {
         </div>
       </section>
 
-      {selectedClub && (
+      {selectedClub ? (
         <ClubModal
           club={selectedClub}
           onClose={handleCloseModal}
         />
-      )}
+      ) : null}
 
       <style>{`
         @keyframes spin {
