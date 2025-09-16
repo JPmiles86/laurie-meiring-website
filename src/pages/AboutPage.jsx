@@ -312,9 +312,9 @@ function AboutPage() {
             </div>
           </div>
 
-          <div style={{ 
+          <div style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
             gap: isMobile ? '30px' : '40px',
             marginBottom: isMobile ? '50px' : '80px',
             alignItems: 'center',
@@ -330,7 +330,7 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src="/ about/PickleballGeneric8.jpg"
+                src="/about/PickleballGeneric8.jpg"
                 alt="Pickleball Courts in Costa Rica"
                 width={500}
                 height={350}
@@ -338,8 +338,8 @@ function AboutPage() {
                   borderRadius: '12px',
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
                   width: '100%',
-                  maxWidth: isMobile ? '350px' : '500px',
-                  margin: '0 auto',
+                  height: 'auto',
+                  maxWidth: isMobile ? '350px' : '100%',
                   display: 'block'
                 }}
               />
