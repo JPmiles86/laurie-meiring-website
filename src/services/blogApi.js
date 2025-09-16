@@ -36,20 +36,35 @@ export const fetchAdminPosts = async (options = {}) => {
       page: options.page || 1,
       limit: options.limit || 50
     });
-    
+
     if (options.status) {
       params.append('status', options.status);
     }
 
-    const response = await api.get(`/posts/admin/all?${params}`);
-    
+    // Check if we have session auth first (for blog admin)
+    const sessionAuth = sessionStorage.getItem('blogAdminAuth');
+
+    let response;
+    if (sessionAuth === 'authenticated') {
+      // Use session-based auth for blog admin
+      const fetchResponse = await fetch(`/api/posts/admin/all?${params}`, {
+        headers: {
+          'X-Session-Auth': sessionAuth
+        }
+      });
+      response = await fetchResponse.json();
+    } else {
+      // Use token-based auth
+      response = await api.get(`/posts/admin/all?${params}`);
+    }
+
     if (response.success) {
       return {
         posts: response.posts || [],
         pagination: response.pagination
       };
     }
-    
+
     throw new Error(response.message || 'Failed to fetch admin posts');
   } catch (error) {
     console.error('Fetch admin posts error:', error);
@@ -126,12 +141,30 @@ export const updatePost = async (postId, postData) => {
       }
     };
 
-    const response = await api.put(`/posts/${postId}`, apiData);
-    
+    // Check if we have session auth first (for blog admin)
+    const sessionAuth = sessionStorage.getItem('blogAdminAuth');
+
+    let response;
+    if (sessionAuth === 'authenticated') {
+      // Use session-based auth for blog admin
+      const fetchResponse = await fetch(`/api/posts/${postId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Session-Auth': sessionAuth
+        },
+        body: JSON.stringify(apiData)
+      });
+      response = await fetchResponse.json();
+    } else {
+      // Use token-based auth
+      response = await api.put(`/posts/${postId}`, apiData);
+    }
+
     if (response.success && response.post) {
       return response.post;
     }
-    
+
     throw new Error(response.message || 'Failed to update post');
   } catch (error) {
     console.error('Update post error:', error);
@@ -142,12 +175,28 @@ export const updatePost = async (postId, postData) => {
 // Delete post
 export const deletePost = async (postId) => {
   try {
-    const response = await api.delete(`/posts/${postId}`);
-    
+    // Check if we have session auth first (for blog admin)
+    const sessionAuth = sessionStorage.getItem('blogAdminAuth');
+
+    let response;
+    if (sessionAuth === 'authenticated') {
+      // Use session-based auth for blog admin
+      const fetchResponse = await fetch(`/api/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Session-Auth': sessionAuth
+        }
+      });
+      response = await fetchResponse.json();
+    } else {
+      // Use token-based auth
+      response = await api.delete(`/posts/${postId}`);
+    }
+
     if (response.success) {
       return true;
     }
-    
+
     throw new Error(response.message || 'Failed to delete post');
   } catch (error) {
     console.error('Delete post error:', error);

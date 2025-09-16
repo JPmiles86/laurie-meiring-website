@@ -42,6 +42,13 @@ function BlogListAdmin() {
     }
   }, [isAuthenticated]);
 
+  // Cleanup on component unmount to ensure body scroll is restored
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   const loadPosts = async () => {
     setLoadingPosts(true);
     try {
@@ -101,6 +108,8 @@ function BlogListAdmin() {
       publishDate: post.publishDate ? new Date(post.publishDate).toISOString().split('T')[0] : ''
     });
     setShowQuickEdit(true);
+    // Disable body scroll when modal opens
+    document.body.style.overflow = 'hidden';
   };
 
   const handleQuickEdit = async () => {
@@ -120,6 +129,8 @@ function BlogListAdmin() {
       await loadPosts(); // Reload posts
       setShowQuickEdit(false);
       setSelectedPost(null);
+      // Re-enable body scroll when modal closes
+      document.body.style.overflow = 'unset';
     } catch (error) {
       console.error('Failed to update post:', error);
       setError('Failed to update post');
@@ -132,6 +143,8 @@ function BlogListAdmin() {
     setSelectedPost(post);
     setDeleteStep(1);
     setShowDeleteConfirm(true);
+    // Disable body scroll when modal opens
+    document.body.style.overflow = 'hidden';
   };
 
   const handleDelete = async () => {
@@ -149,6 +162,8 @@ function BlogListAdmin() {
       setShowDeleteConfirm(false);
       setSelectedPost(null);
       setDeleteStep(1);
+      // Re-enable body scroll when modal closes
+      document.body.style.overflow = 'unset';
     } catch (error) {
       console.error('Failed to delete post:', error);
       setError('Failed to delete post');
@@ -506,10 +521,14 @@ function BlogListAdmin() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 1000,
+              zIndex: 10000,
               padding: '20px'
             }}
-            onClick={() => setShowQuickEdit(false)}
+            onClick={() => {
+              setShowQuickEdit(false);
+              // Re-enable body scroll when modal closes
+              document.body.style.overflow = 'unset';
+            }}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -638,7 +657,11 @@ function BlogListAdmin() {
                 justifyContent: 'flex-end'
               }}>
                 <button
-                  onClick={() => setShowQuickEdit(false)}
+                  onClick={() => {
+                    setShowQuickEdit(false);
+                    // Re-enable body scroll when modal closes
+                    document.body.style.overflow = 'unset';
+                  }}
                   style={{
                     padding: '10px 20px',
                     backgroundColor: '#6b7280',
@@ -688,12 +711,14 @@ function BlogListAdmin() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 1000,
+              zIndex: 10000,
               padding: '20px'
             }}
             onClick={() => {
               setShowDeleteConfirm(false);
               setDeleteStep(1);
+              // Re-enable body scroll when modal closes
+              document.body.style.overflow = 'unset';
             }}
           >
             <motion.div
@@ -738,6 +763,8 @@ function BlogListAdmin() {
                   onClick={() => {
                     setShowDeleteConfirm(false);
                     setDeleteStep(1);
+                    // Re-enable body scroll when modal closes
+                    document.body.style.overflow = 'unset';
                   }}
                   style={{
                     padding: '10px 20px',

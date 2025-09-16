@@ -191,8 +191,8 @@ function ClubsAdmin() {
     document.body.style.overflow = 'hidden';
   };
 
-  const closeModal = () => {
-    if (hasUnsavedChanges) {
+  const closeModal = (force = false) => {
+    if (!force && hasUnsavedChanges) {
       const shouldClose = window.confirm(
         'You have unsaved changes. Are you sure you want to close without saving?'
       );
@@ -291,7 +291,7 @@ function ClubsAdmin() {
       if (data.success) {
         setHasUnsavedChanges(false);
         showMessage(editingClub ? 'Club updated successfully!' : 'Club created successfully!');
-        closeModal();
+        closeModal(true); // Force close without unsaved changes warning
         fetchClubs();
       } else {
         showMessage(data.error || 'An error occurred', 'error');
@@ -628,7 +628,7 @@ function ClubsAdmin() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 9999,
+              zIndex: 10000,
               padding: '20px'
             }}
             onClick={closeModal}
@@ -730,7 +730,7 @@ function ClubsAdmin() {
                     Location
                   </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '16px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         City *
@@ -787,7 +787,7 @@ function ClubsAdmin() {
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         Latitude
@@ -833,7 +833,7 @@ function ClubsAdmin() {
                     Contact Information
                   </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         Phone
@@ -911,7 +911,7 @@ function ClubsAdmin() {
                     Court Details
                   </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '15px', marginBottom: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '20px', marginBottom: '16px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         Indoor Courts
