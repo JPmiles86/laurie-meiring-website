@@ -19,7 +19,7 @@ function AboutPage() {
 
   const achievements = [
     {
-      title: "PCI-Certified Pickleball Coach",
+      title: "PCI- and PiclUp-Certified Coach",
       icon: <i className="fas fa-certificate"></i>
     },
     {
@@ -45,11 +45,11 @@ function AboutPage() {
   ];
 
   const coachingPhilosophy = [
-    "Focus on fundamentals and proper technique",
-    "Personalized approach for each player's style",
-    "Emphasis on strategic gameplay and court awareness",
-    "Balance of technical drills and competitive play",
-    "Creating a fun, supportive learning environment"
+    "Train smarter through the PiclUp system",
+    "Adapt each session to your style and goals",
+    "Develop both the soft game and the power game",
+    "Mix technical drills with live-play scenarios",
+    "Build skills in a supportive, fun, competitive environment"
   ];
 
   return (
@@ -130,7 +130,7 @@ function AboutPage() {
                 padding: '0 10px'
               }}
             >
-              Tournament Champion | PCI-Certified Coach | Pickleball Strategist | Costa Rica Expert
+              Tournament Champion | PCI & PiclUp Certified Coach | Pickleball Strategist | Costa Rica Specialist
             </motion.p>
           </div>
         </section>
@@ -167,24 +167,32 @@ function AboutPage() {
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
-                Based in Ojochal, Costa Rica, I've dedicated myself to the sport of pickleball, competing in tournaments and helping players of all levels improve their game. My passion for pickleball has taken me from recreational play to competitive tournaments and professional coaching.
+                I'm based in Ojochal, Costa Rica, where Pickleball has become more than a passion - it's my profession and purpose. What started as casual games quickly grew into tournament competition, multiple medal wins and a career devoted to coaching and growing the sport in the Ojochal area as well as Dominical and Uvita.
               </p>
-              <p style={{ 
+              <p style={{
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
                 lineHeight: 1.6,
                 color: 'var(--text-color)',
                 marginBottom: isMobile ? '20px' : '25px'
               }}>
-                As a PCI-certified coach with a 4.3 DUPR rating, I bring technical expertise and strategic insight to every coaching session. Whether you're a beginner looking to learn the basics or an advanced player aiming to refine your strategy, my personalized approach will help you reach your goals.
+                As a <strong>PCI- and PiclUp-certified coach</strong> with a <strong>4.3+ DUPR rating</strong>, I combine technical expertise with real tournament experience. My coaching is built on the <strong>PiclUp Training System</strong> - a progressive framework that develops every part of your game, from groundstrokes at the baseline to resets and dinks at the kitchen. Each lesson builds on the last, so you improve with structure, clarity, and confidence.
               </p>
-              <p style={{ 
+              <p style={{
+                fontSize: isMobile ? '1.1rem' : '1.2rem',
+                lineHeight: 1.6,
+                color: 'var(--text-color)',
+                marginBottom: isMobile ? '20px' : '25px'
+              }}>
+                No matter your level - beginner, club player, or tournament competitor - your coaching journey is tailored to your goals. Every session blends <strong>fundamentals, footwork, and strategy</strong> with <strong>live, game-based learning</strong>, so you not only learn new skills but know when and how to use them under pressure.
+              </p>
+              <p style={{
                 fontSize: isMobile ? '1.1rem' : '1.2rem',
                 lineHeight: 1.6,
                 color: 'var(--text-color)'
               }}>
-                <a 
-                  href="https://www.linkedin.com/in/laurie-meiring/" 
-                  target="_blank" 
+                <a
+                  href="https://www.linkedin.com/in/laurie-meiring/"
+                  target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     color: 'var(--primary-color)',
@@ -192,8 +200,8 @@ function AboutPage() {
                     borderBottom: '1px solid var(--primary-color)',
                   }}
                 >
-                  My background in hospitality and business
-                </a> gives me a unique perspective on creating exceptional pickleball experiences, from private lessons to guided tours throughout Costa Rica's most beautiful pickleball destinations.
+                  With a professional background in <strong>hospitality and business leadership</strong>
+                </a>, I also bring a unique perspective: I don't just teach lessons, I create <strong>Pickleball experiences</strong>. That might mean a one-on-one coaching session, guided group play, or even a Pickleball tour through Costa Rica's most beautiful courts and destinations.
               </p>
             </motion.div>
             <motion.div 
@@ -209,7 +217,7 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src="/LaurieShauna.jpg"
+                src="/LaurieShaunaExb.jpg"
                 alt="Laurie with Pickleball Medals"
                 className="medal-image"
                 width={isMobile ? 350 : 400}
