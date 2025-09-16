@@ -15,6 +15,7 @@ import tenantRoutes from './routes/tenants.js';
 import aiRoutes from './routes/ai.js';
 import aiContentRoutes from './routes/aiContent.js';
 import testimonialsRoutes from './routes/testimonials.js';
+import clubsRoutes from './routes/clubs.js';
 
 // Load environment variables
 dotenv.config({ path: '.env.local' });
@@ -67,6 +68,7 @@ app.use('/api/tenants', tenantRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/ai-content', aiContentRoutes);
 app.use('/api/testimonials', testimonialsRoutes);
+app.use('/api/clubs', clubsRoutes);
 
 // Global error handler
 app.use((error, req, res, next) => {

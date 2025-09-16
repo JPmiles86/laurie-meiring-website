@@ -11,7 +11,8 @@ import ClubModal from '../components/ClubModal';
 
 // !! IMPORTANT: Moved API Key loading to use environment variables !!
 // Ensure you have VITE_GOOGLE_MAPS_API_KEY set in your .env file
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY; 
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const API_BASE_URL = 'http://localhost:3001/api';
 
 const FeaturedClubsPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -21,6 +22,7 @@ const FeaturedClubsPage = () => {
   const [filteredMapClubs, setFilteredMapClubs] = useState([]); // Clubs filtered for the map (can include featured)
   const [currentFilters, setCurrentFilters] = useState({ province: '' });
   const [selectedClub, setSelectedClub] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -29,18 +31,50 @@ const FeaturedClubsPage = () => {
   }, []);
 
   useEffect(() => {
-    // Initialize clubs data on mount
-    const allClubsData = clubsData; // Assuming clubsData is correctly imported
-    setClubs(allClubsData);
+    fetchClubsData();
+  }, []);
 
-    const featured = allClubsData.filter(club => club.listingType === 'featured');
-    const basic = allClubsData.filter(club => club.listingType !== 'featured');
+  const fetchClubsData = async () => {
+    try {
+      setLoading(true);
+      // Try to fetch from database first
+      const response = await fetch(`${API_BASE_URL}/clubs?tenant=laurie-personal`);
+      const data = await response.json();
 
-    setFeaturedClubs(featured);
-    setBasicClubs(basic);
-    setFilteredMapClubs(allClubsData); // Initially, map shows all clubs
+      let allClubsData;
+      if (data.success && data.clubs && data.clubs.length > 0) {
+        // Use database data if available
+        allClubsData = data.clubs;
+      } else {
+        // Fallback to hardcoded data
+        allClubsData = clubsData;
+      }
 
-  }, []); // Runs once on component mount
+      setClubs(allClubsData);
+
+      const featured = allClubsData.filter(club => club.listingType === 'featured');
+      const basic = allClubsData.filter(club => club.listingType !== 'featured');
+
+      setFeaturedClubs(featured);
+      setBasicClubs(basic);
+      setFilteredMapClubs(allClubsData); // Initially, map shows all clubs
+
+    } catch (error) {
+      console.error('Error fetching clubs from database, using fallback data:', error);
+      // Fallback to hardcoded data on error
+      const allClubsData = clubsData;
+      setClubs(allClubsData);
+
+      const featured = allClubsData.filter(club => club.listingType === 'featured');
+      const basic = allClubsData.filter(club => club.listingType !== 'featured');
+
+      setFeaturedClubs(featured);
+      setBasicClubs(basic);
+      setFilteredMapClubs(allClubsData);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Effect to apply filters when currentFilters or base lists change
   useEffect(() => {
@@ -100,8 +134,24 @@ const FeaturedClubsPage = () => {
       </motion.section>
       */}
 
+      {/* Loading State */}
+      {loading && (
+        <section style={{ padding: '3rem 0', textAlign: 'center' }}>
+          <div style={{
+            width: '50px',
+            height: '50px',
+            border: '5px solid #f3f3f3',
+            borderTop: '5px solid var(--primary-color)',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            margin: '0 auto 1rem'
+          }}></div>
+          <p style={{ color: 'var(--text-color)', fontSize: '1.2rem' }}>Loading clubs...</p>
+        </section>
+      )}
+
       {/* Featured Clubs Section */}
-      {featuredClubs.length > 0 && (
+      {!loading && featuredClubs.length > 0 && (
         <section className="featured-clubs-highlight-section" style={{ backgroundColor: 'var(--neutral-color)', padding: '3rem 0' }}>
           <div className="content-container">
             <h2 className="text-center" style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', textAlign: 'center' }}>⭐ Featured Clubs ⭐</h2>
@@ -111,38 +161,41 @@ const FeaturedClubsPage = () => {
       )}
 
       {/* Map Section */}
-      <section className="clubs-map-section" style={{ padding: '3rem 0' }}>
-          <div className="content-container">
-             <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--primary-color)' }}>Club Locations Map</h3>
-             <ClubMap
-               clubs={filteredMapClubs}
-               apiKey={GOOGLE_MAPS_API_KEY}
-               isMobile={isMobile}
-               onMarkerClick={handleClubSelect}
-             />
-          </div>
-      </section>
+      {!loading && (
+        <section className="clubs-map-section" style={{ padding: '3rem 0' }}>
+            <div className="content-container">
+               <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--primary-color)' }}>Club Locations Map</h3>
+               <ClubMap
+                 clubs={filteredMapClubs}
+                 apiKey={GOOGLE_MAPS_API_KEY}
+                 isMobile={isMobile}
+                 onMarkerClick={handleClubSelect}
+               />
+            </div>
+        </section>
+      )}
 
       {/* Filter and Basic Clubs List Section */}
-      <section className="all-clubs-section" style={{ padding: '3rem 0', backgroundColor: 'var(--background-color)' }}>
-        <div className="content-container">
-          <h2 className="text-center" style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', textAlign: 'center' }}>Find a Club Near You</h2>
+      {!loading && (
+        <section className="all-clubs-section" style={{ padding: '3rem 0', backgroundColor: 'var(--background-color)' }}>
+          <div className="content-container">
+            <h2 className="text-center" style={{ color: 'var(--primary-color)', marginBottom: '1.5rem', textAlign: 'center' }}>Find a Club Near You</h2>
 
-          {/* Filter Component */}
-          <div style={{ marginBottom: '2rem' }}>
-            <ClubFilter
-              provinces={uniqueProvinces}
-              currentFilters={currentFilters}
-              onFilterChange={handleFilterChange}
-            />
-          </div>
+            {/* Filter Component */}
+            <div style={{ marginBottom: '2rem' }}>
+              <ClubFilter
+                provinces={uniqueProvinces}
+                currentFilters={currentFilters}
+                onFilterChange={handleFilterChange}
+              />
+            </div>
 
-          {/* Basic Club List */}
-          {filteredMapClubs.length > 0 ? (
-              <BasicClubList clubs={filteredMapClubs} onClubSelect={handleClubSelect} isMobile={isMobile} />
-          ) : (
-              <p className="text-center" style={{ fontStyle: 'italic', marginTop: '2rem', color: 'var(--text-secondary-color)' }}>No clubs match the current filter criteria.</p>
-          )}
+            {/* Basic Club List */}
+            {filteredMapClubs.length > 0 ? (
+                <BasicClubList clubs={filteredMapClubs} onClubSelect={handleClubSelect} isMobile={isMobile} />
+            ) : (
+                <p className="text-center" style={{ fontStyle: 'italic', marginTop: '2rem', color: 'var(--text-secondary-color)' }}>No clubs match the current filter criteria.</p>
+            )}
 
           {/* Call to Action to Feature a Club */}
            <div className="cta-section text-center" style={{ margin: '3rem auto', padding: '2rem', backgroundColor: 'var(--background-alt-color)', borderRadius: '8px', maxWidth: '700px', textAlign: 'center' }}>
@@ -176,9 +229,17 @@ const FeaturedClubsPage = () => {
       {selectedClub && (
         <ClubModal 
           club={selectedClub} 
-          onClose={handleCloseModal} 
+          onClose={handleCloseModal}
         />
       )}
+
+      {/* CSS for loading animation */}
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
 
     </div>
   );
