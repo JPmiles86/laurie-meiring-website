@@ -329,19 +329,22 @@ function AboutPage() {
                 order: isMobile ? 2 : 1
               }}
             >
-              <OptimizedImage
+              <img
                 src="/ about/PickleballGeneric8.jpg"
                 alt="Pickleball Courts in Costa Rica"
-                width={500}
-                height={350}
+                loading="lazy"
                 style={{
                   borderRadius: '12px',
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
                   width: '100%',
                   height: 'auto',
                   maxWidth: isMobile ? '350px' : '100%',
-                  display: 'block'
+                  display: 'block',
+                  transition: 'transform 0.3s ease',
+                  cursor: 'pointer'
                 }}
+                onMouseEnter={(e) => e.target.style.transform = 'scale(1.02)'}
+                onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
               />
             </motion.div>
             <motion.div
