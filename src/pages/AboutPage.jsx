@@ -214,23 +214,22 @@ function AboutPage() {
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 position: 'relative'
               }}
             >
-              <OptimizedImage
+              <img
                 src="/LaurieShaunaExb2.jpg"
                 alt="Laurie with Pickleball Medals"
                 className="medal-image"
-                width={isMobile ? 350 : 500}
-                height={isMobile ? 525 : 750}
+                loading="lazy"
                 style={{
                   borderRadius: '12px',
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
                   width: '100%',
                   height: 'auto',
                   maxWidth: isMobile ? '350px' : '100%',
-                  objectFit: 'contain'
+                  display: 'block'
                 }}
               />
             </motion.div>
