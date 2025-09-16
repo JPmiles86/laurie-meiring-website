@@ -140,10 +140,10 @@ function AboutPage() {
           maxWidth: '1200px', 
           margin: '0 auto' 
         }}>
-          <div className="bio-section" style={{ 
-            display: 'grid', 
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))', 
-            gap: isMobile ? '30px' : '40px', 
+          <div className="bio-section" style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+            gap: isMobile ? '30px' : '60px',
             alignItems: 'center',
             marginBottom: isMobile ? '50px' : '80px',
             padding: '0 15px'
@@ -204,27 +204,33 @@ function AboutPage() {
                 </a>, I also bring a unique perspective: I don't just teach lessons, I create <strong>Pickleball experiences</strong>. That might mean a one-on-one coaching session, guided group play, or even a Pickleball tour through Costa Rica's most beautiful courts and destinations.
               </p>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="natural-image" 
-              style={{ 
-                maxWidth: isMobile ? '350px' : '400px', 
-                margin: '0 auto',
+              className="natural-image"
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 position: 'relative'
               }}
             >
               <OptimizedImage
-                src="/LaurieShaunaExb.jpg"
+                src="/LaurieShaunaExb2.jpg"
                 alt="Laurie with Pickleball Medals"
                 className="medal-image"
-                width={isMobile ? 350 : 400}
-                height={isMobile ? 350 : 400}
+                width={isMobile ? 350 : 500}
+                height={isMobile ? 525 : 750}
                 style={{
                   borderRadius: '12px',
-                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)'
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                  width: '100%',
+                  height: 'auto',
+                  maxWidth: isMobile ? '350px' : '100%',
+                  objectFit: 'contain'
                 }}
               />
             </motion.div>

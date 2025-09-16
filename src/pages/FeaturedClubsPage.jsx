@@ -12,7 +12,7 @@ import ClubModal from '../components/ClubModal';
 // !! IMPORTANT: Moved API Key loading to use environment variables !!
 // Ensure you have VITE_GOOGLE_MAPS_API_KEY set in your .env file
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = '/api';
 
 const FeaturedClubsPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -38,7 +38,7 @@ const FeaturedClubsPage = () => {
     try {
       setLoading(true);
       // Try to fetch from database first
-      const response = await fetch(`${API_BASE_URL}/clubs?tenant=laurie-personal`);
+      const response = await fetch(`${API_BASE_URL}/clubs`);
       const data = await response.json();
 
       let allClubsData;
