@@ -17,7 +17,7 @@ console.log('🚨 AdminPage Debug:', {
   viteDraftIntel: import.meta.env.VITE_ENABLE_AI_DRAFT_INTELLIGENCE
 });
 
-function AdminPage({ isMobile }) {
+function BlogEditorPage({ isMobile }) {
   const { isAuthenticated: contextAuth, login: contextLogin } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -337,4 +337,4 @@ function AdminPage({ isMobile }) {
   );
 }
 
-export default AdminPage;
+export default BlogEditorPage;

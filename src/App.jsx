@@ -14,6 +14,8 @@ import BlogCategoryPage from './pages/BlogCategoryPage';
 import BlogArchivePage from './pages/BlogArchivePage';
 import BlogAdmin from './components/BlogAdmin';
 import BlogManagementPage from './pages/BlogManagementPage';
+import BlogListAdmin from './pages/BlogListAdmin';
+import BlogEditorPage from './pages/BlogEditorPage';
 import AdminPage from './pages/AdminPage';
 import AdminDashboard from './pages/AdminDashboard';
 import TestimonialsAdmin from './pages/TestimonialsAdmin';
@@ -47,7 +49,9 @@ function AnimatedRoutes() {
         <Route path="/blog/:slug" element={<BlogDetail />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/blog" element={<AdminPage />} />
+        <Route path="/admin/blog" element={<BlogListAdmin />} />
+        <Route path="/admin/blog/new" element={<BlogEditorPage />} />
+        <Route path="/admin/blog/edit/:id" element={<BlogEditorPage />} />
         <Route path="/admin/blog-management" element={<BlogManagementPage />} />
         <Route path="/admin/testimonials" element={<TestimonialsAdmin />} />
         <Route path="/admin/clubs" element={<ClubsAdmin />} />

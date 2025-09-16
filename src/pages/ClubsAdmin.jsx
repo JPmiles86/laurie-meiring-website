@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import MediaUploader from '../components/MediaUploader';
 
 const API_BASE_URL = '/api';
 
@@ -22,6 +23,9 @@ function ClubsAdmin() {
   const [editingClub, setEditingClub] = useState(null);
   const [message, setMessage] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showMediaUploader, setShowMediaUploader] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -59,6 +63,13 @@ function ClubsAdmin() {
 
   useEffect(() => {
     fetchClubs();
+  }, []);
+
+  // Cleanup on component unmount to ensure body scroll is restored
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, []);
 
   const fetchClubs = async () => {
@@ -125,6 +136,8 @@ function ClubsAdmin() {
       upcomingEvents: []
     });
     setEditingClub(null);
+    setHasUnsavedChanges(false);
+    setUploadedImages([]);
   };
 
   const openModal = (club = null) => {
@@ -163,18 +176,38 @@ function ClubsAdmin() {
         listingType: club.listingType || 'basic',
         upcomingEvents: club.upcomingEvents || []
       });
+      // Convert image URLs to uploaded images format for editing
+      setUploadedImages(club.images ? club.images.map((url, index) => ({
+        url,
+        alt: `Club image ${index + 1}`,
+        filename: `existing_image_${index + 1}`
+      })) : []);
     } else {
       resetForm();
     }
     setShowModal(true);
+    setHasUnsavedChanges(false);
+    // Disable body scroll when modal opens
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
+    if (hasUnsavedChanges) {
+      const shouldClose = window.confirm(
+        'You have unsaved changes. Are you sure you want to close without saving?'
+      );
+      if (!shouldClose) {
+        return;
+      }
+    }
     setShowModal(false);
     resetForm();
+    // Re-enable body scroll when modal closes
+    document.body.style.overflow = 'unset';
   };
 
   const handleInputChange = (section, field, value) => {
+    setHasUnsavedChanges(true);
     if (section) {
       setFormData(prev => ({
         ...prev,
@@ -192,10 +225,45 @@ function ClubsAdmin() {
   };
 
   const handleArrayChange = (field, value) => {
+    setHasUnsavedChanges(true);
     const items = value.split('\n').filter(item => item.trim());
     setFormData(prev => ({
       ...prev,
       [field]: items
+    }));
+  };
+
+  const handleImageSelect = (image) => {
+    setHasUnsavedChanges(true);
+    setUploadedImages(prev => [...prev, image]);
+    setShowMediaUploader(false);
+    // Update form data images array
+    setFormData(prev => ({
+      ...prev,
+      images: [...prev.images, image.url]
+    }));
+  };
+
+  const handleImageRemove = (index) => {
+    setHasUnsavedChanges(true);
+    setUploadedImages(prev => prev.filter((_, i) => i !== index));
+    // Update form data images array
+    setFormData(prev => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleImageReorder = (fromIndex, toIndex) => {
+    setHasUnsavedChanges(true);
+    const newImages = [...uploadedImages];
+    const [removed] = newImages.splice(fromIndex, 1);
+    newImages.splice(toIndex, 0, removed);
+    setUploadedImages(newImages);
+    // Update form data images array
+    setFormData(prev => ({
+      ...prev,
+      images: newImages.map(img => img.url)
     }));
   };
 
@@ -221,6 +289,7 @@ function ClubsAdmin() {
       const data = await response.json();
 
       if (data.success) {
+        setHasUnsavedChanges(false);
         showMessage(editingClub ? 'Club updated successfully!' : 'Club created successfully!');
         closeModal();
         fetchClubs();
@@ -559,7 +628,7 @@ function ClubsAdmin() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 1000,
+              zIndex: 9999,
               padding: '20px'
             }}
             onClick={closeModal}
@@ -661,7 +730,7 @@ function ClubsAdmin() {
                     Location
                   </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '16px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         City *
@@ -718,7 +787,7 @@ function ClubsAdmin() {
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         Latitude
@@ -764,7 +833,7 @@ function ClubsAdmin() {
                     Contact Information
                   </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         Phone
@@ -842,7 +911,7 @@ function ClubsAdmin() {
                     Court Details
                   </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '15px', marginBottom: '16px' }}>
                     <div>
                       <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
                         Indoor Courts
@@ -941,23 +1010,138 @@ function ClubsAdmin() {
                     Images
                   </h3>
 
-                  <label style={{ display: 'block', marginBottom: '4px', fontWeight: '600' }}>
-                    Image URLs (one per line)
-                  </label>
-                  <textarea
-                    value={formData.images.join('\n')}
-                    onChange={(e) => handleArrayChange('images', e.target.value)}
-                    rows={3}
-                    placeholder="e.g., /clubs/club1/image1.jpg&#10;/clubs/club1/image2.jpg"
+                  {/* Uploaded Images Display */}
+                  {uploadedImages.length > 0 && (
+                    <div style={{ marginBottom: '16px' }}>
+                      <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600' }}>
+                        Uploaded Images ({uploadedImages.length})
+                      </label>
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+                        gap: '12px',
+                        marginBottom: '16px',
+                        padding: '12px',
+                        border: '1px solid #ddd',
+                        borderRadius: '6px',
+                        backgroundColor: '#f9f9f9'
+                      }}>
+                        {uploadedImages.map((image, index) => (
+                          <div
+                            key={index}
+                            style={{
+                              position: 'relative',
+                              aspectRatio: '1',
+                              borderRadius: '6px',
+                              overflow: 'hidden',
+                              border: '1px solid #ddd'
+                            }}
+                          >
+                            <img
+                              src={image.url}
+                              alt={image.alt || `Club image ${index + 1}`}
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover'
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => handleImageRemove(index)}
+                              style={{
+                                position: 'absolute',
+                                top: '4px',
+                                right: '4px',
+                                width: '24px',
+                                height: '24px',
+                                backgroundColor: 'rgba(255, 0, 0, 0.8)',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '50%',
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                              }}
+                              title="Remove image"
+                            >
+                              ×
+                            </button>
+                            {uploadedImages.length > 1 && (
+                              <div style={{
+                                position: 'absolute',
+                                bottom: '4px',
+                                left: '4px',
+                                display: 'flex',
+                                gap: '2px'
+                              }}>
+                                {index > 0 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleImageReorder(index, index - 1)}
+                                    style={{
+                                      width: '20px',
+                                      height: '20px',
+                                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                      color: 'white',
+                                      border: 'none',
+                                      borderRadius: '3px',
+                                      cursor: 'pointer',
+                                      fontSize: '10px'
+                                    }}
+                                    title="Move left"
+                                  >
+                                    ←
+                                  </button>
+                                )}
+                                {index < uploadedImages.length - 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleImageReorder(index, index + 1)}
+                                    style={{
+                                      width: '20px',
+                                      height: '20px',
+                                      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                      color: 'white',
+                                      border: 'none',
+                                      borderRadius: '3px',
+                                      cursor: 'pointer',
+                                      fontSize: '10px'
+                                    }}
+                                    title="Move right"
+                                  >
+                                    →
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Add Images Button */}
+                  <button
+                    type="button"
+                    onClick={() => setShowMediaUploader(true)}
                     style={{
                       width: '100%',
-                      padding: '12px',
-                      border: '1px solid #ddd',
+                      padding: '16px',
+                      backgroundColor: 'var(--secondary-color)',
+                      color: 'white',
+                      border: 'none',
                       borderRadius: '6px',
+                      cursor: 'pointer',
                       fontSize: '1rem',
-                      resize: 'vertical'
+                      fontWeight: '600',
+                      transition: 'all 0.3s ease'
                     }}
-                  />
+                  >
+                    {uploadedImages.length === 0 ? '+ Add Images' : '+ Add More Images'}
+                  </button>
                 </div>
 
                 {/* Form Actions */}
@@ -1004,6 +1188,14 @@ function ClubsAdmin() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* MediaUploader Modal */}
+      {showMediaUploader && (
+        <MediaUploader
+          onImageSelect={handleImageSelect}
+          onClose={() => setShowMediaUploader(false)}
+        />
+      )}
 
       <style>{`
         @keyframes spin {

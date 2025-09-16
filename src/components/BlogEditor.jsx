@@ -7,7 +7,7 @@ import { createPost, updatePost, fetchAdminPosts, transformPost } from '../servi
 import ReactMarkdown from 'react-markdown';
 import MediaUploader from './MediaUploader';
 
-function BlogEditor({ isMobile, initialContent, onContentUsed }) {
+function BlogEditor({ isMobile, initialContent, onContentUsed, editingPostId }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [featuredImage, setFeaturedImage] = useState('');
@@ -23,6 +23,9 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
   const [existingPosts, setExistingPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [showMediaUploader, setShowMediaUploader] = useState(false);
+  const [showFeaturedImageUploader, setShowFeaturedImageUploader] = useState(false);
+  const [contentImages, setContentImages] = useState([]);
+  const [showContentImageSelector, setShowContentImageSelector] = useState(false);
   const quillRef = useRef();
 
   // Load initial content from AI if available
@@ -34,13 +37,37 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
       setCategories(initialContent.categories || []);
       setTags(initialContent.tags ? initialContent.tags.join(', ') : '');
       setMessage('AI-generated content loaded. Edit as needed before publishing.');
-      
+
       // Clear the initial content after using it
       if (onContentUsed) {
         onContentUsed();
       }
     }
   }, [initialContent, onContentUsed]);
+
+  // Load post for editing when editingPostId is provided
+  useEffect(() => {
+    const loadPostForEditing = async () => {
+      if (editingPostId) {
+        try {
+          // First try to get post from admin API
+          const { posts } = await fetchAdminPosts({ limit: 100 });
+          const post = posts.find(p => p.id === editingPostId);
+
+          if (post) {
+            loadPostForEdit(post);
+          } else {
+            setMessage('Post not found or you do not have permission to edit it.');
+          }
+        } catch (error) {
+          console.error('Failed to load post for editing:', error);
+          setMessage('Failed to load post for editing.');
+        }
+      }
+    };
+
+    loadPostForEditing();
+  }, [editingPostId]);
 
   // Available categories
   const availableCategories = [
@@ -83,6 +110,34 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
       });
     }
   }, []);
+
+  // Extract images from content
+  const extractImagesFromContent = (htmlContent) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const images = doc.querySelectorAll('img');
+
+    const imageList = [];
+    images.forEach((img, index) => {
+      if (img.src && !img.src.includes('youtube') && !img.src.includes('embed')) {
+        imageList.push({
+          id: index,
+          src: img.src,
+          alt: img.alt || `Image ${index + 1}`,
+          size: img.dataset.size || 'medium'
+        });
+      }
+    });
+
+    setContentImages(imageList);
+  };
+
+  // Update content images when content changes
+  useEffect(() => {
+    if (content) {
+      extractImagesFromContent(content);
+    }
+  }, [content]);
 
   // Add click-to-resize functionality for images in editor
   useEffect(() => {
@@ -580,20 +635,107 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
               fontWeight: 'bold',
               color: 'var(--text-color)'
             }}>
-              Featured Image URL
+              Featured Image
             </label>
-            <input
-              type="text"
-              value={featuredImage}
-              onChange={(e) => setFeaturedImage(e.target.value)}
-              placeholder="/blog9/featured-image.jpg"
-              style={{
-                width: '100%',
+
+            {/* Current Featured Image Preview */}
+            {featuredImage && (
+              <div style={{
+                marginBottom: '15px',
                 padding: '10px',
                 border: '1px solid var(--border-color)',
-                borderRadius: '6px'
-              }}
-            />
+                borderRadius: '6px',
+                backgroundColor: '#f8f9fa'
+              }}>
+                <img
+                  src={featuredImage}
+                  alt="Featured"
+                  style={{
+                    width: '200px',
+                    height: '120px',
+                    objectFit: 'cover',
+                    borderRadius: '6px',
+                    marginBottom: '10px'
+                  }}
+                />
+                <div style={{ fontSize: '0.9rem', color: 'var(--secondary-text-color)' }}>
+                  Current featured image
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div style={{
+              display: 'flex',
+              gap: '10px',
+              flexWrap: 'wrap'
+            }}>
+              <button
+                type="button"
+                onClick={() => setShowFeaturedImageUploader(true)}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: 'var(--primary-color)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem'
+                }}
+              >
+                Upload New Image
+              </button>
+
+              {contentImages.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setShowContentImageSelector(true)}
+                  style={{
+                    padding: '10px 20px',
+                    backgroundColor: 'var(--secondary-color)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Choose from Content ({contentImages.length})
+                </button>
+              )}
+
+              {featuredImage && (
+                <button
+                  type="button"
+                  onClick={() => setFeaturedImage('')}
+                  style={{
+                    padding: '10px 20px',
+                    backgroundColor: '#ef4444',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+
+            {contentImages.length === 0 && content && (
+              <div style={{
+                marginTop: '10px',
+                padding: '10px',
+                backgroundColor: '#f0f9ff',
+                border: '1px solid #bfdbfe',
+                borderRadius: '6px',
+                fontSize: '0.9rem',
+                color: '#1e40af'
+              }}>
+                💡 Add images to your content first, then you can select one as the featured image
+              </div>
+            )}
           </div>
 
           <div style={{ marginBottom: '20px' }}>
@@ -1018,10 +1160,143 @@ function BlogEditor({ isMobile, initialContent, onContentUsed }) {
 
       {/* Media Uploader Modal */}
       {showMediaUploader && (
-        <MediaUploader 
+        <MediaUploader
           onImageSelect={handleImageSelect}
           onClose={() => setShowMediaUploader(false)}
         />
+      )}
+
+      {/* Featured Image Uploader Modal */}
+      {showFeaturedImageUploader && (
+        <MediaUploader
+          onImageSelect={(imageData) => {
+            setFeaturedImage(imageData.url);
+            setShowFeaturedImageUploader(false);
+          }}
+          onClose={() => setShowFeaturedImageUploader(false)}
+        />
+      )}
+
+      {/* Content Image Selector Modal */}
+      {showContentImageSelector && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '20px'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '30px',
+            borderRadius: '12px',
+            maxWidth: '700px',
+            width: '100%',
+            maxHeight: '80vh',
+            overflow: 'auto'
+          }}>
+            <h3 style={{
+              fontSize: '1.5rem',
+              marginBottom: '20px',
+              color: 'var(--primary-color)'
+            }}>
+              Select Featured Image from Content
+            </h3>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+              gap: '15px',
+              marginBottom: '20px'
+            }}>
+              {contentImages.map((image) => (
+                <div
+                  key={image.id}
+                  onClick={() => {
+                    setFeaturedImage(image.src);
+                    setShowContentImageSelector(false);
+                  }}
+                  style={{
+                    border: featuredImage === image.src ? '3px solid var(--primary-color)' : '1px solid var(--border-color)',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    backgroundColor: featuredImage === image.src ? '#f0f9ff' : 'white'
+                  }}
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    style={{
+                      width: '100%',
+                      height: '120px',
+                      objectFit: 'cover',
+                      borderRadius: '6px',
+                      marginBottom: '8px'
+                    }}
+                  />
+                  <div style={{
+                    fontSize: '0.8rem',
+                    color: 'var(--secondary-text-color)',
+                    textAlign: 'center'
+                  }}>
+                    {image.alt}
+                  </div>
+                  {featuredImage === image.src && (
+                    <div style={{
+                      fontSize: '0.7rem',
+                      color: 'var(--primary-color)',
+                      textAlign: 'center',
+                      marginTop: '4px',
+                      fontWeight: 'bold'
+                    }}>
+                      ✓ Selected
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {contentImages.length === 0 && (
+              <div style={{
+                textAlign: 'center',
+                padding: '40px 20px',
+                color: 'var(--secondary-text-color)'
+              }}>
+                <p>No images found in your content.</p>
+                <p>Add some images to your blog post content first.</p>
+              </div>
+            )}
+
+            <div style={{
+              display: 'flex',
+              gap: '10px',
+              justifyContent: 'flex-end',
+              marginTop: '20px'
+            }}>
+              <button
+                onClick={() => setShowContentImageSelector(false)}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#6b7280',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
