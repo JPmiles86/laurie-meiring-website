@@ -32,11 +32,15 @@ function AdminPage({ isMobile }) {
     // Check both API auth and legacy session auth
     const hasApiAuth = checkAuth();
     const hasSessionAuth = sessionStorage.getItem('blogAdminAuth') === 'authenticated';
-    
+
     if (hasApiAuth || hasSessionAuth) {
       setIsAuthenticated(true);
+      // If on /admin root and authenticated, redirect to dashboard
+      if (window.location.pathname === '/admin') {
+        navigate('/admin/dashboard');
+      }
     }
-  }, [contextAuth]);
+  }, [contextAuth, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -51,6 +55,7 @@ function AdminPage({ isMobile }) {
         // Keep session storage for backward compatibility
         sessionStorage.setItem('blogAdminAuth', 'authenticated');
         setError('');
+        navigate('/admin/dashboard');
       }
     } catch (error) {
       // Fallback to hardcoded password for backward compatibility
@@ -58,6 +63,7 @@ function AdminPage({ isMobile }) {
         setIsAuthenticated(true);
         sessionStorage.setItem('blogAdminAuth', 'authenticated');
         setError('');
+        navigate('/admin/dashboard');
       } else {
         setError(error.message || 'Incorrect password');
       }

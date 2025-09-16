@@ -45,7 +45,8 @@ function AnimatedRoutes() {
         <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
         <Route path="/blog/archive/:year/:month" element={<BlogArchivePage />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/blog" element={<AdminPage />} />
         <Route path="/admin/blog-management" element={<BlogManagementPage />} />
         <Route path="/admin/testimonials" element={<TestimonialsAdmin />} />

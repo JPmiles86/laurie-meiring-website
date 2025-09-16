@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = '/api';
 
 function ClubsAdmin() {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ function ClubsAdmin() {
   const fetchClubs = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/clubs?tenant=laurie-personal`, {
+      const response = await fetch(`${API_BASE_URL}/clubs`, {
         headers: {
           'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
         }
