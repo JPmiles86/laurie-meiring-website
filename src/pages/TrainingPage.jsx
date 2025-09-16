@@ -162,16 +162,16 @@ function TrainingPage() {
                 width: isMobile ? '100%' : '50%',
                 order: isMobile ? 1 : 0
               }}>
-                <OptimizedImage
+                <img
                   src="/Pickelball/LaurieShaunaTraining.jpg"
                   alt="Pickleball Courts in Costa Rica"
-                  width={600}
-                  height={450}
+                  loading="lazy"
                   style={{
                     borderRadius: isMobile ? '16px' : '12px',
                     boxShadow: isMobile ? '0 8px 20px rgba(0, 0, 0, 0.15)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
                     width: '100%',
-                    height: 'auto'
+                    height: 'auto',
+                    display: 'block'
                   }}
                 />
               </div>
@@ -266,9 +266,9 @@ function TrainingPage() {
               Pickleball Training Packages
             </motion.h2>
             
-            <div style={{ 
+            <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))',
+              gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)',
               gap: isMobile ? '25px' : '30px',
               width: '100%',
               maxWidth: '1200px',
