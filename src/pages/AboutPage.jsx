@@ -330,7 +330,7 @@ function AboutPage() {
               }}
             >
               <OptimizedImage
-                src="/about/PickleballGeneric8.jpg"
+                src="/ about/PickleballGeneric8.jpg"
                 alt="Pickleball Courts in Costa Rica"
                 width={500}
                 height={350}
