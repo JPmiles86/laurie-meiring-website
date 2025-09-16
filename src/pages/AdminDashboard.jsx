@@ -35,7 +35,11 @@ function AdminDashboard() {
       // Get testimonials count
       let testimonialsCount = 0;
       try {
-        const testimonialsResponse = await fetch('/api/testimonials');
+        const testimonialsResponse = await fetch('/api/testimonials', {
+          headers: {
+            'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
+          }
+        });
         const testimonialsData = await testimonialsResponse.json();
         if (testimonialsData.success) {
           testimonialsCount = testimonialsData.testimonials.length;
@@ -47,7 +51,11 @@ function AdminDashboard() {
       // Get clubs count
       let clubsCount = 0;
       try {
-        const clubsResponse = await fetch('/api/clubs?tenant=laurie-personal');
+        const clubsResponse = await fetch('/api/clubs?tenant=laurie-personal', {
+          headers: {
+            'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
+          }
+        });
         const clubsData = await clubsResponse.json();
         if (clubsData.success) {
           clubsCount = clubsData.clubs.length;

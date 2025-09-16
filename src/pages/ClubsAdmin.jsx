@@ -213,6 +213,7 @@ function ClubsAdmin() {
         method,
         headers: {
           'Content-Type': 'application/json',
+          'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
         },
         body: JSON.stringify(formData)
       });
@@ -236,7 +237,10 @@ function ClubsAdmin() {
 
     try {
       const response = await fetch(`${API_BASE_URL}/clubs/${clubId}?tenant=laurie-personal`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
+        }
       });
 
       const data = await response.json();

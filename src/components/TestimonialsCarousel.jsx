@@ -247,7 +247,8 @@ function TestimonialsCarousel() {
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover'
+                    objectFit: 'cover',
+                    objectPosition: testimonials[testimonialIndex].name === 'Allison Watts' ? 'top' : 'center'
                   }}
                 />
               </div>
