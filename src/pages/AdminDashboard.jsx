@@ -14,10 +14,11 @@ function AdminDashboard() {
       return;
     }
   }, [navigate]);
+
   const [stats, setStats] = useState({
     blogCount: 0,
-    testimonialsCount: 0, // Placeholder for future implementation
-    clubsCount: 0, // Placeholder for future implementation
+    testimonialsCount: 0,
+    clubsCount: 0,
     totalViews: 0
   });
 
@@ -51,7 +52,7 @@ function AdminDashboard() {
       // Get clubs count
       let clubsCount = 0;
       try {
-        const clubsResponse = await fetch('/api/clubs?tenant=laurie-personal', {
+        const clubsResponse = await fetch('/api/clubs', {
           headers: {
             'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
           }
@@ -80,247 +81,247 @@ function AdminDashboard() {
     navigate('/');
   };
 
-  const StatCard = ({ title, value, icon, color, onClick }) => (
+  const AdminCard = ({ title, description, icon, color, onClick, count }) => (
     <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.03, y: -5 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
       style={{
         backgroundColor: 'white',
         padding: '32px',
         borderRadius: '16px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        border: `3px solid ${color}`,
-        textAlign: 'center',
-        cursor: onClick ? 'pointer' : 'default',
-        transition: 'all 0.3s ease',
-        minHeight: '180px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
-      <div style={{ fontSize: '3rem', marginBottom: '16px' }}>{icon}</div>
-      <h3 style={{
-        fontSize: '3rem',
-        fontWeight: 'bold',
-        color: color,
-        margin: '0 0 12px 0'
-      }}>
-        {value}
-      </h3>
-      <p style={{
-        fontSize: '1.2rem',
-        color: 'var(--text-color)',
-        margin: 0,
-        fontWeight: '600'
-      }}>
-        {title}
-      </p>
-    </motion.div>
-  );
-
-  const NavCard = ({ title, description, icon, color, onClick, isComingSoon = false }) => (
-    <motion.div
-      whileHover={{ scale: isComingSoon ? 1 : 1.05 }}
-      whileTap={{ scale: isComingSoon ? 1 : 0.95 }}
-      onClick={isComingSoon ? undefined : onClick}
-      style={{
-        backgroundColor: 'white',
-        padding: '32px',
-        borderRadius: '16px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
         border: `2px solid ${color}`,
-        textAlign: 'center',
-        cursor: isComingSoon ? 'not-allowed' : 'pointer',
+        cursor: 'pointer',
         transition: 'all 0.3s ease',
         minHeight: '200px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        opacity: isComingSoon ? 0.6 : 1,
         position: 'relative'
       }}
     >
-      {isComingSoon && (
+      {count !== undefined && (
         <div style={{
           position: 'absolute',
-          top: '12px',
-          right: '12px',
-          backgroundColor: '#ffc107',
-          color: '#333',
-          padding: '4px 8px',
-          borderRadius: '8px',
-          fontSize: '0.7rem',
+          top: '16px',
+          right: '16px',
+          backgroundColor: color,
+          color: 'white',
+          padding: '8px 16px',
+          borderRadius: '20px',
+          fontSize: '1.1rem',
           fontWeight: 'bold'
         }}>
-          COMING SOON
+          {count}
         </div>
       )}
-      <div style={{ fontSize: '4rem', marginBottom: '16px', color }}>{icon}</div>
+
+      <div style={{
+        fontSize: '3.5rem',
+        marginBottom: '20px',
+        color,
+        lineHeight: 1
+      }}>
+        {icon}
+      </div>
+
       <h3 style={{
-        fontSize: '1.5rem',
+        fontSize: '1.6rem',
         fontWeight: 'bold',
         color: 'var(--text-color)',
         margin: '0 0 12px 0'
       }}>
         {title}
       </h3>
+
       <p style={{
         fontSize: '1rem',
-        color: '#666',
-        margin: 0,
-        lineHeight: '1.5'
+        color: 'var(--text-color)',
+        opacity: 0.7,
+        lineHeight: 1.5,
+        flexGrow: 1
       }}>
         {description}
       </p>
+
+      <div style={{
+        marginTop: '20px',
+        color,
+        fontSize: '0.9rem',
+        fontWeight: 'bold',
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        Manage →
+      </div>
     </motion.div>
   );
 
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundColor: 'var(--background-color)',
-      padding: '20px'
+      backgroundColor: '#f5f5f5',
+      padding: '40px 20px'
     }}>
       {/* Header */}
       <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto 40px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '20px'
+      }}>
+        <div>
+          <h1 style={{
+            fontSize: '2.5rem',
+            color: 'var(--primary-color)',
+            margin: 0
+          }}>
+            Admin Dashboard
+          </h1>
+          <p style={{
+            fontSize: '1.1rem',
+            color: 'var(--text-color)',
+            opacity: 0.7,
+            marginTop: '8px'
+          }}>
+            Manage your website content
+          </p>
+        </div>
+
+        <button
+          onClick={handleLogout}
+          style={{
+            padding: '12px 24px',
+            backgroundColor: 'transparent',
+            color: 'var(--primary-color)',
+            border: '2px solid var(--primary-color)',
+            borderRadius: '8px',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            e.target.style.backgroundColor = 'var(--primary-color)';
+            e.target.style.color = 'white';
+          }}
+          onMouseOut={(e) => {
+            e.target.style.backgroundColor = 'transparent';
+            e.target.style.color = 'var(--primary-color)';
+          }}
+        >
+          Logout
+        </button>
+      </div>
+
+      {/* Admin Cards */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '30px',
+        maxWidth: '1200px',
+        margin: '0 auto'
+      }}>
+        <AdminCard
+          title="Blog Management"
+          description="Create, edit, and manage your blog posts. Write new content and update existing articles."
+          icon="📝"
+          color="#3498db"
+          onClick={() => navigate('/admin/blog')}
+          count={stats.blogCount}
+        />
+
+        <AdminCard
+          title="Testimonials"
+          description="Manage client testimonials and reviews. Add, edit, or remove feedback from your clients."
+          icon="⭐"
+          color="#27ae60"
+          onClick={() => navigate('/admin/testimonials')}
+          count={stats.testimonialsCount}
+        />
+
+        <AdminCard
+          title="Clubs Directory"
+          description="Manage pickleball clubs listings. Update club information, locations, and contact details."
+          icon="🏓"
+          color="#e74c3c"
+          onClick={() => navigate('/admin/clubs')}
+          count={stats.clubsCount}
+        />
+      </div>
+
+      {/* Quick Actions */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '60px auto 0',
+        padding: '30px',
         backgroundColor: 'white',
         borderRadius: '16px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        padding: '32px',
-        marginBottom: '32px'
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
       }}>
+        <h2 style={{
+          fontSize: '1.5rem',
+          color: 'var(--text-color)',
+          marginBottom: '20px'
+        }}>
+          Quick Actions
+        </h2>
+
         <div style={{
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '16px'
+          gap: '15px',
+          flexWrap: 'wrap'
         }}>
-          <div>
-            <h1 style={{
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: 'var(--primary-color)',
-              margin: '0 0 8px 0'
-            }}>
-              Admin Dashboard
-            </h1>
-            <p style={{
-              fontSize: '1.2rem',
-              color: 'var(--text-color)',
-              margin: 0
-            }}>
-              Welcome back! Manage your website content from here.
-            </p>
-          </div>
           <button
-            onClick={handleLogout}
+            onClick={() => navigate('/admin/blog')}
             style={{
-              padding: '12px 24px',
-              backgroundColor: 'var(--secondary-color)',
+              padding: '10px 20px',
+              backgroundColor: '#3498db',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
-              cursor: 'pointer',
               fontSize: '1rem',
-              fontWeight: '600',
+              cursor: 'pointer',
               transition: 'all 0.3s ease'
             }}
           >
-            Logout
+            + New Blog Post
           </button>
-        </div>
-      </div>
 
-      {/* Quick Stats */}
-      <div style={{ marginBottom: '40px' }}>
-        <h2 style={{
-          fontSize: '2rem',
-          color: 'var(--primary-color)',
-          marginBottom: '24px',
-          textAlign: 'center'
-        }}>
-          Quick Statistics
-        </h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '24px',
-          maxWidth: '1200px',
-          margin: '0 auto'
-        }}>
-          <StatCard
-            title="Blog Posts"
-            value={stats.blogCount}
-            icon="📝"
-            color="var(--primary-color)"
-            onClick={() => navigate('/admin/blog')}
-          />
-          <StatCard
-            title="Testimonials"
-            value={stats.testimonialsCount}
-            icon="💬"
-            color="#28a745"
+          <button
             onClick={() => navigate('/admin/testimonials')}
-          />
-          <StatCard
-            title="Featured Clubs"
-            value={stats.clubsCount}
-            icon="🏟️"
-            color="#e74c3c"
-            onClick={() => navigate('/admin/clubs')}
-          />
-          <StatCard
-            title="Total Views"
-            value={stats.totalViews}
-            icon="👁️"
-            color="#9b59b6"
-          />
-        </div>
-      </div>
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#27ae60',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            + Add Testimonial
+          </button>
 
-      {/* Admin Navigation */}
-      <div>
-        <h2 style={{
-          fontSize: '2rem',
-          color: 'var(--primary-color)',
-          marginBottom: '24px',
-          textAlign: 'center'
-        }}>
-          Admin Sections
-        </h2>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '24px',
-          maxWidth: '1200px',
-          margin: '0 auto'
-        }}>
-          <NavCard
-            title="Blog Management"
-            description="Create, edit, and manage blog posts. Access the full blog editor with AI assistance."
-            icon="📝"
-            color="var(--primary-color)"
-            onClick={() => navigate('/admin/blog')}
-          />
-          <NavCard
-            title="Testimonials"
-            description="Manage client testimonials and reviews to showcase on the website."
-            icon="💬"
-            color="#28a745"
-            onClick={() => navigate('/admin/testimonials')}
-          />
-          <NavCard
-            title="Clubs Management"
-            description="Manage featured clubs, club information, and partnerships."
-            icon="🏟️"
-            color="#e74c3c"
+          <button
             onClick={() => navigate('/admin/clubs')}
-          />
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#e74c3c',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            + Add Club
+          </button>
         </div>
       </div>
     </div>
