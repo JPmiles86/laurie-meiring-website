@@ -2,11 +2,44 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+// Helper function to check authentication
+function checkAuthentication(req) {
+  const authHeader = req.headers.authorization;
+  const sessionAuth = req.headers['x-session-auth'];
+
+  // Check for session-based auth (from sessionStorage)
+  if (sessionAuth === 'authenticated') {
+    return true;
+  }
+
+  // Check for bearer token auth
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.substring(7);
+    // For now, we'll just check if it's the expected admin token
+    // In production, you'd validate JWT or other token type
+    return token === 'authenticated';
+  }
+
+  return false;
+}
+
+// Helper function to require authentication
+function requireAuth(req, res) {
+  if (!checkAuthentication(req)) {
+    res.status(401).json({
+      success: false,
+      error: 'Authentication required. Please log in to access admin features.'
+    });
+    return false;
+  }
+  return true;
+}
+
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Session-Auth');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -17,6 +50,8 @@ export default async function handler(req, res) {
   try {
     // Handle /api/posts/admin/all - fetch all posts for admin
     if (url.includes('/api/posts/admin/all')) {
+      if (!requireAuth(req, res)) return;
+
       const { tenant = 'laurie-personal' } = req.query;
 
       const tenantRecord = await prisma.tenants.findFirst({
@@ -56,6 +91,8 @@ export default async function handler(req, res) {
 
     // Handle DELETE /api/posts/[id]
     if (req.method === 'DELETE' && url.includes('/api/posts/')) {
+      if (!requireAuth(req, res)) return;
+
       const postId = url.split('/api/posts/')[1].split('?')[0];
 
       // Delete related records first
@@ -77,6 +114,8 @@ export default async function handler(req, res) {
 
     // Handle PUT /api/posts/[id] - update post
     if (req.method === 'PUT' && url.includes('/api/posts/')) {
+      if (!requireAuth(req, res)) return;
+
       const postId = url.split('/api/posts/')[1].split('?')[0];
       const { title, content, slug, status, featuredImage, publishDate, categories, tags, metadata } = req.body;
 
@@ -115,6 +154,8 @@ export default async function handler(req, res) {
 
     // Handle POST /api/posts - create new post
     if (req.method === 'POST' && url.includes('/api/posts')) {
+      if (!requireAuth(req, res)) return;
+
       const { title, content, slug, status, featuredImage, publishDate, categories, tags, metadata } = req.body;
 
       const tenantRecord = await prisma.tenants.findFirst({
@@ -217,6 +258,8 @@ export default async function handler(req, res) {
 
     // Handle POST /api/testimonials - create new testimonial
     if (req.method === 'POST' && url.includes('/api/testimonials') && !url.includes('/api/testimonials/')) {
+      if (!requireAuth(req, res)) return;
+
       const { name, text, rating, image } = req.body;
       const { tenant = 'laurie-personal' } = req.query;
 
@@ -249,6 +292,8 @@ export default async function handler(req, res) {
 
     // Handle PUT /api/testimonials/[id] - update testimonial
     if (req.method === 'PUT' && url.includes('/api/testimonials/')) {
+      if (!requireAuth(req, res)) return;
+
       const testimonialId = url.split('/api/testimonials/')[1].split('?')[0];
       const { name, text, rating, image } = req.body;
 
@@ -272,6 +317,8 @@ export default async function handler(req, res) {
 
     // Handle DELETE /api/testimonials/[id] - delete testimonial
     if (req.method === 'DELETE' && url.includes('/api/testimonials/')) {
+      if (!requireAuth(req, res)) return;
+
       const testimonialId = url.split('/api/testimonials/')[1].split('?')[0];
 
       await prisma.testimonials.delete({
@@ -305,6 +352,8 @@ export default async function handler(req, res) {
 
     // Handle POST /api/clubs - create new club
     if (req.method === 'POST' && url.includes('/api/clubs') && !url.includes('/api/clubs/')) {
+      if (!requireAuth(req, res)) return;
+
       const {
         name,
         location,
@@ -354,6 +403,8 @@ export default async function handler(req, res) {
 
     // Handle PUT /api/clubs/[id] - update club
     if (req.method === 'PUT' && url.includes('/api/clubs/')) {
+      if (!requireAuth(req, res)) return;
+
       const clubId = url.split('/api/clubs/')[1].split('?')[0];
       const {
         name,
@@ -394,6 +445,8 @@ export default async function handler(req, res) {
 
     // Handle DELETE /api/clubs/[id] - delete club
     if (req.method === 'DELETE' && url.includes('/api/clubs/')) {
+      if (!requireAuth(req, res)) return;
+
       const clubId = url.split('/api/clubs/')[1].split('?')[0];
 
       await prisma.clubs.delete({

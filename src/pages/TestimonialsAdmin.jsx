@@ -43,7 +43,11 @@ function TestimonialsAdmin() {
   const fetchTestimonials = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/testimonials');
+      const response = await fetch('/api/testimonials', {
+        headers: {
+          'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
+        }
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -138,6 +142,7 @@ function TestimonialsAdmin() {
         method,
         headers: {
           'Content-Type': 'application/json',
+          'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
         },
         body: JSON.stringify(formData)
       });
@@ -168,7 +173,10 @@ function TestimonialsAdmin() {
 
     try {
       const response = await fetch(`/api/testimonials/${testimonialToDelete.id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
+        }
       });
 
       const data = await response.json();

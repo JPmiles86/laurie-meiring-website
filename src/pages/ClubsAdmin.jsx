@@ -64,7 +64,11 @@ function ClubsAdmin() {
   const fetchClubs = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/clubs?tenant=laurie-personal`);
+      const response = await fetch(`${API_BASE_URL}/clubs?tenant=laurie-personal`, {
+        headers: {
+          'X-Session-Auth': sessionStorage.getItem('blogAdminAuth') || ''
+        }
+      });
       const data = await response.json();
       if (data.success) {
         setClubs(data.clubs);
