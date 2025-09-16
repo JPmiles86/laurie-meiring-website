@@ -224,6 +224,7 @@ const FeaturedClubsPage = () => {
            </div>
         </div>
       </section>
+      )}
 
       {selectedClub ? (
         <ClubModal
