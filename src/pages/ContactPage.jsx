@@ -38,8 +38,8 @@ function ContactPage() {
   const contactOptions = [
     {
       title: "Pickleball Training",
-      description: "Book private or group lessons to improve your game",
-      image: "/ contact/LaurieCoachHero1.jpg"
+      description: "Book 1-on-1, Group Lessons or a Clinic to Improve your Game",
+      image: "/Pickelball/ProfilePhoto2.jpg"
     },
     {
       title: "Pickleball Tours",
@@ -159,7 +159,7 @@ WhatsApp: +506 6200 2747`
                 padding: isMobile ? '0 15px' : 0
               }}
             >
-              Whether you're ready to dive into pickleball in Costa Rica or just have a question, I'd love to hear from you!
+              Reach out today and let's rally up something amazing!
             </motion.p>
           </motion.div>
         </section>
@@ -354,7 +354,7 @@ WhatsApp: +506 6200 2747`
                           fontSize: isMobile ? '0.95rem' : '1rem'
                         }}>
                           <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>📍</span>
-                          <span>Jaco, Costa Rica</span>
+                          <span>Uvita, Costa Rica</span>
                         </p>
                         <div style={{ 
                           marginTop: '10px', 
@@ -362,9 +362,9 @@ WhatsApp: +506 6200 2747`
                           overflow: 'hidden', 
                           height: isMobile ? '160px' : '200px' 
                         }}>
-                          <img 
-                            src="/jaco.jpg" 
-                            alt="Jaco, Costa Rica"
+                          <img
+                            src="/uvitawhaletail.png"
+                            alt="Uvita, Costa Rica"
                             style={{
                               width: '100%',
                               height: '100%',
@@ -413,20 +413,30 @@ WhatsApp: +506 6200 2747`
                       fontSize: isMobile ? '1.4rem' : '1.5rem'
                     }}>Available Services</h3>
                     <ul style={{ listStyle: 'none', padding: 0, marginBottom: 0 }}>
-                      <li style={{ 
-                        marginBottom: '15px', 
-                        display: 'flex', 
-                        alignItems: 'flex-start', 
+                      <li style={{
+                        marginBottom: '15px',
+                        display: 'flex',
+                        alignItems: 'flex-start',
                         gap: '10px',
                         fontSize: isMobile ? '0.95rem' : '1rem'
                       }}>
                         <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
-                        <strong>Pickleball Training:</strong> Individual & group sessions
+                        <strong>Pickleball Training:</strong> Individual & group classes
                       </li>
-                      <li style={{ 
-                        marginBottom: '15px', 
-                        display: 'flex', 
-                        alignItems: 'flex-start', 
+                      <li style={{
+                        marginBottom: '15px',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '10px',
+                        fontSize: isMobile ? '0.95rem' : '1rem'
+                      }}>
+                        <span style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}>✓</span>
+                        <strong>Pickleball Clinics:</strong> In Groups of 8 or more
+                      </li>
+                      <li style={{
+                        marginBottom: '15px',
+                        display: 'flex',
+                        alignItems: 'flex-start',
                         gap: '10px',
                         fontSize: isMobile ? '0.95rem' : '1rem'
                       }}>
@@ -555,6 +565,7 @@ WhatsApp: +506 6200 2747`
                         >
                           <option value="">Select a Service</option>
                           <option value="pickleball training">Pickleball Training</option>
+                          <option value="pickleball clinics">Pickleball Clinics</option>
                           <option value="pickleball tours">Pickleball Tours</option>
                           <option value="custom experience">Custom Experience</option>
                           <option value="general inquiry">General Inquiry</option>
