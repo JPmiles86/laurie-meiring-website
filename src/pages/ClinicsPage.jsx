@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
-import OptimizedImage from '../components/OptimizedImage';
 import VideoBackground from '../components/VideoBackground';
-import VideoEmbed from '../components/VideoEmbed';
 import GradientDivider from '../components/GradientDivider';
 import SubscribeModal from '../components/SubscribeModal';
 
@@ -334,7 +332,7 @@ function ClinicsPage() {
                   lineHeight: 0
                 }}>
                   <img
-                    src="/CoachingImage3.jpeg"
+                    src="/CoachingImage3.png"
                     alt="Coaching in Action"
                     style={{
                       width: '100%',

@@ -56,3 +56,4 @@ docs/
 tests/
 
 /src/generated/prisma
+.vercel
