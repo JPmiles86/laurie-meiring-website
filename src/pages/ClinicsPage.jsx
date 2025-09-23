@@ -118,34 +118,6 @@ function ClinicsPage() {
             >
               Learn. Play. Grow.
             </motion.h1>
-            <motion.p
-              variants={fadeInUp}
-              style={{
-                fontSize: isMobile ? '1.2rem' : '1.4rem',
-                maxWidth: '900px',
-                margin: '0 auto 30px',
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-                lineHeight: 1.6,
-                color: 'var(--neutral-color)',
-                padding: '0 20px'
-              }}
-            >
-              Whether you're brand new to the game or chasing tournament wins, our Pickleball Clinics are designed to take your skills, and your love for the game, to the next level.
-            </motion.p>
-            <motion.p
-              variants={fadeInUp}
-              style={{
-                fontSize: isMobile ? '1.1rem' : '1.3rem',
-                maxWidth: '800px',
-                margin: '0 auto',
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
-                lineHeight: 1.6,
-                color: 'var(--neutral-color)',
-                padding: '0 20px'
-              }}
-            >
-              Hosted in stunning settings of Costa Rica, these clinics combine world-class coaching, structured training systems, and the energy of a supportive community.
-            </motion.p>
           </motion.div>
         </VideoBackground>
 
