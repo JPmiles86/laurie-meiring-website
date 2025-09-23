@@ -332,7 +332,7 @@ function ClinicsPage() {
                   lineHeight: 0
                 }}>
                   <img
-                    src="/CoachingImage3.png"
+                    src="/CoachingImage31.jpg"
                     alt="Coaching in Action"
                     style={{
                       width: '100%',
