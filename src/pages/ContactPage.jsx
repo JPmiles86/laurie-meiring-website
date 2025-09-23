@@ -363,7 +363,7 @@ WhatsApp: +506 6200 2747`
                           height: isMobile ? '160px' : '200px' 
                         }}>
                           <img
-                            src="/uvitawhaletail.png"
+                            src="/uvitawhaletail2.png"
                             alt="Uvita, Costa Rica"
                             style={{
                               width: '100%',

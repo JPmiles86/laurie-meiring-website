@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { AuthProvider, ProtectedRoute } from './contexts/AuthContext';
 import HomePage from './pages/HomePage';
 import TrainingPage from './pages/TrainingPage';
+import ClinicsPage from './pages/ClinicsPage';
 import ToursPage from './pages/ToursPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
@@ -39,6 +40,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
         <Route path="/training" element={<TrainingPage />} />
+        <Route path="/clinics" element={<ClinicsPage />} />
         <Route path="/tours" element={<ToursPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
