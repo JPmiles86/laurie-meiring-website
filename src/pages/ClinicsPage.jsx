@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
-import VideoBackground from '../components/VideoBackground';
 import GradientDivider from '../components/GradientDivider';
 import SubscribeModal from '../components/SubscribeModal';
 
@@ -85,41 +84,60 @@ function ClinicsPage() {
   return (
     <PageTransition>
       <div className="clinics-page">
-        {/* Hero Section with Vimeo Video */}
-        <VideoBackground
-          videoId="1120944041"
-          startTime={0}
-          endTime={0}
-          height="100vh"
-          overlayColor="rgba(0, 0, 0, 0.5)"
-          type="hero"
-        >
+        {/* Hero Section - Simple White Background */}
+        <section style={{
+          height: '100vh',
+          backgroundColor: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          padding: isMobile ? '0 20px' : '0 40px'
+        }}>
           <motion.div
             initial="initial"
             animate="animate"
             variants={staggerChildren}
-            className="content-container"
             style={{
-              textAlign: 'center',
-              padding: isMobile ? '0 15px' : '0 20px',
-              width: '100%',
-              boxSizing: 'border-box'
+              maxWidth: '900px',
+              margin: '0 auto'
             }}
           >
             <motion.h1
               variants={fadeInUp}
               style={{
                 fontSize: isMobile ? '3.5rem' : '4.5rem',
-                marginBottom: '20px',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+                marginBottom: '40px',
                 letterSpacing: '1px',
-                color: 'var(--neutral-color)'
+                color: 'var(--primary-color)',
+                fontWeight: 'bold'
               }}
             >
               Learn. Play. Grow.
             </motion.h1>
+            <motion.p
+              variants={fadeInUp}
+              style={{
+                fontSize: isMobile ? '1.2rem' : '1.4rem',
+                lineHeight: 1.8,
+                color: 'var(--text-color)',
+                marginBottom: '20px'
+              }}
+            >
+              Whether you're brand new to the game or chasing tournament wins, our Pickleball Clinics are designed to take your skills, and your love for the game, to the next level.
+            </motion.p>
+            <motion.p
+              variants={fadeInUp}
+              style={{
+                fontSize: isMobile ? '1.1rem' : '1.3rem',
+                lineHeight: 1.8,
+                color: 'var(--text-color)'
+              }}
+            >
+              Hosted in stunning settings of Costa Rica, these clinics combine world-class coaching, structured training systems, and the energy of a supportive community.
+            </motion.p>
           </motion.div>
-        </VideoBackground>
+        </section>
 
         <GradientDivider />
 
