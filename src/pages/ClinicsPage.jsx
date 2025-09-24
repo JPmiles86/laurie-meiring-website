@@ -86,13 +86,13 @@ function ClinicsPage() {
       <div className="clinics-page">
         {/* Hero Section - Simple White Background */}
         <section style={{
-          height: 'calc(100vh - 105px)',
+          minHeight: isMobile ? '50vh' : '55vh',
           backgroundColor: 'white',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
-          padding: isMobile ? '0 20px' : '0 40px'
+          padding: isMobile ? '30px 20px' : '40px 40px'
         }}>
           <motion.div
             initial="initial"
@@ -107,7 +107,7 @@ function ClinicsPage() {
               variants={fadeInUp}
               style={{
                 fontSize: isMobile ? '3.5rem' : '4.5rem',
-                marginBottom: '40px',
+                marginBottom: isMobile ? '20px' : '25px',
                 letterSpacing: '1px',
                 color: 'var(--primary-color)',
                 fontWeight: 'bold'
@@ -121,7 +121,7 @@ function ClinicsPage() {
                 fontSize: isMobile ? '1.2rem' : '1.4rem',
                 lineHeight: 1.8,
                 color: 'var(--text-color)',
-                marginBottom: '20px'
+                marginBottom: isMobile ? '10px' : '15px'
               }}
             >
               Whether you're brand new to the game or chasing tournament wins, our Pickleball Clinics are designed to take your skills, and your love for the game, to the next level.
