@@ -86,7 +86,7 @@ function ClinicsPage() {
       <div className="clinics-page">
         {/* Hero Section - Simple White Background */}
         <section style={{
-          height: '100vh',
+          height: 'calc(100vh - 105px)',
           backgroundColor: 'white',
           display: 'flex',
           alignItems: 'center',
